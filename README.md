@@ -33,3 +33,13 @@ PARA LA FASE DE TESTEO
 
 Crear contactos y cuentas para testear, el único usuario de la plataforma es Admin (admin - admin).
 
+SOLUCIÓN AL PROBLEMA DE IMÁGENES QUE NO SE VEN
+==============================================
+
+En el entorno de producción no debería fallar, pero si en Firefox (u otro navegador) hay imágenes que no se cargan, se puede hacer una búsqueda masiva y cambiar:
+index.php?entryPoint=getImage&imageName=
+
+por:
+themes/Suite7/images/
+
+En la raíz de la ruta, en vez de cargarlas desde la caché las referenciará directamente.

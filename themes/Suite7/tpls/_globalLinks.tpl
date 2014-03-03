@@ -56,7 +56,7 @@
     {/foreach}
     </ul> *}
     <ul id="drop-nav">
-        <li> <a href="index.php?module=Users&action=EditView&record={$CURRENT_USER_ID}"><img src="index.php?entryPoint=getImage&imageName=cog.png" class="iconed"> {$CURRENT_USER}</a>
+        <li> <a href="index.php?module=Users&action=EditView&record={$CURRENT_USER_ID}"><img src="themes/Suite7/images/cog.png" class="iconed"> {$CURRENT_USER}</a>
             <ul>
                 {foreach from=$GCLS item=GCL name=gcl key=gcl_key}
                     <li>

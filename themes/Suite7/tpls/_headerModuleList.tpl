@@ -135,7 +135,7 @@
                                                     </a>
                                             </td>
                                             <td align="right">
-                                                <em><a href="{sugar_link module=$item.module_name action='EditView' record=$item.item_id link_only=1}" style="margin-left:10px;"><img style="float:right;" src="index.php?entryPoint=getImage&imageName=dashlet-header-edit.png" width="14" height="14" class="iconed_dull"></a></em>
+                                                <em><a href="{sugar_link module=$item.module_name action='EditView' record=$item.item_id link_only=1}" style="margin-left:10px;"><img style="float:right;" src="themes/Suite7/images/dashlet-header-edit.png" width="14" height="14" class="iconed_dull"></a></em>
                                             </td>
                                             </span>
             </li>
@@ -156,7 +156,7 @@
                                             </a>
                         </td>
                         <td align="right">
-                            <em><a href="{sugar_link module=$item.module_name action='EditView' record=$item.item_id link_only=1}" style="margin-left:10px;"><img style="float:right;" src="index.php?entryPoint=getImage&imageName=dashlet-header-edit.png" width="14" height="14" class="iconed_dull"></a></em>
+                            <em><a href="{sugar_link module=$item.module_name action='EditView' record=$item.item_id link_only=1}" style="margin-left:10px;"><img style="float:right;" src="themes/Suite7/images/dashlet-header-edit.png" width="14" height="14" class="iconed_dull"></a></em>
                         </td>
                         </span>
                         </li>
@@ -200,7 +200,7 @@
                                             </a>
                                             </td>
                                             <td align="right">
-                                                <em><a href="{sugar_link module=$item.module_name action='EditView' record=$item.item_id link_only=1}" style="margin-left:10px;"><img style="float:right;" src="index.php?entryPoint=getImage&imageName=dashlet-header-edit.png" width="14" height="14" class="iconed_dull"></a></em>
+                                                <em><a href="{sugar_link module=$item.module_name action='EditView' record=$item.item_id link_only=1}" style="margin-left:10px;"><img style="float:right;" src="themes/Suite7/images/dashlet-header-edit.png" width="14" height="14" class="iconed_dull"></a></em>
                                             </td>
                                             </span>
                                         </li>
@@ -221,7 +221,7 @@
                                             </a>
                                             </td>
                                             <td align="right">
-                                            <em><a href="{sugar_link module=$item.module_name action='EditView' record=$item.item_id link_only=1}" style="margin-left:10px;"><img style="float:right;" src="index.php?entryPoint=getImage&imageName=dashlet-header-edit.png" width="14" height="14" class="iconed_dull"></a></em>
+                                            <em><a href="{sugar_link module=$item.module_name action='EditView' record=$item.item_id link_only=1}" style="margin-left:10px;"><img style="float:right;" src="themes/Suite7/images/dashlet-header-edit.png" width="14" height="14" class="iconed_dull"></a></em>
                                             </td>
                                             </span>
                                         </li>
