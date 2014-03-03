@@ -1,5 +1,5 @@
 <?php
-// created: 2014-02-17 09:01:16
+// created: 2014-03-03 18:16:17
 $mod_strings = array (
   'LBL_FW' => 'RV:',
   'LBL_RE' => 'RE:',
@@ -20,7 +20,7 @@ $mod_strings = array (
   'ERR_NOT_ADDRESSED' => 'Error: El Email debe tener una dirección Para, CC o CCO',
   'ERR_TIME_START' => 'Hora de inicio',
   'ERR_TIME_SENT' => 'Hora de envío',
-  'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Cuentas',
+  'LBL_ACCOUNTS_SUBPANEL_TITLE' => 'Empresas',
   'LBL_ADD_ANOTHER_FILE' => 'Añadir Otro Archivo',
   'LBL_ADD_DASHLETS' => 'Agregar Sugar Dashlets',
   'LBL_ADD_DOCUMENT' => 'Agregar Documentos',
@@ -55,7 +55,7 @@ $mod_strings = array (
   'LBL_EMAIL_SELECTOR_SELECT' => 'Seleccionar',
   'LBL_EMAIL_SELECTOR_CLEAR' => 'Limpiar',
   'LBL_EMAIL' => 'Correo electrónico:',
-  'LBL_EMAILS_ACCOUNTS_REL' => 'Emails:Cuentas',
+  'LBL_EMAILS_ACCOUNTS_REL' => 'Emails:Empresas',
   'LBL_EMAILS_BUGS_REL' => 'Emails:Incidencias',
   'LBL_EMAILS_CASES_REL' => 'Emails:Casos',
   'LBL_EMAILS_CONTACTS_REL' => 'Emails:Contactos',
