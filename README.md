@@ -27,3 +27,9 @@ MANUAL DE BUILDER
 =================
 
 http://support.sugarcrm.com/02_Documentation/01_Sugar_Editions/04_Sugar_Professional/Sugar_Professional_7.1/Administration_Guide/07_Developer_Tools/11_Module_Builder
+
+PARA LA FASE DE TESTEO
+======================
+
+Crear contactos y cuentas para testear, el único usuario de la plataforma es Admin (admin - admin).
+
