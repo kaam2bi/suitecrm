@@ -737,6 +737,7 @@ function SugarCrmGetContactListFromServer(a) {
                                     e = "<h4>" + d.name_value_list.first_name.value + "&nbsp;" + d.name_value_list.last_name.value + "</h4>",
                                     m = d.name_value_list.title.value;
                                 //if (d.name_value_list.account_name != undefined) m += " at " + d.name_value_list.account_name.value;
+                                //m += "CUENTA";
                                 m = "<p>" + m + "</p>";
                                 d = $("<a/>", {
                                     href: "#",
@@ -787,6 +788,7 @@ function SugarCrmGetContactDetails() {
                     $("#ContactNameH1").html(a.name_value_list.first_name.value + "&nbsp;" + a.name_value_list.last_name.value);
                     var c = a.name_value_list.title.value;
                     //if (a.name_value_list.account_name != undefined) c += " at " + a.name_value_list.account_name.value;
+                    //c += "CUENTA";
                     $("#ContactTitleP").text(c);
                     $("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">Contacto</li>');
                     if (a.name_value_list.phone_work !== undefined && a.name_value_list.phone_work.value !== "") {
