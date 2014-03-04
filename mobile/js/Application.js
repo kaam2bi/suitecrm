@@ -1,85 +1,82 @@
-var RES_LOGIN_MESSAGE = "Enter your username and password, then click login",
-    RES_LOGIN_TITLE = "Login",
-    RES_LOGOUT_LABEL = "Logout",
-    RES_HOME_LABEL = "Home",
-    RES_BACK_LABEL = "Back Test",
-    RES_USERNAME_LABEL = "Username",
-    RES_PASSWORD_LABEL = "Password",
-    RES_ACCOUNTS_LABEL = "Accounts",
-    RES_ACCOUNT_LABEL = "Account",
-    RES_CONTACTS_LABEL = "Contacts",
-    RES_CONTACT_LABEL = "Contact",
-    RES_OPPORTUNITIES_LABEL = "Opportunities",
-    RES_OPPORTUNITY_LABEL = "Opportunity",
-    RES_LEADS_LABEL = "Leads",
-    RES_LEAD_LABEL = "Lead",
-    RES_CALLS_LABEL = "Calls",
-    RES_CALL_LABEL =
-        "Call",
-    RES_MEETINGS_LABEL = "Meetings",
-    RES_MEETING_LABEL = "Meeting",
-    RES_TASKS_LABEL = "Tasks",
-    RES_TASK_LABEL = "Task",
-    RES_NOTES_LABEL = "Notes",
-    RES_NOTE_LABEL = "Note",
-    RES_CAMPAIGN_LABEL = "Campaign",
-    RES_CAMPAIGNS_LABEL = "Campaigns",
-    RES_USER_LABEL = "User",
-    RES_USERS_LABEL = "Users",
-    RES_OVERVIEW_LABEL = "Overview",
-    RES_MORE_INFORMATION_LABEL = "More Information",
-    RES_OTHER_LABEL = "Other",
-    RES_ACCOUNT_BILLING_ADDRESS_LABEL = "Billing Address",
-    RES_ACCOUNT_SHIPPING_ADDRESS_LABEL = "Shipping Address",
-    RES_ACCOUNT_INDUSTRY_LABEL = "Industry",
-    RES_ACCOUNT_REVENUE_LABEL = "Annual Revenue",
-    RES_ACCOUNT_EMPLOYEES_LABEL = "Employees",
-    RES_ACCOUNT_SIC_LABEL = "SIC Code",
-    RES_ACCOUNT_TICKER_LABEL = "Ticker Symbol",
-    RES_ACCOUNT_MEMBER_LABEL = "Member Of",
-    RES_ACCOUNT_OWNERSHIP_LABEL = "Ownership",
-    RES_ACCOUNT_CAMPAIGN_LABEL = "Campaign",
+var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para entrar.",
+    RES_LOGIN_TITLE = "Entrar",
+    RES_LOGOUT_LABEL = "Salir",
+    RES_HOME_LABEL = "Inicio",
+    RES_BACK_LABEL = "Volver",
+    RES_USERNAME_LABEL = "Usuario",
+    RES_PASSWORD_LABEL = "Contraseña",
+    RES_ACCOUNTS_LABEL = "Empresas",
+    RES_ACCOUNT_LABEL = "Empresa",
+    RES_CONTACTS_LABEL = "Contactos",
+    RES_CONTACT_LABEL = "Contacto",
+    RES_OPPORTUNITIES_LABEL = "Oportunidades",
+    RES_OPPORTUNITY_LABEL = "Oportunidad",
+    RES_LEADS_LABEL = "Clientes potenciales",
+    RES_LEAD_LABEL = "Cliente potencial",
+    RES_CALLS_LABEL = "Llamadas",
+    RES_CALL_LABEL = "Llamada",
+    RES_MEETINGS_LABEL = "Reuniones",
+    RES_MEETING_LABEL = "Reunión",
+    RES_TASKS_LABEL = "Tareas",
+    RES_TASK_LABEL = "Tarea",
+    RES_NOTES_LABEL = "Notas",
+    RES_NOTE_LABEL = "Nota",
+    RES_CAMPAIGN_LABEL = "Campaña",
+    RES_CAMPAIGNS_LABEL = "Campañas",
+    RES_USER_LABEL = "Usuario",
+    RES_USERS_LABEL = "Usuarios",
+    RES_OVERVIEW_LABEL = "Información general",
+    RES_MORE_INFORMATION_LABEL = "Más información",
+    RES_OTHER_LABEL = "Otros",
+    RES_ACCOUNT_BILLING_ADDRESS_LABEL = "Dirección de pago",
+    RES_ACCOUNT_SHIPPING_ADDRESS_LABEL = "Dirección de envío",
+    RES_ACCOUNT_INDUSTRY_LABEL = "Industria",
+    RES_ACCOUNT_REVENUE_LABEL = "Ingresos anuales",
+    RES_ACCOUNT_EMPLOYEES_LABEL = "Empleados",
+    RES_ACCOUNT_SIC_LABEL = "Código CNAE/SIC",
+    RES_ACCOUNT_TICKER_LABEL = "Símbolo Ticket",
+    RES_ACCOUNT_MEMBER_LABEL = "Miembro de",
+    RES_ACCOUNT_OWNERSHIP_LABEL = "Propietario",
+    RES_ACCOUNT_CAMPAIGN_LABEL = "Campaña",
     RES_ACCOUNT_RATING_LABEL = "Rating",
-    RES_CONTACT_REPORTS_TO_LABEL = "Reports To",
-    RES_OPPORTUNITY_NAME_LABEL = "Opportunity Name",
-    RES_OPPORTUNITY_AMOUNT_WITH_CURRENCY_LABEL = "Opportunity Amount ({0} {1})",
-    RES_OPPORTUNITY_AMOUNT_LABEL = "Opportunity Amount",
-    RES_OPPORTUNITY_EXPECTED_CLOSE_DATE_LABEL = "Expected Close Date",
-    RES_OPPORTUNITY_SALES_STAGE_LABEL = "Sales Stage",
-    RES_OPPORTUNITY_PROBABILITY_LABEL = "Probability",
-    RES_OPPORTUNITY_NEXT_STEP_LABEL = "Next Step",
-    RES_LEAD_REFERRED_BY = "Referred By",
-    RES_TASK_DUE_DATE_LABEL = "Due Date",
-    RES_TASK_PRIORITY_LABEL = "Priority",
-    RES_OFFICE_PHONE_LABEL = "Office Phone",
+    RES_CONTACT_REPORTS_TO_LABEL = "Asignado a",
+    RES_OPPORTUNITY_NAME_LABEL = "Nombre Oportunidad",
+    RES_OPPORTUNITY_AMOUNT_WITH_CURRENCY_LABEL = "Monto de la Oportnunidad ({0} {1})",
+    RES_OPPORTUNITY_AMOUNT_LABEL = "Monto",
+    RES_OPPORTUNITY_EXPECTED_CLOSE_DATE_LABEL = "Fecha de cierre",
+    RES_OPPORTUNITY_SALES_STAGE_LABEL = "Etapa de ventas",
+    RES_OPPORTUNITY_PROBABILITY_LABEL = "Probabilidad",
+    RES_OPPORTUNITY_NEXT_STEP_LABEL = "Próximo paso",
+    RES_LEAD_REFERRED_BY = "Asignado a",
+    RES_TASK_DUE_DATE_LABEL = "Último cambio",
+    RES_TASK_PRIORITY_LABEL = "Prioridad",
+    RES_OFFICE_PHONE_LABEL = "Teléfono Trabajo",
     RES_FAX_LABEL = "Fax",
-    RES_DESCRIPTION_LABEL = "Description",
-    RES_EMAIL_ADDRESS_LABEL = "Email Address",
-    RES_LEAD_SOURCE_LABEL = "Lead Source",
-    RES_RELATED_ITEM_NAME_LABEL =
-        "Name",
-    RES_TYPE_LABEL = "Type",
-    RES_NAME_LABEL = "Name",
-    RES_TITLE_LABEL = "Title",
-    RES_MOBILE_PHONE_LABEL = "Mobile",
-    RES_DEPARTMENT_LABEL = "Department",
-    RES_PRIMARY_ADDRESS_LABEL = "Primary Address",
-    RES_OTHER_ADDRESS_LABEL = "Other Address",
-    RES_WEBSITE_LABEL = "Website",
-    RES_SUBJECT = "Subject",
-    RES_STATUS_LABEL = "Status",
-    RES_START_DATE_TIME_LABEL = "Start Date & Time",
-    RES_START_DATE_LABEL = "Start Date",
-    RES_DURATION_LABEL = "Duration",
-    RES_LOCATION_LABEL = "Location",
-    RES_REMINDER_LABEL = "Reminder",
-    RES_DETAILS_LABEL = "Details",
-    RES_ASSIGNED_TO_LABEL =
-        "Assigned To",
-    RES_DATE_MODIFIED_LABEL = "Date Modified",
-    RES_DATE_CREATED_LABEL = "Date Created",
-    RES_DO_NOT_CALL = "*NOTE: This Contact is marked as Do Not Call.",
-    RES_LOG_CALL_QUESTION = "Would you like to log this call?",
+    RES_DESCRIPTION_LABEL = "Descripción",
+    RES_EMAIL_ADDRESS_LABEL = "Email",
+    RES_LEAD_SOURCE_LABEL = "Referido por",
+    RES_RELATED_ITEM_NAME_LABEL = "Nombre",
+    RES_TYPE_LABEL = "Tipo",
+    RES_NAME_LABEL = "Nombre",
+    RES_TITLE_LABEL = "Título",
+    RES_MOBILE_PHONE_LABEL = "Móvil",
+    RES_DEPARTMENT_LABEL = "Departamento",
+    RES_PRIMARY_ADDRESS_LABEL = "Dirección principal",
+    RES_OTHER_ADDRESS_LABEL = "Otra dirección",
+    RES_WEBSITE_LABEL = "Sitio Web",
+    RES_SUBJECT = "Asunto",
+    RES_STATUS_LABEL = "Estado",
+    RES_START_DATE_TIME_LABEL = "Fecha y hora de inicio",
+    RES_START_DATE_LABEL = "Fecha de inicio",
+    RES_DURATION_LABEL = "Duración",
+    RES_LOCATION_LABEL = "Lugar",
+    RES_REMINDER_LABEL = "Recordatorio",
+    RES_DETAILS_LABEL = "Detalles",
+    RES_ASSIGNED_TO_LABEL = "Asignado a",
+    RES_DATE_MODIFIED_LABEL = "Fecha de modificación",
+    RES_DATE_CREATED_LABEL = "Fecha de creación",
+    RES_DO_NOT_CALL = "*NOTA: Contacto marcado como No llamar.",
+    RES_LOG_CALL_QUESTION = "¿Desea registrar la llamada?",
     SugarSessionId = "",
     RowsPerPageInListViews = 20,
     CurrentAccountId = "",
@@ -175,14 +172,14 @@ function LoginUser(a) {
             
             d = $.parseJSON(JSON.stringify(d, undefined, 2));
 
-            if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : alert("Login Failed");
+            if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : alert("Error de acceso");
             else {
                 SugarSessionId = d.id;
                 $("#SettingsPageSugarCrmUsername").val("");
                 $("#SettingsPageSugarCrmPassword").val("");
                 $.mobile.changePage("#HomePage")
             }
-        } else alert("An unexpected error occurred logging in.");
+        } else alert("Error inesperado, pruebe con el cliente estándar.");
         $.mobile.hidePageLoadingMsg()
     })
 }
@@ -213,7 +210,7 @@ function LogCall(a, c) {
         method: "set_entry",
         input_type: "JSON",
         response_type: "JSON",
-        rest_data: '{"session":"' + SugarSessionId + '","module_name":"' + a + '","name_value_list":[{"name":"name","value":"Call placed from mobile device"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Test"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":0}]}'
+        rest_data: '{"session":"' + SugarSessionId + '","module_name":"' + a + '","name_value_list":[{"name":"name","value":"Llamada registrada desde dispositivo móvil"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Test"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":0}]}'
     }, function (b) {
         alert(b)
     })
@@ -239,7 +236,7 @@ function SugarCrmGetAccountsListFromServer(a) {
                 if (c !== undefined && c.entry_list !== undefined) {
                     if (c.result_count === 0) AccountsListCurrentOffset = AccountsListPrevOffset + RowsPerPageInListViews;
                     else if (c.next_offset === 0) AccountsListCurrentOffset = 0;
-                    if (c.next_offset === 0 || c.result_count === 0) alert("There are no more records in that direction");
+                    if (c.next_offset === 0 || c.result_count === 0) alert("Sin registros que mostrar");
                     else {
                         $("#AllAccountsListDiv li").remove();
                         var b = 0;
@@ -297,7 +294,7 @@ function SugarCrmGetAccountDetails() {
                     a = a.entry_list[0];
                     $("#AccountNameH1").html(a.name_value_list.name.value);
                     $("#AccountDescriptionP").text(a.name_value_list.description.value);
-                    $("#ViewAccountDetailsPageDetailsList").append('<li data-role="list-divider">Account Overview</li>');
+                    $("#ViewAccountDetailsPageDetailsList").append('<li data-role="list-divider">Información de la empresa</li>');
                     var c = $("<li/>"),
                         b = a.name_value_list.phone_office.value.replace("(", "");
                     b = b.replace(")", "");
@@ -452,7 +449,7 @@ function SugarCrmGetAccountDetails() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewAccountDetailsPageContactsListUl").append(a)
                 }
             $("#ViewAccountDetailsPageContactsListUl").listview("refresh")
@@ -465,7 +462,7 @@ function SugarCrmGetAccountDetails() {
         response_type: "JSON",
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","module_id":"' + CurrentAccountId + '","link_field_name":"opportunities","related_module_query":"","related_fields":["id","name","sales_stage"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
-        $("#ViewAccountDetailsPageOpportunitiesListUl").append('<li data-role="list-divider">Opportunities</li>');
+        $("#ViewAccountDetailsPageOpportunitiesListUl").append('<li data-role="list-divider">Oportunidades</li>');
         if (a !== undefined) {
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !==
@@ -499,7 +496,7 @@ function SugarCrmGetAccountDetails() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewAccountDetailsPageOpportunitiesListUl").append(a)
                 }
         }
@@ -513,7 +510,7 @@ function SugarCrmGetAccountDetails() {
         rest_data: '{"session":"' +
             SugarSessionId + '","module_name":"Accounts","module_id":"' + CurrentAccountId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
-        $("#ViewAccountDetailsPageLeadsListUl").append('<li data-role="list-divider">Leads</li>');
+        $("#ViewAccountDetailsPageLeadsListUl").append('<li data-role="list-divider">Clientes potenciales</li>');
         if (a !== undefined) {
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
@@ -548,7 +545,7 @@ function SugarCrmGetAccountDetails() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewAccountDetailsPageLeadsListUl").append(a)
                 }
         }
@@ -562,7 +559,7 @@ function SugarCrmGetAccountDetails() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","module_id":"' +
             CurrentAccountId + '","link_field_name":"calls","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
-        $("#ViewAccountDetailsPageCallsListUl").append('<li data-role="list-divider">Calls</li>');
+        $("#ViewAccountDetailsPageCallsListUl").append('<li data-role="list-divider">Llamadas</li>');
         if (a !== undefined) {
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
@@ -602,7 +599,7 @@ function SugarCrmGetAccountDetails() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewAccountDetailsPageCallsListUl").append(a)
                 }
         }
@@ -616,7 +613,7 @@ function SugarCrmGetAccountDetails() {
             rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","module_id":"' + CurrentAccountId + '","link_field_name":"meetings","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
         },
         function (a) {
-            $("#ViewAccountDetailsPageMeetingsListUl").append('<li data-role="list-divider">Meetings</li>');
+            $("#ViewAccountDetailsPageMeetingsListUl").append('<li data-role="list-divider">Reuniones</li>');
             if (a !== undefined) {
                 a = $.parseJSON(JSON.stringify(a, undefined, 2));
                 if (a.name !== undefined && a.name === "Invalid Session ID") {
@@ -655,7 +652,7 @@ function SugarCrmGetAccountDetails() {
                             }
                     } else {
                         a = $("<li/>");
-                        a.append("<h4>No Data</h4>");
+                        a.append("<h4>Sin registros que mostrar</h4>");
                         $("#ViewAccountDetailsPageMeetingsListUl").append(a)
                     }
             }
@@ -669,7 +666,7 @@ function SugarCrmGetAccountDetails() {
             rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","module_id":"' + CurrentAccountId + '","link_field_name":"tasks","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
         },
         function (a) {
-            $("#ViewAccountDetailsPageTasksListUl").append('<li data-role="list-divider">Tasks</li>');
+            $("#ViewAccountDetailsPageTasksListUl").append('<li data-role="list-divider">Tareas</li>');
             if (a !== undefined) {
                 a = $.parseJSON(JSON.stringify(a, undefined, 2));
                 if (a.name !== undefined && a.name === "Invalid Session ID") {
@@ -708,7 +705,7 @@ function SugarCrmGetAccountDetails() {
                             }
                     } else {
                         a = $("<li/>");
-                        a.append("<h4>No Data</h4>");
+                        a.append("<h4>Sin registros que mostrar</h4>");
                         $("#ViewAccountDetailsPageTasksListUl").append(a)
                     }
             }
@@ -733,7 +730,7 @@ function SugarCrmGetContactListFromServer(a) {
                 if (c != undefined && c.entry_list != undefined) {
                     if (c.result_count === 0) ContactsListCurrentOffset = ContactsListPrevOffset + RowsPerPageInListViews;
                     else if (c.next_offset === 0) ContactsListCurrentOffset = 0;
-                    if (c.next_offset == 0 || c.result_count == 0) alert("There are no more records in that direction");
+                    if (c.next_offset == 0 || c.result_count == 0) alert("Sin registros que mostrar");
                     else {
                         $("#AllContactsListDiv li").remove();
                         var b = 0;
@@ -795,7 +792,7 @@ function SugarCrmGetContactDetails() {
                     var c = a.name_value_list.title.value;
                     if (a.name_value_list.account_name != undefined) c += " at " + a.name_value_list.account_name.value;
                     $("#ContactTitleP").text(c);
-                    $("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">Contact Information</li>');
+                    $("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">Contacto</li>');
                     if (a.name_value_list.phone_work !== undefined && a.name_value_list.phone_work.value !== "") {
                         c = $("<li/>");
                         var b = a.name_value_list.phone_work.value.replace("(", "");
@@ -809,7 +806,7 @@ function SugarCrmGetContactDetails() {
                                     rel: "external",
                                     style: "text-decoration:none;color:#444;"
                                 });
-                            f.append("<p><br />Office Phone</p>");
+                            f.append("<p><br />Trabajo</p>");
                             f.append(d);
                             c.append(f)
                         }
@@ -832,7 +829,7 @@ function SugarCrmGetContactDetails() {
                     if (a.name_value_list.description !== undefined && a.name_value_list.description.value !== "") {
                         c = $("<li/>");
                         d = "<h4>" + a.name_value_list.description.value + "</h4>";
-                        c.append("<p><br />Description</p>");
+                        c.append("<p><br />Descripción</p>");
                         c.append(d);
                         $("#ViewContactDetailsPageDetailsList").append(c)
                     }
@@ -852,7 +849,7 @@ function SugarCrmGetContactDetails() {
                             target: "_new",
                             style: "text-decoration:none;color:#444;"
                         });
-                        d.append("<p><br />Primary Address</p>");
+                        d.append("<p><br />Dirección principal</p>");
                         d.append(f);
                         c.append(d);
                         $("#ViewContactDetailsPageDetailsList").append(c)
@@ -869,7 +866,7 @@ function SugarCrmGetContactDetails() {
                             rel: "external",
                             style: "text-decoration:none;color:#444;"
                         });
-                        d.append("<p><br />Mobile Phone</p>");
+                        d.append("<p><br />Móvil</p>");
                         d.append(b);
                         c.append(d);
                         $("#ViewContactDetailsPageDetailsList").append(c)
@@ -902,21 +899,21 @@ function SugarCrmGetContactDetails() {
                             target: "_new",
                             style: "text-decoration:none;color:#444;"
                         });
-                        d.append("<p><br />Other Address</p>");
+                        d.append("<p><br />Otra dirección</p>");
                         d.append(c);
                         b.append(d);
                         $("#ViewContactDetailsPageDetailsList").append(b)
                     }
-                    $("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">More Information</li>');
-                    a.name_value_list.report_to_name !== undefined && a.name_value_list.report_to_name.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Reports To</p><h4>" + a.name_value_list.report_to_name.value + "</h4></li>");
-                    a.name_value_list.lead_source !== undefined && a.name_value_list.lead_source.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Lead Source</p><h4>" +
+                    $("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">Más información</li>');
+                    a.name_value_list.report_to_name !== undefined && a.name_value_list.report_to_name.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Informa a</p><h4>" + a.name_value_list.report_to_name.value + "</h4></li>");
+                    a.name_value_list.lead_source !== undefined && a.name_value_list.lead_source.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Proviene de</p><h4>" +
                         a.name_value_list.lead_source.value + "</h4></li>");
-                    $("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">Other Information</li>');
-                    a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Assigned To</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
-                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Date Modified</p><h4>" +
+                    $("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">Otra Información</li>');
+                    a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
+                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" +
                         a.name_value_list.date_modified.value + "&nbsp;by&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Date Created</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;by&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
-                    a.name_value_list.do_not_call !== undefined && a.name_value_list.do_not_call.value == "true" && alert("*NOTE: This Contact is marked as Do Not Call.")
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;by&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+                    a.name_value_list.do_not_call !== undefined && a.name_value_list.do_not_call.value == "true" && alert("*NOTA: Contacto marcado como No llamar.")
                 }
             $("#ViewContactDetailsPageDetailsList").listview("refresh")
         }
@@ -937,7 +934,7 @@ function getContactRelatedOpportunitiesInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"opportunities","related_module_query":"","related_fields":["id","name","sales_stage"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewContactDetailsPageOpportunitiesListUl").append('<li data-role="list-divider">Opportunities</li>');
+            $("#ViewContactDetailsPageOpportunitiesListUl").append('<li data-role="list-divider">Oportunidades</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -969,7 +966,7 @@ function getContactRelatedOpportunitiesInsetList() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewContactDetailsPageOpportunitiesListUl").append(a)
                 }
             $("#ViewContactDetailsPageOpportunitiesListUl").listview("refresh")
@@ -986,7 +983,7 @@ function getContactRelatedLeadsInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewContactDetailsPageLeadsListUl").append('<li data-role="list-divider">Leads</li>');
+            $("#ViewContactDetailsPageLeadsListUl").append('<li data-role="list-divider">Clientes potenciales</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -1019,7 +1016,7 @@ function getContactRelatedLeadsInsetList() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewContactDetailsPageLeadsListUl").append(a)
                 }
             $("#ViewContactDetailsPageLeadsListUl").listview("refresh")
@@ -1036,7 +1033,7 @@ function getContactRelatedCallsInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"calls","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewContactDetailsPageCallsListUl").append('<li data-role="list-divider">Calls</li>');
+            $("#ViewContactDetailsPageCallsListUl").append('<li data-role="list-divider">Llamadas</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -1074,7 +1071,7 @@ function getContactRelatedCallsInsetList() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewContactDetailsPageCallsListUl").append(a)
                 }
             $("#ViewContactDetailsPageCallsListUl").listview("refresh")
@@ -1091,7 +1088,7 @@ function getContactRelatedMeetingsInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"meetings","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewContactDetailsPageMeetingsListUl").append('<li data-role="list-divider">Meetings</li>');
+            $("#ViewContactDetailsPageMeetingsListUl").append('<li data-role="list-divider">Reuniones</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -1128,7 +1125,7 @@ function getContactRelatedMeetingsInsetList() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewContactDetailsPageMeetingsListUl").append(a)
                 }
             $("#ViewContactDetailsPageMeetingsListUl").listview("refresh")
@@ -1148,7 +1145,7 @@ function getContactRelatedTasksInsetList() {
         },
         function (a) {
             if (a != undefined) {
-                $("#ViewContactDetailsPageTasksListUl").append('<li data-role="list-divider">Tasks</li>');
+                $("#ViewContactDetailsPageTasksListUl").append('<li data-role="list-divider">Tareas</li>');
                 a = $.parseJSON(JSON.stringify(a, undefined, 2));
                 if (a.name !== undefined && a.name === "Invalid Session ID") {
                     SugarSessionId = "";
@@ -1186,7 +1183,7 @@ function getContactRelatedTasksInsetList() {
                             }
                     } else {
                         a = $("<li/>");
-                        a.append("<h4>No Data</h4>");
+                        a.append("<h4>Sin registros que mostrar</h4>");
                         $("#ViewContactDetailsPageTasksListUl").append(a)
                     }
                 $("#ViewContactDetailsPageTasksListUl").listview("refresh")
@@ -1215,7 +1212,7 @@ function SugarCrmGetOpportunitiesListFromServer(a) {
                     if (c != undefined && c.entry_list != undefined) {
                         if (c.result_count === 0) OpportunitiesListCurrentOffset = OpportunitiesListPrevOffset + RowsPerPageInListViews;
                         else if (c.next_offset === 0) OpportunitiesListCurrentOffset = 0;
-                        if (c.next_offset == 0 || c.result_count == 0) alert("There are no more records in that direction");
+                        if (c.next_offset == 0 || c.result_count == 0) alert("Sin registros que mostrar");
                         else {
                             $("#AllOpportunitiesListDiv li").remove();
                             var b = 0;
@@ -1285,7 +1282,7 @@ function SugarCrmGetOpportunityDetails() {
                     a = a.entry_list[0];
                     $("#OpportunityNameH1").html(a.name_value_list.name.value);
                     $("#OpportunityDescriptionP").text(a.name_value_list.account_name.value);
-                    $("#ViewOpportunityDetailsPageDetailsList").append('<li data-role="list-divider">Opportunity Information</li>');
+                    $("#ViewOpportunityDetailsPageDetailsList").append('<li data-role="list-divider">Oportunidad</li>');
                     if (a.name_value_list.amount !== undefined && a.name_value_list.amount.value !==
                         "") {
                         var c = $("<li/>"),
@@ -1297,8 +1294,8 @@ function SugarCrmGetOpportunityDetails() {
                             d.append(a.name_value_list.currency_symbol.value);
                             d.append(parseFloat(a.name_value_list.amount.value).toFixed(2))
                         } else {
-                            b.append("USD)");
-                            d.append("$");
+                            b.append("EUR)");
+                            d.append("€");
                             d.append(parseFloat(a.name_value_list.amount_usdollar.value).toFixed(2))
                         }
                         b.append(d);
@@ -1307,20 +1304,20 @@ function SugarCrmGetOpportunityDetails() {
                         $("#ViewOpportunityDetailsPageDetailsList").append(c)
                     }
                     a.name_value_list.date_closed !==
-                        undefined && a.name_value_list.date_closed.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Expected Close Date</p><h4>" + a.name_value_list.date_closed.value + "</h4></li>");
-                    a.name_value_list.sales_stage !== undefined && a.name_value_list.sales_stage.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Sales Stage</p><h4>" + a.name_value_list.sales_stage.value + "</h4></li>");
+                        undefined && a.name_value_list.date_closed.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Fecha de cierre</p><h4>" + a.name_value_list.date_closed.value + "</h4></li>");
+                    a.name_value_list.sales_stage !== undefined && a.name_value_list.sales_stage.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Estado de ventas</p><h4>" + a.name_value_list.sales_stage.value + "</h4></li>");
                     a.name_value_list.opportunity_type !== undefined && a.name_value_list.opportunity_type.value !==
                         "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Type</p><h4>" + a.name_value_list.opportunity_type.value + "</h4></li>");
-                    a.name_value_list.probability !== undefined && a.name_value_list.probability.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Probability(%)</p><h4>" + a.name_value_list.probability.value + "</h4></li>");
-                    a.name_value_list.lead_source !== undefined && a.name_value_list.lead_source.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Lead Source</p><h4>" +
+                    a.name_value_list.probability !== undefined && a.name_value_list.probability.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Probabilidad(%)</p><h4>" + a.name_value_list.probability.value + "</h4></li>");
+                    a.name_value_list.lead_source !== undefined && a.name_value_list.lead_source.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Proviene de</p><h4>" +
                         a.name_value_list.lead_source.value + "</h4></li>");
-                    a.name_value_list.next_step !== undefined && a.name_value_list.next_step.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Next Step</p><h4>" + a.name_value_list.next_step.value + "</h4></li>");
-                    a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Description</p><h4>" + a.name_value_list.description.value + "</h4></li>");
-                    $("#ViewOpportunityDetailsPageDetailsList").append('<li data-role="list-divider">Opportunity Information</li>');
-                    a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Assigned To</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
-                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Date Modified</p><h4>" + a.name_value_list.date_modified.value + "</h4></li>");
+                    a.name_value_list.next_step !== undefined && a.name_value_list.next_step.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Siguiente paso</p><h4>" + a.name_value_list.next_step.value + "</h4></li>");
+                    a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Descripción</p><h4>" + a.name_value_list.description.value + "</h4></li>");
+                    $("#ViewOpportunityDetailsPageDetailsList").append('<li data-role="list-divider">Oportunidad</li>');
+                    a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Asignada a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
+                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + a.name_value_list.date_modified.value + "</h4></li>");
                     a.name_value_list.date_entered !==
-                        undefined && a.name_value_list.date_entered.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Date Created</p><h4>" + a.name_value_list.date_entered.value + " by " + a.name_value_list.created_by_name.value + "</h4></li>")
+                        undefined && a.name_value_list.date_entered.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Creado el</p><h4>" + a.name_value_list.date_entered.value + " por " + a.name_value_list.created_by_name.value + "</h4></li>")
                 }
             $("#ViewOpportunityDetailsPageDetailsList").listview("refresh")
         }
@@ -1350,7 +1347,7 @@ function getOpportunityRelatedContactsInsetList() {
                     $.mobile.changePage("#LoginPage")
                 }
                 if (a != undefined && a.entry_list != undefined) {
-                    $("#ViewOpportunityDetailsPageContactsListUl").append('<li data-role="list-divider">Contacts</li>');
+                    $("#ViewOpportunityDetailsPageContactsListUl").append('<li data-role="list-divider">Contactos</li>');
                     if (a.entry_list.length > 0) {
                         var c = 0;
                         for (c = 0; c <= a.entry_list.length; c++)
@@ -1377,7 +1374,7 @@ function getOpportunityRelatedContactsInsetList() {
                             }
                     } else {
                         a = $("<li/>");
-                        a.append("<h4>No Data</h4>");
+                        a.append("<h4>Sin registros que mostrar</h4>");
                         $("#ViewOpportunityDetailsPageContactsListUl").append(a)
                     }
                 }
@@ -1404,7 +1401,7 @@ function getOpportunityRelatedLeadsInsetList() {
                     $.mobile.changePage("#LoginPage")
                 }
                 if (a != undefined && a.entry_list != undefined) {
-                    $("#ViewOpportunityDetailsPageLeadsListUl").append('<li data-role="list-divider">Leads</li>');
+                    $("#ViewOpportunityDetailsPageLeadsListUl").append('<li data-role="list-divider">Clientes potenciales</li>');
                     if (a.entry_list.length > 0) {
                         var c = 0;
                         for (c = 0; c <= a.entry_list.length; c++)
@@ -1432,7 +1429,7 @@ function getOpportunityRelatedLeadsInsetList() {
                             }
                     } else {
                         a = $("<li/>");
-                        a.append("<h4>No Data</h4>");
+                        a.append("<h4>Sin registros que mostrar</h4>");
                         $("#ViewOpportunityDetailsPageLeadsListUl").append(a)
                     }
                 }
@@ -1459,7 +1456,7 @@ function getOpportunityRelatedCallsInsetList() {
                     $.mobile.changePage("#LoginPage")
                 }
                 if (a != undefined && a.entry_list != undefined) {
-                    $("#ViewOpportunityDetailsPageCallsListUl").append('<li data-role="list-divider">Calls</li>');
+                    $("#ViewOpportunityDetailsPageCallsListUl").append('<li data-role="list-divider">Llamadas</li>');
                     if (a.entry_list.length > 0) {
                         var c = 0;
                         for (c = 0; c <= a.entry_list.length; c++)
@@ -1491,7 +1488,7 @@ function getOpportunityRelatedCallsInsetList() {
                             }
                     } else {
                         a = $("<li/>");
-                        a.append("<h4>No Data</h4>");
+                        a.append("<h4>Sin registros que mostrar</h4>");
                         $("#ViewOpportunityDetailsPageCallsListUl").append(a)
                     }
                 }
@@ -1519,7 +1516,7 @@ function getOpportunityRelatedMeetingsInsetList() {
                     $.mobile.changePage("#LoginPage")
                 }
                 if (a != undefined && a.entry_list != undefined) {
-                    $("#ViewOpportunityDetailsPageMeetingsListUl").append('<li data-role="list-divider">Meetings</li>');
+                    $("#ViewOpportunityDetailsPageMeetingsListUl").append('<li data-role="list-divider">Reuniones</li>');
                     if (a.entry_list.length > 0) {
                         var c = 0;
                         for (c = 0; c <= a.entry_list.length; c++)
@@ -1552,7 +1549,7 @@ function getOpportunityRelatedMeetingsInsetList() {
                     } else {
                         a =
                             $("<li/>");
-                        a.append("<h4>No Data</h4>");
+                        a.append("<h4>Sin registros que mostrar</h4>");
                         $("#ViewOpportunityDetailsPageMeetingsListUl").append(a)
                     }
                 }
@@ -1580,7 +1577,7 @@ function getOpportunityRelatedTasksInsetList() {
                     $.mobile.changePage("#LoginPage")
                 }
                 if (a != undefined && a.entry_list != undefined) {
-                    $("#ViewOpportunityDetailsPageTasksListUl").append('<li data-role="list-divider">Tasks</li>');
+                    $("#ViewOpportunityDetailsPageTasksListUl").append('<li data-role="list-divider">Tareas</li>');
                     if (a.entry_list.length > 0) {
                         var c = 0;
                         for (c = 0; c <= a.entry_list.length; c++)
@@ -1612,7 +1609,7 @@ function getOpportunityRelatedTasksInsetList() {
                             }
                     } else {
                         a = $("<li/>");
-                        a.append("<h4>No Data</h4>");
+                        a.append("<h4>Sin registros que mostrar</h4>");
                         $("#ViewOpportunityDetailsPageTasksListUl").append(a)
                     }
                 }
@@ -1641,7 +1638,7 @@ function SugarCrmGetLeadsListFromServer(a) {
                 if (c != undefined && c.entry_list != undefined) {
                     if (c.result_count === 0) LeadsListCurrentOffset = LeadsListPrevOffset + RowsPerPageInListViews;
                     else if (c.next_offset === 0) LeadsListCurrentOffset = 0;
-                    if (c.next_offset == 0 || c.result_count == 0) alert("There are no more records in that direction");
+                    if (c.next_offset == 0 || c.result_count == 0) alert("Sin registros que mostrar");
                     else {
                         $("#AllLeadsListDiv li").remove();
                         var b = 0;
@@ -1703,7 +1700,7 @@ function SugarCrmGetLeadDetails() {
                         c += " at " + a.name_value_list.account_name.value;
                         $("#LeadTitleP").text(c)
                     }
-                    $("#ViewLeadDetailsPageDetailsList").append('<li data-role="list-divider">Lead Information</li>');
+                    $("#ViewLeadDetailsPageDetailsList").append('<li data-role="list-divider">Oportunidad</li>');
                     if (a.name_value_list.phone_work !==
                         undefined && a.name_value_list.phone_work.value !== "") {
                         c = $("<li/>");
@@ -1717,7 +1714,7 @@ function SugarCrmGetLeadDetails() {
                             rel: "external",
                             style: "text-decoration:none;color:#444;"
                         });
-                        b.append("<p><br />Office Phone</p>");
+                        b.append("<p><br />Trabajo</p>");
                         b.append(d);
                         c.append(b);
                         $("#ViewLeadDetailsPageDetailsList").append(c)
@@ -1729,13 +1726,13 @@ function SugarCrmGetLeadDetails() {
                         b = b.replace(")", "");
                         b = b.replace(" ", "");
                         b = b.replace("-", "");
-                        d = "<h4>Mobile Phone:&nbsp;" + a.name_value_list.phone_mobile.value + "</h4>";
+                        d = "<h4>Móvil:&nbsp;" + a.name_value_list.phone_mobile.value + "</h4>";
                         b = $("<a/>", {
                             href: "tel:+1" + b,
                             rel: "external",
                             style: "text-decoration:none;color:#444;"
                         });
-                        b.append("<p><br />Mobile Phone</p>");
+                        b.append("<p><br />Móvil</p>");
                         b.append(d);
                         c.append(b);
                         $("#ViewLeadDetailsPageDetailsList").append(c)
@@ -1748,7 +1745,7 @@ function SugarCrmGetLeadDetails() {
                         c.append(d);
                         $("#ViewLeadDetailsPageDetailsList").append(c)
                     }
-                    a.name_value_list.department !== undefined && a.name_value_list.department.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Department</p><h4>" + a.name_value_list.department.value + "</h4></li>");
+                    a.name_value_list.department !== undefined && a.name_value_list.department.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Departamento</p><h4>" + a.name_value_list.department.value + "</h4></li>");
                     if (a.name_value_list.primary_address_street !== undefined && a.name_value_list.primary_address_street.value != "" || a.name_value_list.primary_address_city !== undefined &&
                         a.name_value_list.primary_address_city.value != "" || a.name_value_list.primary_address_state !== undefined && a.name_value_list.primary_address_state.value != "" || a.name_value_list.primary_address_postalcode !== undefined && a.name_value_list.primary_address_postalcode.value != "" || a.name_value_list.primary_address_country !== undefined && a.name_value_list.primary_address_country.value != "") {
                         c = $("<li/>");
@@ -1763,7 +1760,7 @@ function SugarCrmGetLeadDetails() {
                             target: "_new",
                             style: "text-decoration:none;color:#444;"
                         });
-                        b.append("<p><br />Primary Address</p>");
+                        b.append("<p><br />Dirección principal</p>");
                         b.append(d);
                         c.append(b);
                         $("#ViewLeadDetailsPageDetailsList").append(c)
@@ -1782,7 +1779,7 @@ function SugarCrmGetLeadDetails() {
                             target: "_new",
                             style: "text-decoration:none;color:#444;"
                         });
-                        b.append("<p><br />Other Address</p>");
+                        b.append("<p><br />Otra dirección</p>");
                         b.append(d);
                         c.append(b);
                         $("#ViewLeadDetailsPageDetailsList").append(c)
@@ -1801,23 +1798,23 @@ function SugarCrmGetLeadDetails() {
                         c.append(b);
                         $("#ViewLeadDetailsPageDetailsList").append(c)
                     }
-                    a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Description<p><h4>" + a.name_value_list.description.value + "</h4></li>");
-                    $("#ViewLeadDetailsPageDetailsList").append('<li data-role="list-divider">More Information</li>');
-                    a.name_value_list.status !== undefined && a.name_value_list.status.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Status<p><h4>" + a.name_value_list.status.value + "</h4></li>");
-                    a.name_value_list.lead_source !== undefined && a.name_value_list.lead_source.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Source<p><h4>" + a.name_value_list.lead_source.value + "</h4></li>");
-                    a.name_value_list.status_description !== undefined && a.name_value_list.status_description.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Status Desccription<p><h4>" +
+                    a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Descripción<p><h4>" + a.name_value_list.description.value + "</h4></li>");
+                    $("#ViewLeadDetailsPageDetailsList").append('<li data-role="list-divider">Más información</li>');
+                    a.name_value_list.status !== undefined && a.name_value_list.status.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Estado<p><h4>" + a.name_value_list.status.value + "</h4></li>");
+                    a.name_value_list.lead_source !== undefined && a.name_value_list.lead_source.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Origen<p><h4>" + a.name_value_list.lead_source.value + "</h4></li>");
+                    a.name_value_list.status_description !== undefined && a.name_value_list.status_description.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Descripción de estado<p><h4>" +
                         a.name_value_list.status_description.value + "</h4></li>");
-                    a.name_value_list.lead_source_description !== undefined && a.name_value_list.lead_source_description.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Source Description<p><h4>" + a.name_value_list.lead_source_description.value + "</h4></li>");
-                    a.name_value_list.opportunity_amount !== undefined && a.name_value_list.opportunity_amount.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Opportunity Amount<p><h4>$" + parseFloat(a.name_value_list.opportunity_amount.value).toFixed(2) +
+                    a.name_value_list.lead_source_description !== undefined && a.name_value_list.lead_source_description.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Descripción de origen<p><h4>" + a.name_value_list.lead_source_description.value + "</h4></li>");
+                    a.name_value_list.opportunity_amount !== undefined && a.name_value_list.opportunity_amount.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Monto de la oportunidad<p><h4>€" + parseFloat(a.name_value_list.opportunity_amount.value).toFixed(2) +
                         "</h4></li>");
-                    a.name_value_list.refered_by !== undefined && a.name_value_list.refered_by.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Referred By<p><h4>" + a.name_value_list.refered_by.value + "</h4></li>");
-                    a.name_value_list.campaign_name !== undefined && a.name_value_list.campaign_name.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br /><p><h4>Campaign:&nbsp;" + a.name_value_list.campaign_name.value + "</h4></li>");
-                    $("#ViewLeadDetailsPageDetailsList").append('<li data-role="list-divider">Other Information</li>');
-                    a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Assigned To</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
-                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Date Modified</p><h4>" + a.name_value_list.date_modified.value + "&nbsp;by&nbsp;" + a.name_value_list.modified_by_name.value +
+                    a.name_value_list.refered_by !== undefined && a.name_value_list.refered_by.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Referido por<p><h4>" + a.name_value_list.refered_by.value + "</h4></li>");
+                    a.name_value_list.campaign_name !== undefined && a.name_value_list.campaign_name.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br /><p><h4>Campaña:&nbsp;" + a.name_value_list.campaign_name.value + "</h4></li>");
+                    $("#ViewLeadDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
+                    a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
+                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + a.name_value_list.date_modified.value + "&nbsp;by&nbsp;" + a.name_value_list.modified_by_name.value +
                         "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Date Created</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;by&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
-                    a.name_value_list.do_not_call.value == "true" && alert("*NOTE: This Lead is marked as Do Not Call.")
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;by&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+                    a.name_value_list.do_not_call.value == "true" && alert("*NOTA: Contacto marcado como No llamar.")
                 }
             $("#ViewLeadDetailsPageDetailsList").listview("refresh")
         }
@@ -1836,7 +1833,7 @@ function getLeadRelatedCallsInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","module_id":"' + CurrentLeadId + '","link_field_name":"calls","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewLeadDetailsPageCallsListUl").append('<li data-role="list-divider">Calls</li>');
+            $("#ViewLeadDetailsPageCallsListUl").append('<li data-role="list-divider">Llamadas</li>');
             a =
                 $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
@@ -1872,7 +1869,7 @@ function getLeadRelatedCallsInsetList() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewLeadDetailsPageCallsListUl").append(a)
                 }
             $("#ViewLeadDetailsPageCallsListUl").listview("refresh")
@@ -1889,7 +1886,7 @@ function getLeadRelatedMeetingsInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","module_id":"' + CurrentLeadId + '","link_field_name":"meetings","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewLeadDetailsPageMeetingsListUl").append('<li data-role="list-divider">Meetings</li>');
+            $("#ViewLeadDetailsPageMeetingsListUl").append('<li data-role="list-divider">Reuniones</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -1924,7 +1921,7 @@ function getLeadRelatedMeetingsInsetList() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewLeadDetailsPageMeetingsListUl").append(a)
                 }
             $("#ViewLeadDetailsPageMeetingsListUl").listview("refresh")
@@ -1941,7 +1938,7 @@ function getLeadRelatedTasksInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","module_id":"' + CurrentLeadId + '","link_field_name":"tasks","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewLeadDetailsPageTasksListUl").append('<li data-role="list-divider">Tasks</li>');
+            $("#ViewLeadDetailsPageTasksListUl").append('<li data-role="list-divider">Tareas</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -1976,7 +1973,7 @@ function getLeadRelatedTasksInsetList() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewLeadDetailsPageTasksListUl").append(a)
                 }
             $("#ViewLeadDetailsPageTasksListUl").listview("refresh")
@@ -2005,7 +2002,7 @@ function SugarCrmGetCallsListFromServer(a) {
                 if (c != undefined && c.entry_list != undefined) {
                     if (c.result_count === 0) CallsListCurrentOffset = CallsListPrevOffset + RowsPerPageInListViews;
                     else if (c.next_offset === 0) CallsListCurrentOffset = 0;
-                    if (c.next_offset == 0 || c.result_count == 0) alert("There are no more records in that direction");
+                    if (c.next_offset == 0 || c.result_count == 0) alert("Sin registros que mostrar");
                     else {
                         $("#AllCallsListDiv li").remove();
                         var b = 0;
@@ -2068,17 +2065,17 @@ function SugarCrmGetCallDetails() {
                     $("#CallNameH1").html(a.name_value_list.name.value);
                     var c = a.name_value_list.direction.value + " " + a.name_value_list.status.value;
                     $("#CallSubjectP").text(c);
-                    $("#ViewCallDetailsPageDetailsList").append('<li data-role="list-divider">Call Overview</li>');
-                    a.name_value_list.date_start !== undefined && a.name_value_list.date_start.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Start Date/Time</p><h4>" +
+                    $("#ViewCallDetailsPageDetailsList").append('<li data-role="list-divider">Información de la llamada</li>');
+                    a.name_value_list.date_start !== undefined && a.name_value_list.date_start.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Fecha/Hora de Inicio</p><h4>" +
                         a.name_value_list.date_start.value + "</h4></li>");
-                    a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Duration</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
-                    a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Description</p><h4>" + a.name_value_list.description.value +
+                    a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Duración</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
+                    a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Descripción</p><h4>" + a.name_value_list.description.value +
                         "</h4></li>");
-                    $("#ViewCallDetailsPageDetailsList").append('<li data-role="list-divider">Other Information</li>');
-                    a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Assigned To</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
-                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Date Modified</p><h4>" +
+                    $("#ViewCallDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
+                    a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
+                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" +
                         a.name_value_list.date_modified.value + "&nbsp;by&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Date Created</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;by&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;by&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
                     a.name_value_list.parent_id !== undefined && a.name_value_list.parent_id.value !== "" ? getCallParentDetails(a.name_value_list.parent_type.value,
                         a.name_value_list.parent_id.value) : $("#ViewCallDetailsPageDetailsList").listview("refresh")
                 }
@@ -2108,7 +2105,7 @@ function getCallParentDetails(a, c) {
                 b += d.module_name == "Leads" || d.module_name == "Contacts" ? d.name_value_list.first_name.value + " " + d.name_value_list.last_name.value : d.name_value_list.name.value
             }
         b += "</h4>";
-        $("#ViewCallDetailsPageDetailsList").append('<li data-role="list-divider">Related To</li>');
+        $("#ViewCallDetailsPageDetailsList").append('<li data-role="list-divider">Enlazado con</li>');
         $("#ViewCallDetailsPageDetailsList").append("<li>" + b + "</li>");
         $("#ViewCallDetailsPageDetailsList").listview("refresh")
     })
@@ -2123,7 +2120,7 @@ function getCallRelatedContactsInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","module_id":"' + CurrentCallId + '","link_field_name":"contacts","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewCallDetailsPageContactsListUl").append('<li data-role="list-divider">Contacts</li>');
+            $("#ViewCallDetailsPageContactsListUl").append('<li data-role="list-divider">Contactos</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -2156,7 +2153,7 @@ function getCallRelatedContactsInsetList() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewCallDetailsPageContactsListUl").append(a)
                 }
             $("#ViewCallDetailsPageContactsListUl").listview("refresh")
@@ -2174,7 +2171,7 @@ function getCallRelatedUsersInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","module_id":"' + CurrentCallId + '","link_field_name":"users","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewCallDetailsPageUsersListUl").append('<li data-role="list-divider">Users</li>');
+            $("#ViewCallDetailsPageUsersListUl").append('<li data-role="list-divider">Usuarios</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -2195,7 +2192,7 @@ function getCallRelatedUsersInsetList() {
                 } else {
                     a =
                         $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewCallDetailsPageUsersListUl").append(a)
                 }
             $("#ViewCallDetailsPageUsersListUl").listview("refresh")
@@ -2213,7 +2210,7 @@ function getCallRelatedLeadsInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","module_id":"' + CurrentCallId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewCallDetailsPageLeadsListUl").append('<li data-role="list-divider">Leads</li>');
+            $("#ViewCallDetailsPageLeadsListUl").append('<li data-role="list-divider">Clientes potenciales</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -2246,7 +2243,7 @@ function getCallRelatedLeadsInsetList() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewCallDetailsPageLeadsListUl").append(a)
                 }
             $("#ViewCallDetailsPageLeadsListUl").listview("refresh")
@@ -2263,7 +2260,7 @@ function getCallRelatedNotesInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","module_id":"' + CurrentCallId + '","link_field_name":"notes","related_module_query":"","related_fields":["id","name","description","date_entered"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewCallDetailsPageNotesListUl").append('<li data-role="list-divider">Notes</li>');
+            $("#ViewCallDetailsPageNotesListUl").append('<li data-role="list-divider">Notas</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -2297,7 +2294,7 @@ function getCallRelatedNotesInsetList() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewCallDetailsPageNotesListUl").append(a)
                 }
             $("#ViewCallDetailsPageNotesListUl").listview("refresh")
@@ -2326,7 +2323,7 @@ function SugarCrmGetMeetingsListFromServer(a) {
                 if (c != undefined && c.entry_list != undefined) {
                     if (c.result_count === 0) MeetingsListCurrentOffset = MeetingsListPrevOffset + RowsPerPageInListViews;
                     else if (c.next_offset === 0) MeetingsListCurrentOffset = 0;
-                    if (c.next_offset == 0 || c.result_count == 0) alert("There are no more records in that direction");
+                    if (c.next_offset == 0 || c.result_count == 0) alert("Sin registros que mostrar");
                     else {
                         $("#AllMeetingsListDiv li").remove();
                         var b = 0;
@@ -2388,17 +2385,17 @@ function SugarCrmGetMeetingDetails() {
                     $("#MeetingNameH1").html(a.name_value_list.name.value);
                     var c = a.name_value_list.status.value;
                     $("#MeetingSubjectP").text(c);
-                    $("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">Meeting Overview</li>');
-                    a.name_value_list.date_start !== undefined && a.name_value_list.date_start.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Start Date/Time</p><h4>" +
+                    $("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">Información de la reunión</li>');
+                    a.name_value_list.date_start !== undefined && a.name_value_list.date_start.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Fecha/Hora de inicio</p><h4>" +
                         a.name_value_list.date_start.value + "</h4></li>");
-                    a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Duration</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
-                    a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Description</p><h4>" + a.name_value_list.description.value +
+                    a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Duración</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
+                    a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Descripción</p><h4>" + a.name_value_list.description.value +
                         "</h4></li>");
-                    $("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">Other Information</li>');
-                    a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Assigned To</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
-                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Date Modified</p><h4>" +
+                    $("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
+                    a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Asignada a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
+                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" +
                         a.name_value_list.date_modified.value + "&nbsp;by&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Date Created</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;by&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;by&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
                     a.name_value_list.parent_id !== undefined && a.name_value_list.parent_id.value !== "" ? getMeetingParentDetails(a.name_value_list.parent_type.value,
                         a.name_value_list.parent_id.value) : $("#ViewMeetingDetailsPageDetailsList").listview("refresh")
                 }
@@ -2428,7 +2425,7 @@ function getMeetingParentDetails(a, c) {
                 b += d.module_name == "Leads" || d.module_name == "Contacts" ? d.name_value_list.first_name.value + " " + d.name_value_list.last_name.value : d.name_value_list.name.value
             }
         b += "</h4>";
-        $("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">Related To</li>');
+        $("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">Enlazado con</li>');
         $("#ViewMeetingDetailsPageDetailsList").append("<li>" + b + "</li>");
         $("#ViewMeetingDetailsPageDetailsList").listview("refresh")
     })
@@ -2445,7 +2442,7 @@ function getMeetingRelatedContactsInsetList() {
         },
         function (a) {
             if (a != undefined) {
-                $("#ViewMeetingDetailsPageContactsListUl").append('<li data-role="list-divider">Contacts</li>');
+                $("#ViewMeetingDetailsPageContactsListUl").append('<li data-role="list-divider">Contactos</li>');
                 a = $.parseJSON(JSON.stringify(a, undefined, 2));
                 if (a.name !== undefined && a.name === "Invalid Session ID") {
                     SugarSessionId = "";
@@ -2478,7 +2475,7 @@ function getMeetingRelatedContactsInsetList() {
                             }
                     } else {
                         a = $("<li/>");
-                        a.append("<h4>No Data</h4>");
+                        a.append("<h4>Sin registros que mostrar</h4>");
                         $("#ViewMeetingDetailsPageContactsListUl").append(a)
                     }
                 $("#ViewMeetingDetailsPageContactsListUl").listview("refresh")
@@ -2497,7 +2494,7 @@ function getMeetingRelatedUsersInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","module_id":"' + CurrentMeetingId + '","link_field_name":"users","related_module_query":"","related_fields":"","related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewMeetingDetailsPageUsersListUl").append('<li data-role="list-divider">Users</li>');
+            $("#ViewMeetingDetailsPageUsersListUl").append('<li data-role="list-divider">Usuarios</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -2518,7 +2515,7 @@ function getMeetingRelatedUsersInsetList() {
                 } else {
                     a =
                         $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewMeetingDetailsPageUsersListUl").append(a)
                 }
             $("#ViewMeetingDetailsPageUsersListUl").listview("refresh")
@@ -2536,7 +2533,7 @@ function getMeetingRelatedLeadsInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","module_id":"' + CurrentMeetingId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewMeetingDetailsPageLeadsListUl").append('<li data-role="list-divider">Leads</li>');
+            $("#ViewMeetingDetailsPageLeadsListUl").append('<li data-role="list-divider">Clientes potenciales</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -2569,7 +2566,7 @@ function getMeetingRelatedLeadsInsetList() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewMeetingDetailsPageLeadsListUl").append(a)
                 }
             $("#ViewMeetingDetailsPageLeadsListUl").listview("refresh")
@@ -2586,7 +2583,7 @@ function getMeetingRelatedNotesInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","module_id":"' + CurrentMeetingId + '","link_field_name":"notes","related_module_query":"","related_fields":["id","name","description","date_entered"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewMeetingDetailsPageNotesListUl").append('<li data-role="list-divider">Notes</li>');
+            $("#ViewMeetingDetailsPageNotesListUl").append('<li data-role="list-divider">Notas</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -2620,7 +2617,7 @@ function getMeetingRelatedNotesInsetList() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewMeetingDetailsPageNotesListUl").append(a)
                 }
             $("#ViewMeetingDetailsPageNotesListUl").listview("refresh")
@@ -2649,7 +2646,7 @@ function SugarCrmGetTasksListFromServer(a) {
                 if (c != undefined && c.entry_list != undefined) {
                     if (c.result_count === 0) TasksListCurrentOffset = TasksListPrevOffset + RowsPerPageInListViews;
                     else if (c.next_offset === 0) TasksListCurrentOffset = 0;
-                    if (c.next_offset == 0 || c.result_count == 0) alert("There are no more records in that direction");
+                    if (c.next_offset == 0 || c.result_count == 0) alert("Sin registros que mostrar");
                     else {
                         $("#AllTasksListDiv li").remove();
                         var b = 0;
@@ -2763,7 +2760,7 @@ function getTaskRelatedContactsInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","module_id":"' + CurrentTaskId + '","link_field_name":"contacts","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewTaskDetailsPageContactsListUl").append('<li data-role="list-divider">Contacts</li>');
+            $("#ViewTaskDetailsPageContactsListUl").append('<li data-role="list-divider">Contactos</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -2796,7 +2793,7 @@ function getTaskRelatedContactsInsetList() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewTaskDetailsPageContactsListUl").append(a)
                 }
             $("#ViewTaskDetailsPageContactsListUl").listview("refresh")
@@ -2814,7 +2811,7 @@ function getTaskRelatedUsersInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","module_id":"' + CurrentTaskId + '","link_field_name":"users","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewTaskDetailsPageUsersListUl").append('<li data-role="list-divider">Users</li>');
+            $("#ViewTaskDetailsPageUsersListUl").append('<li data-role="list-divider">Usuarios</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -2835,7 +2832,7 @@ function getTaskRelatedUsersInsetList() {
                 } else {
                     a =
                         $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewTaskDetailsPageUsersListUl").append(a)
                 }
             $("#ViewTaskDetailsPageUsersListUl").listview("refresh")
@@ -2853,7 +2850,7 @@ function getTaskRelatedLeadsInsetList() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","module_id":"' + CurrentTaskId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
         if (a != undefined) {
-            $("#ViewTaskDetailsPageLeadsListUl").append('<li data-role="list-divider">Leads</li>');
+            $("#ViewTaskDetailsPageLeadsListUl").append('<li data-role="list-divider">Clientes potenciales</li>');
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -2886,7 +2883,7 @@ function getTaskRelatedLeadsInsetList() {
                         }
                 } else {
                     a = $("<li/>");
-                    a.append("<h4>No Data</h4>");
+                    a.append("<h4>Sin registros que mostrar</h4>");
                     $("#ViewTaskDetailsPageLeadsListUl").append(a)
                 }
             $("#ViewTaskDetailsPageLeadsListUl").listview("refresh")
@@ -2918,10 +2915,10 @@ function SugarCrmGetNoteDetails() {
                     $("#NoteSubjectH1").html(a.name_value_list.name.value);
                     var c = a.name_value_list.description.value;
                     $("#NoteTextP").text(c);
-                    $("#ViewNoteDetailsPageDetailsList").append('<li data-role="list-divider">Other Information</li>');
-                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Date Modified</p><h4>" + a.name_value_list.date_modified.value +
+                    $("#ViewNoteDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
+                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + a.name_value_list.date_modified.value +
                         "&nbsp;by&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Date Created</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;by&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;by&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
                     $("#ViewNoteDetailsPageDetailsList").listview("refresh")
                 }
         }

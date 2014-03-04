@@ -16,52 +16,52 @@
         -->
         <!-- CDN END -->
         <!-- ORIGINALES -->
-        <link rel="stylesheet" href="lib/jquery.mobile/jquery.mobile-1.0b2.min.css" />
+        <!-- <link rel="stylesheet" href="lib/jquery.mobile/jquery.mobile-1.0b2.min.css" /> -->
+        <link rel="stylesheet" href="css/jquery.mobile-1.0.1.min.css" />
         <script type="text/javascript" src="lib/jquery-1.6.2.min.js"></script>
-
         <script type="text/javascript" src="js/jquery.mobile-config.js"></script>
         <script type="text/javascript" src="lib/jquery.mobile/jquery.mobile-1.0b2.min.js"></script>
 
-<!-- CDN NUEVO -->
-<!-- 
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
-<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-<script src="lib/jquery-migrate-1.2.1.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
--->
-
+        <!-- CDN NUEVO -->
+        <!-- 
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
+        <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+        <script src="lib/jquery-migrate-1.2.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
+        -->
 
         <script type="text/javascript" src="js/Application.js"></script>
         <link rel="stylesheet" href="css/style.min.css" />
-        <title>CE Mobile CRM</title>
+        <title>Acceso CRM móvil</title>
     </head>
     <body>
 
-        <div id="LoginPage" data-role="page" data-theme="b" data-title="Login">
+        <div id="LoginPage" data-role="page" data-theme="b" data-title="Acceso">
             <div data-role="header">
-                <h1>Login Page</h1>
+                <h1>Acceso CRM móvil</h1>
             </div><!-- /header -->  
             <div data-role="content">
-                Enter your username and password, then click login
+                Por favor, introduzca su <strong>Usuario</strong> y <strong>Contraseña</strong> para entrar.
                 <br />
                 <br />
-                <label for="SettingsPageSugarCrmUsername"><em>* </em>Username:</label>
+                <label for="SettingsPageSugarCrmUsername"><em>* </em>Usuario:</label>
                 <input id="SettingsPageSugarCrmUsername" type="text" />
-                <br />
-                <label for="SettingsPageSugarCrmPassword"><em>* </em>Password:</label>
+                <br /><br />
+                <label for="SettingsPageSugarCrmPassword"><em>* </em>Contraseña:</label>
                 <input id="SettingsPageSugarCrmPassword" type="password" />
-                <br />
-                <a href="javascript:LoginUser();" data-role="button">Login</a>
+                <br /><br />
+                <a href="javascript:LoginUser();" data-role="button">Entrar</a>
             </div>
-            <div data-role="footer">
-                <p>CE Mobile CRM v0.0.2.4</p>
+            <div data-role="footer" data-position="fixed">
+                <p style="font-size:8px">Cliente móvil para CRM para consulta rápida
+                    <br>Para disponer de todas las funciones, utilice el cliente de CRM estándar.</p>
             </div><!-- /footer -->
         </div><!-- /page -->
 
-        <div id="HomePage" data-role="page" data-theme="b" data-title="Home">
+        <div id="HomePage" data-role="page" data-theme="b" data-title="Inicio">
             <div data-role="header">
-                <h1>Home Page</h1>
-                <a id="LogOutButton" href="javascript:LogOutUser();" class="ui-btn-left">Logout</a>
+                <h1>Inicio</h1>
+                <a id="LogOutButton" href="javascript:LogOutUser();" class="ui-btn-left">Salir</a>
             </div><!-- /header -->
             <div data-role="content">
                 <div class="IconWrapper">
@@ -111,12 +111,13 @@
                     </div>
                 </div>
             </div><!-- /content -->
-            <div data-role="footer">
-                <p>CE Mobile CRM v0.0.2.4</p>
+            <div data-role="footer" data-position="fixed">
+                <p style="font-size:8px">Cliente móvil para CRM para consulta rápida
+                    <br>Para disponer de todas las funciones, utilice el cliente de CRM estándar.</p>
             </div><!-- /footer -->
         </div><!-- /page -->
 
-        <div id="AccountsListPage" data-role="page" data-theme="b" data-add-back-btn="true">
+        <div id="AccountsListPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="AccountsListPageTitle"></h1>
             </div><!-- /header -->
@@ -131,7 +132,7 @@
             </div><!-- /content -->
         </div><!-- /page -->
 
-        <div id="ContactsListPage" data-role="page" data-theme="b" data-add-back-btn="true">
+        <div id="ContactsListPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="ContactsListPageTitle"></h1>
             </div><!-- /header -->
@@ -146,7 +147,7 @@
             </div><!-- /content -->
         </div><!-- /page -->
 
-        <div id="OpportunitiesListPage" data-role="page" data-theme="b" data-add-back-btn="true">
+        <div id="OpportunitiesListPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="OpportunitiesListPageTitle"></h1>
             </div><!-- /header -->
@@ -161,7 +162,7 @@
             </div><!-- /content -->
         </div><!-- /page -->
 
-        <div id="LeadsListPage" data-role="page" data-theme="b" data-add-back-btn="true">
+        <div id="LeadsListPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="LeadsListPageTitle"></h1>
             </div><!-- /header -->
@@ -176,7 +177,7 @@
             </div><!-- /content -->
         </div><!-- /page -->
 
-        <div id="CallsListPage" data-role="page" data-theme="b" data-add-back-btn="true">
+        <div id="CallsListPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="CallsListPageTitle"></h1>
             </div><!-- /header -->
@@ -191,7 +192,7 @@
             </div><!-- /content -->
         </div><!-- /page -->
 
-        <div id="MeetingsListPage" data-role="page" data-theme="b" data-add-back-btn="true">
+        <div id="MeetingsListPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="MeetingsListPageTitle"></h1>
             </div><!-- /header -->
@@ -207,7 +208,7 @@
         </div><!-- /page -->
 
 
-        <div id="TasksListPage" data-role="page" data-theme="b" data-add-back-btn="true">
+        <div id="TasksListPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="TasksListPageTitle"></h1>
             </div><!-- /header -->
@@ -222,10 +223,10 @@
             </div><!-- /content -->
         </div><!-- /page -->
 
-        <div id="ViewAccountDetailsPage" data-role="page" data-theme="b" data-add-back-btn="true">
+        <div id="ViewAccountDetailsPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="ViewAccountDetailsPageTitle"></h1>
-                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Home</a>
+                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
             </div>
             <div data-role="content">
                 <h3 id="AccountNameH1"></h3>
@@ -258,10 +259,10 @@
             </div>
         </div>
 
-        <div data-role="page" id="ViewContactDetailsPage" data-theme="b" data-add-back-btn="true">
+        <div data-role="page" id="ViewContactDetailsPage" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="ViewContactDetailsPageTitle"></h1>
-                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Home</a>
+                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
             </div>
             <div data-role="content">
                 <h3 id="ContactNameH1"></h3>
@@ -291,10 +292,10 @@
             </div>
         </div>
 
-        <div data-role="page" id="ViewOpportunityDetailsPage" data-theme="b" data-add-back-btn="true">
+        <div data-role="page" id="ViewOpportunityDetailsPage" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
-                <h1>Opportunity Details</h1>
-                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Home</a>
+                <h1>Oportunidad</h1>
+                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
             </div>
             <div data-role="content">
                 <h3 id="OpportunityNameH1"></h3>
@@ -324,10 +325,10 @@
             </div>
         </div>
 
-        <div data-role="page" id="ViewLeadDetailsPage" data-theme="b" data-add-back-btn="true">
+        <div data-role="page" id="ViewLeadDetailsPage" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
-                <h1>Lead Details</h1>
-                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Home</a>
+                <h1>Cliente potencial</h1>
+                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
             </div>
             <div data-role="content">
                 <h3 id="LeadNameH1"></h3>
@@ -349,10 +350,10 @@
             </div>
         </div>
 
-        <div data-role="page" id="ViewCallDetailsPage" data-theme="b" data-add-back-btn="true">
+        <div data-role="page" id="ViewCallDetailsPage" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
-                <h1>Call Details</h1>
-                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Home</a>
+                <h1>Llamada</h1>
+                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
             </div>
             <div data-role="content">
                 <h3 id="CallNameH1"></h3>
@@ -378,10 +379,10 @@
             </div>
         </div>
 
-        <div data-role="page" id="ViewMeetingDetailsPage" data-theme="b" data-add-back-btn="true">
+        <div data-role="page" id="ViewMeetingDetailsPage" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
-                <h1>Meeting Details</h1>
-                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Home</a>
+                <h1>Reunión</h1>
+                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
             </div>
             <div data-role="content">
                 <h3 id="MeetingNameH1"></h3>
@@ -407,10 +408,10 @@
             </div>
         </div>
 
-        <div data-role="page" id="ViewTaskDetailsPage" data-theme="b" data-add-back-btn="true">
+        <div data-role="page" id="ViewTaskDetailsPage" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
-                <h1>Task Details</h1>
-                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Home</a>
+                <h1>Tarea</h1>
+                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
             </div>
             <div data-role="content">
                 <h3 id="TaskNameH1"></h3>
@@ -432,10 +433,10 @@
             </div>
         </div>
 
-        <div data-role="page" id="ViewNoteDetailsPage" data-theme="b" data-add-back-btn="true">
+        <div data-role="page" id="ViewNoteDetailsPage" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
-                <h1>Note Details</h1>
-                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Home</a>
+                <h1>Nota</h1>
+                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
             </div>
             <div data-role="content">
                 <h3 id="NoteSubjectH1"></h3>
