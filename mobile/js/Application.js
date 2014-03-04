@@ -308,11 +308,11 @@ function SugarCrmGetAccountDetails() {
                         rel: "external",
                         style: "text-decoration:none;color:#444;",
                         click: function () {
-                            confirm("Log this call?") && LogCall("Accounts", CurrentAccountId);
+                            confirm("¿Registrar la llamada?") && LogCall("Accounts", CurrentAccountId);
                             return true
                         }
                     });
-                    b.append("<p><br />Office Phone</p>");
+                    b.append("<p><br />Trabajo</p>");
                     b.append(d);
                     c.append(b);
                     a.name_value_list.phone_office.value !== "" && $("#ViewAccountDetailsPageDetailsList").append(c);
@@ -328,7 +328,7 @@ function SugarCrmGetAccountDetails() {
                             target: "_new",
                             style: "text-decoration:none;color:#444;"
                         });
-                        b.append("<p><br />Web Site</p>");
+                        b.append("<p><br />Sitio web</p>");
                         b.append(d);
                         c.append(b);
                         $("#ViewAccountDetailsPageDetailsList").append(c)
@@ -350,7 +350,7 @@ function SugarCrmGetAccountDetails() {
                         target: "_new",
                         style: "text-decoration:none;color:#444;"
                     });
-                    d.append("<p><br />Billing Address</p>");
+                    d.append("<p><br />Dirección de cobro</p>");
                     d.append(i);
                     c.append(d);
                     if (b !== "" || f !== "" || e !== "" || m !== "" || g !== "") $("#ViewAccountDetailsPageDetailsList").append(c);
@@ -368,7 +368,7 @@ function SugarCrmGetAccountDetails() {
                             target: "_new",
                             style: "text-decoration:none;color:#444;"
                         });
-                    n.append("<p><br />Shipping Address</p>");
+                    n.append("<p><br />Dirección de envio</p>");
                     n.append(o);
                     b.append(n);
                     c.append(d);
@@ -385,26 +385,26 @@ function SugarCrmGetAccountDetails() {
                     c.append(b);
                     a.name_value_list.email1.value !==
                         "" && $("#ViewAccountDetailsPageDetailsList").append(c);
-                    $("#ViewAccountDetailsPageDetailsList").append('<li data-role="list-divider">More Information</li>');
-                    a.name_value_list.account_type !== undefined && a.name_value_list.account_type.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Account Type</p><h4>" + a.name_value_list.account_type.value + "</h4></li>");
-                    a.name_value_list.industry !== undefined && a.name_value_list.industry.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Industry</p><h4>" +
+                    $("#ViewAccountDetailsPageDetailsList").append('<li data-role="list-divider">Más información</li>');
+                    a.name_value_list.account_type !== undefined && a.name_value_list.account_type.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Tipo de cuenta</p><h4>" + a.name_value_list.account_type.value + "</h4></li>");
+                    a.name_value_list.industry !== undefined && a.name_value_list.industry.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Industria</p><h4>" +
                         a.name_value_list.industry.value + "</h4></li>");
-                    a.name_value_list.annual_revenue !== undefined && a.name_value_list.annual_revenue.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Annual Revenue</p><h4>" + a.name_value_list.annual_revenue.value + "</h4></li>");
-                    a.name_value_list.employees !== undefined && a.name_value_list.employees.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Employees</p><h4>" + a.name_value_list.employees.value + "</h4></li>");
+                    a.name_value_list.annual_revenue !== undefined && a.name_value_list.annual_revenue.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Ingresos anuales:</p><h4>" + a.name_value_list.annual_revenue.value + "</h4></li>");
+                    a.name_value_list.employees !== undefined && a.name_value_list.employees.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Empleados</p><h4>" + a.name_value_list.employees.value + "</h4></li>");
                     a.name_value_list.sic_code !==
-                        undefined && a.name_value_list.sic_code.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><P><br />SIC Code</p><h4>" + a.name_value_list.sic_code.value + "</h4></li>");
-                    a.name_value_list.ticker_symbol !== undefined && a.name_value_list.ticker_symbol.value != "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Ticker Symbol</p><h4>" + a.name_value_list.ticker_symbol.value + "</h4></li>");
-                    a.name_value_list.parent_name !== undefined && a.name_value_list.parent_name.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Member of</p><h4>" +
+                        undefined && a.name_value_list.sic_code.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><P><br />Código CNAE/SIC:</p><h4>" + a.name_value_list.sic_code.value + "</h4></li>");
+                    a.name_value_list.ticker_symbol !== undefined && a.name_value_list.ticker_symbol.value != "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Símbolo Ticker</p><h4>" + a.name_value_list.ticker_symbol.value + "</h4></li>");
+                    a.name_value_list.parent_name !== undefined && a.name_value_list.parent_name.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Miembro de</p><h4>" +
                         a.name_value_list.parent_name.value + "</h4></li>");
-                    a.name_value_list.ownership !== undefined && a.name_value_list.ownership.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Ownership</p><h4>" + a.name_value_list.ownership.value + "</h4></li>");
-                    a.name_value_list.campaign_name !== undefined && a.name_value_list.campaign_name.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Campaign</p><h4>" + a.name_value_list.campaign_name.value + "</h4></li>");
+                    a.name_value_list.ownership !== undefined && a.name_value_list.ownership.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Propietario</p><h4>" + a.name_value_list.ownership.value + "</h4></li>");
+                    a.name_value_list.campaign_name !== undefined && a.name_value_list.campaign_name.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Campaña</p><h4>" + a.name_value_list.campaign_name.value + "</h4></li>");
                     a.name_value_list.rating !==
                         undefined && a.name_value_list.rating.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Rating</p><h4>" + a.name_value_list.rating.value + "</h4></li>");
                     $("#ViewAccountDetailsPageDetailsList").append('<li data-role="list-divider">Other</li>');
-                    a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Assigned To</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
+                    a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
                     a.name_value_list.date_modified !==
-                        undefined && a.name_value_list.date_modified.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Date Modified</p><h4>" + a.name_value_list.date_modified.value + "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Date Created</p><h4>" + a.name_value_list.date_entered.value + " by " + a.name_value_list.created_by_name.value + "</h4></li>")
+                        undefined && a.name_value_list.date_modified.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + a.name_value_list.date_modified.value + "</h4></li>");
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + " by " + a.name_value_list.created_by_name.value + "</h4></li>")
                 }
         }
         $("#ViewAccountDetailsPageDetailsList").listview("refresh")
@@ -416,7 +416,7 @@ function SugarCrmGetAccountDetails() {
         response_type: "JSON",
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","module_id":"' + CurrentAccountId + '","link_field_name":"contacts","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
     }, function (a) {
-        $("#ViewAccountDetailsPageContactsListUl").append('<li data-role="list-divider">Contacts</li>');
+        $("#ViewAccountDetailsPageContactsListUl").append('<li data-role="list-divider">Contactos</li>');
         if (a !== undefined) {
             a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
@@ -2707,16 +2707,16 @@ function SugarCrmGetTaskDetails() {
                     $("#TaskNameH1").html(a.name_value_list.name.value);
                     var c = a.name_value_list.status.value;
                     $("#TaskSubjectP").text(c);
-                    $("#ViewTaskDetailsPageDetailsList").append('<li data-role="list-divider">Task Overview</li>');
-                    a.name_value_list.date_due !== undefined && a.name_value_list.date_due.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Due Date</p><h4>" + a.name_value_list.date_due.value +
+                    $("#ViewTaskDetailsPageDetailsList").append('<li data-role="list-divider">Detalles de la tarea</li>');
+                    a.name_value_list.date_due !== undefined && a.name_value_list.date_due.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Fecha</p><h4>" + a.name_value_list.date_due.value +
                         "</h4></li>");
-                    a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Duration</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
-                    a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Description</p><h4>" + a.name_value_list.description.value + "</h4></li>");
-                    $("#ViewTaskDetailsPageDetailsList").append('<li data-role="list-divider">Other Information</li>');
-                    a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Assigned To</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
-                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Date Modified</p><h4>" +
+                    a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Duración</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
+                    a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Descripción</p><h4>" + a.name_value_list.description.value + "</h4></li>");
+                    $("#ViewTaskDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
+                    a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
+                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" +
                         a.name_value_list.date_modified.value + "&nbsp;by&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Date Created</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;by&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;by&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
                     a.name_value_list.parent_id !== undefined && a.name_value_list.parent_id.value !== "" ? getTaskParentDetails(a.name_value_list.parent_type.value,
                         a.name_value_list.parent_id.value) : $("#ViewTaskDetailsPageDetailsList").listview("refresh")
                 }
