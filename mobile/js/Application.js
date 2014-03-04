@@ -231,7 +231,7 @@ function SugarCrmGetAccountsListFromServer(a) {
                 ',"deleted":0}'
         }, function (c) {
             if (c !== undefined) {
-                c = jQuery.parseJSON(c);
+                c = $.parseJSON(JSON.stringify(c, undefined, 2));
                 if (c.name !== undefined && c.name === "Invalid Session ID") {
                     SugarSessionId = "";
                     $.mobile.changePage("#LoginPage")
@@ -286,7 +286,7 @@ function SugarCrmGetAccountDetails() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","id":"' + CurrentAccountId + '","select_fields":"","link_name_to_fields_array":""}'
     }, function (a) {
         if (a !== undefined) {
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId =
                     "";
@@ -421,7 +421,7 @@ function SugarCrmGetAccountDetails() {
     }, function (a) {
         $("#ViewAccountDetailsPageContactsListUl").append('<li data-role="list-divider">Contacts</li>');
         if (a !== undefined) {
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -467,7 +467,7 @@ function SugarCrmGetAccountDetails() {
     }, function (a) {
         $("#ViewAccountDetailsPageOpportunitiesListUl").append('<li data-role="list-divider">Opportunities</li>');
         if (a !== undefined) {
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !==
                 undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -515,7 +515,7 @@ function SugarCrmGetAccountDetails() {
     }, function (a) {
         $("#ViewAccountDetailsPageLeadsListUl").append('<li data-role="list-divider">Leads</li>');
         if (a !== undefined) {
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -564,7 +564,7 @@ function SugarCrmGetAccountDetails() {
     }, function (a) {
         $("#ViewAccountDetailsPageCallsListUl").append('<li data-role="list-divider">Calls</li>');
         if (a !== undefined) {
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -618,7 +618,7 @@ function SugarCrmGetAccountDetails() {
         function (a) {
             $("#ViewAccountDetailsPageMeetingsListUl").append('<li data-role="list-divider">Meetings</li>');
             if (a !== undefined) {
-                a = jQuery.parseJSON(a);
+                a = $.parseJSON(JSON.stringify(a, undefined, 2));
                 if (a.name !== undefined && a.name === "Invalid Session ID") {
                     SugarSessionId = "";
                     $.mobile.changePage("#LoginPage")
@@ -671,7 +671,7 @@ function SugarCrmGetAccountDetails() {
         function (a) {
             $("#ViewAccountDetailsPageTasksListUl").append('<li data-role="list-divider">Tasks</li>');
             if (a !== undefined) {
-                a = jQuery.parseJSON(a);
+                a = $.parseJSON(JSON.stringify(a, undefined, 2));
                 if (a.name !== undefined && a.name === "Invalid Session ID") {
                     SugarSessionId = "";
                     $.mobile.changePage("#LoginPage")
@@ -729,7 +729,7 @@ function SugarCrmGetContactListFromServer(a) {
                 ',"deleted":0}'
         }, function (c) {
             if (c != undefined) {
-                c = jQuery.parseJSON(c);
+                c = $.parseJSON(JSON.stringify(c, undefined, 2));
                 if (c != undefined && c.entry_list != undefined) {
                     if (c.result_count === 0) ContactsListCurrentOffset = ContactsListPrevOffset + RowsPerPageInListViews;
                     else if (c.next_offset === 0) ContactsListCurrentOffset = 0;
@@ -783,7 +783,7 @@ function SugarCrmGetContactDetails() {
     }, function (a) {
         if (a !=
             undefined) {
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -938,7 +938,7 @@ function getContactRelatedOpportunitiesInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewContactDetailsPageOpportunitiesListUl").append('<li data-role="list-divider">Opportunities</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -987,7 +987,7 @@ function getContactRelatedLeadsInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewContactDetailsPageLeadsListUl").append('<li data-role="list-divider">Leads</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -1037,7 +1037,7 @@ function getContactRelatedCallsInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewContactDetailsPageCallsListUl").append('<li data-role="list-divider">Calls</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -1092,7 +1092,7 @@ function getContactRelatedMeetingsInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewContactDetailsPageMeetingsListUl").append('<li data-role="list-divider">Meetings</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -1149,7 +1149,7 @@ function getContactRelatedTasksInsetList() {
         function (a) {
             if (a != undefined) {
                 $("#ViewContactDetailsPageTasksListUl").append('<li data-role="list-divider">Tasks</li>');
-                a = jQuery.parseJSON(a);
+                a = $.parseJSON(JSON.stringify(a, undefined, 2));
                 if (a.name !== undefined && a.name === "Invalid Session ID") {
                     SugarSessionId = "";
                     $.mobile.changePage("#LoginPage")
@@ -1207,7 +1207,7 @@ function SugarCrmGetOpportunitiesListFromServer(a) {
             },
             function (c) {
                 if (c != undefined) {
-                    c = jQuery.parseJSON(c);
+                    c = $.parseJSON(JSON.stringify(c, undefined, 2));
                     if (c.name !== undefined && c.name === "Invalid Session ID") {
                         SugarSessionId = "";
                         $.mobile.changePage("#LoginPage")
@@ -1274,7 +1274,7 @@ function SugarCrmGetOpportunityDetails() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","id":"' + CurrentOpportunityId + '","select_fields":"","link_name_to_fields_array":""}'
     }, function (a) {
         if (a != undefined) {
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !==
                 undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
@@ -1344,7 +1344,7 @@ function getOpportunityRelatedContactsInsetList() {
         function (a) {
             if (a != undefined) {
                 $("#ViewOpportunityDetailsPageContactsListUl li").remove();
-                a = jQuery.parseJSON(a);
+                a = $.parseJSON(JSON.stringify(a, undefined, 2));
                 if (a.name !== undefined && a.name === "Invalid Session ID") {
                     SugarSessionId = "";
                     $.mobile.changePage("#LoginPage")
@@ -1398,7 +1398,7 @@ function getOpportunityRelatedLeadsInsetList() {
         },
         function (a) {
             if (a != undefined) {
-                a = jQuery.parseJSON(a);
+                a = $.parseJSON(JSON.stringify(a, undefined, 2));
                 if (a.name !== undefined && a.name === "Invalid Session ID") {
                     SugarSessionId = "";
                     $.mobile.changePage("#LoginPage")
@@ -1453,7 +1453,7 @@ function getOpportunityRelatedCallsInsetList() {
         },
         function (a) {
             if (a != undefined) {
-                a = jQuery.parseJSON(a);
+                a = $.parseJSON(JSON.stringify(a, undefined, 2));
                 if (a.name !== undefined && a.name === "Invalid Session ID") {
                     SugarSessionId = "";
                     $.mobile.changePage("#LoginPage")
@@ -1513,7 +1513,7 @@ function getOpportunityRelatedMeetingsInsetList() {
         function (a) {
             if (a != undefined) {
                 $("#ViewOpportunityDetailsPageMeetingsListUl li").remove();
-                a = jQuery.parseJSON(a);
+                a = $.parseJSON(JSON.stringify(a, undefined, 2));
                 if (a.name !== undefined && a.name === "Invalid Session ID") {
                     SugarSessionId = "";
                     $.mobile.changePage("#LoginPage")
@@ -1574,7 +1574,7 @@ function getOpportunityRelatedTasksInsetList() {
         function (a) {
             if (a != undefined) {
                 $("#ViewOpportunityDetailsPageTasksListUl li").remove();
-                a = jQuery.parseJSON(a);
+                a = $.parseJSON(JSON.stringify(a, undefined, 2));
                 if (a.name !== undefined && a.name === "Invalid Session ID") {
                     SugarSessionId = "";
                     $.mobile.changePage("#LoginPage")
@@ -1633,7 +1633,7 @@ function SugarCrmGetLeadsListFromServer(a) {
             rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","query":"","order_by":"name","offset":' + a + ',"select_fields":"","link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews + ',"deleted":0}'
         }, function (c) {
             if (c != undefined) {
-                c = jQuery.parseJSON(c);
+                c = $.parseJSON(JSON.stringify(c, undefined, 2));
                 if (c.name !== undefined && c.name === "Invalid Session ID") {
                     SugarSessionId = "";
                     $.mobile.changePage("#LoginPage")
@@ -1688,7 +1688,7 @@ function SugarCrmGetLeadDetails() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","id":"' + CurrentLeadId + '","select_fields":"","link_name_to_fields_array":""}'
     }, function (a) {
         if (a != undefined) {
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -1838,7 +1838,7 @@ function getLeadRelatedCallsInsetList() {
         if (a != undefined) {
             $("#ViewLeadDetailsPageCallsListUl").append('<li data-role="list-divider">Calls</li>');
             a =
-                jQuery.parseJSON(a);
+                $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -1890,7 +1890,7 @@ function getLeadRelatedMeetingsInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewLeadDetailsPageMeetingsListUl").append('<li data-role="list-divider">Meetings</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -1942,7 +1942,7 @@ function getLeadRelatedTasksInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewLeadDetailsPageTasksListUl").append('<li data-role="list-divider">Tasks</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -1997,7 +1997,7 @@ function SugarCrmGetCallsListFromServer(a) {
         }, function (c) {
             if (c != undefined) {
                 c =
-                    jQuery.parseJSON(c);
+                    $.parseJSON(JSON.stringify(c, undefined, 2));
                 if (c.name !== undefined && c.name === "Invalid Session ID") {
                     SugarSessionId = "";
                     $.mobile.changePage("#LoginPage")
@@ -2056,7 +2056,7 @@ function SugarCrmGetCallDetails() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","id":"' + CurrentCallId + '","select_fields":"","link_name_to_fields_array":""}'
     }, function (a) {
         if (a != undefined) {
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId =
                     "";
@@ -2097,7 +2097,7 @@ function getCallParentDetails(a, c) {
         response_type: "JSON",
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"' + a + '","id":"' + c + '","select_fields":"","link_name_to_fields_array":""}'
     }, function (d) {
-        d = jQuery.parseJSON(d);
+        d = $.parseJSON(JSON.stringify(d, undefined, 2));
         if (d.name !== undefined && d.name === "Invalid Session ID") {
             SugarSessionId = "";
             $.mobile.changePage("#LoginPage")
@@ -2124,7 +2124,7 @@ function getCallRelatedContactsInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewCallDetailsPageContactsListUl").append('<li data-role="list-divider">Contacts</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -2175,7 +2175,7 @@ function getCallRelatedUsersInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewCallDetailsPageUsersListUl").append('<li data-role="list-divider">Users</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -2214,7 +2214,7 @@ function getCallRelatedLeadsInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewCallDetailsPageLeadsListUl").append('<li data-role="list-divider">Leads</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -2264,7 +2264,7 @@ function getCallRelatedNotesInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewCallDetailsPageNotesListUl").append('<li data-role="list-divider">Notes</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -2318,7 +2318,7 @@ function SugarCrmGetMeetingsListFromServer(a) {
         }, function (c) {
             if (c !=
                 undefined) {
-                c = jQuery.parseJSON(c);
+                c = $.parseJSON(JSON.stringify(c, undefined, 2));
                 if (c.name !== undefined && c.name === "Invalid Session ID") {
                     SugarSessionId = "";
                     $.mobile.changePage("#LoginPage")
@@ -2376,7 +2376,7 @@ function SugarCrmGetMeetingDetails() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","id":"' + CurrentMeetingId + '","select_fields":"","link_name_to_fields_array":""}'
     }, function (a) {
         if (a != undefined) {
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId =
                     "";
@@ -2417,7 +2417,7 @@ function getMeetingParentDetails(a, c) {
         response_type: "JSON",
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"' + a + '","id":"' + c + '","select_fields":"","link_name_to_fields_array":""}'
     }, function (d) {
-        d = jQuery.parseJSON(d);
+        d = $.parseJSON(JSON.stringify(d, undefined, 2));
         if (d.name !== undefined && d.name === "Invalid Session ID") {
             SugarSessionId = "";
             $.mobile.changePage("#LoginPage")
@@ -2446,7 +2446,7 @@ function getMeetingRelatedContactsInsetList() {
         function (a) {
             if (a != undefined) {
                 $("#ViewMeetingDetailsPageContactsListUl").append('<li data-role="list-divider">Contacts</li>');
-                a = jQuery.parseJSON(a);
+                a = $.parseJSON(JSON.stringify(a, undefined, 2));
                 if (a.name !== undefined && a.name === "Invalid Session ID") {
                     SugarSessionId = "";
                     $.mobile.changePage("#LoginPage")
@@ -2498,7 +2498,7 @@ function getMeetingRelatedUsersInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewMeetingDetailsPageUsersListUl").append('<li data-role="list-divider">Users</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -2537,7 +2537,7 @@ function getMeetingRelatedLeadsInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewMeetingDetailsPageLeadsListUl").append('<li data-role="list-divider">Leads</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -2587,7 +2587,7 @@ function getMeetingRelatedNotesInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewMeetingDetailsPageNotesListUl").append('<li data-role="list-divider">Notes</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -2641,7 +2641,7 @@ function SugarCrmGetTasksListFromServer(a) {
         }, function (c) {
             if (c != undefined) {
                 c =
-                    jQuery.parseJSON(c);
+                    $.parseJSON(JSON.stringify(c, undefined, 2));
                 if (c.name !== undefined && c.name === "Invalid Session ID") {
                     SugarSessionId = "";
                     $.mobile.changePage("#LoginPage")
@@ -2698,7 +2698,7 @@ function SugarCrmGetTaskDetails() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","id":"' + CurrentTaskId + '","select_fields":"","link_name_to_fields_array":""}'
     }, function (a) {
         if (a != undefined) {
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId =
                     "";
@@ -2737,7 +2737,7 @@ function getTaskParentDetails(a, c) {
         response_type: "JSON",
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"' + a + '","id":"' + c + '","select_fields":"","link_name_to_fields_array":""}'
     }, function (d) {
-        d = jQuery.parseJSON(d);
+        d = $.parseJSON(JSON.stringify(d, undefined, 2));
         if (d.name !== undefined && d.name === "Invalid Session ID") {
             SugarSessionId = "";
             $.mobile.changePage("#LoginPage")
@@ -2764,7 +2764,7 @@ function getTaskRelatedContactsInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewTaskDetailsPageContactsListUl").append('<li data-role="list-divider">Contacts</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -2815,7 +2815,7 @@ function getTaskRelatedUsersInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewTaskDetailsPageUsersListUl").append('<li data-role="list-divider">Users</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -2854,7 +2854,7 @@ function getTaskRelatedLeadsInsetList() {
     }, function (a) {
         if (a != undefined) {
             $("#ViewTaskDetailsPageLeadsListUl").append('<li data-role="list-divider">Leads</li>');
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
@@ -2906,7 +2906,7 @@ function SugarCrmGetNoteDetails() {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Notes","id":"' + CurrentNoteId + '","select_fields":"","link_name_to_fields_array":""}'
     }, function (a) {
         if (a != undefined) {
-            a = jQuery.parseJSON(a);
+            a = $.parseJSON(JSON.stringify(a, undefined, 2));
             if (a.name !== undefined && a.name === "Invalid Session ID") {
                 SugarSessionId = "";
                 $.mobile.changePage("#LoginPage")
