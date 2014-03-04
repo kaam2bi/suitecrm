@@ -165,10 +165,16 @@ function LoginUser(a) {
         method: "login",
         input_type: "JSON",
         response_type: "JSON",
-        rest_data: '[{"password":"' + b + '","user_name":"' + c + '"},"SugarCrm",{"name":"language","value":"en_US"}]'
+        rest_data: '[{"password":"' + b + '","user_name":"' + c + '"},"SugarCrm",{"name":"language","value":"es_ES"}]'
     }, function (d) {
+        console.log(d); 
         if (d !== "") {
-            d = jQuery.parseJSON(d);
+            //console.log($.parseJSON(JSON.stringify(d, undefined, 2)));
+            //d = jQuery.parseJSON(d);
+            //console.log(d);
+            
+            d = $.parseJSON(JSON.stringify(d, undefined, 2));
+
             if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : alert("Login Failed");
             else {
                 SugarSessionId = d.id;
