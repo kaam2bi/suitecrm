@@ -18,6 +18,8 @@
         <!-- ORIGINALES -->
         <!-- <link rel="stylesheet" href="lib/jquery.mobile/jquery.mobile-1.0b2.min.css" /> -->
         <link rel="stylesheet" href="css/jquery.mobile-1.0.1.min.css" />
+        <link rel="stylesheet" href="css/jlcmCRM.css" />
+
         <script type="text/javascript" src="lib/jquery-1.6.2.min.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-config.js"></script>
         <script type="text/javascript" src="lib/jquery.mobile/jquery.mobile-1.0b2.min.js"></script>
@@ -36,7 +38,7 @@
     </head>
     <body>
 
-        <div id="LoginPage" data-role="page" data-theme="b" data-title="Acceso">
+        <div id="LoginPage" data-role="page" data-theme="a" data-title="Acceso">
             <div data-role="header">
                 <h1>Acceso CRM móvil</h1>
             </div><!-- /header -->  
@@ -58,7 +60,7 @@
             </div><!-- /footer -->
         </div><!-- /page -->
 
-        <div id="HomePage" data-role="page" data-theme="b" data-title="Inicio">
+        <div id="HomePage" data-role="page" data-theme="a" data-title="Inicio">
             <div data-role="header">
                 <h1>Inicio</h1>
                 <a id="LogOutButton" href="javascript:LogOutUser();" class="ui-btn-left">Salir</a>
@@ -117,7 +119,7 @@
             </div><!-- /footer -->
         </div><!-- /page -->
 
-        <div id="AccountsListPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
+        <div id="AccountsListPage" data-role="page" data-theme="a" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="AccountsListPageTitle"></h1>
             </div><!-- /header -->
@@ -132,7 +134,7 @@
             </div><!-- /content -->
         </div><!-- /page -->
 
-        <div id="ContactsListPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
+        <div id="ContactsListPage" data-role="page" data-theme="a" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="ContactsListPageTitle"></h1>
             </div><!-- /header -->
@@ -147,7 +149,7 @@
             </div><!-- /content -->
         </div><!-- /page -->
 
-        <div id="OpportunitiesListPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
+        <div id="OpportunitiesListPage" data-role="page" data-theme="a" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="OpportunitiesListPageTitle"></h1>
             </div><!-- /header -->
@@ -162,7 +164,7 @@
             </div><!-- /content -->
         </div><!-- /page -->
 
-        <div id="LeadsListPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
+        <div id="LeadsListPage" data-role="page" data-theme="a" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="LeadsListPageTitle"></h1>
             </div><!-- /header -->
@@ -177,7 +179,7 @@
             </div><!-- /content -->
         </div><!-- /page -->
 
-        <div id="CallsListPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
+        <div id="CallsListPage" data-role="page" data-theme="a" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="CallsListPageTitle"></h1>
             </div><!-- /header -->
@@ -192,7 +194,7 @@
             </div><!-- /content -->
         </div><!-- /page -->
 
-        <div id="MeetingsListPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
+        <div id="MeetingsListPage" data-role="page" data-theme="a" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="MeetingsListPageTitle"></h1>
             </div><!-- /header -->
@@ -208,7 +210,7 @@
         </div><!-- /page -->
 
 
-        <div id="TasksListPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
+        <div id="TasksListPage" data-role="page" data-theme="a" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="TasksListPageTitle"></h1>
             </div><!-- /header -->
@@ -223,7 +225,7 @@
             </div><!-- /content -->
         </div><!-- /page -->
 
-        <div id="ViewAccountDetailsPage" data-role="page" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
+        <div id="ViewAccountDetailsPage" data-role="page" data-theme="a" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="ViewAccountDetailsPageTitle"></h1>
                 <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
@@ -259,7 +261,7 @@
             </div>
         </div>
 
-        <div data-role="page" id="ViewContactDetailsPage" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
+        <div data-role="page" id="ViewContactDetailsPage" data-theme="a" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1 id="ViewContactDetailsPageTitle"></h1>
                 <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
@@ -292,7 +294,7 @@
             </div>
         </div>
 
-        <div data-role="page" id="ViewOpportunityDetailsPage" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
+        <div data-role="page" id="ViewOpportunityDetailsPage" data-theme="a" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1>Oportunidad</h1>
                 <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
@@ -325,7 +327,7 @@
             </div>
         </div>
 
-        <div data-role="page" id="ViewLeadDetailsPage" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
+        <div data-role="page" id="ViewLeadDetailsPage" data-theme="a" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1>Cliente potencial</h1>
                 <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
@@ -350,7 +352,7 @@
             </div>
         </div>
 
-        <div data-role="page" id="ViewCallDetailsPage" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
+        <div data-role="page" id="ViewCallDetailsPage" data-theme="a" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1>Llamada</h1>
                 <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
@@ -379,7 +381,7 @@
             </div>
         </div>
 
-        <div data-role="page" id="ViewMeetingDetailsPage" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
+        <div data-role="page" id="ViewMeetingDetailsPage" data-theme="a" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1>Reunión</h1>
                 <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
@@ -408,7 +410,7 @@
             </div>
         </div>
 
-        <div data-role="page" id="ViewTaskDetailsPage" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
+        <div data-role="page" id="ViewTaskDetailsPage" data-theme="a" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1>Tarea</h1>
                 <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
@@ -433,7 +435,7 @@
             </div>
         </div>
 
-        <div data-role="page" id="ViewNoteDetailsPage" data-theme="b" data-add-back-btn="true" data-back-btn-text="Volver">
+        <div data-role="page" id="ViewNoteDetailsPage" data-theme="a" data-add-back-btn="true" data-back-btn-text="Volver">
             <div data-role="header">
                 <h1>Nota</h1>
                 <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
