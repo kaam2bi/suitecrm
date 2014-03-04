@@ -718,7 +718,7 @@ function SugarCrmGetContactListFromServer(a) {
             method: "get_entry_list",
             input_type: "JSON",
             response_type: "JSON",
-            rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","query":"","order_by":"name","offset":' + a + ',"select_fields":["first_name","last_name","account_name","title"],"link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews +
+            rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","query":"","order_by":"first_name","offset":' + a + ',"select_fields":["first_name","last_name","title"],"link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews +
                 ',"deleted":0}'
         }, function (c) {
             if (c != undefined) {
@@ -736,7 +736,7 @@ function SugarCrmGetContactListFromServer(a) {
                                     f = $("<li/>"),
                                     e = "<h4>" + d.name_value_list.first_name.value + "&nbsp;" + d.name_value_list.last_name.value + "</h4>",
                                     m = d.name_value_list.title.value;
-                                if (d.name_value_list.account_name != undefined) m += " at " + d.name_value_list.account_name.value;
+                                //if (d.name_value_list.account_name != undefined) m += " at " + d.name_value_list.account_name.value;
                                 m = "<p>" + m + "</p>";
                                 d = $("<a/>", {
                                     href: "#",
@@ -772,7 +772,7 @@ function SugarCrmGetContactDetails() {
         method: "get_entry",
         input_type: "JSON",
         response_type: "JSON",
-        rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","id":"' + CurrentContactId + '","select_fields":["first_name","last_name","account_name","title","phone_work","email1","description","primary_address_street","primary_address_city","primary_address_state","primary_address_postalcode","primary_address_country","phone_mobile","phone_fax","department","alt_address_street","alt_address_city","alt_address_state","alt_address_postalcode","alt_address_country"],"link_name_to_fields_array":""}'
+        rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","id":"' + CurrentContactId + '","select_fields":["first_name","last_name","title","phone_work","email1","description","primary_address_street","primary_address_city","primary_address_state","primary_address_postalcode","primary_address_country","phone_mobile","phone_fax","department","alt_address_street","alt_address_city","alt_address_state","alt_address_postalcode","alt_address_country"],"link_name_to_fields_array":""}'
     }, function (a) {
         if (a !=
             undefined) {
@@ -786,7 +786,7 @@ function SugarCrmGetContactDetails() {
                     a = a.entry_list[0];
                     $("#ContactNameH1").html(a.name_value_list.first_name.value + "&nbsp;" + a.name_value_list.last_name.value);
                     var c = a.name_value_list.title.value;
-                    if (a.name_value_list.account_name != undefined) c += " at " + a.name_value_list.account_name.value;
+                    //if (a.name_value_list.account_name != undefined) c += " at " + a.name_value_list.account_name.value;
                     $("#ContactTitleP").text(c);
                     $("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">Contacto</li>');
                     if (a.name_value_list.phone_work !== undefined && a.name_value_list.phone_work.value !== "") {
