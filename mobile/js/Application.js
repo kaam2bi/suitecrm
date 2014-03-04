@@ -163,12 +163,8 @@ function LoginUser(a) {
         input_type: "JSON",
         response_type: "JSON",
         rest_data: '[{"password":"' + b + '","user_name":"' + c + '"},"SugarCrm",{"name":"language","value":"es_ES"}]'
-    }, function (d) {
-        console.log(d); 
+    }, function (d) { 
         if (d !== "") {
-            //console.log($.parseJSON(JSON.stringify(d, undefined, 2)));
-            //d = jQuery.parseJSON(d);
-            //console.log(d);
             
             d = $.parseJSON(JSON.stringify(d, undefined, 2));
 
