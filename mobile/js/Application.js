@@ -642,9 +642,23 @@ function SugarCrmGetAccountDetails() {
                                     d = $("<li/>"),
                                     f = "<h4>" + b.name_value_list.name.value + "</h4>",
                                     e = "";
-                                if (b.name_value_list.status !==
-                                    undefined) {
-                                    e = "<p>" + b.name_value_list.status.value;
+                                if (b.name_value_list.status !== undefined) 
+                                {
+                                    switch(b.name_value_list.status)
+                                    {
+                                        case "Held":
+                                           e = "<p>Realizada en ";
+                                        break;
+                                        case "Not Held":
+                                           e = "<p>No realizada en ";
+                                        break;
+                                        case "Planned":
+                                           e = "<p>Planeada para ";
+                                        break;
+                                        default:
+                                        e = "<p>" + b.name_value_list.status.value;
+                                    }
+                                    console.log("string"+b.name_value_list.status+"string");
                                     if (b.name_value_list.date_start !== undefined) e += "<br/>" + b.name_value_list.date_start.value;
                                     e += "</p>"
                                 } else e = "<p></p>";
@@ -1119,7 +1133,22 @@ function getContactRelatedMeetingsInsetList() {
                                 f = "<h4>" + b.name_value_list.name.value + "</h4>",
                                 e = "";
                             if (b.name_value_list.status != undefined) {
-                                e = "<p>" + b.name_value_list.status.value;
+
+                                switch(b.name_value_list.status)
+                                {
+                                    case "Held":
+                                       e = "<p>Realizada en ";
+                                    break;
+                                    case "Not Held":
+                                       e = "<p>No realizada en ";
+                                    break;
+                                    case "Planned":
+                                       e = "<p>Planeada para ";
+                                    break;
+                                    default:
+                                    e = "<p>" + b.name_value_list.status.value;
+                                }                                
+
                                 if (b.name_value_list.date_start != undefined) e += "<br/>" + b.name_value_list.date_start.value;
                                 e += "</p>"
                             } else e = "<p></p>";
@@ -1546,7 +1575,22 @@ function getOpportunityRelatedMeetingsInsetList() {
                                         b.name_value_list.name.value + "</h4>",
                                     e = "";
                                 if (b.name_value_list.status != undefined) {
-                                    e = "<p>" + b.name_value_list.status.value;
+                                    
+                                    switch(b.name_value_list.status)
+                                    {
+                                        case "Held":
+                                           e = "<p>Realizada en ";
+                                        break;
+                                        case "Not Held":
+                                           e = "<p>No realizada en ";
+                                        break;
+                                        case "Planned":
+                                           e = "<p>Planeada para ";
+                                        break;
+                                        default:
+                                        e = "<p>" + b.name_value_list.status.value;
+                                    }
+
                                     if (b.name_value_list.date_start != undefined) e += "<br/>" + b.name_value_list.date_start.value;
                                     e += "</p>"
                                 } else e = "<p></p>";
@@ -1921,7 +1965,22 @@ function getLeadRelatedMeetingsInsetList() {
                                 f = "<h4>" + b.name_value_list.name.value + "</h4>",
                                 e = "";
                             if (b.name_value_list.status != undefined) {
-                                e = "<p>" + b.name_value_list.status.value;
+                                
+                                switch(b.name_value_list.status)
+                                {
+                                    case "Held":
+                                       e = "<p>Realizada en ";
+                                    break;
+                                    case "Not Held":
+                                       e = "<p>No realizada en ";
+                                    break;
+                                    case "Planned":
+                                       e = "<p>Planeada para ";
+                                    break;
+                                    default:
+                                    e = "<p>" + b.name_value_list.status.value;
+                                }
+
                                 if (b.name_value_list.date_start != undefined) e += "<br/>" + b.name_value_list.date_start.value;
                                 e += "</p>"
                             } else e = "<p></p>";
