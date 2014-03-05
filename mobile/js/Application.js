@@ -417,7 +417,7 @@ function SugarCrmGetAccountDetails() {
                     a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
                     a.name_value_list.date_modified !==
                         undefined && a.name_value_list.date_modified.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + a.name_value_list.date_modified.value + "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + " by " + a.name_value_list.created_by_name.value + "</h4></li>")
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + " por " + a.name_value_list.created_by_name.value + "</h4></li>")
                 }
         }
         $("#ViewAccountDetailsPageDetailsList").listview("refresh")
@@ -940,8 +940,8 @@ function SugarCrmGetContactDetails() {
                     $("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">Otra Información</li>');
                     a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
                     a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" +
-                        a.name_value_list.date_modified.value + "&nbsp;by&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;by&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+                        a.name_value_list.date_modified.value + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
                     a.name_value_list.do_not_call !== undefined && a.name_value_list.do_not_call.value == "true" && toast("*NOTA: Contacto marcado como No llamar.")
                 }
             $("#ViewContactDetailsPageDetailsList").listview("refresh")
@@ -1356,7 +1356,7 @@ function SugarCrmGetOpportunityDetails() {
                     a.name_value_list.sales_stage !== undefined && a.name_value_list.sales_stage.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Estado de ventas</p><h4>" + a.name_value_list.sales_stage.value + "</h4></li>");
                     a.name_value_list.opportunity_type !== undefined && a.name_value_list.opportunity_type.value !==
                         "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Type</p><h4>" + a.name_value_list.opportunity_type.value + "</h4></li>");
-                    a.name_value_list.probability !== undefined && a.name_value_list.probability.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Probabilidad(%)</p><h4>" + a.name_value_list.probability.value + "</h4></li>");
+                    a.name_value_list.probability !== undefined && a.name_value_list.probability.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Probabilidad (%)</p><h4>" + a.name_value_list.probability.value + "</h4></li>");
                     a.name_value_list.lead_source !== undefined && a.name_value_list.lead_source.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Proviene de</p><h4>" +
                         a.name_value_list.lead_source.value + "</h4></li>");
                     a.name_value_list.next_step !== undefined && a.name_value_list.next_step.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Siguiente paso</p><h4>" + a.name_value_list.next_step.value + "</h4></li>");
@@ -1365,7 +1365,7 @@ function SugarCrmGetOpportunityDetails() {
                     a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Asignada a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
                     a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + a.name_value_list.date_modified.value + "</h4></li>");
                     a.name_value_list.date_entered !==
-                        undefined && a.name_value_list.date_entered.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Creado el</p><h4>" + a.name_value_list.date_entered.value + " por " + a.name_value_list.created_by_name.value + "</h4></li>")
+                        undefined && a.name_value_list.date_entered.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Fecha de creación </p><h4>" + a.name_value_list.date_entered.value + " por " + a.name_value_list.created_by_name.value + "</h4></li>")
                 }
             $("#ViewOpportunityDetailsPageDetailsList").listview("refresh")
         }
