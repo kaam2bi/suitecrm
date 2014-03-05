@@ -153,6 +153,22 @@ $("#HomePage").live("pageshow", function () {
     SugarSessionId === "" && $.mobile.changePage("#LoginPage")
 });
 
+var toast=function(msg){
+    $("<div class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'><h3>"+msg+"</h3></div>")
+    .css({ display: "block", 
+        opacity: 0.90, 
+        position: "fixed",
+        padding: "7px",
+        "text-align": "center",
+        width: "270px",
+        top: "50%",
+        left: "50%" })
+    .appendTo( $.mobile.pageContainer ).delay( 1500 )
+    .fadeOut( 400, function(){
+        $(this).remove();
+    });
+}
+
 function LoginUser(a) {
     $.mobile.showPageLoadingMsg();
     var c = $("#SettingsPageSugarCrmUsername").val(),
@@ -168,14 +184,14 @@ function LoginUser(a) {
             
             d = $.parseJSON(JSON.stringify(d, undefined, 2));
 
-            if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : alert("Error de acceso");
+            if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : toast("Error de acceso"); //alert("Error de acceso");
             else {
                 SugarSessionId = d.id;
                 $("#SettingsPageSugarCrmUsername").val("");
                 $("#SettingsPageSugarCrmPassword").val("");
                 $.mobile.changePage("#HomePage")
             }
-        } else alert("Error inesperado, pruebe con el cliente estándar.");
+        } else toast("Error inesperado"); //alert("Error inesperado, pruebe con el cliente estándar.");
         $.mobile.hidePageLoadingMsg()
     })
 }
@@ -209,7 +225,7 @@ function LogCall(a, c) {
         rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"Hola"}]}'
         //rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"Llamada registrada desde dispositivo móvil"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Test"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":0}]}'
     }, function (b) {
-        alert(b)
+        toast(b);
     })
 }
 
@@ -233,7 +249,7 @@ function SugarCrmGetAccountsListFromServer(a) {
                 if (c !== undefined && c.entry_list !== undefined) {
                     if (c.result_count === 0) AccountsListCurrentOffset = AccountsListPrevOffset + RowsPerPageInListViews;
                     else if (c.next_offset === 0) AccountsListCurrentOffset = 0;
-                    if (c.next_offset === 0 || c.result_count === 0) alert("Sin registros que mostrar");
+                    if (c.next_offset === 0 || c.result_count === 0) toast("Sin registros que mostrar");
                     else {
                         $("#AllAccountsListDiv li").remove();
                         var b = 0;
@@ -727,7 +743,7 @@ function SugarCrmGetContactListFromServer(a) {
                 if (c != undefined && c.entry_list != undefined) {
                     if (c.result_count === 0) ContactsListCurrentOffset = ContactsListPrevOffset + RowsPerPageInListViews;
                     else if (c.next_offset === 0) ContactsListCurrentOffset = 0;
-                    if (c.next_offset == 0 || c.result_count == 0) alert("Sin registros que mostrar");
+                    if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
                     else {
                         $("#AllContactsListDiv li").remove();
                         var b = 0;
@@ -912,7 +928,7 @@ function SugarCrmGetContactDetails() {
                     a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" +
                         a.name_value_list.date_modified.value + "&nbsp;by&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
                     a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;by&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
-                    a.name_value_list.do_not_call !== undefined && a.name_value_list.do_not_call.value == "true" && alert("*NOTA: Contacto marcado como No llamar.")
+                    a.name_value_list.do_not_call !== undefined && a.name_value_list.do_not_call.value == "true" && toast("*NOTA: Contacto marcado como No llamar.")
                 }
             $("#ViewContactDetailsPageDetailsList").listview("refresh")
         }
@@ -1211,7 +1227,7 @@ function SugarCrmGetOpportunitiesListFromServer(a) {
                     if (c != undefined && c.entry_list != undefined) {
                         if (c.result_count === 0) OpportunitiesListCurrentOffset = OpportunitiesListPrevOffset + RowsPerPageInListViews;
                         else if (c.next_offset === 0) OpportunitiesListCurrentOffset = 0;
-                        if (c.next_offset == 0 || c.result_count == 0) alert("Sin registros que mostrar");
+                        if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
                         else {
                             $("#AllOpportunitiesListDiv li").remove();
                             var b = 0;
@@ -1641,7 +1657,7 @@ function SugarCrmGetLeadsListFromServer(a) {
                 if (c != undefined && c.entry_list != undefined) {
                     if (c.result_count === 0) LeadsListCurrentOffset = LeadsListPrevOffset + RowsPerPageInListViews;
                     else if (c.next_offset === 0) LeadsListCurrentOffset = 0;
-                    if (c.next_offset == 0 || c.result_count == 0) alert("Sin registros que mostrar");
+                    if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
                     else {
                         $("#AllLeadsListDiv li").remove();
                         var b = 0;
@@ -1817,7 +1833,7 @@ function SugarCrmGetLeadDetails() {
                     a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + a.name_value_list.date_modified.value + "&nbsp;by&nbsp;" + a.name_value_list.modified_by_name.value +
                         "</h4></li>");
                     a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;by&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
-                    a.name_value_list.do_not_call.value == "true" && alert("*NOTA: Contacto marcado como No llamar.")
+                    a.name_value_list.do_not_call.value == "true" && toast("*NOTA: Contacto marcado como No llamar.")
                 }
             $("#ViewLeadDetailsPageDetailsList").listview("refresh")
         }
@@ -2005,7 +2021,7 @@ function SugarCrmGetCallsListFromServer(a) {
                 if (c != undefined && c.entry_list != undefined) {
                     if (c.result_count === 0) CallsListCurrentOffset = CallsListPrevOffset + RowsPerPageInListViews;
                     else if (c.next_offset === 0) CallsListCurrentOffset = 0;
-                    if (c.next_offset == 0 || c.result_count == 0) alert("Sin registros que mostrar");
+                    if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
                     else {
                         $("#AllCallsListDiv li").remove();
                         var b = 0;
@@ -2326,7 +2342,7 @@ function SugarCrmGetMeetingsListFromServer(a) {
                 if (c != undefined && c.entry_list != undefined) {
                     if (c.result_count === 0) MeetingsListCurrentOffset = MeetingsListPrevOffset + RowsPerPageInListViews;
                     else if (c.next_offset === 0) MeetingsListCurrentOffset = 0;
-                    if (c.next_offset == 0 || c.result_count == 0) alert("Sin registros que mostrar");
+                    if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
                     else {
                         $("#AllMeetingsListDiv li").remove();
                         var b = 0;
@@ -2649,7 +2665,7 @@ function SugarCrmGetTasksListFromServer(a) {
                 if (c != undefined && c.entry_list != undefined) {
                     if (c.result_count === 0) TasksListCurrentOffset = TasksListPrevOffset + RowsPerPageInListViews;
                     else if (c.next_offset === 0) TasksListCurrentOffset = 0;
-                    if (c.next_offset == 0 || c.result_count == 0) alert("Sin registros que mostrar");
+                    if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
                     else {
                         $("#AllTasksListDiv li").remove();
                         var b = 0;
