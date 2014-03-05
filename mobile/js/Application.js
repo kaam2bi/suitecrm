@@ -1221,13 +1221,15 @@ function SugarCrmGetOpportunitiesListFromServer(a) {
                                         f = $("<li/>"),
                                         e = "<h4>" + d.name_value_list.name.value + "</h4>",
                                         m = $("<p/>");
+                                    
+                                    // Euros value FIX
                                     if (d.name_value_list.amount !== undefined && d.name_value_list.amount.value !== "")
                                         if (d.name_value_list.currency_name !== undefined && d.name_value_list.currency_name.value !== "") {
                                             m.append(d.name_value_list.currency_symbol.value);
                                             m.append(parseFloat(d.name_value_list.amount.value).toFixed(2))
                                         } else {
-                                            m.append("$");
                                             m.append(parseFloat(d.name_value_list.amount_usdollar.value).toFixed(2))
+                                            m.append("$");
                                         }
                                     d.name_value_list.sales_stage !==
                                         undefined && d.name_value_list.sales_stage.value !== "" && m.append(" - " + d.name_value_list.sales_stage.value);
@@ -1286,16 +1288,18 @@ function SugarCrmGetOpportunityDetails() {
                         "") {
                         var c = $("<li/>"),
                             b = $("<p/>");
-                        b.append("<br />Opportunity Amount (");
+                        b.append("<br />Monto de la oportunidad (");
                         var d = $("<h4/>");
+
+                        // Euros Value FIX
                         if (a.name_value_list.currency_name !== undefined && a.name_value_list.currency_name.value !== "") {
                             b.append(a.name_value_list.currency_name.value + ")");
                             d.append(a.name_value_list.currency_symbol.value);
                             d.append(parseFloat(a.name_value_list.amount.value).toFixed(2))
                         } else {
-                            b.append("EUR)");
-                            d.append("€");
+                            b.append("USD)");
                             d.append(parseFloat(a.name_value_list.amount_usdollar.value).toFixed(2))
+                            d.append("$");
                         }
                         b.append(d);
                         c.append(b);
