@@ -206,7 +206,8 @@ function LogCall(a, c) {
         method: "set_entry",
         input_type: "JSON",
         response_type: "JSON",
-        rest_data: '{"session":"' + SugarSessionId + '","module_name":"' + a + '","name_value_list":[{"name":"name","value":"Llamada registrada desde dispositivo móvil"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Test"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":0}]}'
+        rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"Hola"}]}'
+        //rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"Llamada registrada desde dispositivo móvil"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Test"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":0}]}'
     }, function (b) {
         alert(b)
     })
