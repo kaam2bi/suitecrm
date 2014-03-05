@@ -644,16 +644,16 @@ function SugarCrmGetAccountDetails() {
                                     e = "";
                                 if (b.name_value_list.status !== undefined) 
                                 {
-                                    switch(b.name_value_list.status)
+                                    switch(b.name_value_list.status.value)
                                     {
                                         case "Held":
-                                           e = "<p>Realizada en ";
+                                           e = "<p>Realizada ";
                                         break;
                                         case "Not Held":
-                                           e = "<p>No realizada en ";
+                                           e = "<p>No realizada ";
                                         break;
                                         case "Planned":
-                                           e = "<p>Planeada para ";
+                                           e = "<p>Planeada ";
                                         break;
                                         default:
                                         e = "<p>" + b.name_value_list.status.value;
@@ -1134,16 +1134,16 @@ function getContactRelatedMeetingsInsetList() {
                                 e = "";
                             if (b.name_value_list.status != undefined) {
 
-                                switch(b.name_value_list.status)
+                                switch(b.name_value_list.status.value)
                                 {
                                     case "Held":
-                                       e = "<p>Realizada en ";
+                                       e = "<p>Realizada ";
                                     break;
                                     case "Not Held":
-                                       e = "<p>No realizada en ";
+                                       e = "<p>No realizada ";
                                     break;
                                     case "Planned":
-                                       e = "<p>Planeada para ";
+                                       e = "<p>Planeada ";
                                     break;
                                     default:
                                     e = "<p>" + b.name_value_list.status.value;
@@ -1576,16 +1576,16 @@ function getOpportunityRelatedMeetingsInsetList() {
                                     e = "";
                                 if (b.name_value_list.status != undefined) {
                                     
-                                    switch(b.name_value_list.status)
+                                    switch(b.name_value_list.status.value)
                                     {
                                         case "Held":
-                                           e = "<p>Realizada en ";
+                                           e = "<p>Realizada ";
                                         break;
                                         case "Not Held":
-                                           e = "<p>No realizada en ";
+                                           e = "<p>No realizada ";
                                         break;
                                         case "Planned":
-                                           e = "<p>Planeada para ";
+                                           e = "<p>Planeada ";
                                         break;
                                         default:
                                         e = "<p>" + b.name_value_list.status.value;
@@ -1969,13 +1969,13 @@ function getLeadRelatedMeetingsInsetList() {
                                 switch(b.name_value_list.status)
                                 {
                                     case "Held":
-                                       e = "<p>Realizada en ";
+                                       e = "<p>Realizada ";
                                     break;
                                     case "Not Held":
-                                       e = "<p>No realizada en ";
+                                       e = "<p>No realizada ";
                                     break;
                                     case "Planned":
-                                       e = "<p>Planeada para ";
+                                       e = "<p>Planeada ";
                                     break;
                                     default:
                                     e = "<p>" + b.name_value_list.status.value;
@@ -2410,8 +2410,24 @@ function SugarCrmGetMeetingsListFromServer(a) {
                                 undefined) {
                                 var d = c.entry_list[b],
                                     f = $("<li/>"),
-                                    e = "<h4>" + d.name_value_list.name.value + "</h4>",
-                                    m = "<p>" + d.name_value_list.status.value + " " + d.name_value_list.date_start.value + "</p>";
+                                    e = "<h4>" + d.name_value_list.name.value + "</h4>";
+
+                                    switch(d.name_value_list.status.value)
+                                    {
+                                        case "Held":
+                                           g = "<p>Realizada";
+                                        break;
+                                        case "Not Held":
+                                           g = "<p>No realizada";
+                                        break;
+                                        case "Planned":
+                                           g = "<p>Planeada";
+                                        break;
+                                        default:
+                                        g = "<p>" + d.name_value_list.status.value;
+                                    }
+
+                                var m = g + " " + d.name_value_list.date_start.value + "</p>";
                                 d = $("<a/>", {
                                     href: "#",
                                     "data-identity": d.id,
@@ -2461,7 +2477,24 @@ function SugarCrmGetMeetingDetails() {
                 if (a.entry_list[0] != undefined) {
                     a = a.entry_list[0];
                     $("#MeetingNameH1").html(a.name_value_list.name.value);
-                    var c = a.name_value_list.status.value;
+                    var c //= a.name_value_list.status.value;
+                    
+                    switch(a.name_value_list.status.value)
+                    {
+                        case "Held":
+                           c = "Realizada ";
+                        break;
+                        case "Not Held":
+                           c = "No realizada ";
+                        break;
+                        case "Planned":
+                           c = "Planeada ";
+                        break;
+                        default:
+                           c = a.name_value_list.status.value;
+                    }
+                    console.log(a.name_value_list.status+" "+a.name_value_list.status.value);
+
                     $("#MeetingSubjectP").text(c);
                     $("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">Información de la reunión</li>');
                     a.name_value_list.date_start !== undefined && a.name_value_list.date_start.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Fecha/Hora de inicio</p><h4>" +
