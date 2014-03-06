@@ -195,6 +195,35 @@ function LoginUser(a) {
     })
 }
 
+function LoginUserDesktop(a) {
+    $.mobile.showPageLoadingMsg();
+    var c = $("#SettingsPageSugarCrmUsername").val(),
+        b = $("#SettingsPageSugarCrmPassword").val();
+    if (a == undefined) b = $.md5(b);
+    $.get("../service/v2/rest.php", {
+        method: "login",
+        input_type: "JSON",
+        response_type: "JSON",
+        rest_data: '[{"password":"' + b + '","user_name":"' + c + '"},"SugarCrm",{"name":"language","value":"es_es"}]'
+    }, function (d) { 
+        if (d !== "") {
+            
+            d = $.parseJSON(JSON.stringify(d, undefined, 2));
+
+            if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : toast("Error de acceso"); //alert("Error de acceso");
+            else {
+                SugarSessionId = d.id;
+                $("#SettingsPageSugarCrmUsername").val("");
+                $("#SettingsPageSugarCrmPassword").val("");
+                //$.mobile.changePage("#HomePage")
+                var url = "../index.php";    
+                $(location).attr('href',url);
+            }
+        } else toast("Error inesperado"); //alert("Error inesperado, pruebe con el cliente estándar.");
+        $.mobile.hidePageLoadingMsg()
+    })
+}
+
 window.onbeforeunload = function () {
     $.get("../service/v2/rest.php", {
         method: "logout",

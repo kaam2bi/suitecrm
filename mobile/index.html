@@ -33,26 +33,26 @@
         <link rel="stylesheet" href="css/style.min.css" />
 
 
-        <title>Cliente CRM móvil</title>
+        <title>Acceso CRM</title>
     </head>
     <body>
 
-        <div id="LoginPage" data-role="page" data-theme="a" data-title="Cliente CRM móvil">
+        <div id="LoginPage" data-role="page" data-theme="a" data-title="Acceso CRM">
             <div data-role="header">
-                <h1>Acceso CRM móvil</h1>
+                <h1>Acceso CRM</h1>
             </div><!-- /header -->  
             <div data-role="content">
-                Por favor, introduzca su <strong>Usuario</strong> y <strong>Contraseña</strong> para entrar.
+                Por favor, introduzca su <strong>Identificador</strong> y <strong>Contraseña</strong> para entrar.
                 <br />
                 <br />
-                <label for="SettingsPageSugarCrmUsername">Usuario:</label>
+                <label for="SettingsPageSugarCrmUsername">Identificador:</label>
                 <input id="SettingsPageSugarCrmUsername" type="text" />
                 <br /><br />
                 <label for="SettingsPageSugarCrmPassword">Contraseña:</label>
                 <input id="SettingsPageSugarCrmPassword" type="password" />
                 <br /><br />
-                <a href="../index.php" target="_blank" data-role="button" data-inline="true">Cliente estándar</a>
-                <a href="javascript:LoginUser();" data-role="button" data-inline="true">Iniciar sesión</a>
+                <a href="javascript:LoginUserDesktop();" data-role="button" data-inline="true">Cliente estándar</a>
+                <a href="javascript:LoginUser();" data-role="button" data-inline="true">Cliente móvil</a>
             </div>
             <div data-role="footer" data-position="fixed">
                 <p style="font-size:8px" id="mensaje_footer">Cliente móvil para CRM para consulta rápida
