@@ -114,7 +114,9 @@ var LBL_HIDEOPTIONS = '{sugar_translate module="Users" label="LBL_HIDEOPTIONS"}'
 
 									<tr>
 										<td>&nbsp;</td>
-										<td><input title="{sugar_translate module="Users" label="LBL_LOGIN_BUTTON_TITLE"}"  class="button primary" class="button primary" type="submit" tabindex="3" id="login_button" name="Login" value="{sugar_translate module="Users" label="LBL_LOGIN_BUTTON_LABEL"}"><br>&nbsp;</td>
+										<td><input title="Cliente estándar" class="button primary" type="submit" tabindex="3" id="login_button" name="Login" value="Cliente estándar">
+										<a class="button primary" tabindex="4" href="./mobile/index.html" style="padding:3px 8px">Cliente móvil</a>
+										<br>&nbsp;</td>
 									</tr>
 								</table>
 							</form>
