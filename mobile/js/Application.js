@@ -108,6 +108,24 @@ var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para ent
     TasksListPrevOffset = 0,
     TasksListCurrentOffset = 0,
     CurrentNoteId = "";
+
+// Array de traducción rápida de estados
+var estados = new Array();
+
+estados["Qualification"] = "Calificación";
+estados["Closed Lost"] = "Perdido";
+estados["Proposal/Price Quote"] = "Propuesta/Presupuesto";
+estados["Perception Analysis"] = "Análisis de Percepción";
+estados["Needs Analysis"] = "Necesita Análisis";
+estados["Prospecting"] = "Prospecto";
+estados["Value Proposition"] = "Propuesta de Valor";
+estados["Negotiation/Review"] = "Negociación/Revisión";
+estados["Id. Decision Makers"] = "Id. Tomadores de Decisiones";
+estados["Closed Won"] = "Ganada";
+
+// Array de traducción rápida de fuentes
+// TODO
+
 $("#HomePage").live("pagecreate", function () {
     $("#LogOutButton .ui-btn-text").text(RES_LOGOUT_LABEL);
     $("#AccountsListPageLinkLabel").text(RES_ACCOUNTS_LABEL);
@@ -524,7 +542,7 @@ function SugarCrmGetAccountDetails() {
                             var b = a.entry_list[c],
                                 d = $("<li/>"),
                                 f = "<h4>" + b.name_value_list.name.value + "</h4>",
-                                e = "<p>" + b.name_value_list.sales_stage.value + "</p>";
+                                e = "<p>" + estados[b.name_value_list.sales_stage.value] + "</p>";
                             b = $("<a/>", {
                                 href: "#",
                                 "data-identity": b.id,
@@ -1743,7 +1761,7 @@ function SugarCrmGetLeadsListFromServer(a) {
                                 var d = c.entry_list[b],
                                     f = $("<li/>"),
                                     e = "<h4>" + d.name_value_list.first_name.value + "&nbsp;" + d.name_value_list.last_name.value + "</h4>",
-                                    m = "<p>" + d.name_value_list.title.value + " at&nbsp;" + d.name_value_list.account_name.value + "</p>";
+                                    m = "<p>" + d.name_value_list.title.value + " en&nbsp;" + d.name_value_list.account_name.value + "</p>";
                                 d = $("<a/>", {
                                     href: "#",
                                     "data-identity": d.id,
