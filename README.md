@@ -43,3 +43,12 @@ por:
 themes/Suite7/images/
 
 En la raíz de la ruta, en vez de cargarlas desde la caché las referenciará directamente.
+
+MÓDULO DE CLIENTE MÓVIL PARA SUITECRM-SUGARCRM
+==============================================
+
+Cómo instalar en cualquier SugarCRM o SuiteCRM:
+
+- copiar carpeta "mobile" (renombrar la original de SuiteCRM antes de copiar).
+- copiar las personalizaciones deseadas (si sólo se quiere dar acceso desde el mainmenu al módulo mobile, cambiar sólo en SuiteCRM)
+- Copiar custom\modules\Users\login.tpl desde Github a la instalación original.
