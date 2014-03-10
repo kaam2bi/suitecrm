@@ -2043,7 +2043,7 @@ function SugarCrmGetCallsListFromServer(a) {
                                     f = $("<li/>"),
                                     e = "<p>" + d.name_value_list.date_start.value + "</p>",
                                     m = "<h4>" + d.name_value_list.name.value + "</h4>",
-                                    g = "<p>" + d.name_value_list.direction.value + " " + d.name_value_list.status.value + "</p>";
+                                    g = "<p>" + status2[d.name_value_list.direction.value] + " " + status2[d.name_value_list.status.value] + "</p>";
                                 d = $("<a/>", {
                                     href: "#",
                                     "data-identity": d.id,
@@ -2093,7 +2093,7 @@ function SugarCrmGetCallDetails() {
                 if (a.entry_list[0] != undefined) {
                     a = a.entry_list[0];
                     $("#CallNameH1").html(a.name_value_list.name.value);
-                    var c = a.name_value_list.direction.value + " " + a.name_value_list.status.value;
+                    var c = status2[a.name_value_list.direction.value] + " " + status2[a.name_value_list.status.value];
                     $("#CallSubjectP").text(c);
                     $("#ViewCallDetailsPageDetailsList").append('<li data-role="list-divider">Información de la llamada</li>');
                     a.name_value_list.date_start !== undefined && a.name_value_list.date_start.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Fecha/Hora de Inicio</p><h4>" +
@@ -2718,7 +2718,7 @@ function SugarCrmGetTasksListFromServer(a) {
                                 var d = c.entry_list[b],
                                     f = $("<li/>"),
                                     e = "<h4>" + d.name_value_list.name.value + "</h4>",
-                                    m = "<p>" + d.name_value_list.status.value + " - " + d.name_value_list.date_due.value + "</p>";
+                                    m = "<p>" + status2[d.name_value_list.status.value] + " - " + d.name_value_list.date_due.value + "</p>";
                                 d = $("<a/>", {
                                     href: "#",
                                     "data-identity": d.id,
@@ -2767,7 +2767,7 @@ function SugarCrmGetTaskDetails() {
                 if (a.entry_list[0] != undefined) {
                     a = a.entry_list[0];
                     $("#TaskNameH1").html(a.name_value_list.name.value);
-                    var c = a.name_value_list.status.value;
+                    var c = status2[a.name_value_list.status.value];
                     $("#TaskSubjectP").text(c);
                     $("#ViewTaskDetailsPageDetailsList").append('<li data-role="list-divider">Detalles de la tarea</li>');
                     a.name_value_list.date_due !== undefined && a.name_value_list.date_due.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Fecha</p><h4>" + a.name_value_list.date_due.value +

@@ -138,7 +138,14 @@ status2["In Process"] = "En proceso";
 status2["Assigned"] = "Asignado";
 
 // Tasks (Tareas)
-status2["Not Started"] = "No iniciada";
+status2["Not Started"] = "No Iniciada";
+status2["In Progress"] = "En Progreso";
+status2["Completed"] = "Completada";
+status2["Pending Input"] = "Pendiente de Información";
+status2["Deferred"] = "Retrasada";
+status2["High"] = "Alta";
+status2["Medium"] = "Media";
+status2["Low"] = "Baja";
 
 // Calls (Llamadas)
 status2["Inbound"] = "Entrante";
