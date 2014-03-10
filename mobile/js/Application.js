@@ -110,63 +110,104 @@ var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para ent
     CurrentNoteId = "";
 
 // *** LOS ARRAYS AUXILIARES A TRADUCIR VAN AQUÍ ***
-// Array de traducción rápida de estados
-var estados = [];
+// Array de traducción rápida de status
+var status = [];
 
-estados["Qualification"] = "Calificación";
-estados["Closed Lost"] = "Perdida";
-estados["Proposal/Price Quote"] = "Propuesta/Presupuesto";
-estados["Perception Analysis"] = "Análisis de Percepción";
-estados["Needs Analysis"] = "Necesita Análisis";
-estados["Prospecting"] = "Prospecto";
-estados["Value Proposition"] = "Propuesta de Valor";
-estados["Negotiation/Review"] = "Negociación/Revisión";
-estados["Id. Decision Makers"] = "Id. Tomadores de Decisiones";
-estados["Closed Won"] = "Ganada";
+status["Qualification"] = "Calificación";
+status["Closed Lost"] = "Perdida";
+status["Proposal/Price Quote"] = "Propuesta/Presupuesto";
+status["Perception Analysis"] = "Análisis de Percepción";
+status["Needs Analysis"] = "Necesita Análisis";
+status["Prospecting"] = "Prospecto";
+status["Value Proposition"] = "Propuesta de Valor";
+status["Negotiation/Review"] = "Negociación/Revisión";
+status["Id. Decision Makers"] = "Id. Tomadores de Decisiones";
+status["Closed Won"] = "Ganada";
 
 // Array para el resto de secciones
-var estados2 = [];
+var status2 = [];
 
 // Leads (Clientes potenciales)
-
-estados2["New"] = "Nuevo";
-estados2["Dead"] = "Muerto";
-estados2["Recycled"] = "Reciclado";
-estados2["Converted"] = "Convertido";
-estados2["In Process"] = "En proceso";
-estados2["Assigned"] = "Asignado";
+status2["New"] = "Nuevo";
+status2["Dead"] = "Muerto";
+status2["Recycled"] = "Reciclado";
+status2["Converted"] = "Convertido";
+status2["In Process"] = "En proceso";
+status2["Assigned"] = "Asignado";
 
 // Tasks (Tareas)
-estados2["Not Started"] = "No iniciada";
+status2["Not Started"] = "No iniciada";
 
 // Calls (Llamadas)
-estados2["Inbound"] = "Entrante";
-estados2["Outbound"] = "Saliente";
-estados2["Planned"] = "Planificada";
-estados2["Held"] = "Realizada";
-estados2["Not Held"] = "No Realizada";
+status2["Inbound"] = "Entrante";
+status2["Outbound"] = "Saliente";
+status2["Planned"] = "Planificada";
+status2["Held"] = "Realizada";
+status2["Not Held"] = "No Realizada";
 
 // Array de traducción rápida de orígenes de clientes
-var origenes = [];
+var sources = [];
 
-origenes["Cold Call"] = "Llamada en frío";
-origenes["Existing Customer"] = "Cliente existente";
-origenes["Self Generated"] = "Autogenerada";
-origenes["Employee"] = "Empleado";
-origenes["Partner"] = "Socio";
-origenes["Public Relations"] = "Relaciones públicas";
-origenes["Direct Mail"] = "Correo";
-origenes["Conference"] = "Conferencia";
-origenes["Trade Show"] = "Feria de muestras";
-origenes["Web Site"] = "Página web";
-origenes["Word of mouth"] = "Por el boca a boca";
-origenes["Email"] = "Correo electrónico";
-origenes["Campaign"] = "Campaña";
-origenes["Other"] = "Otro";
+sources["Cold Call"] = "Llamada en frío";
+sources["Existing Customer"] = "Cliente existente";
+sources["Self Generated"] = "Autogenerada";
+sources["Employee"] = "Empleado";
+sources["Partner"] = "Socio";
+sources["Public Relations"] = "Relaciones públicas";
+sources["Direct Mail"] = "Correo";
+sources["Conference"] = "Conferencia";
+sources["Trade Show"] = "Feria de muestras";
+sources["Web Site"] = "Página web";
+sources["Word of mouth"] = "Por el boca a boca";
+sources["Email"] = "Correo electrónico";
+sources["Campaign"] = "Campaña";
+sources["Other"] = "Otro";
 
+var clienttypes = [];
 
-// Array de traducción rápida de fuentes
-// TODO
+clienttypes["Analyst"] = "Analista";
+clienttypes["Competitor"] = "Competidor";
+clienttypes["Customer"] = "Cliente";
+clienttypes["Integrator"] = "Integrador";
+clienttypes["Investor"] = "Inversor";
+clienttypes["Partner"] = "Socio";
+clienttypes["Press"] = "Prensa";
+clienttypes["Prospect"] = "Prospecto";
+clienttypes["Reseller"] = "Revendedor";
+clienttypes["Other"] = "Otro";
+
+var industry = [];
+
+industry["Apparel"] = "Textil";
+industry["Banking"] = "Banca";
+industry["Biotechnology"] = "Biotecnología";
+industry["Chemicals"] = "Química";
+industry["Communications"] = "Comunicaciones";
+industry["Construction"] = "Construcción";
+industry["Consulting"] = "Consultoría";
+industry["Education"] = "Educación";
+industry["Electronics"] = "Electrónica";
+industry["Energy"] = "Energía";
+industry["Engineering"] = "Ingeniería";
+industry["Entertainment"] = "Entretenimiento";
+industry["Environmental"] = "Medio ambiente";
+industry["Finance"] = "Finanzas";
+industry["Government"] = "Gobierno";
+industry["Healthcare"] = "Sanidad";
+industry["Hospitality"] = "Caridad";
+industry["Insurance"] = "Seguros";
+industry["Machinery"] = "Maquinaria";
+industry["Manufacturing"] = "Fabricación";
+industry["Media"] = "Medios de comunicación";
+industry["Not For Profit"] = "Sin ánimo de lucro";
+industry["Recreation"] = "Ocio";
+industry["Retail"] = "Minoristas";
+industry["Shipping"] = "Envíos";
+industry["Technology"] = "Tecnología";
+industry["Telecommunications"] = "Telecomunicaciones";
+industry["Transportation"] = "Transporte";
+industry["Utilities"] = "Servicios públicos";
+industry["Other"] = "Otro";
 
 $("#HomePage").live("pagecreate", function () {
     $("#LogOutButton .ui-btn-text").text(RES_LOGOUT_LABEL);
@@ -232,7 +273,7 @@ var toast=function(msg){
 // Usar trans en vez de los arrays -> Reduce el rendimiento pero compatibiliza con strings personalizados.
 function trans(totrans)
 {
-    var resul = estados[totrans];
+    var resul = status[totrans];
 
     if ((resul !== undefined) && (resul !== ""))
     {
@@ -240,7 +281,7 @@ function trans(totrans)
     }
     else
     {
-        resul = origenes[totrans];
+        resul = sources[totrans];
 
         if ((resul !== undefined) && (resul !== ""))
         {
@@ -609,7 +650,7 @@ function SugarCrmGetAccountDetails() {
                             var b = a.entry_list[c],
                                 d = $("<li/>"),
                                 f = "<h4>" + b.name_value_list.name.value + "</h4>",
-                                e = "<p>" + estados[b.name_value_list.sales_stage.value] + "</p>";
+                                e = "<p>" + status[b.name_value_list.sales_stage.value] + "</p>";
                             b = $("<a/>", {
                                 href: "#",
                                 "data-identity": b.id,
@@ -1095,7 +1136,7 @@ function getContactRelatedOpportunitiesInsetList() {
                             var b = a.entry_list[c],
                                 d = $("<li/>"),
                                 f = "<h4>" + b.name_value_list.name.value + "</h4>",
-                                e = "<p>" + estados[b.name_value_list.sales_stage.value] + "</p>";
+                                e = "<p>" + status[b.name_value_list.sales_stage.value] + "</p>";
                             b = $("<a/>", {
                                 href: "#",
                                 "data-identity": b.id,
@@ -1395,7 +1436,7 @@ function SugarCrmGetOpportunitiesListFromServer(a) {
                                             m.append("$");
                                         }
                                     d.name_value_list.sales_stage !==
-                                        undefined && d.name_value_list.sales_stage.value !== "" && m.append(" - " + estados[d.name_value_list.sales_stage.value]);
+                                        undefined && d.name_value_list.sales_stage.value !== "" && m.append(" - " + status[d.name_value_list.sales_stage.value]);
                                     d = $("<a/>", {
                                         href: "#",
                                         "data-identity": d.id,
@@ -1471,7 +1512,7 @@ function SugarCrmGetOpportunityDetails() {
                     }
                     a.name_value_list.date_closed !==
                         undefined && a.name_value_list.date_closed.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Fecha de cierre</p><h4>" + a.name_value_list.date_closed.value + "</h4></li>");
-                    a.name_value_list.sales_stage !== undefined && a.name_value_list.sales_stage.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Estado de ventas</p><h4>" + estados[a.name_value_list.sales_stage.value] + "</h4></li>");
+                    a.name_value_list.sales_stage !== undefined && a.name_value_list.sales_stage.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Estado de ventas</p><h4>" + status[a.name_value_list.sales_stage.value] + "</h4></li>");
                     a.name_value_list.opportunity_type !== undefined && a.name_value_list.opportunity_type.value !==
                         "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Type</p><h4>" + a.name_value_list.opportunity_type.value + "</h4></li>");
                     a.name_value_list.probability !== undefined && a.name_value_list.probability.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Probabilidad (%)</p><h4>" + a.name_value_list.probability.value + "</h4></li>");
@@ -1984,8 +2025,8 @@ function SugarCrmGetLeadDetails() {
                     }
                     a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Descripción<p><h4>" + a.name_value_list.description.value + "</h4></li>");
                     $("#ViewLeadDetailsPageDetailsList").append('<li data-role="list-divider">Más información</li>');
-                    a.name_value_list.status !== undefined && a.name_value_list.status.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Estado<p><h4>" + a.name_value_list.status.value + "</h4></li>");
-                    a.name_value_list.lead_source !== undefined && a.name_value_list.lead_source.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Origen<p><h4>" + a.name_value_list.lead_source.value + "</h4></li>");
+                    a.name_value_list.status !== undefined && a.name_value_list.status.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Estado<p><h4>" + status2[a.name_value_list.status.value] + "</h4></li>");
+                    a.name_value_list.lead_source !== undefined && a.name_value_list.lead_source.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Origen<p><h4>" + sources[a.name_value_list.lead_source.value] + "</h4></li>");
                     a.name_value_list.status_description !== undefined && a.name_value_list.status_description.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Descripción de estado<p><h4>" +
                         a.name_value_list.status_description.value + "</h4></li>");
                     a.name_value_list.lead_source_description !== undefined && a.name_value_list.lead_source_description.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Descripción de origen<p><h4>" + a.name_value_list.lead_source_description.value + "</h4></li>");
