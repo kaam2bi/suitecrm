@@ -109,11 +109,12 @@ var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para ent
     TasksListCurrentOffset = 0,
     CurrentNoteId = "";
 
+// *** LOS ARRAYS AUXILIARES A TRADUCIR VAN AQUÍ ***
 // Array de traducción rápida de estados
 var estados = [];
 
 estados["Qualification"] = "Calificación";
-estados["Closed Lost"] = "Perdido";
+estados["Closed Lost"] = "Perdida";
 estados["Proposal/Price Quote"] = "Propuesta/Presupuesto";
 estados["Perception Analysis"] = "Análisis de Percepción";
 estados["Needs Analysis"] = "Necesita Análisis";
@@ -122,6 +123,40 @@ estados["Value Proposition"] = "Propuesta de Valor";
 estados["Negotiation/Review"] = "Negociación/Revisión";
 estados["Id. Decision Makers"] = "Id. Tomadores de Decisiones";
 estados["Closed Won"] = "Ganada";
+
+// Array para el resto de secciones
+var estados2 = [];
+
+// Leads (Clientes potenciales)
+
+estados2["New"] = "Nuevo";
+estados2["Dead"] = "Muerto";
+estados2["Recycled"] = "Reciclado";
+estados2["Converted"] = "Convertido";
+estados2["In Process"] = "En proceso";
+estados2["Assigned"] = "Asignado";
+
+// Tasks (Tareas)
+estados2["Not Started"] = "No iniciada";
+
+// Array de traducción rápida de orígenes de clientes
+var origenes = [];
+
+origenes["Cold Call"] = "Llamada en frío";
+origenes["Existing Customer"] = "Cliente existente";
+origenes["Self Generated"] = "Autogenerada";
+origenes["Employee"] = "Empleado";
+origenes["Partner"] = "Socio";
+origenes["Public Relations"] = "Relaciones públicas";
+origenes["Direct Mail"] = "Correo";
+origenes["Conference"] = "Conferencia";
+origenes["Trade Show"] = "Feria de muestras";
+origenes["Web Site"] = "Página web";
+origenes["Word of mouth"] = "Por el boca a boca";
+origenes["Email"] = "Correo electrónico";
+origenes["Campaign"] = "Campaña";
+origenes["Other"] = "Otro";
+
 
 // Array de traducción rápida de fuentes
 // TODO
@@ -186,6 +221,31 @@ var toast=function(msg){
     });
 }
 
+/*
+// Usar trans en vez de los arrays -> Reduce el rendimiento pero compatibiliza con strings personalizados.
+function trans(totrans)
+{
+    var resul = estados[totrans];
+
+    if ((resul !== undefined) && (resul !== ""))
+    {
+        return resul;
+    }
+    else
+    {
+        resul = origenes[totrans];
+
+        if ((resul !== undefined) && (resul !== ""))
+        {
+            return resul;
+        }
+        else
+        {
+            return totrans;
+        }
+    }
+}*/
+
 function LoginUser(a) {
     $.mobile.showPageLoadingMsg();
     var c = $("#SettingsPageSugarCrmUsername").val(),
@@ -208,7 +268,7 @@ function LoginUser(a) {
                 $("#SettingsPageSugarCrmPassword").val("");
                 $.mobile.changePage("#HomePage")
             }
-        } else toast("Error inesperado"); //alert("Error inesperado, pruebe con el cliente estándar.");
+        } else toast("Error inesperado");
         $.mobile.hidePageLoadingMsg()
     })
 }
