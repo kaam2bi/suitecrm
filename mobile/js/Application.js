@@ -139,6 +139,13 @@ estados2["Assigned"] = "Asignado";
 // Tasks (Tareas)
 estados2["Not Started"] = "No iniciada";
 
+// Calls (Llamadas)
+estados2["Inbound"] = "Entrante";
+estados2["Outbound"] = "Saliente";
+estados2["Planned"] = "Planificada";
+estados2["Held"] = "Realizada";
+estados2["Not Held"] = "No Realizada";
+
 // Array de traducción rápida de orígenes de clientes
 var origenes = [];
 
