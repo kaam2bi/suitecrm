@@ -1,4 +1,223 @@
 
+// *** CONSTANTES INCLUIDAS EN LA APLICACIÓN ***
+var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para entrar.",
+    RES_LOGIN_TITLE = "Entrar",
+    RES_LOGOUT_LABEL = "Salir",
+    RES_HOME_LABEL = "Inicio",
+    RES_BACK_LABEL = "Volver",
+    RES_USERNAME_LABEL = "Usuario",
+    RES_PASSWORD_LABEL = "Contraseña",
+    RES_ACCOUNTS_LABEL = "Empresas",
+    RES_ACCOUNT_LABEL = "Empresa",
+    RES_CONTACTS_LABEL = "Contactos",
+    RES_CONTACT_LABEL = "Contacto",
+    RES_OPPORTUNITIES_LABEL = "Oportunidades",
+    RES_OPPORTUNITY_LABEL = "Oportunidad",
+    RES_LEADS_LABEL = "Clientes potenciales",
+    RES_LEAD_LABEL = "Cliente potencial",
+    RES_CALLS_LABEL = "Llamadas",
+    RES_CALL_LABEL = "Llamada",
+    RES_MEETINGS_LABEL = "Reuniones",
+    RES_MEETING_LABEL = "Reunión",
+    RES_TASKS_LABEL = "Tareas",
+    RES_TASK_LABEL = "Tarea",
+    RES_NOTES_LABEL = "Notas",
+    RES_NOTE_LABEL = "Nota",
+    RES_CAMPAIGN_LABEL = "Campaña",
+    RES_CAMPAIGNS_LABEL = "Campañas",
+    RES_USER_LABEL = "Usuario",
+    RES_USERS_LABEL = "Usuarios",
+    RES_OVERVIEW_LABEL = "Información general",
+    RES_MORE_INFORMATION_LABEL = "Más información",
+    RES_OTHER_LABEL = "Otros",
+    RES_ACCOUNT_BILLING_ADDRESS_LABEL = "Dirección de pago",
+    RES_ACCOUNT_SHIPPING_ADDRESS_LABEL = "Dirección de envío",
+    RES_ACCOUNT_INDUSTRY_LABEL = "Industria",
+    RES_ACCOUNT_REVENUE_LABEL = "Ingresos anuales",
+    RES_ACCOUNT_EMPLOYEES_LABEL = "Empleados",
+    RES_ACCOUNT_SIC_LABEL = "Código CNAE/SIC",
+    RES_ACCOUNT_TICKER_LABEL = "Símbolo Ticket",
+    RES_ACCOUNT_MEMBER_LABEL = "Miembro de",
+    RES_ACCOUNT_OWNERSHIP_LABEL = "Propietario",
+    RES_ACCOUNT_CAMPAIGN_LABEL = "Campaña",
+    RES_ACCOUNT_RATING_LABEL = "Rating",
+    RES_CONTACT_REPORTS_TO_LABEL = "Asignado a",
+    RES_OPPORTUNITY_NAME_LABEL = "Nombre Oportunidad",
+    RES_OPPORTUNITY_AMOUNT_WITH_CURRENCY_LABEL = "Monto de la Oportunidad ({0} {1})",
+    RES_OPPORTUNITY_AMOUNT_LABEL = "Monto",
+    RES_OPPORTUNITY_EXPECTED_CLOSE_DATE_LABEL = "Fecha de cierre",
+    RES_OPPORTUNITY_SALES_STAGE_LABEL = "Etapa de ventas",
+    RES_OPPORTUNITY_PROBABILITY_LABEL = "Probabilidad",
+    RES_OPPORTUNITY_NEXT_STEP_LABEL = "Próximo paso",
+    RES_LEAD_REFERRED_BY = "Asignado a",
+    RES_TASK_DUE_DATE_LABEL = "Último cambio",
+    RES_TASK_PRIORITY_LABEL = "Prioridad",
+    RES_OFFICE_PHONE_LABEL = "Teléfono Trabajo",
+    RES_FAX_LABEL = "Fax",
+    RES_DESCRIPTION_LABEL = "Descripción",
+    RES_EMAIL_ADDRESS_LABEL = "Email",
+    RES_LEAD_SOURCE_LABEL = "Referido por",
+    RES_RELATED_ITEM_NAME_LABEL = "Nombre",
+    RES_TYPE_LABEL = "Tipo",
+    RES_NAME_LABEL = "Nombre",
+    RES_TITLE_LABEL = "Título",
+    RES_MOBILE_PHONE_LABEL = "Móvil",
+    RES_DEPARTMENT_LABEL = "Departamento",
+    RES_PRIMARY_ADDRESS_LABEL = "Dirección principal",
+    RES_OTHER_ADDRESS_LABEL = "Otra dirección",
+    RES_WEBSITE_LABEL = "Sitio Web",
+    RES_SUBJECT = "Asunto",
+    RES_STATUS_LABEL = "Estado",
+    RES_START_DATE_TIME_LABEL = "Fecha y hora de inicio",
+    RES_START_DATE_LABEL = "Fecha de inicio",
+    RES_DURATION_LABEL = "Duración",
+    RES_LOCATION_LABEL = "Lugar",
+    RES_REMINDER_LABEL = "Recordatorio",
+    RES_DETAILS_LABEL = "Detalles",
+    RES_ASSIGNED_TO_LABEL = "Asignado a",
+    RES_DATE_MODIFIED_LABEL = "Fecha de modificación",
+    RES_DATE_CREATED_LABEL = "Fecha de creación",
+    RES_DO_NOT_CALL = "*NOTA: Contacto marcado como No llamar.",
+    RES_LOG_CALL_QUESTION = "¿Desea registrar la llamada?",
+    SugarSessionId = "",
+    RowsPerPageInListViews = 20,
+    CurrentAccountId = "",
+    CurrentContactId = "",
+    CurrentOpportunityId = "",
+    CurrentLeadId = "",
+    CurrentCallId = "",
+    CurrentMeetingId = "",
+    CurrentTaskId = "",
+    AccountsListNextOffset = 0,
+    AccountsListPrevOffset = 0,
+    AccountsListCurrentOffset = 0,
+    ContactsListNextOffset = 0,
+    ContactsListPrevOffset = 0,
+    ContactsListCurrentOffset = 0,
+    OpportunitiesListNextOffset = 0,
+    OpportunitiesListPrevOffset = 0,
+    OpportunitiesListCurrentOffset = 0,
+    LeadsListNextOffset = 0,
+    LeadsListPrevOffset = 0,
+    LeadsListCurrentOffset = 0,
+    CallsListNextOffset = 0,
+    CallsListPrevOffset = 0,
+    CallsListCurrentOffset = 0,
+    MeetingsListNextOffset = 0,
+    MeetingsListPrevOffset = 0,
+    MeetingsListCurrentOffset = 0,
+    TasksListNextOffset = 0,
+    TasksListPrevOffset = 0,
+    TasksListCurrentOffset = 0,
+    CurrentNoteId = "";
+
+// *** LOS ARRAYS AUXILIARES A TRADUCIR VAN AQUÍ ***
+// Array de traducción rápida de status
+var status = [];
+
+status["Qualification"] = "Calificación";
+status["Closed Lost"] = "Perdida";
+status["Proposal/Price Quote"] = "Propuesta/Presupuesto";
+status["Perception Analysis"] = "Análisis de Percepción";
+status["Needs Analysis"] = "Necesita Análisis";
+status["Prospecting"] = "Prospecto";
+status["Value Proposition"] = "Propuesta de Valor";
+status["Negotiation/Review"] = "Negociación/Revisión";
+status["Id. Decision Makers"] = "Id. Tomadores de Decisiones";
+status["Closed Won"] = "Ganada";
+
+// Array para el resto de secciones
+var status2 = [];
+
+// Leads (Clientes potenciales)
+status2["New"] = "Nuevo";
+status2["Dead"] = "Muerto";
+status2["Recycled"] = "Reciclado";
+status2["Converted"] = "Convertido";
+status2["In Process"] = "En proceso";
+status2["Assigned"] = "Asignado";
+
+// Tasks (Tareas)
+status2["Not Started"] = "No Iniciada";
+status2["In Progress"] = "En Progreso";
+status2["Completed"] = "Completada";
+status2["Pending Input"] = "Pendiente de Información";
+status2["Deferred"] = "Retrasada";
+status2["High"] = "Alta";
+status2["Medium"] = "Media";
+status2["Low"] = "Baja";
+
+// Calls (Llamadas)
+status2["Inbound"] = "Entrante";
+status2["Outbound"] = "Saliente";
+status2["Planned"] = "Planificada";
+status2["Held"] = "Realizada";
+status2["Not Held"] = "No Realizada";
+
+// Array de traducción rápida de orígenes de clientes
+var sources = [];
+
+sources["Cold Call"] = "Llamada en frío";
+sources["Existing Customer"] = "Cliente existente";
+sources["Self Generated"] = "Autogenerada";
+sources["Employee"] = "Empleado";
+sources["Partner"] = "Socio";
+sources["Public Relations"] = "Relaciones públicas";
+sources["Direct Mail"] = "Correo";
+sources["Conference"] = "Conferencia";
+sources["Trade Show"] = "Feria de muestras";
+sources["Web Site"] = "Página web";
+sources["Word of mouth"] = "Por el boca a boca";
+sources["Email"] = "Correo electrónico";
+sources["Campaign"] = "Campaña";
+sources["Other"] = "Otro";
+
+var clienttypes = [];
+
+clienttypes["Analyst"] = "Analista";
+clienttypes["Competitor"] = "Competidor";
+clienttypes["Customer"] = "Cliente";
+clienttypes["Integrator"] = "Integrador";
+clienttypes["Investor"] = "Inversor";
+clienttypes["Partner"] = "Socio";
+clienttypes["Press"] = "Prensa";
+clienttypes["Prospect"] = "Prospecto";
+clienttypes["Reseller"] = "Revendedor";
+clienttypes["Other"] = "Otro";
+
+var industry = [];
+
+industry["Apparel"] = "Textil";
+industry["Banking"] = "Banca";
+industry["Biotechnology"] = "Biotecnología";
+industry["Chemicals"] = "Química";
+industry["Communications"] = "Comunicaciones";
+industry["Construction"] = "Construcción";
+industry["Consulting"] = "Consultoría";
+industry["Education"] = "Educación";
+industry["Electronics"] = "Electrónica";
+industry["Energy"] = "Energía";
+industry["Engineering"] = "Ingeniería";
+industry["Entertainment"] = "Entretenimiento";
+industry["Environmental"] = "Medio ambiente";
+industry["Finance"] = "Finanzas";
+industry["Government"] = "Gobierno";
+industry["Healthcare"] = "Sanidad";
+industry["Hospitality"] = "Caridad";
+industry["Insurance"] = "Seguros";
+industry["Machinery"] = "Maquinaria";
+industry["Manufacturing"] = "Fabricación";
+industry["Media"] = "Medios de comunicación";
+industry["Not For Profit"] = "Sin ánimo de lucro";
+industry["Recreation"] = "Ocio";
+industry["Retail"] = "Minoristas";
+industry["Shipping"] = "Envíos";
+industry["Technology"] = "Tecnología";
+industry["Telecommunications"] = "Telecomunicaciones";
+industry["Transportation"] = "Transporte";
+industry["Utilities"] = "Servicios públicos";
+industry["Other"] = "Otro";
+
 $("#HomePage").live("pagecreate", function () {
     $("#LogOutButton .ui-btn-text").text(RES_LOGOUT_LABEL);
     $("#AccountsListPageLinkLabel").text(RES_ACCOUNTS_LABEL);
@@ -58,31 +277,6 @@ var toast=function(msg){
         $(this).remove();
     });
 }
-
-/*
-// Usar trans en vez de los arrays -> Reduce el rendimiento pero compatibiliza con strings personalizados.
-function trans(totrans)
-{
-    var resul = status[totrans];
-
-    if ((resul !== undefined) && (resul !== ""))
-    {
-        return resul;
-    }
-    else
-    {
-        resul = sources[totrans];
-
-        if ((resul !== undefined) && (resul !== ""))
-        {
-            return resul;
-        }
-        else
-        {
-            return totrans;
-        }
-    }
-}*/
 
 function LoginUser(a) {
     $.mobile.showPageLoadingMsg();
@@ -348,9 +542,9 @@ function SugarCrmGetAccountDetails() {
                     a.name_value_list.email1.value !==
                         "" && $("#ViewAccountDetailsPageDetailsList").append(c);
                     $("#ViewAccountDetailsPageDetailsList").append('<li data-role="list-divider">Más información</li>');
-                    a.name_value_list.account_type !== undefined && a.name_value_list.account_type.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Tipo de cuenta</p><h4>" + a.name_value_list.account_type.value + "</h4></li>");
+                    a.name_value_list.account_type !== undefined && a.name_value_list.account_type.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Tipo de cuenta</p><h4>" + clienttypes[a.name_value_list.account_type.value] + "</h4></li>");
                     a.name_value_list.industry !== undefined && a.name_value_list.industry.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Industria</p><h4>" +
-                        a.name_value_list.industry.value + "</h4></li>");
+                        industry[a.name_value_list.industry.value] + "</h4></li>");
                     a.name_value_list.annual_revenue !== undefined && a.name_value_list.annual_revenue.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Ingresos anuales:</p><h4>" + a.name_value_list.annual_revenue.value + "</h4></li>");
                     a.name_value_list.employees !== undefined && a.name_value_list.employees.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Empleados</p><h4>" + a.name_value_list.employees.value + "</h4></li>");
                     a.name_value_list.sic_code !==
@@ -365,8 +559,8 @@ function SugarCrmGetAccountDetails() {
                     $("#ViewAccountDetailsPageDetailsList").append('<li data-role="list-divider">Other</li>');
                     a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
                     a.name_value_list.date_modified !==
-                        undefined && a.name_value_list.date_modified.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + a.name_value_list.date_modified.value + "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + " por " + a.name_value_list.created_by_name.value + "</h4></li>")
+                        undefined && a.name_value_list.date_modified.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + change(a.name_value_list.date_modified.value) + "</h4></li>");
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + " por " + a.name_value_list.created_by_name.value + "</h4></li>")
                 }
         }
         $("#ViewAccountDetailsPageDetailsList").listview("refresh")
@@ -540,7 +734,7 @@ function SugarCrmGetAccountDetails() {
                                 e = "";
                             if (b.name_value_list.status !== undefined) {
                                 e = "<p>" + b.name_value_list.status.value;
-                                e += "<br/>" + b.name_value_list.date_start.value;
+                                e += "<br/>" + change(b.name_value_list.date_start.value);
                                 e += "</p>"
                             }
                             var m = $("<a/>", {
@@ -608,7 +802,7 @@ function SugarCrmGetAccountDetails() {
                                         e = "<p>" + b.name_value_list.status.value;
                                     }
                                     console.log("string"+b.name_value_list.status+"string");
-                                    if (b.name_value_list.date_start !== undefined) e += "<br/>" + b.name_value_list.date_start.value;
+                                    if (b.name_value_list.date_start !== undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                     e += "</p>"
                                 } else e = "<p></p>";
                                 b = $("<a/>", {
@@ -661,7 +855,7 @@ function SugarCrmGetAccountDetails() {
                                 if (b.name_value_list.status !==
                                     undefined) {
                                     e = "<p>" + b.name_value_list.status.value;
-                                    if (b.name_value_list.date_start !== undefined) e += "<br/>" + b.name_value_list.date_start.value;
+                                    if (b.name_value_list.date_start !== undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                     e += "</p>"
                                 } else e = "<p></p>";
                                 b = $("<a/>", {
@@ -889,8 +1083,8 @@ function SugarCrmGetContactDetails() {
                     $("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">Otra Información</li>');
                     a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
                     a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" +
-                        a.name_value_list.date_modified.value + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+                        a.name_value_list.date_modified.value + "&nbsp;por&nbsp;" + change(a.name_value_list.modified_by_name.value) + "</h4></li>");
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
                     a.name_value_list.do_not_call !== undefined && a.name_value_list.do_not_call.value == "true" && toast("*NOTA: Contacto marcado como No llamar.")
                 }
             $("#ViewContactDetailsPageDetailsList").listview("refresh")
@@ -1029,7 +1223,7 @@ function getContactRelatedCallsInsetList() {
                             if (b.name_value_list.status !== undefined && b.name_value_list.status.value !== "") {
                                 e = "<p>" + b.name_value_list.status.value;
                                 if (b.name_value_list.date_start !=
-                                    undefined) e += "<br/>" + b.name_value_list.date_start.value;
+                                    undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                 e += "</p>"
                             } else e = "<p></p>";
                             var m = $("<a/>", {
@@ -1098,7 +1292,7 @@ function getContactRelatedMeetingsInsetList() {
                                     e = "<p>" + b.name_value_list.status.value;
                                 }                                
 
-                                if (b.name_value_list.date_start != undefined) e += "<br/>" + b.name_value_list.date_start.value;
+                                if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                 e += "</p>"
                             } else e = "<p></p>";
                             b = $("<a/>", {
@@ -1156,7 +1350,7 @@ function getContactRelatedTasksInsetList() {
                                 if (b.name_value_list.status !=
                                     undefined) {
                                     e = "<p>" + b.name_value_list.status.value;
-                                    if (b.name_value_list.date_start != undefined) e += "<br/>" + b.name_value_list.date_start.value;
+                                    if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                     e += "</p>"
                                 } else e = "<p></p>";
                                 b = $("<a/>", {
@@ -1301,7 +1495,7 @@ function SugarCrmGetOpportunityDetails() {
                         $("#ViewOpportunityDetailsPageDetailsList").append(c)
                     }
                     a.name_value_list.date_closed !==
-                        undefined && a.name_value_list.date_closed.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Fecha de cierre</p><h4>" + a.name_value_list.date_closed.value + "</h4></li>");
+                        undefined && a.name_value_list.date_closed.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Fecha de cierre</p><h4>" + change(a.name_value_list.date_closed.value) + "</h4></li>");
                     a.name_value_list.sales_stage !== undefined && a.name_value_list.sales_stage.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Estado de ventas</p><h4>" + status[a.name_value_list.sales_stage.value] + "</h4></li>");
                     a.name_value_list.opportunity_type !== undefined && a.name_value_list.opportunity_type.value !==
                         "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Type</p><h4>" + a.name_value_list.opportunity_type.value + "</h4></li>");
@@ -1312,9 +1506,9 @@ function SugarCrmGetOpportunityDetails() {
                     a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Descripción</p><h4>" + a.name_value_list.description.value + "</h4></li>");
                     $("#ViewOpportunityDetailsPageDetailsList").append('<li data-role="list-divider">Oportunidad</li>');
                     a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Asignada a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
-                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + a.name_value_list.date_modified.value + "</h4></li>");
+                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + change(a.name_value_list.date_modified.value) + "</h4></li>");
                     a.name_value_list.date_entered !==
-                        undefined && a.name_value_list.date_entered.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Fecha de creación </p><h4>" + a.name_value_list.date_entered.value + " por " + a.name_value_list.created_by_name.value + "</h4></li>")
+                        undefined && a.name_value_list.date_entered.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Fecha de creación </p><h4>" + change(a.name_value_list.date_entered.value) + " por " + a.name_value_list.created_by_name.value + "</h4></li>")
                 }
             $("#ViewOpportunityDetailsPageDetailsList").listview("refresh")
         }
@@ -1465,7 +1659,7 @@ function getOpportunityRelatedCallsInsetList() {
                                 if (b.name_value_list.status !=
                                     undefined) {
                                     e = "<p>" + b.name_value_list.status.value;
-                                    if (b.name_value_list.date_start != undefined) e += "<br/>" + b.name_value_list.date_start.value;
+                                    if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                     e += "</p>"
                                 } else e = "<p></p>";
                                 var m = $("<a/>", {
@@ -1540,7 +1734,7 @@ function getOpportunityRelatedMeetingsInsetList() {
                                         e = "<p>" + b.name_value_list.status.value;
                                     }
 
-                                    if (b.name_value_list.date_start != undefined) e += "<br/>" + b.name_value_list.date_start.value;
+                                    if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                     e += "</p>"
                                 } else e = "<p></p>";
                                 b = $("<a/>", {
@@ -1601,7 +1795,7 @@ function getOpportunityRelatedTasksInsetList() {
                                     e = "";
                                 if (b.name_value_list.status != undefined) {
                                     e = "<p>" + b.name_value_list.status.value;
-                                    if (b.name_value_list.date_start != undefined) e += "<br/>" + b.name_value_list.date_start.value;
+                                    if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                     e += "</p>"
                                 } else e = "<p></p>";
                                 b = $("<a/>", {
@@ -1659,7 +1853,7 @@ function SugarCrmGetLeadsListFromServer(a) {
                                 var d = c.entry_list[b],
                                     f = $("<li/>"),
                                     e = "<h4>" + d.name_value_list.first_name.value + "&nbsp;" + d.name_value_list.last_name.value + "</h4>",
-                                    m = "<p>" + d.name_value_list.title.value + " en&nbsp;" + d.name_value_list.account_name.value + "</p>";
+                                    m = "<p>" + d.name_value_list.title.value + "&nbsp;" + d.name_value_list.account_name.value + "</p>";
                                 d = $("<a/>", {
                                     href: "#",
                                     "data-identity": d.id,
@@ -1826,9 +2020,9 @@ function SugarCrmGetLeadDetails() {
                     a.name_value_list.campaign_name !== undefined && a.name_value_list.campaign_name.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br /><p><h4>Campaña:&nbsp;" + a.name_value_list.campaign_name.value + "</h4></li>");
                     $("#ViewLeadDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
                     a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
-                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + a.name_value_list.date_modified.value + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value +
+                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + change(a.name_value_list.date_modified.value) + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value +
                         "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
                     a.name_value_list.do_not_call.value == "true" && toast("*NOTA: Contacto marcado como No llamar.")
                 }
             $("#ViewLeadDetailsPageDetailsList").listview("refresh")
@@ -1866,7 +2060,7 @@ function getLeadRelatedCallsInsetList() {
                                 e = "";
                             if (b.name_value_list.status != undefined) {
                                 e = "<p>" + b.name_value_list.status.value;
-                                if (b.name_value_list.date_start != undefined) e += "<br/>" + b.name_value_list.date_start.value;
+                                if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                 e += "</p>"
                             } else e = "<p></p>";
                             var m = $("<a/>", {
@@ -1933,7 +2127,7 @@ function getLeadRelatedMeetingsInsetList() {
                                     e = "<p>" + b.name_value_list.status.value;
                                 }
 
-                                if (b.name_value_list.date_start != undefined) e += "<br/>" + b.name_value_list.date_start.value;
+                                if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                 e += "</p>"
                             } else e = "<p></p>";
                             b = $("<a/>", {
@@ -1985,7 +2179,7 @@ function getLeadRelatedTasksInsetList() {
                                 e = "";
                             if (b.name_value_list.status != undefined) {
                                 e = "<p>" + b.name_value_list.status.value;
-                                if (b.name_value_list.date_start != undefined) e += "<br/>" + b.name_value_list.date_start.value;
+                                if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                 e += "</p>"
                             } else e = "<p></p>";
                             b = $("<a/>", {
@@ -2041,7 +2235,7 @@ function SugarCrmGetCallsListFromServer(a) {
                                 undefined) {
                                 var d = c.entry_list[b],
                                     f = $("<li/>"),
-                                    e = "<p>" + d.name_value_list.date_start.value + "</p>",
+                                    e = "<p>" + change(d.name_value_list.date_start.value) + "</p>",
                                     m = "<h4>" + d.name_value_list.name.value + "</h4>",
                                     g = "<p>" + status2[d.name_value_list.direction.value] + " " + status2[d.name_value_list.status.value] + "</p>";
                                 d = $("<a/>", {
@@ -2097,15 +2291,15 @@ function SugarCrmGetCallDetails() {
                     $("#CallSubjectP").text(c);
                     $("#ViewCallDetailsPageDetailsList").append('<li data-role="list-divider">Información de la llamada</li>');
                     a.name_value_list.date_start !== undefined && a.name_value_list.date_start.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Fecha/Hora de Inicio</p><h4>" +
-                        a.name_value_list.date_start.value + "</h4></li>");
+                        change(a.name_value_list.date_start.value) + "</h4></li>");
                     a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Duración</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
                     a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Descripción</p><h4>" + a.name_value_list.description.value +
                         "</h4></li>");
                     $("#ViewCallDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
                     a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
                     a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" +
-                        a.name_value_list.date_modified.value + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+                        change(a.name_value_list.date_modified.value) + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
                     a.name_value_list.parent_id !== undefined && a.name_value_list.parent_id.value !== "" ? getCallParentDetails(a.name_value_list.parent_type.value,
                         a.name_value_list.parent_id.value) : $("#ViewCallDetailsPageDetailsList").listview("refresh")
                 }
@@ -2379,7 +2573,7 @@ function SugarCrmGetMeetingsListFromServer(a) {
                                         g = "<p>" + d.name_value_list.status.value;
                                     }
 
-                                var m = g + " " + d.name_value_list.date_start.value + "</p>";
+                                var m = g + " " + change(d.name_value_list.date_start.value) + "</p>";
                                 d = $("<a/>", {
                                     href: "#",
                                     "data-identity": d.id,
@@ -2449,15 +2643,15 @@ function SugarCrmGetMeetingDetails() {
                     $("#MeetingSubjectP").text(c);
                     $("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">Información de la reunión</li>');
                     a.name_value_list.date_start !== undefined && a.name_value_list.date_start.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Fecha/Hora de inicio</p><h4>" +
-                        a.name_value_list.date_start.value + "</h4></li>");
+                        change(a.name_value_list.date_start.value) + "</h4></li>");
                     a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Duración</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
                     a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Descripción</p><h4>" + a.name_value_list.description.value +
                         "</h4></li>");
                     $("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
                     a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Asignada a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
                     a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" +
-                        a.name_value_list.date_modified.value + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+                        change(a.name_value_list.date_modified.value) + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
                     a.name_value_list.parent_id !== undefined && a.name_value_list.parent_id.value !== "" ? getMeetingParentDetails(a.name_value_list.parent_type.value,
                         a.name_value_list.parent_id.value) : $("#ViewMeetingDetailsPageDetailsList").listview("refresh")
                 }
@@ -2718,7 +2912,7 @@ function SugarCrmGetTasksListFromServer(a) {
                                 var d = c.entry_list[b],
                                     f = $("<li/>"),
                                     e = "<h4>" + d.name_value_list.name.value + "</h4>",
-                                    m = "<p>" + status2[d.name_value_list.status.value] + " - " + d.name_value_list.date_due.value + "</p>";
+                                    m = "<p>" + status2[d.name_value_list.status.value] + " - " + change(d.name_value_list.date_due.value) + "</p>";
                                 d = $("<a/>", {
                                     href: "#",
                                     "data-identity": d.id,
@@ -2770,15 +2964,15 @@ function SugarCrmGetTaskDetails() {
                     var c = status2[a.name_value_list.status.value];
                     $("#TaskSubjectP").text(c);
                     $("#ViewTaskDetailsPageDetailsList").append('<li data-role="list-divider">Detalles de la tarea</li>');
-                    a.name_value_list.date_due !== undefined && a.name_value_list.date_due.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Fecha</p><h4>" + a.name_value_list.date_due.value +
+                    a.name_value_list.date_due !== undefined && a.name_value_list.date_due.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Fecha</p><h4>" + change(a.name_value_list.date_due.value) +
                         "</h4></li>");
                     a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Duración</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
                     a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Descripción</p><h4>" + a.name_value_list.description.value + "</h4></li>");
                     $("#ViewTaskDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
                     a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
                     a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" +
-                        a.name_value_list.date_modified.value + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+                        change(a.name_value_list.date_modified.value) + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
                     a.name_value_list.parent_id !== undefined && a.name_value_list.parent_id.value !== "" ? getTaskParentDetails(a.name_value_list.parent_type.value,
                         a.name_value_list.parent_id.value) : $("#ViewTaskDetailsPageDetailsList").listview("refresh")
                 }
@@ -2954,6 +3148,18 @@ function getTaskRelatedLeadsInsetList() {
     })
 }
 
+function change(time) {
+    var r = time.match(/^\s*([0-9]+)\s*-\s*([0-9]+)\s*-\s*([0-9]+)(.*)$/);
+    if ((r !== null) && (r !== undefined))
+    {    
+        return r[3]+"-"+r[2]+"-"+r[1]+r[4];
+    }
+    else
+    {
+        return "";
+    }
+}
+
 function SugarCrmGetNoteDetails() {
     $("#NoteSubjectH1").html("");
     $("#NoteTextP").text("");
@@ -2978,9 +3184,9 @@ function SugarCrmGetNoteDetails() {
                     var c = a.name_value_list.description.value;
                     $("#NoteTextP").text(c);
                     $("#ViewNoteDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
-                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + a.name_value_list.date_modified.value +
+                    a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + change(a.name_value_list.date_modified.value) +
                         "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + a.name_value_list.date_entered.value + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+                    a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
                     $("#ViewNoteDetailsPageDetailsList").listview("refresh")
                 }
         }
