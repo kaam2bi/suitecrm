@@ -110,7 +110,7 @@ var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para ent
     CurrentNoteId = "";
 
 // Array de traducción rápida de estados
-var estados = new Array();
+var estados = [];
 
 estados["Qualification"] = "Calificación";
 estados["Closed Lost"] = "Perdido";
@@ -1028,7 +1028,7 @@ function getContactRelatedOpportunitiesInsetList() {
                             var b = a.entry_list[c],
                                 d = $("<li/>"),
                                 f = "<h4>" + b.name_value_list.name.value + "</h4>",
-                                e = "<p>" + b.name_value_list.sales_stage.value + "</p>";
+                                e = "<p>" + estados[b.name_value_list.sales_stage.value] + "</p>";
                             b = $("<a/>", {
                                 href: "#",
                                 "data-identity": b.id,
@@ -1328,7 +1328,7 @@ function SugarCrmGetOpportunitiesListFromServer(a) {
                                             m.append("$");
                                         }
                                     d.name_value_list.sales_stage !==
-                                        undefined && d.name_value_list.sales_stage.value !== "" && m.append(" - " + d.name_value_list.sales_stage.value);
+                                        undefined && d.name_value_list.sales_stage.value !== "" && m.append(" - " + estados[d.name_value_list.sales_stage.value]);
                                     d = $("<a/>", {
                                         href: "#",
                                         "data-identity": d.id,
@@ -1404,7 +1404,7 @@ function SugarCrmGetOpportunityDetails() {
                     }
                     a.name_value_list.date_closed !==
                         undefined && a.name_value_list.date_closed.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Fecha de cierre</p><h4>" + a.name_value_list.date_closed.value + "</h4></li>");
-                    a.name_value_list.sales_stage !== undefined && a.name_value_list.sales_stage.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Estado de ventas</p><h4>" + a.name_value_list.sales_stage.value + "</h4></li>");
+                    a.name_value_list.sales_stage !== undefined && a.name_value_list.sales_stage.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Estado de ventas</p><h4>" + estados[a.name_value_list.sales_stage.value] + "</h4></li>");
                     a.name_value_list.opportunity_type !== undefined && a.name_value_list.opportunity_type.value !==
                         "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Type</p><h4>" + a.name_value_list.opportunity_type.value + "</h4></li>");
                     a.name_value_list.probability !== undefined && a.name_value_list.probability.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Probabilidad (%)</p><h4>" + a.name_value_list.probability.value + "</h4></li>");
@@ -2547,7 +2547,6 @@ function SugarCrmGetMeetingDetails() {
                         default:
                            c = a.name_value_list.status.value;
                     }
-                    console.log(a.name_value_list.status+" "+a.name_value_list.status.value);
 
                     $("#MeetingSubjectP").text(c);
                     $("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">Información de la reunión</li>');
