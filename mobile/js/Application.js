@@ -226,6 +226,12 @@ var textOnly = true;
 // Mensaje en pantalla
 var onScreen = false;
 
+// Mensajes de inserción
+var newRegisteredItem = "Nuevo elemento creado";
+
+// Offset horario (para hora local) en horas (para GMT+1=-60, para GMT+2=-120)
+var timeOffset = new Date().getTimezoneOffset();
+
 $("#HomePage").live("pagecreate", function () {
     $("#LogOutButton .ui-btn-text").text(RES_LOGOUT_LABEL);
     $("#AccountsListPageLinkLabel").text(RES_ACCOUNTS_LABEL);
@@ -312,7 +318,7 @@ function LoginUser(a) {
             
             d = $.parseJSON(JSON.stringify(d, undefined, 2));
 
-            if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : toast("Error de acceso"); //alert("Error de acceso");
+            if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : toast("Error de acceso");
             else {
                 SugarSessionId = d.id;
                 $("#SettingsPageSugarCrmUsername").val("");
@@ -344,7 +350,7 @@ function LoginUserDesktop(a) {
             
             d = $.parseJSON(JSON.stringify(d, undefined, 2));
 
-            if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : toast("Error de acceso"); //alert("Error de acceso");
+            if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : toast("Error de acceso"); 
             else {
                 SugarSessionId = d.id;
                 $("#SettingsPageSugarCrmUsername").val("");
@@ -353,11 +359,12 @@ function LoginUserDesktop(a) {
                 var url = "../index.php";    
                 $(location).attr('href',url);
             }
-        } else toast("Error inesperado"); //alert("Error inesperado, pruebe con el cliente estándar.");
+        } else toast("Error inesperado"); 
         $.mobile.loading( "hide" );
     })
 }
 
+// Hace logout del usuario actual al cambiar el foco o de ventana (comentar para permitir registro de elementos al llamar)
 window.onbeforeunload = function () {
     $.get("../service/v2/rest.php", {
         method: "logout",
@@ -381,21 +388,21 @@ function LogOutUser() {
 }
 
 // Función para registrar la llamada. Parámetros: "Accounts" y Cuenta actual.
-/*
+
 function LogCall(a, c) {
+
     $.get("../service/v2/rest.php", {
         method: "set_entry",
         input_type: "JSON",
         response_type: "JSON",
-        
-        // Only for testing
-        //rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"Hola"}]}'
-        rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"Llamada registrada desde dispositivo móvil"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Test"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":0}]}'
+        rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"Llamada registrada desde el cliente móvil"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Held"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":1},{"name":"date_start","value":"' + now() + '"},{"name":"direction","value":"Outbound"}]}'
     }, function (b) {
-        toast(b);
+        toast(newRegisteredItem);
     })
+
+    console.log("Now"+now());
 }
-*/
+
 
 function SugarCrmGetAccountsListFromServer(a) {
     if ($("#AllAccountsListDiv li").length === 0 || AccountsListCurrentOffset !== a) {
@@ -493,17 +500,15 @@ function SugarCrmGetAccountDetails() {
                         "");
                     var d = "<h4>" + a.name_value_list.phone_office.value + "</h4>";
                     b = $("<a/>", {
-                        href: "tel:+1" + b,
+                        href: "tel:" + b,
+                        target: "_blank",
+                        //href: "#",
                         rel: "external",
-                        style: "text-decoration:none;color:#444;"
-                        /*,
+                        style: "text-decoration:none;color:#444;",
                         click: function () {
-                            //confirm("¿Registrar la llamada?") && 
-                            console.log("Before the logCall");
                             LogCall("Accounts", CurrentAccountId);
-                            console.log("After the logCall");
                             return true
-                        }*/
+                        }
                     });
                     b.append("<p><br />Trabajo</p>");
                     b.append(d);
@@ -3365,18 +3370,6 @@ function getTaskRelatedLeadsInsetList() {
     })
 }
 
-function change(time) {
-    var r = time.match(/^\s*([0-9]+)\s*-\s*([0-9]+)\s*-\s*([0-9]+)(.*)$/);
-    if ((r !== null) && (r !== undefined))
-    {    
-        return r[3]+"-"+r[2]+"-"+r[1]+r[4];
-    }
-    else
-    {
-        return "";
-    }
-}
-
 function SugarCrmGetNoteDetails() {
     $("#NoteSubjectH1").html("");
     $("#NoteTextP").text("");
@@ -3410,6 +3403,36 @@ function SugarCrmGetNoteDetails() {
         $.mobile.loading( "hide" );
     })
 }
+
+// Cambia la fecha al ser mostrada al formato español
+function change(time) {
+    var r = time.match(/^\s*([0-9]+)\s*-\s*([0-9]+)\s*-\s*([0-9]+)(.*)$/);
+    if ((r !== null) && (r !== undefined))
+    {   
+        // Filtrar aquí la hora antes de mostrarla (siempre la hora mostrada es la local)
+        horaCompleta = r[4].trim().split(":");
+        minutos = horaCompleta[1];
+        hora = parseInt(horaCompleta[0]);
+        return r[3]+"-"+r[2]+"-"+r[1]+" "+hora+":"+minutos;
+    }
+    else
+    {
+        return "";
+    }
+}
+
+// Devuelve la fecha y hora actual
+function now() {
+    var currentdate = new Date(); 
+    var datetime = currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + " "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
+    return datetime;
+}
+
 (function (a) {
     var c = function (g, i) {
         var o, n, q, p, h;
