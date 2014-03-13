@@ -356,19 +356,20 @@ function LogOutUser() {
     })
 }
 
-/*
+// Función para registrar la llamada. Parámetros: "Accounts" y Cuenta actual.
 function LogCall(a, c) {
     $.get("../service/v2/rest.php", {
         method: "set_entry",
         input_type: "JSON",
         response_type: "JSON",
-        rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"Hola"}]}'
-        //rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"Llamada registrada desde dispositivo móvil"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Test"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":0}]}'
+        
+        // Only for testing
+        //rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"Hola"}]}'
+        rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"Llamada registrada desde dispositivo móvil"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Test"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":0}]}'
     }, function (b) {
         toast(b);
     })
 }
-*/
 
 function SugarCrmGetAccountsListFromServer(a) {
     if ($("#AllAccountsListDiv li").length === 0 || AccountsListCurrentOffset !== a) {
@@ -460,13 +461,14 @@ function SugarCrmGetAccountDetails() {
                     b = $("<a/>", {
                         href: "tel:+1" + b,
                         rel: "external",
-                        style: "text-decoration:none;color:#444;"
-                        /*,
+                        style: "text-decoration:none;color:#444;",
                         click: function () {
-                            confirm("¿Registrar la llamada?") && LogCall("Accounts", CurrentAccountId);
+                            //confirm("¿Registrar la llamada?") && 
+                            console.log("Before the logCall");
+                            LogCall("Accounts", CurrentAccountId);
+                            console.log("After the logCall");
                             return true
                         }
-                        */
                     });
                     b.append("<p><br />Trabajo</p>");
                     b.append(d);
