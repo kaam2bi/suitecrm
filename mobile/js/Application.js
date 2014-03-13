@@ -270,13 +270,12 @@ $("#HomePage").live("pageshow", function () {
 var toast=function(msg){
     $("<div class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'><h3>"+msg+"</h3></div>")
     .css({ display: "block", 
-        opacity: 0.90, 
         position: "fixed",
         padding: "7px",
         "text-align": "center",
-        width: "270px",
+        width: "80%",
         top: "50%",
-        left: "50%" })
+        left: "10%" })
     .appendTo( $.mobile.pageContainer ).delay( 1500 )
     .fadeOut( 400, function(){
         $(this).remove();
@@ -372,6 +371,7 @@ function LogOutUser() {
 }
 
 // Función para registrar la llamada. Parámetros: "Accounts" y Cuenta actual.
+/*
 function LogCall(a, c) {
     $.get("../service/v2/rest.php", {
         method: "set_entry",
@@ -385,6 +385,7 @@ function LogCall(a, c) {
         toast(b);
     })
 }
+*/
 
 function SugarCrmGetAccountsListFromServer(a) {
     if ($("#AllAccountsListDiv li").length === 0 || AccountsListCurrentOffset !== a) {
@@ -484,14 +485,15 @@ function SugarCrmGetAccountDetails() {
                     b = $("<a/>", {
                         href: "tel:+1" + b,
                         rel: "external",
-                        style: "text-decoration:none;color:#444;",
+                        style: "text-decoration:none;color:#444;"
+                        /*,
                         click: function () {
                             //confirm("¿Registrar la llamada?") && 
                             console.log("Before the logCall");
                             LogCall("Accounts", CurrentAccountId);
                             console.log("After the logCall");
                             return true
-                        }
+                        }*/
                     });
                     b.append("<p><br />Trabajo</p>");
                     b.append(d);
