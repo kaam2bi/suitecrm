@@ -223,6 +223,9 @@ var msgText = "Cargando, espere";
 var textVisible = true;
 var textOnly = true;
 
+// Mensaje en pantalla
+var onScreen = false;
+
 $("#HomePage").live("pagecreate", function () {
     $("#LogOutButton .ui-btn-text").text(RES_LOGOUT_LABEL);
     $("#AccountsListPageLinkLabel").text(RES_ACCOUNTS_LABEL);
@@ -267,19 +270,26 @@ $("#HomePage").live("pageshow", function () {
     SugarSessionId === "" && $.mobile.changePage("#LoginPage")
 });
 
-var toast=function(msg){
-    $("<div class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'><h3>"+msg+"</h3></div>")
-    .css({ display: "block", 
-        position: "fixed",
-        padding: "7px",
-        "text-align": "center",
-        width: "80%",
-        top: "50%",
-        left: "10%" })
-    .appendTo( $.mobile.pageContainer ).delay( 1500 )
-    .fadeOut( 400, function(){
-        $(this).remove();
-    });
+var toast = function(msg)
+{
+    if (!onScreen)
+    {
+        onScreen = true;
+        $("<div class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'><h3>"+msg+"</h3></div>")
+        .css({ display: "block", 
+            position: "fixed",
+            padding: "7px",
+            "text-align": "center",
+            backgroundColor: "#f0f0f0",
+            width: "80%",
+            top: "50%",
+            left: "10%" })
+        .appendTo( $.mobile.pageContainer ).delay( 1500 )
+        .fadeOut( 400, function(){
+            $(this).remove();
+            onScreen = false;
+        });
+    }
 }
 
 function LoginUser(a) {
