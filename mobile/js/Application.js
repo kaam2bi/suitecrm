@@ -218,6 +218,11 @@ industry["Transportation"] = "Transporte";
 industry["Utilities"] = "Servicios públicos";
 industry["Other"] = "Otro";
 
+// Detalles del loader
+var msgText = "Cargando, espere";
+var textVisible = true;
+var textOnly = true;
+
 $("#HomePage").live("pagecreate", function () {
     $("#LogOutButton .ui-btn-text").text(RES_LOGOUT_LABEL);
     $("#AccountsListPageLinkLabel").text(RES_ACCOUNTS_LABEL);
@@ -279,7 +284,12 @@ var toast=function(msg){
 }
 
 function LoginUser(a) {
-    $.mobile.showPageLoadingMsg();
+        $.mobile.loading( "show", {
+                text: msgText,
+                textonly: textOnly,
+                textVisible: textVisible
+        });
+
     var c = $("#SettingsPageSugarCrmUsername").val(),
         b = $("#SettingsPageSugarCrmPassword").val();
     if (a == undefined) b = $.md5(b);
@@ -301,12 +311,17 @@ function LoginUser(a) {
                 $.mobile.changePage("#HomePage")
             }
         } else toast("Error inesperado");
-        $.mobile.hidePageLoadingMsg()
+        $.mobile.loading( "hide" );
     })
 }
 
 function LoginUserDesktop(a) {
-    $.mobile.showPageLoadingMsg();
+        $.mobile.loading( "show", {
+                text: msgText,
+                textonly: textOnly,
+                textVisible: textVisible
+        });
+
     var c = $("#SettingsPageSugarCrmUsername").val(),
         b = $("#SettingsPageSugarCrmPassword").val();
     if (a == undefined) b = $.md5(b);
@@ -330,7 +345,7 @@ function LoginUserDesktop(a) {
                 $(location).attr('href',url);
             }
         } else toast("Error inesperado"); //alert("Error inesperado, pruebe con el cliente estándar.");
-        $.mobile.hidePageLoadingMsg()
+        $.mobile.loading( "hide" );
     })
 }
 
@@ -373,7 +388,11 @@ function LogCall(a, c) {
 
 function SugarCrmGetAccountsListFromServer(a) {
     if ($("#AllAccountsListDiv li").length === 0 || AccountsListCurrentOffset !== a) {
-        $.mobile.pageLoading();
+        $.mobile.loading( "show", {
+            text: msgText,
+            textonly: textOnly,
+            textVisible: textVisible
+        });
         AccountsListCurrentOffset = a;
         $.get("../service/v2/rest.php", {
             method: "get_entry_list",
@@ -407,7 +426,11 @@ function SugarCrmGetAccountsListFromServer(a) {
                                     click: function () {
                                         CurrentAccountId = $(this).data("identity");
                                         $.mobile.changePage("#ViewAccountDetailsPage");
-                                        $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                         SugarCrmGetAccountDetails()
                                     }
                                 });
@@ -422,7 +445,7 @@ function SugarCrmGetAccountsListFromServer(a) {
                     }
                 }
             }
-            $.mobile.pageLoading(true)
+            $.mobile.loading( "hide" );
         })
     }
 }
@@ -596,7 +619,11 @@ function SugarCrmGetAccountDetails() {
                                 click: function () {
                                     CurrentContactId = $(this).data("identity");
                                     $.mobile.changePage("#ViewContactDetailsPage");
-                                    $.mobile.pageLoading();
+                                    $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                     SugarCrmGetContactDetails()
                                 }
                             });
@@ -643,7 +670,11 @@ function SugarCrmGetAccountDetails() {
                                 click: function () {
                                     CurrentOpportunityId = $(this).data("identity");
                                     $.mobile.changePage("#ViewOpportunityDetailsPage");
-                                    $.mobile.pageLoading();
+                                    $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                     SugarCrmGetOpportunityDetails()
                                 }
                             });
@@ -692,7 +723,11 @@ function SugarCrmGetAccountDetails() {
                                 click: function () {
                                     CurrentLeadId = $(this).data("identity");
                                     $.mobile.changePage("#ViewLeadDetailsPage");
-                                    $.mobile.pageLoading();
+                                    $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                     SugarCrmGetLeadDetails()
                                 }
                             });
@@ -745,7 +780,11 @@ function SugarCrmGetAccountDetails() {
                                 click: function () {
                                     CurrentCallId = $(this).data("identity");
                                     $.mobile.changePage("#ViewCallDetailsPage");
-                                    $.mobile.pageLoading();
+                                    $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                     SugarCrmGetCallDetails()
                                 }
                             });
@@ -813,7 +852,11 @@ function SugarCrmGetAccountDetails() {
                                     click: function () {
                                         CurrentMeetingId = $(this).data("identity");
                                         $.mobile.changePage("#ViewMeetingDetailsPage");
-                                        $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                         SugarCrmGetMeetingDetails()
                                     }
                                 });
@@ -866,7 +909,11 @@ function SugarCrmGetAccountDetails() {
                                     click: function () {
                                         CurrentTaskId = $(this).data("identity");
                                         $.mobile.changePage("#ViewTaskDetailsPage");
-                                        $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                         SugarCrmGetTaskDetails()
                                     }
                                 });
@@ -882,13 +929,17 @@ function SugarCrmGetAccountDetails() {
                     }
             }
             $("#ViewAccountDetailsPageTasksListUl").listview("refresh");
-            $.mobile.pageLoading(true)
+            $.mobile.loading( "hide" );
         })
 }
 
 function SugarCrmGetContactListFromServer(a) {
     if ($("#AllContactsListDiv li").length === 0 || ContactsListCurrentOffset !== a) {
-        $.mobile.pageLoading();
+        $.mobile.loading( "show", {
+                text: msgText,
+                textonly: textOnly,
+                textVisible: textVisible
+        });
         ContactsListCurrentOffset = a;
         $.get("../service/v2/rest.php", {
             method: "get_entry_list",
@@ -921,7 +972,11 @@ function SugarCrmGetContactListFromServer(a) {
                                     click: function () {
                                         CurrentContactId = $(this).data("identity");
                                         $.mobile.changePage("#ViewContactDetailsPage");
-                                        $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                         SugarCrmGetContactDetails()
                                     }
                                 });
@@ -936,7 +991,7 @@ function SugarCrmGetContactListFromServer(a) {
                     }
                 }
             }
-            $.mobile.pageLoading(true)
+            $.mobile.loading( "hide" );
         })
     }
 }
@@ -1129,7 +1184,11 @@ function getContactRelatedOpportunitiesInsetList() {
                                 click: function () {
                                     CurrentOpportunityId = $(this).data("identity");
                                     $.mobile.changePage("#ViewOpportunityDetailsPage");
-                                    $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                     SugarCrmGetOpportunityDetails()
                                 }
                             });
@@ -1179,7 +1238,11 @@ function getContactRelatedLeadsInsetList() {
                                 click: function () {
                                     CurrentLeadId = $(this).data("identity");
                                     $.mobile.changePage("#ViewLeadDetailsPage");
-                                    $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                     SugarCrmGetLeadDetails()
                                 }
                             });
@@ -1234,7 +1297,11 @@ function getContactRelatedCallsInsetList() {
                                 click: function () {
                                     CurrentCallId = $(this).data("identity");
                                     $.mobile.changePage("#ViewCallDetailsPage");
-                                    $.mobile.pageLoading();
+                                    $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                     SugarCrmGetCallDetails()
                                 }
                             });
@@ -1303,7 +1370,11 @@ function getContactRelatedMeetingsInsetList() {
                                 click: function () {
                                     CurrentMeetingId = $(this).data("identity");
                                     $.mobile.changePage("#ViewMeetingDetailsPage");
-                                    $.mobile.pageLoading();
+                                    $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                     SugarCrmGetMeetingDetails()
                                 }
                             });
@@ -1319,7 +1390,7 @@ function getContactRelatedMeetingsInsetList() {
                 }
             $("#ViewContactDetailsPageMeetingsListUl").listview("refresh")
         }
-        $.mobile.pageLoading(true)
+        $.mobile.loading( "hide" );
     })
 }
 
@@ -1361,7 +1432,11 @@ function getContactRelatedTasksInsetList() {
                                     click: function () {
                                         CurrentTaskId = $(this).data("identity");
                                         $.mobile.changePage("#ViewTaskDetailsPage");
-                                        $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                         SugarCrmGetTaskDetails()
                                     }
                                 });
@@ -1377,13 +1452,17 @@ function getContactRelatedTasksInsetList() {
                     }
                 $("#ViewContactDetailsPageTasksListUl").listview("refresh")
             }
-            $.mobile.pageLoading(true)
+            $.mobile.loading( "hide" );
         })
 }
 
 function SugarCrmGetOpportunitiesListFromServer(a) {
     if ($("#AllOpportunitiesListDiv li").length === 0 || OpportunitiesListCurrentOffset !== a) {
-        $.mobile.pageLoading();
+        $.mobile.loading( "show", {
+                text: msgText,
+                textonly: textOnly,
+                textVisible: textVisible
+        });
         OpportunitiesListCurrentOffset = a;
         $.get("../service/v2/rest.php", {
                 method: "get_entry_list",
@@ -1429,7 +1508,11 @@ function SugarCrmGetOpportunitiesListFromServer(a) {
                                         click: function () {
                                             CurrentOpportunityId = $(this).data("identity");
                                             $.mobile.changePage("#ViewOpportunityDetailsPage");
-                                            $.mobile.pageLoading();
+                                            $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                             SugarCrmGetOpportunityDetails()
                                         }
                                     });
@@ -1445,13 +1528,17 @@ function SugarCrmGetOpportunitiesListFromServer(a) {
                         }
                     }
                 }
-                $.mobile.pageLoading(true)
+                $.mobile.loading( "hide" );
             })
     }
 }
 
 function SugarCrmGetOpportunityDetails() {
-    $.mobile.pageLoading();
+    $.mobile.loading( "show", {
+            text: msgText,
+            textonly: textOnly,
+            textVisible: textVisible
+    });
     $("#OpportunityNameH1").html("");
     $("#OpportunityDescriptionP").text("");
     $("#ViewOpportunityDetailsPageDetailsList li").remove();
@@ -1523,7 +1610,11 @@ function SugarCrmGetOpportunityDetails() {
 }
 
 function getOpportunityRelatedContactsInsetList() {
-    $.mobile.pageLoading();
+    $.mobile.loading( "show", {
+            text: msgText,
+            textonly: textOnly,
+            textVisible: textVisible
+    });
     $("#ViewOpportunityDetailsPageContactsListUl li").remove();
     $.get("../service/v2/rest.php", {
             method: "get_relationships",
@@ -1556,7 +1647,11 @@ function getOpportunityRelatedContactsInsetList() {
                                     click: function () {
                                         CurrentContactId = $(this).data("identity");
                                         $.mobile.changePage("#ViewContactDetailsPage");
-                                        $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                         SugarCrmGetContactDetails()
                                     }
                                 });
@@ -1573,12 +1668,16 @@ function getOpportunityRelatedContactsInsetList() {
                 }
                 $("#ViewOpportunityDetailsPageContactsListUl").listview("refresh")
             }
-            $.mobile.pageLoading(true)
+            $.mobile.loading( "hide" );
         })
 }
 
 function getOpportunityRelatedLeadsInsetList() {
-    $.mobile.pageLoading();
+    $.mobile.loading( "show", {
+            text: msgText,
+            textonly: textOnly,
+            textVisible: textVisible
+    });
     $("#ViewOpportunityDetailsPageLeadsListUl li").remove();
     $.get("../service/v2/rest.php", {
             method: "get_relationships",
@@ -1611,7 +1710,11 @@ function getOpportunityRelatedLeadsInsetList() {
                                     click: function () {
                                         CurrentLeadId = $(this).data("identity");
                                         $.mobile.changePage("#ViewLeadDetailsPage");
-                                        $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                         SugarCrmGetLeadDetails()
                                     }
                                 });
@@ -1628,12 +1731,16 @@ function getOpportunityRelatedLeadsInsetList() {
                 }
                 $("#ViewOpportunityDetailsPageLeadsListUl").listview("refresh")
             }
-            $.mobile.pageLoading(true)
+            $.mobile.loading( "hide" );
         })
 }
 
 function getOpportunityRelatedCallsInsetList() {
-    $.mobile.pageLoading();
+    $.mobile.loading( "show", {
+            text: msgText,
+            textonly: textOnly,
+            textVisible: textVisible
+    });
     $("#ViewOpportunityDetailsPageCallsListUl li").remove();
     $.get("../service/v2/rest.php", {
             method: "get_relationships",
@@ -1670,7 +1777,11 @@ function getOpportunityRelatedCallsInsetList() {
                                     click: function () {
                                         CurrentCallId = $(this).data("identity");
                                         $.mobile.changePage("#ViewCallDetailsPage");
-                                        $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                         SugarCrmGetCallDetails()
                                     }
                                 });
@@ -1687,12 +1798,16 @@ function getOpportunityRelatedCallsInsetList() {
                 }
                 $("#ViewOpportunityDetailsPageCallsListUl").listview("refresh")
             }
-            $.mobile.pageLoading(true)
+            $.mobile.loading( "hide" );
         })
 }
 
 function getOpportunityRelatedMeetingsInsetList() {
-    $.mobile.pageLoading();
+    $.mobile.loading( "show", {
+            text: msgText,
+            textonly: textOnly,
+            textVisible: textVisible
+    });
     $("#ViewOpportunityDetailsPageMeetingsListUl li").remove();
     $.get("../service/v2/rest.php", {
             method: "get_relationships",
@@ -1745,7 +1860,11 @@ function getOpportunityRelatedMeetingsInsetList() {
                                     click: function () {
                                         CurrentMeetingId = $(this).data("identity");
                                         $.mobile.changePage("#ViewMeetingDetailsPage");
-                                        $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                         SugarCrmGetMeetingDetails()
                                     }
                                 });
@@ -1763,12 +1882,16 @@ function getOpportunityRelatedMeetingsInsetList() {
                 }
                 $("#ViewOpportunityDetailsPageMeetingsListUl").listview("refresh")
             }
-            $.mobile.pageLoading(true)
+            $.mobile.loading( "hide" );
         })
 }
 
 function getOpportunityRelatedTasksInsetList() {
-    $.mobile.pageLoading();
+    $.mobile.loading( "show", {
+            text: msgText,
+            textonly: textOnly,
+            textVisible: textVisible
+    });
     $("#ViewOpportunityDetailsPageTasksListUl li").remove();
     $.get("../service/v2/rest.php", {
             method: "get_relationships",
@@ -1806,7 +1929,11 @@ function getOpportunityRelatedTasksInsetList() {
                                     click: function () {
                                         CurrentTaskId = $(this).data("identity");
                                         $.mobile.changePage("#ViewTaskDetailsPage");
-                                        $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                         SugarCrmGetTaskDetails()
                                     }
                                 });
@@ -1823,13 +1950,17 @@ function getOpportunityRelatedTasksInsetList() {
                 }
                 $("#ViewOpportunityDetailsPageTasksListUl").listview("refresh")
             }
-            $.mobile.pageLoading(true)
+            $.mobile.loading( "hide" );
         })
 }
 
 function SugarCrmGetLeadsListFromServer(a) {
     if ($("#AllLeadsListDiv li").length === 0 || LeadsListCurrentOffset !== a) {
-        $.mobile.pageLoading();
+        $.mobile.loading( "show", {
+                text: msgText,
+                textonly: textOnly,
+                textVisible: textVisible
+        });
         LeadsListCurrentOffset = a;
         $.get("../service/v2/rest.php", {
             method: "get_entry_list",
@@ -1862,7 +1993,11 @@ function SugarCrmGetLeadsListFromServer(a) {
                                     click: function () {
                                         CurrentLeadId = $(this).data("identity");
                                         $.mobile.changePage("#ViewLeadDetailsPage");
-                                        $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                         SugarCrmGetLeadDetails()
                                     }
                                 });
@@ -1877,7 +2012,7 @@ function SugarCrmGetLeadsListFromServer(a) {
                     }
                 }
             }
-            $.mobile.pageLoading(true)
+            $.mobile.loading( "hide" );
         })
     }
 }
@@ -2204,13 +2339,17 @@ function getLeadRelatedTasksInsetList() {
                 }
             $("#ViewLeadDetailsPageTasksListUl").listview("refresh")
         }
-        $.mobile.pageLoading(true)
+        $.mobile.loading( "hide" );
     })
 }
 
 function SugarCrmGetCallsListFromServer(a) {
     if ($("#AllCallsListDiv li").length === 0 || CallsListCurrentOffset !== a) {
-        $.mobile.pageLoading();
+        $.mobile.loading( "show", {
+                text: msgText,
+                textonly: textOnly,
+                textVisible: textVisible
+        });
         CallsListCurrentOffset = a;
         $.get("../service/v2/rest.php", {
             method: "get_entry_list",
@@ -2246,7 +2385,11 @@ function SugarCrmGetCallsListFromServer(a) {
                                     click: function () {
                                         CurrentCallId = $(this).data("identity");
                                         $.mobile.changePage("#ViewCallDetailsPage");
-                                        $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                         SugarCrmGetCallDetails()
                                     }
                                 });
@@ -2262,13 +2405,17 @@ function SugarCrmGetCallsListFromServer(a) {
                     }
                 }
             }
-            $.mobile.pageLoading(true)
+            $.mobile.loading( "hide" );
         })
     }
 }
 
 function SugarCrmGetCallDetails() {
-    $.mobile.pageLoading();
+    $.mobile.loading( "show", {
+            text: msgText,
+            textonly: textOnly,
+            textVisible: textVisible
+    });
     $("#CallNameH1").html("");
     $("#CallSubjectP").text("");
     $("#ViewCallDetailsPageDetailsList li").remove();
@@ -2368,7 +2515,11 @@ function getCallRelatedContactsInsetList() {
                                     CurrentContactId =
                                         $(this).data("identity");
                                     $.mobile.changePage("#ViewContactDetailsPage");
-                                    $.mobile.pageLoading();
+                                    $.mobile.loading( "show", {
+                                            text: msgText,
+                                            textonly: textOnly,
+                                            textVisible: textVisible
+                                    });
                                     SugarCrmGetContactDetails()
                                 }
                             });
@@ -2384,7 +2535,7 @@ function getCallRelatedContactsInsetList() {
                 }
             $("#ViewCallDetailsPageContactsListUl").listview("refresh")
         }
-        $.mobile.pageLoading(true)
+        $.mobile.loading( "hide" );
     })
 }
 
@@ -2423,7 +2574,7 @@ function getCallRelatedUsersInsetList() {
                 }
             $("#ViewCallDetailsPageUsersListUl").listview("refresh")
         }
-        $.mobile.pageLoading(true)
+        $.mobile.loading( "hide" );
     })
 }
 
@@ -2458,7 +2609,11 @@ function getCallRelatedLeadsInsetList() {
                                 click: function () {
                                     CurrentLeadId = $(this).data("identity");
                                     $.mobile.changePage("#ViewLeadDetailsPage");
-                                    $.mobile.pageLoading();
+                                    $.mobile.loading( "show", {
+                                            text: msgText,
+                                            textonly: textOnly,
+                                            textVisible: textVisible
+                                    });
                                     SugarCrmGetLeadDetails()
                                 }
                             });
@@ -2509,7 +2664,11 @@ function getCallRelatedNotesInsetList() {
                                     CurrentNoteId =
                                         $(this).data("identity");
                                     $.mobile.changePage("#ViewNoteDetailsPage");
-                                    $.mobile.pageLoading();
+                                    $.mobile.loading( "show", {
+                                            text: msgText,
+                                            textonly: textOnly,
+                                            textVisible: textVisible
+                                    });
                                     SugarCrmGetNoteDetails()
                                 }
                             });
@@ -2525,13 +2684,17 @@ function getCallRelatedNotesInsetList() {
                 }
             $("#ViewCallDetailsPageNotesListUl").listview("refresh")
         }
-        $.mobile.pageLoading(true)
+        $.mobile.loading( "hide" );
     })
 }
 
 function SugarCrmGetMeetingsListFromServer(a) {
     if ($("#AllMeetingsListDiv li").length === 0 || MeetingsListCurrentOffset !== a) {
-        $.mobile.pageLoading();
+        $.mobile.loading( "show", {
+                text: msgText,
+                textonly: textOnly,
+                textVisible: textVisible
+        });
         MeetingsListCurrentOffset = a;
         $.get("../service/v2/rest.php", {
             method: "get_entry_list",
@@ -2582,7 +2745,11 @@ function SugarCrmGetMeetingsListFromServer(a) {
                                     click: function () {
                                         CurrentMeetingId = $(this).data("identity");
                                         $.mobile.changePage("#ViewMeetingDetailsPage");
-                                        $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                         SugarCrmGetMeetingDetails()
                                     }
                                 });
@@ -2598,13 +2765,17 @@ function SugarCrmGetMeetingsListFromServer(a) {
                     }
                 }
             }
-            $.mobile.pageLoading(true)
+            $.mobile.loading( "hide" );
         })
     }
 }
 
 function SugarCrmGetMeetingDetails() {
-    $.mobile.pageLoading();
+    $.mobile.loading( "show", {
+            text: msgText,
+            textonly: textOnly,
+            textVisible: textVisible
+    });
     $("#MeetingNameH1").html("");
     $("#MeetingSubjectP").text("");
     $("#ViewMeetingDetailsPageDetailsList li").remove();
@@ -2722,7 +2893,11 @@ function getMeetingRelatedContactsInsetList() {
                                     click: function () {
                                         CurrentContactId = $(this).data("identity");
                                         $.mobile.changePage("#ViewContactDetailsPage");
-                                        $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                         SugarCrmGetContactDetails()
                                     }
                                 });
@@ -2738,7 +2913,7 @@ function getMeetingRelatedContactsInsetList() {
                     }
                 $("#ViewMeetingDetailsPageContactsListUl").listview("refresh")
             }
-            $.mobile.pageLoading(true)
+            $.mobile.loading( "hide" );
         })
 }
 
@@ -2778,7 +2953,7 @@ function getMeetingRelatedUsersInsetList() {
                 }
             $("#ViewMeetingDetailsPageUsersListUl").listview("refresh")
         }
-        $.mobile.pageLoading(true)
+        $.mobile.loading( "hide" );
     })
 }
 
@@ -2813,7 +2988,11 @@ function getMeetingRelatedLeadsInsetList() {
                                 click: function () {
                                     CurrentLeadId = $(this).data("identity");
                                     $.mobile.changePage("#ViewLeadDetailsPage");
-                                    $.mobile.pageLoading();
+                                    $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                     SugarCrmGetLeadDetails()
                                 }
                             });
@@ -2864,7 +3043,11 @@ function getMeetingRelatedNotesInsetList() {
                                     CurrentNoteId =
                                         $(this).data("identity");
                                     $.mobile.changePage("#ViewNoteDetailsPage");
-                                    $.mobile.pageLoading();
+                                    $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                     SugarCrmGetNoteDetails()
                                 }
                             });
@@ -2880,13 +3063,17 @@ function getMeetingRelatedNotesInsetList() {
                 }
             $("#ViewMeetingDetailsPageNotesListUl").listview("refresh")
         }
-        $.mobile.pageLoading(true)
+        $.mobile.loading( "hide" );
     })
 }
 
 function SugarCrmGetTasksListFromServer(a) {
     if ($("#AllTasksListDiv li").length === 0 || TasksListCurrentOffset !== a) {
-        $.mobile.pageLoading();
+        $.mobile.loading( "show", {
+                text: msgText,
+                textonly: textOnly,
+                textVisible: textVisible
+        });
         TasksListCurrentOffset = a;
         $.get("../service/v2/rest.php", {
             method: "get_entry_list",
@@ -2921,7 +3108,11 @@ function SugarCrmGetTasksListFromServer(a) {
                                     click: function () {
                                         CurrentTaskId = $(this).data("identity");
                                         $.mobile.changePage("#ViewTaskDetailsPage");
-                                        $.mobile.pageLoading();
+                                        $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                         SugarCrmGetTaskDetails()
                                     }
                                 });
@@ -2936,13 +3127,17 @@ function SugarCrmGetTasksListFromServer(a) {
                     }
                 }
             }
-            $.mobile.pageLoading(true)
+            $.mobile.loading( "hide" );
         })
     }
 }
 
 function SugarCrmGetTaskDetails() {
-    $.mobile.pageLoading();
+    $.mobile.loading( "show", {
+            text: msgText,
+            textonly: textOnly,
+            textVisible: textVisible
+    });
     $("#TaskNameH1").html("");
     $("#TaskSubjectP").text("");
     $("#ViewTaskDetailsPageDetailsList li").remove();
@@ -3040,7 +3235,11 @@ function getTaskRelatedContactsInsetList() {
                                     CurrentContactId =
                                         $(this).data("identity");
                                     $.mobile.changePage("#ViewContactDetailsPage");
-                                    $.mobile.pageLoading();
+                                    $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                     SugarCrmGetContactDetails()
                                 }
                             });
@@ -3056,7 +3255,7 @@ function getTaskRelatedContactsInsetList() {
                 }
             $("#ViewTaskDetailsPageContactsListUl").listview("refresh")
         }
-        $.mobile.pageLoading(true)
+        $.mobile.loading( "hide" );
     })
 }
 
@@ -3095,7 +3294,7 @@ function getTaskRelatedUsersInsetList() {
                 }
             $("#ViewTaskDetailsPageUsersListUl").listview("refresh")
         }
-        $.mobile.pageLoading(true)
+        $.mobile.loading( "hide" );
     })
 }
 
@@ -3130,7 +3329,11 @@ function getTaskRelatedLeadsInsetList() {
                                 click: function () {
                                     CurrentLeadId = $(this).data("identity");
                                     $.mobile.changePage("#ViewLeadDetailsPage");
-                                    $.mobile.pageLoading();
+                                    $.mobile.loading( "show", {
+                                                text: msgText,
+                                                textonly: textOnly,
+                                                textVisible: textVisible
+                                        });
                                     SugarCrmGetLeadDetails()
                                 }
                             });
@@ -3146,7 +3349,7 @@ function getTaskRelatedLeadsInsetList() {
                 }
             $("#ViewTaskDetailsPageLeadsListUl").listview("refresh")
         }
-        $.mobile.pageLoading(true)
+        $.mobile.loading( "hide" );
     })
 }
 
@@ -3192,7 +3395,7 @@ function SugarCrmGetNoteDetails() {
                     $("#ViewNoteDetailsPageDetailsList").listview("refresh")
                 }
         }
-        $.mobile.pageLoading(true)
+        $.mobile.loading( "hide" );
     })
 }
 (function (a) {
