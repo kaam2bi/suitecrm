@@ -395,12 +395,10 @@ function LogCall(a, c) {
         method: "set_entry",
         input_type: "JSON",
         response_type: "JSON",
-        rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"Llamada registrada desde el cliente móvil"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Held"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":1},{"name":"date_start","value":"' + now() + '"},{"name":"direction","value":"Outbound"}]}'
+        rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"Llamada registrada desde el cliente móvil"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Held"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":1},{"name":"date_start","value":"' + now(true, true) + '"},{"name":"date_end","value":"' + now(true, true) + '"},{"name":"direction","value":"Outbound"}]}'
     }, function (b) {
         toast(newRegisteredItem);
     })
-
-    console.log("Now"+now());
 }
 
 
@@ -3409,7 +3407,6 @@ function change(time) {
     var r = time.match(/^\s*([0-9]+)\s*-\s*([0-9]+)\s*-\s*([0-9]+)(.*)$/);
     if ((r !== null) && (r !== undefined))
     {   
-        // Filtrar aquí la hora antes de mostrarla (siempre la hora mostrada es la local)
         horaCompleta = r[4].trim().split(":");
         minutos = horaCompleta[1];
         hora = parseInt(horaCompleta[0]);
@@ -3421,15 +3418,31 @@ function change(time) {
     }
 }
 
-// Devuelve la fecha y hora actual
-function now() {
+// Devuelve la fecha y hora actual 
+// param local= true:local, false:GMT
+// param toStore= true:database format, false: to show on screen
+function now(local, toStore) {
     var currentdate = new Date(); 
-    var datetime = currentdate.getDate() + "/"
-                + (currentdate.getMonth()+1)  + "/" 
-                + currentdate.getFullYear() + " "  
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds();
+    var hora, datetime;
+
+    if (local) hora = parseInt(currentdate.getHours()) + (timeOffset * (-1) / 60);
+    else hora = currentdate.getHours();
+    
+    if (toStore)
+    {
+        datetime = currentdate.getFullYear() + "-"
+                    + (currentdate.getMonth()+1)  + "-" 
+                    +  currentdate.getDate() + " ";
+    }
+    else
+    {
+        datetime = currentdate.getDate() + "-"
+                    + (currentdate.getMonth()+1)  + "-" 
+                    + currentdate.getFullYear() + " ";
+    }
+
+    datetime += hora + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+    console.log(datetime);
     return datetime;
 }
 
