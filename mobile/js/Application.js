@@ -232,6 +232,9 @@ var newRegisteredItem = "Nuevo elemento creado";
 // Offset horario (para hora local) en horas (para GMT+1=-60, para GMT+2=-120)
 var timeOffset = new Date().getTimezoneOffset();
 
+// Para configurar cualquier ruta de acceso, cambiar la URL por el raíz de SugarCRM
+var sugarURL = "..";
+
 $("#HomePage").live("pagecreate", function () {
     $("#LogOutButton .ui-btn-text").text(RES_LOGOUT_LABEL);
     $("#AccountsListPageLinkLabel").text(RES_ACCOUNTS_LABEL);
@@ -308,7 +311,7 @@ function LoginUser(a) {
     var c = $("#SettingsPageSugarCrmUsername").val(),
         b = $("#SettingsPageSugarCrmPassword").val();
     if (a == undefined) b = $.md5(b);
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "login",
         input_type: "JSON",
         response_type: "JSON",
@@ -340,7 +343,7 @@ function LoginUserDesktop(a) {
     var c = $("#SettingsPageSugarCrmUsername").val(),
         b = $("#SettingsPageSugarCrmPassword").val();
     if (a == undefined) b = $.md5(b);
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "login",
         input_type: "JSON",
         response_type: "JSON",
@@ -366,7 +369,7 @@ function LoginUserDesktop(a) {
 
 // Hace logout del usuario actual al cambiar el foco o de ventana (comentar para permitir registro de elementos al llamar)
 window.onbeforeunload = function () {
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "logout",
         input_type: "JSON",
         response_type: "JSON",
@@ -375,7 +378,7 @@ window.onbeforeunload = function () {
 };
 
 function LogOutUser() {
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "logout",
         input_type: "JSON",
         response_type: "JSON",
@@ -391,7 +394,7 @@ function LogOutUser() {
 
 function LogCall(a, c) {
 
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "set_entry",
         input_type: "JSON",
         response_type: "JSON",
@@ -410,7 +413,7 @@ function SugarCrmGetAccountsListFromServer(a) {
             textVisible: textVisible
         });
         AccountsListCurrentOffset = a;
-        $.get("../service/v2/rest.php", {
+        $.get(sugarURL+"/service/v2/rest.php", {
             method: "get_entry_list",
             input_type: "JSON",
             response_type: "JSON",
@@ -470,7 +473,7 @@ function SugarCrmGetAccountDetails() {
     $("#ViewAccountDetailsPageDetailsList li").remove();
     $("#AccountNameH1").html("");
     $("#AccountDescriptionP").text("");
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_entry",
         input_type: "JSON",
         response_type: "JSON",
@@ -606,7 +609,7 @@ function SugarCrmGetAccountDetails() {
         $("#ViewAccountDetailsPageDetailsList").listview("refresh")
     });
     $("#ViewAccountDetailsPageContactsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -656,7 +659,7 @@ function SugarCrmGetAccountDetails() {
         }
     });
     $("#ViewAccountDetailsPageOpportunitiesListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -707,7 +710,7 @@ function SugarCrmGetAccountDetails() {
         $("#ViewAccountDetailsPageOpportunitiesListUl").listview("refresh")
     });
     $("#ViewAccountDetailsPageLeadsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -760,7 +763,7 @@ function SugarCrmGetAccountDetails() {
         $("#ViewAccountDetailsPageLeadsListUl").listview("refresh")
     });
     $("#ViewAccountDetailsPageCallsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -818,7 +821,7 @@ function SugarCrmGetAccountDetails() {
         $("#ViewAccountDetailsPageCallsListUl").listview("refresh")
     });
     $("#ViewAccountDetailsPageMeetingsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
             method: "get_relationships",
             input_type: "JSON",
             response_type: "JSON",
@@ -889,7 +892,7 @@ function SugarCrmGetAccountDetails() {
             $("#ViewAccountDetailsPageMeetingsListUl").listview("refresh")
         });
     $("#ViewAccountDetailsPageTasksListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
             method: "get_relationships",
             input_type: "JSON",
             response_type: "JSON",
@@ -956,7 +959,7 @@ function SugarCrmGetContactListFromServer(a) {
                 textVisible: textVisible
         });
         ContactsListCurrentOffset = a;
-        $.get("../service/v2/rest.php", {
+        $.get(sugarURL+"/service/v2/rest.php", {
             method: "get_entry_list",
             input_type: "JSON",
             response_type: "JSON",
@@ -1015,7 +1018,7 @@ function SugarCrmGetContactDetails() {
     $("#ContactNameH1").html("");
     $("#ContactTitleP").text("");
     $("#ViewContactDetailsPageDetailsList li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_entry",
         input_type: "JSON",
         response_type: "JSON",
@@ -1171,7 +1174,7 @@ function SugarCrmGetContactDetails() {
 
 function getContactRelatedOpportunitiesInsetList() {
     $("#ViewContactDetailsPageOpportunitiesListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -1224,7 +1227,7 @@ function getContactRelatedOpportunitiesInsetList() {
 
 function getContactRelatedLeadsInsetList() {
     $("#ViewContactDetailsPageLeadsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -1278,7 +1281,7 @@ function getContactRelatedLeadsInsetList() {
 
 function getContactRelatedCallsInsetList() {
     $("#ViewContactDetailsPageCallsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -1337,7 +1340,7 @@ function getContactRelatedCallsInsetList() {
 
 function getContactRelatedMeetingsInsetList() {
     $("#ViewContactDetailsPageMeetingsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -1412,7 +1415,7 @@ function getContactRelatedMeetingsInsetList() {
 function getContactRelatedTasksInsetList() {
     $("#ViewContactDetailsPageTasksListUl li").remove();
     SugarSessionId == "" && $.mobile.changePage("#HomePage");
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
             method: "get_relationships",
             input_type: "JSON",
             response_type: "JSON",
@@ -1479,7 +1482,7 @@ function SugarCrmGetOpportunitiesListFromServer(a) {
                 textVisible: textVisible
         });
         OpportunitiesListCurrentOffset = a;
-        $.get("../service/v2/rest.php", {
+        $.get(sugarURL+"/service/v2/rest.php", {
                 method: "get_entry_list",
                 input_type: "JSON",
                 response_type: "JSON",
@@ -1557,7 +1560,7 @@ function SugarCrmGetOpportunityDetails() {
     $("#OpportunityNameH1").html("");
     $("#OpportunityDescriptionP").text("");
     $("#ViewOpportunityDetailsPageDetailsList li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_entry",
         input_type: "JSON",
         response_type: "JSON",
@@ -1631,7 +1634,7 @@ function getOpportunityRelatedContactsInsetList() {
             textVisible: textVisible
     });
     $("#ViewOpportunityDetailsPageContactsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
             method: "get_relationships",
             input_type: "JSON",
             response_type: "JSON",
@@ -1694,7 +1697,7 @@ function getOpportunityRelatedLeadsInsetList() {
             textVisible: textVisible
     });
     $("#ViewOpportunityDetailsPageLeadsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
             method: "get_relationships",
             input_type: "JSON",
             response_type: "JSON",
@@ -1757,7 +1760,7 @@ function getOpportunityRelatedCallsInsetList() {
             textVisible: textVisible
     });
     $("#ViewOpportunityDetailsPageCallsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
             method: "get_relationships",
             input_type: "JSON",
             response_type: "JSON",
@@ -1824,7 +1827,7 @@ function getOpportunityRelatedMeetingsInsetList() {
             textVisible: textVisible
     });
     $("#ViewOpportunityDetailsPageMeetingsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
             method: "get_relationships",
             input_type: "JSON",
             response_type: "JSON",
@@ -1908,7 +1911,7 @@ function getOpportunityRelatedTasksInsetList() {
             textVisible: textVisible
     });
     $("#ViewOpportunityDetailsPageTasksListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
             method: "get_relationships",
             input_type: "JSON",
             response_type: "JSON",
@@ -1977,7 +1980,7 @@ function SugarCrmGetLeadsListFromServer(a) {
                 textVisible: textVisible
         });
         LeadsListCurrentOffset = a;
-        $.get("../service/v2/rest.php", {
+        $.get(sugarURL+"/service/v2/rest.php", {
             method: "get_entry_list",
             input_type: "JSON",
             response_type: "JSON",
@@ -2036,7 +2039,7 @@ function SugarCrmGetLeadDetails() {
     $("#ContactNameH1").html("");
     $("#ContactTitleP").text("");
     $("#ViewLeadDetailsPageDetailsList li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_entry",
         input_type: "JSON",
         response_type: "JSON",
@@ -2187,7 +2190,7 @@ function SugarCrmGetLeadDetails() {
 
 function getLeadRelatedCallsInsetList() {
     $("#ViewLeadDetailsPageCallsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -2240,7 +2243,7 @@ function getLeadRelatedCallsInsetList() {
 
 function getLeadRelatedMeetingsInsetList() {
     $("#ViewLeadDetailsPageMeetingsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -2307,7 +2310,7 @@ function getLeadRelatedMeetingsInsetList() {
 
 function getLeadRelatedTasksInsetList() {
     $("#ViewLeadDetailsPageTasksListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -2366,7 +2369,7 @@ function SugarCrmGetCallsListFromServer(a) {
                 textVisible: textVisible
         });
         CallsListCurrentOffset = a;
-        $.get("../service/v2/rest.php", {
+        $.get(sugarURL+"/service/v2/rest.php", {
             method: "get_entry_list",
             input_type: "JSON",
             response_type: "JSON",
@@ -2434,7 +2437,7 @@ function SugarCrmGetCallDetails() {
     $("#CallNameH1").html("");
     $("#CallSubjectP").text("");
     $("#ViewCallDetailsPageDetailsList li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_entry",
         input_type: "JSON",
         response_type: "JSON",
@@ -2476,7 +2479,7 @@ function SugarCrmGetCallDetails() {
 
 function getCallParentDetails(a, c) {
     var b = "<h4>" + a + ":&nbsp;";
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_entry",
         input_type: "JSON",
         response_type: "JSON",
@@ -2501,7 +2504,7 @@ function getCallParentDetails(a, c) {
 
 function getCallRelatedContactsInsetList() {
     $("#ViewCallDetailsPageContactsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -2556,7 +2559,7 @@ function getCallRelatedContactsInsetList() {
 
 function getCallRelatedUsersInsetList() {
     $("#ViewCallDetailsPageUsersListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -2595,7 +2598,7 @@ function getCallRelatedUsersInsetList() {
 
 function getCallRelatedLeadsInsetList() {
     $("#ViewCallDetailsPageLeadsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -2649,7 +2652,7 @@ function getCallRelatedLeadsInsetList() {
 
 function getCallRelatedNotesInsetList() {
     $("#ViewCallDetailsPageNotesListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -2711,7 +2714,7 @@ function SugarCrmGetMeetingsListFromServer(a) {
                 textVisible: textVisible
         });
         MeetingsListCurrentOffset = a;
-        $.get("../service/v2/rest.php", {
+        $.get(sugarURL+"/service/v2/rest.php", {
             method: "get_entry_list",
             input_type: "JSON",
             response_type: "JSON",
@@ -2794,7 +2797,7 @@ function SugarCrmGetMeetingDetails() {
     $("#MeetingNameH1").html("");
     $("#MeetingSubjectP").text("");
     $("#ViewMeetingDetailsPageDetailsList li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_entry",
         input_type: "JSON",
         response_type: "JSON",
@@ -2852,7 +2855,7 @@ function SugarCrmGetMeetingDetails() {
 
 function getMeetingParentDetails(a, c) {
     var b = "<h4>" + a + ":&nbsp;";
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_entry",
         input_type: "JSON",
         response_type: "JSON",
@@ -2878,7 +2881,7 @@ function getMeetingParentDetails(a, c) {
 function getMeetingRelatedContactsInsetList() {
     $("#ViewMeetingDetailsPageContactsListUl li").remove();
     SugarSessionId == "" && $.mobile.changePage("#HomePage");
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
             method: "get_relationships",
             input_type: "JSON",
             response_type: "JSON",
@@ -2935,7 +2938,7 @@ function getMeetingRelatedContactsInsetList() {
 function getMeetingRelatedUsersInsetList() {
     $("#ViewMeetingDetailsPageUsersListUl li").remove();
     SugarSessionId == "" && $.mobile.changePage("#HomePage");
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -2974,7 +2977,7 @@ function getMeetingRelatedUsersInsetList() {
 
 function getMeetingRelatedLeadsInsetList() {
     $("#ViewMeetingDetailsPageLeadsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -3028,7 +3031,7 @@ function getMeetingRelatedLeadsInsetList() {
 
 function getMeetingRelatedNotesInsetList() {
     $("#ViewMeetingDetailsPageNotesListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -3090,7 +3093,7 @@ function SugarCrmGetTasksListFromServer(a) {
                 textVisible: textVisible
         });
         TasksListCurrentOffset = a;
-        $.get("../service/v2/rest.php", {
+        $.get(sugarURL+"/service/v2/rest.php", {
             method: "get_entry_list",
             input_type: "JSON",
             response_type: "JSON",
@@ -3156,7 +3159,7 @@ function SugarCrmGetTaskDetails() {
     $("#TaskNameH1").html("");
     $("#TaskSubjectP").text("");
     $("#ViewTaskDetailsPageDetailsList li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_entry",
         input_type: "JSON",
         response_type: "JSON",
@@ -3196,7 +3199,7 @@ function SugarCrmGetTaskDetails() {
 
 function getTaskParentDetails(a, c) {
     var b = "<h4>" + a + ":&nbsp;";
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_entry",
         input_type: "JSON",
         response_type: "JSON",
@@ -3221,7 +3224,7 @@ function getTaskParentDetails(a, c) {
 
 function getTaskRelatedContactsInsetList() {
     $("#ViewTaskDetailsPageContactsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -3276,7 +3279,7 @@ function getTaskRelatedContactsInsetList() {
 
 function getTaskRelatedUsersInsetList() {
     $("#ViewTaskDetailsPageUsersListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -3315,7 +3318,7 @@ function getTaskRelatedUsersInsetList() {
 
 function getTaskRelatedLeadsInsetList() {
     $("#ViewTaskDetailsPageLeadsListUl li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_relationships",
         input_type: "JSON",
         response_type: "JSON",
@@ -3372,7 +3375,7 @@ function SugarCrmGetNoteDetails() {
     $("#NoteSubjectH1").html("");
     $("#NoteTextP").text("");
     $("#ViewNoteDetailsPageDetailsList li").remove();
-    $.get("../service/v2/rest.php", {
+    $.get(sugarURL+"/service/v2/rest.php", {
         method: "get_entry",
         input_type: "JSON",
         response_type: "JSON",
