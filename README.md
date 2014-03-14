@@ -44,6 +44,21 @@ themes/Suite7/images/
 
 En la raíz de la ruta, en vez de cargarlas desde la caché las referenciará directamente.
 
+IMPUESTOS EN REGOLUNA Y SUGAR
+=============================
+
+El módulo de facturas de RegoLuna, al instalarlo, ha de hacerse desde el Cargador de Paquetes.
+En el editor de lista desplegable, lista "iva_type_dom", incluir los IVA's siguientes:
+- Quitar 0.16, 0.07.
+- Dejar 0.04 (+4% IVA Superreducido)
+- Poner 0.10 (+10% IVA Reducido)
+- Poner 0.21 (+21% IVA General)
+- Poner 0.00 (Exento)
+
+Y en la lista "vat_list" (general de Sugar), incluir los siguientes valores:
+- Quitar todos menos 0.0 (Cambiarlo a Exento)
+- Poner todos los anteriores (4, 10, 21)
+
 MÓDULO DE CLIENTE MÓVIL PARA SUITECRM-SUGARCRM
 ==============================================
 
@@ -58,3 +73,4 @@ OBSERVACIONES SOBRE LA INCLUSIÓN DE ESTADOS PERSONALIZADOS EN LISTAS DE ELEMENT
 
 En el cliente móvil se traducen todos los strings de traducción desde el inglés al español de todos los estados habituales de SugarCRM (para llamadas, facturas, reuniones, tareas, etc.).
 Si se incluye en Sugar un nuevo estado, en el cliente móvil no aparecerá a no ser que se añada a la variable status2["valorInglés"] = "valorEspañol".
+
