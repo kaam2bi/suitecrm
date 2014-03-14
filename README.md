@@ -23,6 +23,30 @@ Una vez que el módulo está desplegado, usar el Studio para cambiar cosas del m
 - Crear relaciones en Studio cuando el módulo se haya desplegado (y no antes), desde Studio se podrán modificar luego.
 - Cuando se despliegue el paquete, borrarlo del Module Builder (creador de módulos) para no volver a desplegarlo accidentalmente, excepto en entorno de desarrollo, que no es necesario si se va a seguir probando el módulo y modificándolo.
 
+RECOMENDACIONES DE DESPLIEGUE
+=============================
+
+http://dl.sugarforge.org/sagilityopensal/01AdvancedOpenSales5/Documentation/AdvancedOpenSalesUserGuide.pdf
+
+Php.ini Settings
+We recommend the following values within the 'php.ini' file :
+• upload_max_filesize = 60M
+• max_execution_time = 200
+• post_max_size = 120M
+
+Permissions
+If your file permissions are not set correctly it can prevent Advanced OpenSales from 
+uploading and installing correctly. 
+For Linux users we recommend the following:
+1. Set the whole SugarCRM instance to 755 recursively.
+2. Then within your SugarCRM instance set the folders cache, custom, data, modules,
+& themes to 775 recursively. (e.g. 'chmod -R 775 cache custom data modules 
+themes')
+3. If you are using SugarCRM 6.4 or higher the 'upload' folder is no longer within the 
+cache folder. Therefore you also need to set that to 775 recursively (e.g. 'chmod -R 
+775 upload')
+
+
 MANUAL DE BUILDER
 =================
 
@@ -44,8 +68,8 @@ themes/Suite7/images/
 
 En la raíz de la ruta, en vez de cargarlas desde la caché las referenciará directamente.
 
-IMPUESTOS EN REGOLUNA Y SUGAR
-=============================
+IMPUESTOS EN REGOLUNA (OPCIONAL) Y SUITE (OBLIGATORIO)
+======================================================
 
 El módulo de facturas de RegoLuna, al instalarlo, ha de hacerse desde el Cargador de Paquetes.
 En el editor de lista desplegable, lista "iva_type_dom", incluir los IVA's siguientes:
