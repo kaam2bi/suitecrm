@@ -154,6 +154,12 @@ status2["Planned"] = "Planificada";
 status2["Held"] = "Realizada";
 status2["Not Held"] = "No Realizada";
 
+// Meetings (Reuniones)
+status2["accept"] = "Aceptado";
+status2["decline"] = "Rechazado";
+status2["tentative"] = "Tentativa";
+status2["none"] = "Ninguno";
+
 // Array de traducción rápida de orígenes de clientes
 var sources = [];
 
@@ -358,7 +364,6 @@ function LoginUserDesktop(a) {
                 SugarSessionId = d.id;
                 $("#SettingsPageSugarCrmUsername").val("");
                 $("#SettingsPageSugarCrmPassword").val("");
-                //$.mobile.changePage("#HomePage")
                 var url = "../index.php";    
                 $(location).attr('href',url);
             }
@@ -502,8 +507,7 @@ function SugarCrmGetAccountDetails() {
                     var d = "<h4>" + a.name_value_list.phone_office.value + "</h4>";
                     b = $("<a/>", {
                         href: "tel:" + b,
-                        target: "_blank",
-                        //href: "#",
+                        target: "_blank", //Si no se pone el blank, pierde el foco.
                         rel: "external",
                         style: "text-decoration:none;color:#444;",
                         click: function () {
@@ -788,7 +792,7 @@ function SugarCrmGetAccountDetails() {
                                 f = "<h4>" + b.name_value_list.name.value + "</h4>",
                                 e = "";
                             if (b.name_value_list.status !== undefined) {
-                                e = "<p>" + b.name_value_list.status.value;
+                                e = "<p>" + status2[b.name_value_list.status.value];
                                 e += "<br/>" + change(b.name_value_list.date_start.value);
                                 e += "</p>"
                             }
@@ -846,21 +850,7 @@ function SugarCrmGetAccountDetails() {
                                     e = "";
                                 if (b.name_value_list.status !== undefined) 
                                 {
-                                    switch(b.name_value_list.status.value)
-                                    {
-                                        case "Held":
-                                           e = "<p>Realizada ";
-                                        break;
-                                        case "Not Held":
-                                           e = "<p>No realizada ";
-                                        break;
-                                        case "Planned":
-                                           e = "<p>Planeada ";
-                                        break;
-                                        default:
-                                        e = "<p>" + b.name_value_list.status.value;
-                                    }
-                                    console.log("string"+b.name_value_list.status+"string");
+                                    e = "<p>" + status2[b.name_value_list.status.value];
                                     if (b.name_value_list.date_start !== undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                     e += "</p>"
                                 } else e = "<p></p>";
@@ -917,7 +907,7 @@ function SugarCrmGetAccountDetails() {
                                     e = "";
                                 if (b.name_value_list.status !==
                                     undefined) {
-                                    e = "<p>" + b.name_value_list.status.value;
+                                    e = "<p>" + status2[b.name_value_list.status.value];
                                     if (b.name_value_list.date_start !== undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                     e += "</p>"
                                 } else e = "<p></p>";
@@ -981,8 +971,7 @@ function SugarCrmGetContactListFromServer(a) {
                                     f = $("<li/>"),
                                     e = "<h4>" + d.name_value_list.first_name.value + "&nbsp;" + d.name_value_list.last_name.value + "</h4>",
                                     m = d.name_value_list.title.value;
-                                //if (d.name_value_list.account_name != undefined) m += " at " + d.name_value_list.account_name.value;
-                                //m += "CUENTA";
+                                //if (d.name_value_list.account_name != undefined) m += " en " + d.name_value_list.account_name.value; //TODO
                                 m = "<p>" + m + "</p>";
                                 d = $("<a/>", {
                                     href: "#",
@@ -1036,8 +1025,7 @@ function SugarCrmGetContactDetails() {
                     a = a.entry_list[0];
                     $("#ContactNameH1").html(a.name_value_list.first_name.value + "&nbsp;" + a.name_value_list.last_name.value);
                     var c = a.name_value_list.title.value;
-                    //if (a.name_value_list.account_name != undefined) c += " at " + a.name_value_list.account_name.value;
-                    //c += "CUENTA";
+                    //if (a.name_value_list.account_name != undefined) c += " en " + a.name_value_list.account_name.value; //TODO
                     $("#ContactTitleP").text(c);
                     $("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">Contacto</li>');
                     if (a.name_value_list.phone_work !== undefined && a.name_value_list.phone_work.value !== "") {
@@ -1304,7 +1292,7 @@ function getContactRelatedCallsInsetList() {
                                 f = "<h4>" + b.name_value_list.name.value + "</h4>",
                                 e = "";
                             if (b.name_value_list.status !== undefined && b.name_value_list.status.value !== "") {
-                                e = "<p>" + b.name_value_list.status.value;
+                                e = "<p>" + status2[b.name_value_list.status.value];
                                 if (b.name_value_list.date_start !=
                                     undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                 e += "</p>"
@@ -1362,23 +1350,8 @@ function getContactRelatedMeetingsInsetList() {
                                 d = $("<li/>"),
                                 f = "<h4>" + b.name_value_list.name.value + "</h4>",
                                 e = "";
-                            if (b.name_value_list.status != undefined) {
-
-                                switch(b.name_value_list.status.value)
-                                {
-                                    case "Held":
-                                       e = "<p>Realizada ";
-                                    break;
-                                    case "Not Held":
-                                       e = "<p>No realizada ";
-                                    break;
-                                    case "Planned":
-                                       e = "<p>Planeada ";
-                                    break;
-                                    default:
-                                    e = "<p>" + b.name_value_list.status.value;
-                                }                                
-
+                            if (b.name_value_list.status != undefined) {                              
+                                e = "<p>" + status2[b.name_value_list.status.value];
                                 if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                 e += "</p>"
                             } else e = "<p></p>";
@@ -1440,7 +1413,7 @@ function getContactRelatedTasksInsetList() {
                                     e = "";
                                 if (b.name_value_list.status !=
                                     undefined) {
-                                    e = "<p>" + b.name_value_list.status.value;
+                                    e = "<p>" + status2[b.name_value_list.status.value];
                                     if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                     e += "</p>"
                                 } else e = "<p></p>";
@@ -1785,7 +1758,7 @@ function getOpportunityRelatedCallsInsetList() {
                                     e = "";
                                 if (b.name_value_list.status !=
                                     undefined) {
-                                    e = "<p>" + b.name_value_list.status.value;
+                                    e = "<p>" + status2[b.name_value_list.status.value];
                                     if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                     e += "</p>"
                                 } else e = "<p></p>";
@@ -1853,22 +1826,7 @@ function getOpportunityRelatedMeetingsInsetList() {
                                         b.name_value_list.name.value + "</h4>",
                                     e = "";
                                 if (b.name_value_list.status != undefined) {
-                                    
-                                    switch(b.name_value_list.status.value)
-                                    {
-                                        case "Held":
-                                           e = "<p>Realizada ";
-                                        break;
-                                        case "Not Held":
-                                           e = "<p>No realizada ";
-                                        break;
-                                        case "Planned":
-                                           e = "<p>Planeada ";
-                                        break;
-                                        default:
-                                        e = "<p>" + b.name_value_list.status.value;
-                                    }
-
+                                    e = "<p>" + status2[b.name_value_list.status.value];
                                     if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                     e += "</p>"
                                 } else e = "<p></p>";
@@ -1937,7 +1895,7 @@ function getOpportunityRelatedTasksInsetList() {
                                         "</h4>",
                                     e = "";
                                 if (b.name_value_list.status != undefined) {
-                                    e = "<p>" + b.name_value_list.status.value;
+                                    e = "<p>" + status2[b.name_value_list.status.value];
                                     if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                     e += "</p>"
                                 } else e = "<p></p>";
@@ -2057,10 +2015,10 @@ function SugarCrmGetLeadDetails() {
                     a = a.entry_list[0];
                     $("#LeadNameH1").html(a.name_value_list.first_name.value + "&nbsp;" + a.name_value_list.last_name.value);
                     /*
-                    // Nombre de la cuenta, no lo devuelve (revisar)
+                    // TODO: Nombre de la cuenta, no lo devuelve (revisar)
                     if (a.name_value_list.account_name !== undefined && a.name_value_list.account_name.value !== "") {
                         var c = a.name_value_list.title.value;
-                        c += " at " + a.name_value_list.account_name.value;
+                        c += " en " + a.name_value_list.account_name.value;
                         $("#LeadTitleP").text(c)
                     }
                     */
@@ -2214,7 +2172,7 @@ function getLeadRelatedCallsInsetList() {
                                 f = "<h4>" + b.name_value_list.name.value + "</h4>",
                                 e = "";
                             if (b.name_value_list.status != undefined) {
-                                e = "<p>" + b.name_value_list.status.value;
+                                e = "<p>" + status2[b.name_value_list.status.value];
                                 if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                 e += "</p>"
                             } else e = "<p></p>";
@@ -2266,22 +2224,7 @@ function getLeadRelatedMeetingsInsetList() {
                                 f = "<h4>" + b.name_value_list.name.value + "</h4>",
                                 e = "";
                             if (b.name_value_list.status != undefined) {
-                                
-                                switch(b.name_value_list.status)
-                                {
-                                    case "Held":
-                                       e = "<p>Realizada ";
-                                    break;
-                                    case "Not Held":
-                                       e = "<p>No realizada ";
-                                    break;
-                                    case "Planned":
-                                       e = "<p>Planeada ";
-                                    break;
-                                    default:
-                                    e = "<p>" + b.name_value_list.status.value;
-                                }
-
+                                e = "<p>" + status2[b.name_value_list.status.value];
                                 if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                 e += "</p>"
                             } else e = "<p></p>";
@@ -2333,7 +2276,7 @@ function getLeadRelatedTasksInsetList() {
                                 f = "<h4>" + b.name_value_list.name.value + "</h4>",
                                 e = "";
                             if (b.name_value_list.status != undefined) {
-                                e = "<p>" + b.name_value_list.status.value;
+                                e = "<p>" + status2[b.name_value_list.status.value];
                                 if (b.name_value_list.date_start != undefined) e += "<br/>" + change(b.name_value_list.date_start.value);
                                 e += "</p>"
                             } else e = "<p></p>";
@@ -2740,21 +2683,7 @@ function SugarCrmGetMeetingsListFromServer(a) {
                                 var d = c.entry_list[b],
                                     f = $("<li/>"),
                                     e = "<h4>" + d.name_value_list.name.value + "</h4>";
-
-                                    switch(d.name_value_list.status.value)
-                                    {
-                                        case "Held":
-                                           g = "<p>Realizada";
-                                        break;
-                                        case "Not Held":
-                                           g = "<p>No realizada";
-                                        break;
-                                        case "Planned":
-                                           g = "<p>Planeada";
-                                        break;
-                                        default:
-                                        g = "<p>" + d.name_value_list.status.value;
-                                    }
+                                    g = "<p>" + status2[d.name_value_list.status.value] +" ";
 
                                 var m = g + " " + change(d.name_value_list.date_start.value) + "</p>";
                                 d = $("<a/>", {
@@ -2814,22 +2743,7 @@ function SugarCrmGetMeetingDetails() {
                 if (a.entry_list[0] != undefined) {
                     a = a.entry_list[0];
                     $("#MeetingNameH1").html(a.name_value_list.name.value);
-                    var c //= a.name_value_list.status.value;
-                    
-                    switch(a.name_value_list.status.value)
-                    {
-                        case "Held":
-                           c = "Realizada ";
-                        break;
-                        case "Not Held":
-                           c = "No realizada ";
-                        break;
-                        case "Planned":
-                           c = "Planeada ";
-                        break;
-                        default:
-                           c = a.name_value_list.status.value;
-                    }
+                    var c = "<p>" + status2[a.name_value_list.status.value];
 
                     $("#MeetingSubjectP").text(c);
                     $("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">Información de la reunión</li>');

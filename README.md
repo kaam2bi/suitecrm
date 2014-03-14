@@ -52,3 +52,9 @@ Cómo instalar en cualquier SugarCRM o SuiteCRM:
 - copiar carpeta "mobile" (renombrar la original de SuiteCRM antes de copiar).
 - copiar las personalizaciones deseadas (si sólo se quiere dar acceso desde el mainmenu al módulo mobile, cambiar sólo en SuiteCRM)
 - Copiar custom\modules\Users\login.tpl desde Github a la instalación original.
+
+OBSERVACIONES SOBRE LA INCLUSIÓN DE ESTADOS PERSONALIZADOS EN LISTAS DE ELEMENTOS EXISTENTES
+============================================================================================
+
+En el cliente móvil se traducen todos los strings de traducción desde el inglés al español de todos los estados habituales de SugarCRM (para llamadas, facturas, reuniones, tareas, etc.).
+Si se incluye en Sugar un nuevo estado, en el cliente móvil no aparecerá a no ser que se añada a la variable status2["valorInglés"] = "valorEspañol".
