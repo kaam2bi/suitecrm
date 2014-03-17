@@ -12,12 +12,12 @@
         <link rel="stylesheet" href="lib/jqm/jquery.mobile-1.4.2.min.css" />
         <link rel="stylesheet" href="css/jlcmCRM.min.css" />
         <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
-
         <script type="text/javascript" src="js/jquery.mobile-config.js"></script>
         <script type="text/javascript" src="lib/jqm/jquery.mobile-1.4.2.min.js"></script>
-
-        <script type="text/javascript" src="js/Application.js"></script>
         <link rel="stylesheet" href="css/style.min.css" />
+
+        <!-- Require.JS loads all the required JS -->
+        <script data-main="scripts/main" src="scripts/require.js"></script>
 
         <title>Acceso CRM</title>
     </head>
@@ -37,8 +37,8 @@
                 <label for="SettingsPageSugarCrmPassword">Contraseña:</label>
                 <input id="SettingsPageSugarCrmPassword" type="password" />
                 <br /><br />
-                <a href="javascript:LoginUserDesktop();" data-role="button" data-inline="true">Versión Web</a>
-                <a href="javascript:LoginUser();" data-role="button" data-inline="true">Cliente Móvil</a>
+                <a id="loginWebBtn" data-role="button" data-inline="true">Versión Web</a> <!-- href="javascript:LoginUserDesktop();" -->
+                <a id="loginMobileBtn" data-role="button" data-inline="true">Cliente Móvil</a> <!--  href="javascript:LoginUser();" -->
             </div>
             <div data-role="footer" data-position="fixed">
                 <p style="font-size:8px" id="mensaje_footer">Cliente móvil para CRM para consulta rápida
