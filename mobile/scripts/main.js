@@ -40,6 +40,9 @@ require(["es_ES"], function(util)
     TasksListNextOffset = 0,
     TasksListPrevOffset = 0,
     TasksListCurrentOffset = 0,
+    NotesListNextOffset = 0,
+    NotesListPrevOffset = 0,
+    NotesListCurrentOffset = 0,    
     CurrentNoteId = "";
 
 	// Detalles del loader
@@ -130,6 +133,9 @@ require(["es_ES"], function(util)
 	$("#TasksListPage").live("pageshow", function () {
 		SugarCrmGetTasksListFromServer(TasksListCurrentOffset)
 	});
+	$("#NotesListPage").live("pageshow", function () {
+		SugarCrmGetNotesListFromServer(NotesListCurrentOffset)
+	});	
 	$("#HomePage").live("pageshow", function () {
 		SugarSessionId === "" && $.mobile.changePage("#LoginPage")
 	});
@@ -3134,6 +3140,74 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	function SugarCrmGetNotesListFromServer(a) {
+		if ($("#AllNotesListDiv li").length === 0 || NotesListCurrentOffset !== a) {
+			$.mobile.loading( "show", {
+					text: msgText,
+					textonly: textOnly,
+					textVisible: textVisible
+			});
+			NotesListCurrentOffset = a;
+			$.get(sugarURL+"/service/v2/rest.php", {
+				method: "get_entry_list",
+				input_type: "JSON",
+				response_type: "JSON",
+				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Notes","query":"","order_by":"date_start desc","offset":' + a + ',"select_fields":"","link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews + ',"deleted":0}'
+			}, function (c) {
+				
+				console.log(c+" en la lista de Notas");
+
+				if (c != undefined) {
+					c =
+						$.parseJSON(JSON.stringify(c, undefined, 2));
+					if (c.name !== undefined && c.name === "Invalid Session ID") {
+						SugarSessionId = "";
+						$.mobile.changePage("#LoginPage")
+					}
+					if (c != undefined && c.entry_list != undefined) {
+						if (c.result_count === 0) NotesListCurrentOffset = NotesListPrevOffset + RowsPerPageInListViews;
+						else if (c.next_offset === 0) NotesListCurrentOffset = 0;
+						if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
+						else {
+							$("#AllNotesListDiv li").remove();
+							var b = 0;
+							for (b = 0; b <= c.entry_list.length; b++)
+								if (c.entry_list[b] !=
+									undefined) {
+									var d = c.entry_list[b],
+										f = $("<li/>"),
+										e = "<h4>" + d.name_value_list.name.value + "</h4>",
+										m = "<p>" + d.name_value_list.description.value.substring(0,50) + "</p>";
+									d = $("<a/>", {
+										href: "#",
+										"data-identity": d.id,
+										click: function () {
+											CurrentNoteId = $(this).data("identity");
+											$.mobile.changePage("#ViewNoteDetailsPage");
+											$.mobile.loading( "show", {
+													text: msgText,
+													textonly: textOnly,
+													textVisible: textVisible
+											});
+											SugarCrmGetNoteDetails()
+										}
+									});
+									d.append(e);
+									d.append(m);
+									f.append(d);
+									$("#AllNotesListDiv").append(f)
+								}
+							$("#AllNotesListDiv").listview("refresh");
+							NotesListNextOffset = c.next_offset;
+							NotesListPrevOffset = a - RowsPerPageInListViews
+						}
+					}
+				}
+				$.mobile.loading( "hide" );
+			})
+		}
+	}
+
 	function SugarCrmGetNoteDetails() {
 		$("#NoteSubjectH1").html("");
 		$("#NoteTextP").text("");
@@ -3161,6 +3235,7 @@ require(["es_ES"], function(util)
 						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + change(a.name_value_list.date_modified.value) +
 							"&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
 						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+						a.name_value_list.id !== undefined && a.name_value_list.id.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Enlace del archivo adjunto</p><h4><a href='"+sugarURL+"' target='_blank'>" + change(a.name_value_list.id.value) + "</a></h4></li>");
 						$("#ViewNoteDetailsPageDetailsList").listview("refresh")
 					}
 			}
