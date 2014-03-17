@@ -13,7 +13,7 @@ var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para ent
     RES_CONTACT_LABEL = "Contacto",
     RES_OPPORTUNITIES_LABEL = "Oportunidades",
     RES_OPPORTUNITY_LABEL = "Oportunidad",
-    RES_LEADS_LABEL = "Clientes potenciales",
+    RES_LEADS_LABEL = "Potenciales",
     RES_LEAD_LABEL = "Cliente potencial",
     RES_CALLS_LABEL = "Llamadas",
     RES_CALL_LABEL = "Llamada",
@@ -79,6 +79,12 @@ var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para ent
     RES_DATE_CREATED_LABEL = "Fecha de creación",
     RES_DO_NOT_CALL = "*NOTA: Contacto marcado como No llamar.",
     RES_LOG_CALL_QUESTION = "¿Desea registrar la llamada?",
+
+    // Nuevas labels
+    RES_NOTES_LABEL = "Notas",
+    RES_NOTES_TITLE = "Notas",
+    RES_HOME_LABEL = "Versión Web"
+
     SugarSessionId = "",
     RowsPerPageInListViews = 20,
     CurrentAccountId = "",
@@ -250,6 +256,9 @@ $("#HomePage").live("pagecreate", function () {
     $("#CallsListPageLinkLabel").text(RES_CALLS_LABEL);
     $("#MeetingsListPageLinkLabel").text(RES_MEETINGS_LABEL);
     $("#TasksListPageLinkLabel").text(RES_TASKS_LABEL);
+    $("#NotesListPageLinkLabel").text(RES_NOTES_LABEL);
+    $("#HomeLabel").text(RES_HOME_LABEL);
+
     $("#AccountsListPageTitle").text(RES_ACCOUNTS_LABEL);
     $("#ContactsListPageTitle").text(RES_CONTACTS_LABEL);
     $("#OpportunitiesListPageTitle").text(RES_OPPORTUNITIES_LABEL);
@@ -258,7 +267,9 @@ $("#HomePage").live("pagecreate", function () {
     $("#MeetingsListPageTitle").text(RES_MEETINGS_LABEL);
     $("#TasksListPageTitle").text(RES_TASKS_LABEL);
     $("#ViewContactDetailsPageTitle").text(RES_CONTACT_LABEL + " " + RES_DETAILS_LABEL);
-    $("#ViewAccountDetailsPageTitle").text(RES_ACCOUNT_LABEL + " " + RES_DETAILS_LABEL)
+    $("#ViewAccountDetailsPageTitle").text(RES_ACCOUNT_LABEL + " " + RES_DETAILS_LABEL);
+    $("#NotesListPageTitle").text(RES_NOTES_TITLE);
+
 });
 $("#AccountsListPage").live("pageshow", function () {
     SugarCrmGetAccountsListFromServer(AccountsListCurrentOffset)

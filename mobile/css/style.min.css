@@ -69,7 +69,7 @@ body
 {
   background-image:url(../images/icons_sprite.png);
   background-repeat:no-repeat;
-  background-position:-3px -67px;
+  background-position:-2px -67px;
   height:57px;
   width:57px;
   margin-left:auto;
@@ -114,6 +114,29 @@ body
   background-image:url(../images/icons_sprite.png);
   background-repeat:no-repeat;
   background-position:-2px -132px;
+  height:57px;
+  width:57px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.NotesIcon
+{
+  background-image:url(../images/icons_sprite.png);
+  background-repeat:no-repeat;
+  background-position:-68px -132px;
+  height:57px;
+  width:57px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+
+.HomeIcon
+{
+  background-image:url(../images/icons_sprite.png);
+  background-repeat:no-repeat;
+  background-position:-133px -132px;
   height:57px;
   width:57px;
   margin-left:auto;
