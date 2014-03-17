@@ -83,7 +83,9 @@ var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para ent
     // Nuevas labels
     RES_NOTES_LABEL = "Notas",
     RES_NOTES_TITLE = "Notas",
-    RES_HOME_LABEL = "Versión Web"
+    RES_HOME_LABEL = "Versión Web",
+    RES_NEW = "Crear",
+    RES_EDIT = "Editar",
 
     SugarSessionId = "",
     RowsPerPageInListViews = 20,
