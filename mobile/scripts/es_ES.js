@@ -85,6 +85,7 @@ var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para ent
     RES_EDIT = "Editar",
 	RES_msgText = "Cargando, espere";
 	RES_newRegisteredItem = "Nuevo elemento creado";
+    RES_FOOTER = 'Cliente móvil CRM<br>Para disponer de todas las funciones, acceda a la <a href="../index.php" target="_blank" style="color:white">Versión Web</a><br><a href="http://www.2bi.es" target="_blank" style="color:white">©2bi smart i.t.</a>';
 
 // *** LOS ARRAYS AUXILIARES A TRADUCIR VAN AQUÍ ***
 // Array de traducción rápida de status

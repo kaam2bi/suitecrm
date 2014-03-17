@@ -61,7 +61,7 @@ require(["es_ES"], function(util)
 
 	$( document ).ready(function() {
 		
-		// Old Onclick events
+		// Old Onclick events updated
 		$("a#loginMobileBtn").click(function(event){  LoginUser(); });
 		$("a#loginWebBtn").click(function(event){  LoginUserDesktop(); });
 		$("a#LogOutButton").click(function(event){  LogOutUser(); });
@@ -81,6 +81,7 @@ require(["es_ES"], function(util)
 		$("a#TasksListNext").click(function(event){  SugarCrmGetTasksListFromServer(TasksListNextOffset); });
 		$("a#NotesListPrev").click(function(event){  SugarCrmGetNotesListFromServer(NotesListPrevOffset); });
 		$("a#NotesListNext").click(function(event){  SugarCrmGetNotesListFromServer(NotesListNextOffset); });
+		$(".mensaje_footer").html(RES_FOOTER);
 	});
 	
 
