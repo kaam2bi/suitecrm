@@ -61,10 +61,26 @@ require(["es_ES"], function(util)
 
 	$( document ).ready(function() {
 		
-		// Onclick events
-		$("a#loginMobileBtn").click(function(event){ 
-			LoginUser();
-		});	
+		// Old Onclick events
+		$("a#loginMobileBtn").click(function(event){  LoginUser(); });
+		$("a#loginWebBtn").click(function(event){  LoginUserDesktop(); });
+		$("a#LogOutButton").click(function(event){  LogOutUser(); });
+		$("a#AccountsListPrev").click(function(event){  SugarCrmGetAccountsListFromServer(AccountsListPrevOffset); });
+		$("a#AccountsListNext").click(function(event){  SugarCrmGetAccountsListFromServer(AccountsListNextOffset); });
+		$("a#ContactsListPrev").click(function(event){  SugarCrmGetContactsListFromServer(ContactsListPrevOffset); });
+		$("a#ContactsListNext").click(function(event){  SugarCrmGetContactsListFromServer(ContactsListNextOffset); });
+		$("a#OpportunitiesListPrev").click(function(event){  SugarCrmGetOpportunitiesListFromServer(OpportunitiesListPrevOffset); });
+		$("a#OpportunitiesListNext").click(function(event){  SugarCrmGetOpportunitiesListFromServer(OpportunitiesListNextOffset); });
+		$("a#LeadsListPrev").click(function(event){  SugarCrmGetLeadsListFromServer(LeadsListPrevOffset); });
+		$("a#LeadsListNext").click(function(event){  SugarCrmGetLeadsListFromServer(LeadsListNextOffset); });
+		$("a#CallsListPrev").click(function(event){  SugarCrmGetCallsListFromServer(CallsListPrevOffset); });
+		$("a#CallsListNext").click(function(event){  SugarCrmGetCallsListFromServer(CallsListNextOffset); });
+		$("a#MeetingsListPrev").click(function(event){  SugarCrmGetMeetingsListFromServer(MeetingsListPrevOffset); });
+		$("a#MeetingsListNext").click(function(event){  SugarCrmGetMeetingsListFromServer(MeetingsListNextOffset); });
+		$("a#TasksListPrev").click(function(event){  SugarCrmGetTasksListFromServer(TasksListPrevOffset); });
+		$("a#TasksListNext").click(function(event){  SugarCrmGetTasksListFromServer(TasksListNextOffset); });
+		$("a#NotesListPrev").click(function(event){  SugarCrmGetNotesListFromServer(NotesListPrevOffset); });
+		$("a#NotesListNext").click(function(event){  SugarCrmGetNotesListFromServer(NotesListNextOffset); });
 	});
 	
 

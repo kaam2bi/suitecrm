@@ -37,8 +37,8 @@
                 <label for="SettingsPageSugarCrmPassword">Contraseña:</label>
                 <input id="SettingsPageSugarCrmPassword" type="password" />
                 <br /><br />
-                <a id="loginWebBtn" data-role="button" data-inline="true">Versión Web</a> <!-- href="javascript:LoginUserDesktop();" -->
-                <a id="loginMobileBtn" data-role="button" data-inline="true">Cliente Móvil</a> <!--  href="javascript:LoginUser();" -->
+                <a id="loginWebBtn" data-role="button" data-inline="true">Versión Web</a>
+                <a id="loginMobileBtn" data-role="button" data-inline="true">Cliente Móvil</a>
             </div>
             <div data-role="footer" data-position="fixed">
                 <p style="font-size:8px" id="mensaje_footer">Cliente móvil para CRM para consulta rápida
@@ -49,8 +49,7 @@
         <div id="HomePage" data-role="page" data-theme="b" data-title="Inicio">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1>Inicio</h1>
-                <a id="LogOutButton" href="javascript:LogOutUser();" class="ui-btn-left">Salir</a>
-                <!-- <a id="nuevoClienteBoton" href="javascript:LogOutUser();" class="ui-btn-right" data-role="button" data-mini="true">Ayuda</a> -->
+                <a id="LogOutButton" class="ui-btn-left">Salir</a>
             </div><!-- /header -->
             <div data-role="content">
                 <div class="IconWrapper">
@@ -122,8 +121,8 @@
             </div><!-- /header -->
             <div id="AccountListPageSubMenu" data-role="navbar">
                 <ul>
-                    <li><a href="javascript:SugarCrmGetAccountsListFromServer(AccountsListPrevOffset);" data-icon="arrow-l"></a></li>
-                    <li><a href="javascript:SugarCrmGetAccountsListFromServer(AccountsListNextOffset);" data-icon="arrow-r"></a></li>
+                    <li><a id="AccountsListPrev" data-icon="arrow-l"></a></li>
+                    <li><a id="AccountsListNext" data-icon="arrow-r"></a></li>
                 </ul>
             </div>
             <div data-role="content">
@@ -141,8 +140,8 @@
             </div><!-- /header -->
             <div id="AccountListPageSubMenu" data-role="navbar">
                 <ul>
-                    <li><a href="javascript:SugarCrmGetContactListFromServer(ContactsListPrevOffset);" data-icon="arrow-l"></a></li>
-                    <li><a href="javascript:SugarCrmGetContactListFromServer(ContactsListNextOffset);" data-icon="arrow-r"></a></li>
+                    <li><a id="ContactsListButtonPrev" data-icon="arrow-l"></a></li>
+                    <li><a id="ContactsListButtonNext" data-icon="arrow-r"></a></li>
                 </ul>
             </div>
             <div data-role="content">
@@ -160,8 +159,8 @@
             </div><!-- /header -->
             <div id="OpportunitiesListPageSubMenu" data-role="navbar">
                 <ul>
-                    <li><a href="javascript:SugarCrmGetOpportunitiesListFromServer(OpportunitiesListPrevOffset);" data-icon="arrow-l"></a></li>
-                    <li><a href="javascript:SugarCrmGetOpportunitiesListFromServer(OpportunitiesListNextOffset);" data-icon="arrow-r"></a></li>
+                    <li><a id="OpportunitiesListPrev" data-icon="arrow-l"></a></li>
+                    <li><a id="OpportunitiesListNext" data-icon="arrow-r"></a></li>
                 </ul>
             </div>
             <div data-role="content">
@@ -179,8 +178,8 @@
             </div><!-- /header -->
             <div id="LeadsListPageSubMenu" data-role="navbar">
                 <ul>
-                    <li><a href="javascript:SugarCrmGetLeadsListFromServer(LeadsListPrevOffset);" data-icon="arrow-l"></a></li>
-                    <li><a href="javascript:SugarCrmGetLeadsListFromServer(LeadsListNextOffset);" data-icon="arrow-r"></a></li>
+                    <li><a id="LeadsListPrev" data-icon="arrow-l"></a></li>
+                    <li><a id="LeadsListNext" data-icon="arrow-r"></a></li>
                 </ul>
             </div>
             <div data-role="content">
@@ -198,8 +197,8 @@
             </div><!-- /header -->
             <div id="CallsListPageSubMenu" data-role="navbar">
                 <ul>
-                    <li><a href="javascript:SugarCrmGetCallsListFromServer(CallsListPrevOffset);" data-icon="arrow-l"></a></li>
-                    <li><a href="javascript:SugarCrmGetCallsListFromServer(CallsListNextOffset);" data-icon="arrow-r"></a></li>
+                    <li><a id="CallsListPrev" data-icon="arrow-l"></a></li>
+                    <li><a id="CallsListNext" data-icon="arrow-r"></a></li>
                 </ul>
             </div>
             <div data-role="content">
@@ -217,8 +216,8 @@
             </div><!-- /header -->
             <div id="MeetingsListPageSubMenu" data-role="navbar">
                 <ul>
-                    <li><a href="javascript:SugarCrmGetMeetingsListFromServer(MeetingsListPrevOffset);" data-icon="arrow-l"></a></li>
-                    <li><a href="javascript:SugarCrmGetMeetingsListFromServer(MeetingsListNextOffset);" data-icon="arrow-r"></a></li>
+                    <li><a id="MeetingsListPrev" data-icon="arrow-l"></a></li>
+                    <li><a id="MeetingsListNext" data-icon="arrow-r"></a></li>
                 </ul>
             </div>
             <div data-role="content">
@@ -237,8 +236,8 @@
             </div><!-- /header -->
             <div id="TasksListPageSubMenu" data-role="navbar">
                 <ul>
-                    <li><a href="javascript:SugarCrmGetTasksListFromServer(TasksListPrevOffset);" data-icon="arrow-l"></a></li>
-                    <li><a href="javascript:SugarCrmGetTasksListFromServer(TasksListNextOffset);" data-icon="arrow-r"></a></li>
+                    <li><a id="TasksListPrev" data-icon="arrow-l"></a></li>
+                    <li><a id="TasksListNext" data-icon="arrow-r"></a></li>
                 </ul>
             </div>
             <div data-role="content">
@@ -256,8 +255,8 @@
             </div><!-- /header -->
             <div id="NotesListPageSubMenu" data-role="navbar">
                 <ul>
-                    <li><a href="javascript:SugarCrmGetNotesListFromServer(NotesListPrevOffset);" data-icon="arrow-l"></a></li>
-                    <li><a href="javascript:SugarCrmGetNotesListFromServer(NotesListNextOffset);" data-icon="arrow-r"></a></li>
+                    <li><a id="NotesListPrev" data-icon="arrow-l"></a></li>
+                    <li><a id="NotesListNext" data-icon="arrow-r"></a></li>
                 </ul>
             </div>
             <div data-role="content">
