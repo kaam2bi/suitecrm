@@ -4,7 +4,7 @@
 // ** CÓDIGO DE LA APLICACIÓN (REQUIERE ES_ES.JS)			  **
 // *************************************************************
 
-require(["es_ES"], function(util) 
+require(["es_ES","create_edit"], function(util) 
 {
 	// *************************************************************
 	// ** VARIABLES GLOBALES									  **
@@ -116,7 +116,7 @@ require(["es_ES"], function(util)
 		SugarCrmGetAccountsListFromServer(AccountsListCurrentOffset)
 	});
 	$("#ContactsListPage").live("pageshow", function () {
-		SugarCrmGetContactListFromServer(ContactsListCurrentOffset)
+		SugarCrmGetContactsListFromServer(ContactsListCurrentOffset)
 	});
 	$("#OpportunitiesListPage").live("pageshow", function () {
 		SugarCrmGetOpportunitiesListFromServer(OpportunitiesListCurrentOffset)
@@ -796,7 +796,7 @@ require(["es_ES"], function(util)
 			})
 	}
 
-	function SugarCrmGetContactListFromServer(a) {
+	function SugarCrmGetContactsListFromServer(a) {
 		if ($("#AllContactsListDiv li").length === 0 || ContactsListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
 					text: msgText,
@@ -3154,8 +3154,6 @@ require(["es_ES"], function(util)
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Notes","query":"","order_by":"date_start desc","offset":' + a + ',"select_fields":"","link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews + ',"deleted":0}'
 			}, function (c) {
-				
-				console.log(c+" en la lista de Notas");
 
 				if (c != undefined) {
 					c =
