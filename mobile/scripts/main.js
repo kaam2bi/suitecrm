@@ -3244,6 +3244,17 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	// *************************************************************
+	// ** CÓDIGO DE EDICIÓN Y CREACIÓN DE APUNTES				  **
+	// *************************************************************
+
+
+	// *************************************************************
+	// ** FUNCIONES AUXILIARES									  **
+	// *************************************************************
+
+
+
 	// Cambia la fecha al ser mostrada al formato español
 	function change(time) {
 		var r = time.match(/^\s*([0-9]+)\s*-\s*([0-9]+)\s*-\s*([0-9]+)(.*)$/);
@@ -3252,7 +3263,15 @@ require(["es_ES"], function(util)
 			horaCompleta = r[4].trim().split(":");
 			minutos = horaCompleta[1];
 			hora = parseInt(horaCompleta[0]);
-			return r[3]+"-"+r[2]+"-"+r[1]+" "+hora+":"+minutos;
+			
+			if (minutos !== undefined)
+			{				
+				return r[3]+"-"+r[2]+"-"+r[1]+" "+hora+":"+minutos;
+			}
+			else
+			{
+				return r[3]+"-"+r[2]+"-"+r[1];
+			}
 		}
 		else
 		{
