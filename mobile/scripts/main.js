@@ -19,6 +19,7 @@ require(["es_ES","create_edit"], function(util)
     CurrentCallId = "",
     CurrentMeetingId = "",
     CurrentTaskId = "",
+    CurrentNoteId = "";
     AccountsListNextOffset = 0,
     AccountsListPrevOffset = 0,
     AccountsListCurrentOffset = 0,
@@ -42,8 +43,7 @@ require(["es_ES","create_edit"], function(util)
     TasksListCurrentOffset = 0,
     NotesListNextOffset = 0,
     NotesListPrevOffset = 0,
-    NotesListCurrentOffset = 0,    
-    CurrentNoteId = "";
+    NotesListCurrentOffset = 0;    
 
 	// Detalles del loader
 	var msgText = RES_msgText;
