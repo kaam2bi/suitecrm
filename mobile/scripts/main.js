@@ -3235,7 +3235,8 @@ require(["es_ES"], function(util)
 						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + change(a.name_value_list.date_modified.value) +
 							"&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
 						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
-						a.name_value_list.id !== undefined && a.name_value_list.id.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Enlace del archivo adjunto</p><h4><a href='"+sugarURL+"' target='_blank'>" + change(a.name_value_list.id.value) + "</a></h4></li>");
+						$("#ViewNoteDetailsPageDetailsList").append('<li data-role="list-divider">Archivo adjunto</li>');
+						a.name_value_list.id !== undefined && a.name_value_list.id.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><a href='"+sugarURL+"/index.php?entryPoint=download&id="+ a.name_value_list.id.value + "&type=Notes' target='_blank'>" + a.name_value_list.filename.value + "</a></li>");
 						$("#ViewNoteDetailsPageDetailsList").listview("refresh")
 					}
 			}
