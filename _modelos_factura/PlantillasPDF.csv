@@ -1,0 +1,252 @@
+﻿"Nombre","ID","Contenido","Usuario asignado","Asignado a","Fecha de Creación","Fecha de Modificación","Creado Por","Modificado Por","Eliminado","Activa","Tipo","Encabezado","Pie de página","Margen Izquierdo","Margen Derecho","Margen Superior","Margen Inferior","Margen de Encabezado","Margen de Pie","Modificado Por Nombre","modified_by_name_owner","modified_by_name_mod","Creado Por","created_by_name_owner","created_by_name_mod","assigned_user_name_owner","assigned_user_name_mod"
+"Modelo de Cotización (Albarán)","668ce059-29bd-7683-271e-5322fadc72a1","<table style=""width: 100%; font-family: Arial; text-align: center;"" border=""0"" cellspacing=""2"" cellpadding=""2"">
+<tbody style=""text-align: left;"">
+<tr style=""text-align: left;"">
+<td style=""text-align: left;"">
+<p><img style=""float: left;"" src=""custom/themes/default/images/company_logo.png"" alt=""logo_empresa"" width=""363"" height=""141"" /></p>
+</td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""font-weight: bold; text-align: left;"">
+<div>Nombre de su empresa<br />Su dirección completa<br />Su ciudad<br />Su código postal, provincia y estado</div>
+</td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""text-align: left;""> </td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""text-align: left;"">
+<h1>CONCEPTO: $aos_quotes_name</h1>
+</td>
+</tr>
+</tbody>
+</table>
+<p style=""font-family: Arial; text-align: center;""> </p>
+<table style=""text-align: center; width: 100%; border: 0pt none; border-spacing: 0pt;"">
+<tbody style=""text-align: left;"">
+<tr style=""text-align: left;"">
+<td style=""font-weight: bold; background-color: #b0c4de; padding: 2px 6px; border-style: solid; border-width: 0.5px; vertical-align: top; text-align: left; width: 50%;"">Cliente</td>
+<td style=""font-weight: bold; background-color: #b0c4de; padding: 2px 6px; border-style: solid; border-width: 0.5px; vertical-align: top; text-align: left; width: 50%;"">Realizado por</td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""padding: 2px 6px; border-style: solid; border-width: 0.5px; width: 50%; vertical-align: top; text-align: left;"">
+<div> </div>
+<div> </div>
+<div>$aos_quotes_billing_account<br /> $aos_quotes_billing_address_street<br /> $aos_quotes_billing_address_city <br />$aos_quotes_billing_address_postalcode ($aos_quotes_billing_address_state)</div>
+</td>
+<td style=""padding: 2px 6px; border-style: solid; border-width: 0.5px; width: 50%; vertical-align: top; text-align: left;"">
+<div>$aos_quotes_modified_by_name</div>
+</td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""font-weight: bold; background-color: #b0c4de; padding: 2px 6px; border-style: solid; border-width: 0.5px; vertical-align: top; text-align: left; width: 50%;"">Fecha del presupuesto</td>
+<td style=""font-weight: bold; background-color: #b0c4de; padding: 2px 6px; border-style: solid; border-width: 0.5px; vertical-align: top; text-align: left; width: 50%;"">Válido hasta</td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""padding: 2px 6px; border-style: solid; border-width: 0.5px; width: 50%; vertical-align: top; text-align: left;"">
+<div>$aos_quotes_date_entered</div>
+</td>
+<td style=""padding: 2px 6px; border-style: solid; border-width: 0.5px; width: 50%; vertical-align: top; text-align: left;"">
+<div>$aos_quotes_expiration</div>
+</td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""font-weight: bold; background-color: #b0c4de; padding: 2px 6px; border-style: solid; border-width: 0.5px; vertical-align: top; text-align: left; width: 50%;"">Número del presupuesto</td>
+<td style=""font-weight: bold; background-color: #b0c4de; padding: 2px 6px; border-style: solid; border-width: 0.5px; vertical-align: top; text-align: left; width: 50%;"">Estado</td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""padding: 2px 6px; border-style: solid; border-width: 0.5px; width: 50%; vertical-align: top; text-align: left;"">
+<div>$aos_quotes_number</div>
+</td>
+<td style=""padding: 2px 6px; border-style: solid; border-width: 0.5px; width: 50%; vertical-align: top; text-align: left;"">$aos_quotes_invoice_status - $aos_quotes_approval_status</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<table style=""width: 100%; border: 0pt none; border-spacing: 0pt;"">
+<tbody>
+<tr>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Cantidad</td>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Producto</td>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Descripción</td>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Precio</td>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Descuento</td>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Precio de venta</td>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Impuestos</td>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Total</td>
+</tr>
+<tr>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px; text-align: center;"">$aos_products_quotes_product_qty</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_products_quotes_name</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_products_description</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_products_quotes_product_list_price</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_products_quotes_product_discount</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_products_quotes_product_unit_price</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_products_quotes_vat</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_products_quotes_product_total_price</td>
+</tr>
+<tr>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"" colspan=""3"">$aos_services_quotes_name</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_services_quotes_service_list_price</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_services_quotes_service_discount</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_services_quotes_service_unit_price</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_services_quotes_vat</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_services_quotes_service_total_price</td>
+</tr>
+<tr>
+<td colspan=""6""> </td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: right;"">Total</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$total_amt</td>
+</tr>
+<tr>
+<td colspan=""6""> </td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: right;"">Descuento</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$discount_amount</td>
+</tr>
+<tr>
+<td colspan=""6""> </td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: right;"">Subtotal</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$subtotal_amount</td>
+</tr>
+<tr>
+<td colspan=""6""> </td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: right;"">Impuestos</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$tax_amount</td>
+</tr>
+<tr>
+<td colspan=""6""> </td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: right;"">Gastos de envío</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$shipping_amount</td>
+</tr>
+<tr>
+<td colspan=""6""> </td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: right;"">TOTAL</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$total_amount</td>
+</tr>
+</tbody>
+</table>","Admin Admin","1","03/14/2014 12:49 PM","03/18/2014 12:58 PM","1","1","0","1","AOS_Quotes","","","15","15","16","16","9","9","Admin Admin","","Users","Admin Admin","","Users","","Users"
+"Modelo de factura","6f417c9a-8517-0634-e765-5322e6eea69b","<table style=""width: 100%; font-family: Arial; text-align: center;"" border=""0"" cellspacing=""2"" cellpadding=""2"">
+<tbody style=""text-align: left;"">
+<tr style=""text-align: left;"">
+<td style=""text-align: left;"">
+<p><img style=""float: left;"" src=""custom/themes/default/images/company_logo.png"" alt=""logo_empresa"" width=""363"" height=""141"" /> </p>
+</td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""font-weight: bold; text-align: left;"">
+<div>Nombre de su empresa<br />Su dirección completa<br />Su ciudad<br />Su código postal, provincia y estado</div>
+</td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""text-align: left;""> </td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""text-align: left;"">
+<h1>CONCEPTO: $aos_invoices_name</h1>
+</td>
+</tr>
+</tbody>
+</table>
+<p style=""font-family: Arial; text-align: center;""> </p>
+<table style=""text-align: center; width: 100%; border: 0pt none; border-spacing: 0pt;"">
+<tbody style=""text-align: left;"">
+<tr style=""text-align: left;"">
+<td style=""font-weight: bold; background-color: #b0c4de; padding: 2px 6px; border-style: solid; border-width: 0.5px; vertical-align: top; text-align: left; width: 50%;"">Cliente</td>
+<td style=""font-weight: bold; background-color: #b0c4de; padding: 2px 6px; border-style: solid; border-width: 0.5px; vertical-align: top; text-align: left; width: 50%;"">Realizado por</td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""padding: 2px 6px; border-style: solid; border-width: 0.5px; width: 50%; vertical-align: top; text-align: left;"">
+<div>$aos_invoices_billing_account<br /> $aos_invoices_billing_address_street<br /> $aos_invoices_billing_address_city <br />$aos_invoices_billing_address_postalcode ($aos_invoices_billing_address_state)</div>
+</td>
+<td style=""padding: 2px 6px; border-style: solid; border-width: 0.5px; width: 50%; vertical-align: top; text-align: left;"">
+<div>$aos_invoices_modified_by_name</div>
+</td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""font-weight: bold; background-color: #b0c4de; padding: 2px 6px; border-style: solid; border-width: 0.5px; vertical-align: top; text-align: left; width: 50%;"">Fecha de facturación</td>
+<td style=""font-weight: bold; background-color: #b0c4de; padding: 2px 6px; border-style: solid; border-width: 0.5px; vertical-align: top; text-align: left; width: 50%;"">Válida hasta</td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""padding: 2px 6px; border-style: solid; border-width: 0.5px; width: 50%; vertical-align: top; text-align: left;"">
+<div>$aos_invoices_date_entered</div>
+</td>
+<td style=""padding: 2px 6px; border-style: solid; border-width: 0.5px; width: 50%; vertical-align: top; text-align: left;"">
+<div>$aos_invoices_due_date</div>
+</td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""font-weight: bold; background-color: #b0c4de; padding: 2px 6px; border-style: solid; border-width: 0.5px; vertical-align: top; text-align: left; width: 50%;"">Número de factura</td>
+<td style=""font-weight: bold; background-color: #b0c4de; padding: 2px 6px; border-style: solid; border-width: 0.5px; vertical-align: top; text-align: left; width: 50%;""> Estado de facturación</td>
+</tr>
+<tr style=""text-align: left;"">
+<td style=""padding: 2px 6px; border-style: solid; border-width: 0.5px; width: 50%; vertical-align: top; text-align: left;"">
+<div>$aos_invoices_number</div>
+</td>
+<td style=""padding: 2px 6px; border-style: solid; border-width: 0.5px; width: 50%; vertical-align: top; text-align: left;""> $aos_invoices_status</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<table style=""width: 100%; border: 0pt none; border-spacing: 0pt;"">
+<tbody>
+<tr>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Cantidad</td>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Producto</td>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Descripción</td>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Precio</td>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Descuento</td>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Precio de venta</td>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Impuestos</td>
+<td style=""border-style: solid; background-color: #b0c4de; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: center;"">Total</td>
+</tr>
+<tr>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px; text-align: center;"">$aos_products_quotes_product_qty</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_products_quotes_name</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_products_description</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_products_quotes_product_list_price</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_products_quotes_product_discount</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_products_quotes_product_unit_price</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_products_quotes_vat</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_products_quotes_product_total_price</td>
+</tr>
+<tr>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"" colspan=""3"">$aos_services_quotes_name</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_services_quotes_service_list_price</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_services_quotes_service_discount</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_services_quotes_service_unit_price</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_services_quotes_vat</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$aos_services_quotes_service_total_price</td>
+</tr>
+<tr>
+<td colspan=""6""> </td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: right;"">Total</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$total_amt</td>
+</tr>
+<tr>
+<td colspan=""6""> </td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: right;"">Descuento</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$discount_amount</td>
+</tr>
+<tr>
+<td colspan=""6""> </td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: right;"">Subtotal</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$subtotal_amount</td>
+</tr>
+<tr>
+<td colspan=""6""> </td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: right;"">Impuestos</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$tax_amount</td>
+</tr>
+<tr>
+<td colspan=""6""> </td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: right;"">Gastos de envío</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$shipping_amount</td>
+</tr>
+<tr>
+<td colspan=""6""> </td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px; font-weight: bold; text-align: right;"">TOTAL</td>
+<td style=""border-style: solid; border-width: 0.5px; padding: 2px 6px;"">$total_amount</td>
+</tr>
+</tbody>
+</table>
+<p> </p>","Admin Admin","1","03/14/2014 11:21 AM","03/18/2014 12:39 PM","1","1","0","1","AOS_Invoices","","","15","15","16","16","9","9","Admin Admin","","Users","Admin Admin","","Users","","Users"
