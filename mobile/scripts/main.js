@@ -11,7 +11,7 @@ require(["es_ES","create_edit"], function(util)
 	// *************************************************************
 
     var SugarSessionId = "",
-    RowsPerPageInListViews = 20,
+    RowsPerPageInListViews = 100000, // Limit here the number of rows per views
     CurrentAccountId = "",
     CurrentContactId = "",
     CurrentOpportunityId = "",
@@ -68,22 +68,6 @@ require(["es_ES","create_edit"], function(util)
 		$("a#loginMobileBtn").click(function(event){  LoginUser(); });
 		$("a#loginWebBtn").click(function(event){  LoginUserDesktop(); });
 		$("a#LogOutButton").click(function(event){  LogOutUser(); });
-		$("a#AccountsListPrev").click(function(event){  SugarCrmGetAccountsListFromServer(AccountsListPrevOffset); });
-		$("a#AccountsListNext").click(function(event){  SugarCrmGetAccountsListFromServer(AccountsListNextOffset); });
-		$("a#ContactsListPrev").click(function(event){  SugarCrmGetContactsListFromServer(ContactsListPrevOffset); });
-		$("a#ContactsListNext").click(function(event){  SugarCrmGetContactsListFromServer(ContactsListNextOffset); });
-		$("a#OpportunitiesListPrev").click(function(event){  SugarCrmGetOpportunitiesListFromServer(OpportunitiesListPrevOffset); });
-		$("a#OpportunitiesListNext").click(function(event){  SugarCrmGetOpportunitiesListFromServer(OpportunitiesListNextOffset); });
-		$("a#LeadsListPrev").click(function(event){  SugarCrmGetLeadsListFromServer(LeadsListPrevOffset); });
-		$("a#LeadsListNext").click(function(event){  SugarCrmGetLeadsListFromServer(LeadsListNextOffset); });
-		$("a#CallsListPrev").click(function(event){  SugarCrmGetCallsListFromServer(CallsListPrevOffset); });
-		$("a#CallsListNext").click(function(event){  SugarCrmGetCallsListFromServer(CallsListNextOffset); });
-		$("a#MeetingsListPrev").click(function(event){  SugarCrmGetMeetingsListFromServer(MeetingsListPrevOffset); });
-		$("a#MeetingsListNext").click(function(event){  SugarCrmGetMeetingsListFromServer(MeetingsListNextOffset); });
-		$("a#TasksListPrev").click(function(event){  SugarCrmGetTasksListFromServer(TasksListPrevOffset); });
-		$("a#TasksListNext").click(function(event){  SugarCrmGetTasksListFromServer(TasksListNextOffset); });
-		$("a#NotesListPrev").click(function(event){  SugarCrmGetNotesListFromServer(NotesListPrevOffset); });
-		$("a#NotesListNext").click(function(event){  SugarCrmGetNotesListFromServer(NotesListNextOffset); });
 		$(".mensaje_footer").html(RES_FOOTER);
 	});
 	
@@ -113,31 +97,34 @@ require(["es_ES","create_edit"], function(util)
 	});
 
 	$("#AccountsListPage").live("pageshow", function () {
-		SugarCrmGetAccountsListFromServer(AccountsListCurrentOffset)
+		SugarCrmGetAccountsListFromServer(AccountsListCurrentOffset);
 	});
 	$("#ContactsListPage").live("pageshow", function () {
-		SugarCrmGetContactsListFromServer(ContactsListCurrentOffset)
+		SugarCrmGetContactsListFromServer(ContactsListCurrentOffset);
 	});
 	$("#OpportunitiesListPage").live("pageshow", function () {
-		SugarCrmGetOpportunitiesListFromServer(OpportunitiesListCurrentOffset)
+		SugarCrmGetOpportunitiesListFromServer(OpportunitiesListCurrentOffset);
 	});
 	$("#LeadsListPage").live("pageshow", function () {
-		SugarCrmGetLeadsListFromServer(LeadsListCurrentOffset)
+		SugarCrmGetLeadsListFromServer(LeadsListCurrentOffset);
 	});
 	$("#CallsListPage").live("pageshow", function () {
-		SugarCrmGetCallsListFromServer(CallsListCurrentOffset)
+		SugarCrmGetCallsListFromServer(CallsListCurrentOffset);
 	});
 	$("#MeetingsListPage").live("pageshow", function () {
-		SugarCrmGetMeetingsListFromServer(MeetingsListCurrentOffset)
+		SugarCrmGetMeetingsListFromServer(MeetingsListCurrentOffset);
 	});
 	$("#TasksListPage").live("pageshow", function () {
-		SugarCrmGetTasksListFromServer(TasksListCurrentOffset)
+		SugarCrmGetTasksListFromServer(TasksListCurrentOffset);
 	});
 	$("#NotesListPage").live("pageshow", function () {
-		SugarCrmGetNotesListFromServer(NotesListCurrentOffset)
-	});	
+		SugarCrmGetNotesListFromServer(NotesListCurrentOffset);
+	});
+
+	
+
 	$("#HomePage").live("pageshow", function () {
-		SugarSessionId === "" && $.mobile.changePage("#LoginPage")
+		if (SugarSessionId === "") $.mobile.changePage("#LoginPage");
 	});
 
 	var toast = function(msg)
@@ -228,6 +215,7 @@ require(["es_ES","create_edit"], function(util)
 	}
 
 	// Hace logout del usuario actual al cambiar el foco o de ventana (comentar para permitir registro de elementos al llamar)
+	/*
 	window.onbeforeunload = function () {
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "logout",
@@ -236,6 +224,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '[{"session":"' + SugarSessionId + '"}]'
 		})
 	};
+	*/
 
 	function LogOutUser() {
 		$.get(sugarURL+"/service/v2/rest.php", {
