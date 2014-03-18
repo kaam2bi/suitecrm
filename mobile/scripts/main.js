@@ -11,7 +11,7 @@ require(["es_ES","create_edit"], function(util)
 	// *************************************************************
 
     var SugarSessionId = "",
-    RowsPerPageInListViews = 10000,
+    RowsPerPageInListViews = 100000, // Limit here the number of rows per views
     CurrentAccountId = "",
     CurrentContactId = "",
     CurrentOpportunityId = "",
@@ -19,6 +19,30 @@ require(["es_ES","create_edit"], function(util)
     CurrentCallId = "",
     CurrentMeetingId = "",
     CurrentTaskId = "",
+    AccountsListNextOffset = 0,
+    AccountsListPrevOffset = 0,
+    AccountsListCurrentOffset = 0,
+    ContactsListNextOffset = 0,
+    ContactsListPrevOffset = 0,
+    ContactsListCurrentOffset = 0,
+    OpportunitiesListNextOffset = 0,
+    OpportunitiesListPrevOffset = 0,
+    OpportunitiesListCurrentOffset = 0,
+    LeadsListNextOffset = 0,
+    LeadsListPrevOffset = 0,
+    LeadsListCurrentOffset = 0,
+    CallsListNextOffset = 0,
+    CallsListPrevOffset = 0,
+    CallsListCurrentOffset = 0,
+    MeetingsListNextOffset = 0,
+    MeetingsListPrevOffset = 0,
+    MeetingsListCurrentOffset = 0,
+    TasksListNextOffset = 0,
+    TasksListPrevOffset = 0,
+    TasksListCurrentOffset = 0,
+    NotesListNextOffset = 0,
+    NotesListPrevOffset = 0,
+    NotesListCurrentOffset = 0,    
     CurrentNoteId = "";
 
 	// Detalles del loader
@@ -73,31 +97,31 @@ require(["es_ES","create_edit"], function(util)
 	});
 
 	$("#AccountsListPage").live("pageshow", function () {
-		SugarCrmGetAccountsListFromServer();
+		SugarCrmGetAccountsListFromServer(AccountsListCurrentOffset);
 	});
 	$("#ContactsListPage").live("pageshow", function () {
-		SugarCrmGetContactsListFromServer();
+		SugarCrmGetContactsListFromServer(ContactsListCurrentOffset);
 	});
 	$("#OpportunitiesListPage").live("pageshow", function () {
-		SugarCrmGetOpportunitiesListFromServer();
+		SugarCrmGetOpportunitiesListFromServer(OpportunitiesListCurrentOffset);
 	});
 	$("#LeadsListPage").live("pageshow", function () {
-		SugarCrmGetLeadsListFromServer();
+		SugarCrmGetLeadsListFromServer(LeadsListCurrentOffset);
 	});
 	$("#CallsListPage").live("pageshow", function () {
-		SugarCrmGetCallsListFromServer();
+		SugarCrmGetCallsListFromServer(CallsListCurrentOffset);
 	});
 	$("#MeetingsListPage").live("pageshow", function () {
-		SugarCrmGetMeetingsListFromServer();
+		SugarCrmGetMeetingsListFromServer(MeetingsListCurrentOffset);
 	});
 	$("#TasksListPage").live("pageshow", function () {
-		SugarCrmGetTasksListFromServer();
+		SugarCrmGetTasksListFromServer(TasksListCurrentOffset);
 	});
 	$("#NotesListPage").live("pageshow", function () {
-		SugarCrmGetNotesListFromServer();
+		SugarCrmGetNotesListFromServer(NotesListCurrentOffset);
 	});
 
-
+	
 
 	$("#HomePage").live("pageshow", function () {
 		if (SugarSessionId === "") $.mobile.changePage("#LoginPage");
@@ -230,13 +254,14 @@ require(["es_ES","create_edit"], function(util)
 	}
 
 
-	function SugarCrmGetAccountsListFromServer() {
-		if ($("#AllAccountsListDiv li").length === 0) {
+	function SugarCrmGetAccountsListFromServer(a) {
+		if ($("#AllAccountsListDiv li").length === 0 || AccountsListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
 				text: msgText,
 				textonly: textOnly,
 				textVisible: textVisible
 			});
+			AccountsListCurrentOffset = a;
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_entry_list",
 				input_type: "JSON",
@@ -251,7 +276,9 @@ require(["es_ES","create_edit"], function(util)
 						$.mobile.changePage("#LoginPage")
 					}
 					if (c !== undefined && c.entry_list !== undefined) {
-						if (c.result_count === 0) toast("Sin registros que mostrar");
+						if (c.result_count === 0) AccountsListCurrentOffset = AccountsListPrevOffset + RowsPerPageInListViews;
+						else if (c.next_offset === 0) AccountsListCurrentOffset = 0;
+						if (c.next_offset === 0 || c.result_count === 0) toast("Sin registros que mostrar");
 						else {
 							$("#AllAccountsListDiv li").remove();
 							var b = 0;
@@ -281,6 +308,8 @@ require(["es_ES","create_edit"], function(util)
 									$("#AllAccountsListDiv").append(f)
 								}
 							$("#AllAccountsListDiv").listview("refresh");
+							AccountsListNextOffset = c.next_offset;
+							AccountsListPrevOffset = a - RowsPerPageInListViews
 						}
 					}
 				}
@@ -774,7 +803,9 @@ require(["es_ES","create_edit"], function(util)
 				if (c != undefined) {
 					c = $.parseJSON(JSON.stringify(c, undefined, 2));
 					if (c != undefined && c.entry_list != undefined) {
-						if (c.result_count == 0) toast("Sin registros que mostrar");
+						if (c.result_count === 0) ContactsListCurrentOffset = ContactsListPrevOffset + RowsPerPageInListViews;
+						else if (c.next_offset === 0) ContactsListCurrentOffset = 0;
+						if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
 						else {
 							$("#AllContactsListDiv li").remove();
 							var b = 0;
@@ -806,6 +837,8 @@ require(["es_ES","create_edit"], function(util)
 									$("#AllContactsListDiv").append(f)
 								}
 							$("#AllContactsListDiv").listview("refresh");
+							ContactsListNextOffset = c.next_offset;
+							ContactsListPrevOffset = a - RowsPerPageInListViews
 						}
 					}
 				}
@@ -1258,13 +1291,14 @@ require(["es_ES","create_edit"], function(util)
 			})
 	}
 
-	function SugarCrmGetOpportunitiesListFromServer() {
-		if ($("#AllOpportunitiesListDiv li").length) {
+	function SugarCrmGetOpportunitiesListFromServer(a) {
+		if ($("#AllOpportunitiesListDiv li").length === 0 || OpportunitiesListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
 					text: msgText,
 					textonly: textOnly,
 					textVisible: textVisible
 			});
+			OpportunitiesListCurrentOffset = a;
 			$.get(sugarURL+"/service/v2/rest.php", {
 					method: "get_entry_list",
 					input_type: "JSON",
@@ -1279,7 +1313,9 @@ require(["es_ES","create_edit"], function(util)
 							$.mobile.changePage("#LoginPage")
 						}
 						if (c != undefined && c.entry_list != undefined) {
-							if (c.result_count == 0) toast("Sin registros que mostrar");
+							if (c.result_count === 0) OpportunitiesListCurrentOffset = OpportunitiesListPrevOffset + RowsPerPageInListViews;
+							else if (c.next_offset === 0) OpportunitiesListCurrentOffset = 0;
+							if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
 							else {
 								$("#AllOpportunitiesListDiv li").remove();
 								var b = 0;
@@ -1321,6 +1357,9 @@ require(["es_ES","create_edit"], function(util)
 										$("#AllOpportunitiesListDiv").append(f)
 									}
 								$("#AllOpportunitiesListDiv").listview("refresh");
+								OpportunitiesListNextOffset = c.next_offset;
+								OpportunitiesListPrevOffset =
+									a - RowsPerPageInListViews
 							}
 						}
 					}
@@ -1735,13 +1774,14 @@ require(["es_ES","create_edit"], function(util)
 			})
 	}
 
-	function SugarCrmGetLeadsListFromServer() {
-		if ($("#AllLeadsListDiv li").length) {
+	function SugarCrmGetLeadsListFromServer(a) {
+		if ($("#AllLeadsListDiv li").length === 0 || LeadsListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
 					text: msgText,
 					textonly: textOnly,
 					textVisible: textVisible
 			});
+			LeadsListCurrentOffset = a;
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_entry_list",
 				input_type: "JSON",
@@ -1755,7 +1795,9 @@ require(["es_ES","create_edit"], function(util)
 						$.mobile.changePage("#LoginPage")
 					}
 					if (c != undefined && c.entry_list != undefined) {
-						if (c.result_count == 0) toast("Sin registros que mostrar");
+						if (c.result_count === 0) LeadsListCurrentOffset = LeadsListPrevOffset + RowsPerPageInListViews;
+						else if (c.next_offset === 0) LeadsListCurrentOffset = 0;
+						if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
 						else {
 							$("#AllLeadsListDiv li").remove();
 							var b = 0;
@@ -1785,6 +1827,8 @@ require(["es_ES","create_edit"], function(util)
 									$("#AllLeadsListDiv").append(f)
 								}
 							$("#AllLeadsListDiv").listview("refresh");
+							LeadsListNextOffset = c.next_offset;
+							LeadsListPrevOffset = a - RowsPerPageInListViews
 						}
 					}
 				}
@@ -2104,13 +2148,14 @@ require(["es_ES","create_edit"], function(util)
 		})
 	}
 
-	function SugarCrmGetCallsListFromServer() {
-		if ($("#AllCallsListDiv li").length === 0) {
+	function SugarCrmGetCallsListFromServer(a) {
+		if ($("#AllCallsListDiv li").length === 0 || CallsListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
 					text: msgText,
 					textonly: textOnly,
 					textVisible: textVisible
 			});
+			CallsListCurrentOffset = a;
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_entry_list",
 				input_type: "JSON",
@@ -2125,7 +2170,9 @@ require(["es_ES","create_edit"], function(util)
 						$.mobile.changePage("#LoginPage")
 					}
 					if (c != undefined && c.entry_list != undefined) {
-						if (c.result_count == 0) toast("Sin registros que mostrar");
+						if (c.result_count === 0) CallsListCurrentOffset = CallsListPrevOffset + RowsPerPageInListViews;
+						else if (c.next_offset === 0) CallsListCurrentOffset = 0;
+						if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
 						else {
 							$("#AllCallsListDiv li").remove();
 							var b = 0;
@@ -2158,6 +2205,8 @@ require(["es_ES","create_edit"], function(util)
 									$("#AllCallsListDiv").append(f)
 								}
 							$("#AllCallsListDiv").listview("refresh");
+							CallsListNextOffset = c.next_offset;
+							CallsListPrevOffset = a - RowsPerPageInListViews
 						}
 					}
 				}
@@ -2444,13 +2493,14 @@ require(["es_ES","create_edit"], function(util)
 		})
 	}
 
-	function SugarCrmGetMeetingsListFromServer() {
-		if ($("#AllMeetingsListDiv li").length === 0) {
+	function SugarCrmGetMeetingsListFromServer(a) {
+		if ($("#AllMeetingsListDiv li").length === 0 || MeetingsListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
 					text: msgText,
 					textonly: textOnly,
 					textVisible: textVisible
 			});
+			MeetingsListCurrentOffset = a;
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_entry_list",
 				input_type: "JSON",
@@ -2465,7 +2515,9 @@ require(["es_ES","create_edit"], function(util)
 						$.mobile.changePage("#LoginPage")
 					}
 					if (c != undefined && c.entry_list != undefined) {
-						if (c.result_count == 0) toast("Sin registros que mostrar");
+						if (c.result_count === 0) MeetingsListCurrentOffset = MeetingsListPrevOffset + RowsPerPageInListViews;
+						else if (c.next_offset === 0) MeetingsListCurrentOffset = 0;
+						if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
 						else {
 							$("#AllMeetingsListDiv li").remove();
 							var b = 0;
@@ -2498,6 +2550,9 @@ require(["es_ES","create_edit"], function(util)
 									$("#AllMeetingsListDiv").append(f)
 								}
 							$("#AllMeetingsListDiv").listview("refresh");
+							MeetingsListNextOffset =
+								c.next_offset;
+							MeetingsListPrevOffset = a - RowsPerPageInListViews
 						}
 					}
 				}
@@ -2788,13 +2843,14 @@ require(["es_ES","create_edit"], function(util)
 		})
 	}
 
-	function SugarCrmGetTasksListFromServer() {
-		if ($("#AllTasksListDiv li").length === 0) {
+	function SugarCrmGetTasksListFromServer(a) {
+		if ($("#AllTasksListDiv li").length === 0 || TasksListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
 					text: msgText,
 					textonly: textOnly,
 					textVisible: textVisible
 			});
+			TasksListCurrentOffset = a;
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_entry_list",
 				input_type: "JSON",
@@ -2809,7 +2865,9 @@ require(["es_ES","create_edit"], function(util)
 						$.mobile.changePage("#LoginPage")
 					}
 					if (c != undefined && c.entry_list != undefined) {
-						if (c.result_count == 0) toast("Sin registros que mostrar");
+						if (c.result_count === 0) TasksListCurrentOffset = TasksListPrevOffset + RowsPerPageInListViews;
+						else if (c.next_offset === 0) TasksListCurrentOffset = 0;
+						if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
 						else {
 							$("#AllTasksListDiv li").remove();
 							var b = 0;
@@ -2840,6 +2898,8 @@ require(["es_ES","create_edit"], function(util)
 									$("#AllTasksListDiv").append(f)
 								}
 							$("#AllTasksListDiv").listview("refresh");
+							TasksListNextOffset = c.next_offset;
+							TasksListPrevOffset = a - RowsPerPageInListViews
 						}
 					}
 				}
@@ -3069,13 +3129,14 @@ require(["es_ES","create_edit"], function(util)
 		})
 	}
 
-	function SugarCrmGetNotesListFromServer() {
-		if ($("#AllNotesListDiv li").length === 0) {
+	function SugarCrmGetNotesListFromServer(a) {
+		if ($("#AllNotesListDiv li").length === 0 || NotesListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
 					text: msgText,
 					textonly: textOnly,
 					textVisible: textVisible
 			});
+			NotesListCurrentOffset = a;
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_entry_list",
 				input_type: "JSON",
@@ -3091,7 +3152,9 @@ require(["es_ES","create_edit"], function(util)
 						$.mobile.changePage("#LoginPage")
 					}
 					if (c != undefined && c.entry_list != undefined) {
-						if (c.result_count == 0) toast("Sin registros que mostrar");
+						if (c.result_count === 0) NotesListCurrentOffset = NotesListPrevOffset + RowsPerPageInListViews;
+						else if (c.next_offset === 0) NotesListCurrentOffset = 0;
+						if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
 						else {
 							$("#AllNotesListDiv li").remove();
 							var b = 0;
@@ -3122,6 +3185,8 @@ require(["es_ES","create_edit"], function(util)
 									$("#AllNotesListDiv").append(f)
 								}
 							$("#AllNotesListDiv").listview("refresh");
+							NotesListNextOffset = c.next_offset;
+							NotesListPrevOffset = a - RowsPerPageInListViews
 						}
 					}
 				}
