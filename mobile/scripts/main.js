@@ -336,7 +336,7 @@ require(["es_ES","create_edit"], function(util)
 						a = a.entry_list[0];
 						$("#AccountNameH1").html(a.name_value_list.name.value);
 						$("#AccountDescriptionP").text(a.name_value_list.description.value);
-						$("#ViewAccountDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_ACCOUNT_INFORMATION+'</li>');
+						$("#ViewAccountDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_ACCOUNT_LABEL+'</li>');
 						var c = $("<li/>"),
 							b = a.name_value_list.phone_office.value.replace("(", "");
 						b = b.replace(")", "");
@@ -986,7 +986,7 @@ require(["es_ES","create_edit"], function(util)
 						$("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_MORE_INFORMATION_LABEL+'</li>');
 						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />"+ RES_CONTACT_REPORTS_TO_LABEL +"</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
 						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />"+ RES_DATE_MODIFIED_LABEL +"</p><h4>" +
-							a.name_value_list.date_modified.value + "&nbsp;por&nbsp;" + change(a.name_value_list.modified_by_name.value) + "</h4></li>");
+							a.name_value_list.date_modified.value + RES_BY + change(a.name_value_list.modified_by_name.value) + "</h4></li>");
 						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + RES_BY + a.name_value_list.created_by_name.value + "</h4></li>");
 						a.name_value_list.do_not_call !== undefined && a.name_value_list.do_not_call.value == "true" && toast(RES_DO_NOT_CALL)
 					}
@@ -1973,9 +1973,9 @@ require(["es_ES","create_edit"], function(util)
 						a.name_value_list.campaign_name !== undefined && a.name_value_list.campaign_name.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br /><p><h4>"+RES_CAMPAIGN_LABEL+":&nbsp;" + a.name_value_list.campaign_name.value + "</h4></li>");
 						$("#ViewLeadDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
 						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />"+RES_CONTACT_REPORTS_TO_LABEL+"</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
-						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_MODIFIED_LABEL+"</p><h4>" + change(a.name_value_list.date_modified.value) + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value +
+						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_MODIFIED_LABEL+"</p><h4>" + change(a.name_value_list.date_modified.value) + RES_BY + a.name_value_list.modified_by_name.value +
 							"</h4></li>");
-						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + RES_BY + a.name_value_list.created_by_name.value + "</h4></li>");
 						a.name_value_list.do_not_call.value == "true" && toast(RES_DO_NOT_CALL)
 					}
 				$("#ViewLeadDetailsPageDetailsList").listview("refresh")
@@ -1995,7 +1995,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","module_id":"' + CurrentLeadId + '","link_field_name":"calls","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewLeadDetailsPageCallsListUl").append('<li data-role="list-divider">Llamadas</li>');
+				$("#ViewLeadDetailsPageCallsListUl").append('<li data-role="list-divider">'+RES_CALLS_LABEL+'</li>');
 				a =
 					$.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
@@ -2048,7 +2048,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","module_id":"' + CurrentLeadId + '","link_field_name":"meetings","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewLeadDetailsPageMeetingsListUl").append('<li data-role="list-divider">Reuniones</li>');
+				$("#ViewLeadDetailsPageMeetingsListUl").append('<li data-role="list-divider">'+RES_MEETINGS_LABEL+'</li>');
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
 					SugarSessionId = "";
@@ -2100,7 +2100,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","module_id":"' + CurrentLeadId + '","link_field_name":"tasks","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewLeadDetailsPageTasksListUl").append('<li data-role="list-divider">Tareas</li>');
+				$("#ViewLeadDetailsPageTasksListUl").append('<li data-role="list-divider">'+RES_TASKS_LABEL+'</li>');
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
 					SugarSessionId = "";
@@ -2248,8 +2248,8 @@ require(["es_ES","create_edit"], function(util)
 						$("#ViewCallDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
 						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />"+RES_ASSIGNED_TO_LABEL+"</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
 						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_MODIFIED_LABEL+"</p><h4>" +
-							change(a.name_value_list.date_modified.value) + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+							change(a.name_value_list.date_modified.value) + RES_BY + a.name_value_list.modified_by_name.value + "</h4></li>");
+						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + RES_BY + a.name_value_list.created_by_name.value + "</h4></li>");
 						a.name_value_list.parent_id !== undefined && a.name_value_list.parent_id.value !== "" ? getCallParentDetails(a.name_value_list.parent_type.value,
 							a.name_value_list.parent_id.value) : $("#ViewCallDetailsPageDetailsList").listview("refresh")
 					}
@@ -2442,7 +2442,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","module_id":"' + CurrentCallId + '","link_field_name":"notes","related_module_query":"","related_fields":["id","name","description","date_entered"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewCallDetailsPageNotesListUl").append('<li data-role="list-divider">Notas</li>');
+				$("#ViewCallDetailsPageNotesListUl").append('<li data-role="list-divider">'+RES_NOTES_LABEL+'</li>');
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
 					SugarSessionId = "";
@@ -2583,20 +2583,20 @@ require(["es_ES","create_edit"], function(util)
 					if (a.entry_list[0] != undefined) {
 						a = a.entry_list[0];
 						$("#MeetingNameH1").html(a.name_value_list.name.value);
-						var c = "<p>" + status2[a.name_value_list.status.value];
+						var c = status2[a.name_value_list.status.value];
 
 						$("#MeetingSubjectP").text(c);
-						$("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">Información de la reunión</li>');
-						a.name_value_list.date_start !== undefined && a.name_value_list.date_start.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Fecha/Hora de inicio</p><h4>" +
+						$("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_MEETING_LABEL+'</li>');
+						a.name_value_list.date_start !== undefined && a.name_value_list.date_start.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />"+RES_START_DATE_TIME_LABEL+"</p><h4>" +
 							change(a.name_value_list.date_start.value) + "</h4></li>");
-						a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Duración</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
+						a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />"+RES_DURATION_LABEL+"</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
 						a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />"+RES_DESCRIPTION_LABEL+"</p><h4>" + a.name_value_list.description.value +
 							"</h4></li>");
-						$("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
-						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Asignada a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
+						$("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_MORE_INFORMATION_LABEL+'</li>');
+						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />"+RES_ASSIGNED_TO_LABEL+"</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
 						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_MODIFIED_LABEL+"</p><h4>" +
-							change(a.name_value_list.date_modified.value) + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+							change(a.name_value_list.date_modified.value) + RES_BY + a.name_value_list.modified_by_name.value + "</h4></li>");
+						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + RES_BY + a.name_value_list.created_by_name.value + "</h4></li>");
 						a.name_value_list.parent_id !== undefined && a.name_value_list.parent_id.value !== "" ? getMeetingParentDetails(a.name_value_list.parent_type.value,
 							a.name_value_list.parent_id.value) : $("#ViewMeetingDetailsPageDetailsList").listview("refresh")
 					}
@@ -2738,7 +2738,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","module_id":"' + CurrentMeetingId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewMeetingDetailsPageLeadsListUl").append('<li data-role="list-divider">Clientes potenciales</li>');
+				$("#ViewMeetingDetailsPageLeadsListUl").append('<li data-role="list-divider">'+RES_LEADS_LABEL+'</li>');
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
 					SugarSessionId = "";
@@ -2792,7 +2792,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","module_id":"' + CurrentMeetingId + '","link_field_name":"notes","related_module_query":"","related_fields":["id","name","description","date_entered"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewMeetingDetailsPageNotesListUl").append('<li data-role="list-divider">Notas</li>');
+				$("#ViewMeetingDetailsPageNotesListUl").append('<li data-role="list-divider">'+RES_NOTES_LABEL+'</li>');
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
 					SugarSessionId = "";
@@ -2932,16 +2932,16 @@ require(["es_ES","create_edit"], function(util)
 						$("#TaskNameH1").html(a.name_value_list.name.value);
 						var c = status2[a.name_value_list.status.value];
 						$("#TaskSubjectP").text(c);
-						$("#ViewTaskDetailsPageDetailsList").append('<li data-role="list-divider">Detalles de la tarea</li>');
-						a.name_value_list.date_due !== undefined && a.name_value_list.date_due.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Fecha</p><h4>" + change(a.name_value_list.date_due.value) +
+						$("#ViewTaskDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_TASK_LABEL+'</li>');
+						a.name_value_list.date_due !== undefined && a.name_value_list.date_due.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />"+RES_DATE+"</p><h4>" + change(a.name_value_list.date_due.value) +
 							"</h4></li>");
-						a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Duración</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
+						a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />"+RES_DURATION_LABEL+"</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
 						a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />"+RES_DESCRIPTION_LABEL+"</p><h4>" + a.name_value_list.description.value + "</h4></li>");
 						$("#ViewTaskDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
-						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
+						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />"+RES_ASSIGNED_TO_LABEL+"</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
 						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_MODIFIED_LABEL+"</p><h4>" +
-							change(a.name_value_list.date_modified.value) + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+							change(a.name_value_list.date_modified.value) + RES_BY + a.name_value_list.modified_by_name.value + "</h4></li>");
+						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + RES_BY + a.name_value_list.created_by_name.value + "</h4></li>");
 						a.name_value_list.parent_id !== undefined && a.name_value_list.parent_id.value !== "" ? getTaskParentDetails(a.name_value_list.parent_type.value,
 							a.name_value_list.parent_id.value) : $("#ViewTaskDetailsPageDetailsList").listview("refresh")
 					}
@@ -2970,7 +2970,7 @@ require(["es_ES","create_edit"], function(util)
 					b += d.module_name == "Leads" || d.module_name == "Contacts" ? d.name_value_list.first_name.value + " " + d.name_value_list.last_name.value : d.name_value_list.name.value
 				}
 			b += "</h4>";
-			$("#ViewTaskDetailsPageDetailsList").append('<li data-role="list-divider">Related To</li>');
+			$("#ViewTaskDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_LINKED_WITH+'</li>');
 			$("#ViewTaskDetailsPageDetailsList").append("<li>" + b + "</li>");
 			$("#ViewTaskDetailsPageDetailsList").listview("refresh")
 		})
@@ -2985,7 +2985,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","module_id":"' + CurrentTaskId + '","link_field_name":"contacts","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewTaskDetailsPageContactsListUl").append('<li data-role="list-divider">Contactos</li>');
+				$("#ViewTaskDetailsPageContactsListUl").append('<li data-role="list-divider">'+RES_CONTACTS_LABEL+'</li>');
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
 					SugarSessionId = "";
@@ -3040,7 +3040,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","module_id":"' + CurrentTaskId + '","link_field_name":"users","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewTaskDetailsPageUsersListUl").append('<li data-role="list-divider">Usuarios</li>');
+				$("#ViewTaskDetailsPageUsersListUl").append('<li data-role="list-divider">'+RES_USERS_LABEL+'</li>');
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
 					SugarSessionId = "";
@@ -3079,7 +3079,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","module_id":"' + CurrentTaskId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewTaskDetailsPageLeadsListUl").append('<li data-role="list-divider">Clientes potenciales</li>');
+				$("#ViewTaskDetailsPageLeadsListUl").append('<li data-role="list-divider">'+RES_LEADS_LABEL+'</li>');
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
 					SugarSessionId = "";
@@ -3214,10 +3214,10 @@ require(["es_ES","create_edit"], function(util)
 						$("#NoteSubjectH1").html(a.name_value_list.name.value);
 						var c = a.name_value_list.description.value;
 						$("#NoteTextP").text(c);
-						$("#ViewNoteDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
+						$("#ViewNoteDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_MORE_INFORMATION_LABEL+'</li>');
 						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_MODIFIED_LABEL+"</p><h4>" + change(a.name_value_list.date_modified.value) +
-							"&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+							RES_BY + a.name_value_list.modified_by_name.value + "</h4></li>");
+						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + RES_BY + a.name_value_list.created_by_name.value + "</h4></li>");
 						$("#ViewNoteDetailsPageDetailsList").append('<li data-role="list-divider">Archivo adjunto</li>');
 						a.name_value_list.id !== undefined && a.name_value_list.id.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><a href='"+sugarURL+"/index.php?entryPoint=download&id="+ a.name_value_list.id.value + "&type=Notes' target='_blank'>" + a.name_value_list.filename.value + "</a></li>");
 						$("#ViewNoteDetailsPageDetailsList").listview("refresh")

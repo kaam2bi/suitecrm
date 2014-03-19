@@ -89,14 +89,14 @@ var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para ent
     RES_SUGARCRM_LANGUAGE = "es_es",
     RES_LOGIN_ERROR = "Error de acceso",
     RES_CALL_LOGGED_FROM_CLIENT = "Llamada registrada desde el cliente móvil",
-    RES_ACCOUNT_INFORMATION = "Información de la empresa",
     RES_ACCOUNT_TYPE = "Tipo de cuenta",
     RES_BY = " por ",
     RES_NOTHING_TO_SHOW = "Sin registros que mostrar",
     RES_WORK = "Trabajo",
     RES_DESCRIPTION_STATUS = "Descripción de estado",
     RES_DESCRIPTION_SOURCE = "Descripción de origen",
-    RES_LINKED_WITH = "Enlazado con";
+    RES_LINKED_WITH = "Enlazado con",
+    RES_DATE = "Fecha";
 
 
 // *** LOS ARRAYS AUXILIARES A TRADUCIR VAN AQUÍ ***
