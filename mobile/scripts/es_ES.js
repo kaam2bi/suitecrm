@@ -83,9 +83,21 @@ var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para ent
     RES_HOME_LABEL = "Versión Web",
     RES_NEW = "Crear",
     RES_EDIT = "Editar",
-	RES_msgText = "Cargando, espere";
-	RES_newRegisteredItem = "Nuevo elemento creado";
-    RES_FOOTER = 'Cliente móvil CRM<br>Para disponer de todas las funciones, acceda a la <a href="../index.php" target="_blank" style="color:white">Versión Web</a><br><a href="http://www.2bi.es" target="_blank" style="color:white">©2bi smart i.t.</a>';
+	RES_LOADER_MSG = "Cargando, espere",
+	RES_NEW_ITEM_CREATED = "Nuevo elemento creado",
+    RES_FOOTER = 'Cliente móvil CRM<br>Para disponer de todas las funciones, acceda a la <a href="../index.php" target="_blank" style="color:white">Versión Web</a><br><a href="http://www.2bi.es" target="_blank" style="color:white">©2bi smart i.t.</a>',
+    RES_SUGARCRM_LANGUAGE = "es_es",
+    RES_LOGIN_ERROR = "Error de acceso",
+    RES_CALL_LOGGED_FROM_CLIENT = "Llamada registrada desde el cliente móvil",
+    RES_ACCOUNT_INFORMATION = "Información de la empresa",
+    RES_ACCOUNT_TYPE = "Tipo de cuenta",
+    RES_BY = " por ",
+    RES_NOTHING_TO_SHOW = "Sin registros que mostrar",
+    RES_WORK = "Trabajo",
+    RES_DESCRIPTION_STATUS = "Descripción de estado",
+    RES_DESCRIPTION_SOURCE = "Descripción de origen",
+    RES_LINKED_WITH = "Enlazado con";
+
 
 // *** LOS ARRAYS AUXILIARES A TRADUCIR VAN AQUÍ ***
 // Array de traducción rápida de status

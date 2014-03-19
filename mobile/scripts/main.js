@@ -46,15 +46,11 @@ require(["es_ES","create_edit"], function(util)
     NotesListCurrentOffset = 0;    
 
 	// Detalles del loader
-	var msgText = RES_msgText;
 	var textVisible = true;
 	var textOnly = true;
 
 	// Mensaje en pantalla
 	var onScreen = false;
-
-	// Mensajes de inserción
-	var newRegisteredItem = RES_newRegisteredItem;
 
 	// Offset horario (para hora local) en horas (para GMT+1=-60, para GMT+2=-120)
 	var timeOffset = new Date().getTimezoneOffset();
@@ -151,7 +147,7 @@ require(["es_ES","create_edit"], function(util)
 
 	function LoginUser(a) {
 			$.mobile.loading( "show", {
-					text: msgText,
+					text: RES_LOADER_MSG,
 					textonly: textOnly,
 					textVisible: textVisible
 			});
@@ -169,7 +165,7 @@ require(["es_ES","create_edit"], function(util)
 				
 				d = $.parseJSON(JSON.stringify(d, undefined, 2));
 
-				if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : toast("Error de acceso");
+				if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : toast(RES_LOGIN_ERROR);
 				else {
 					SugarSessionId = d.id;
 					$("#SettingsPageSugarCrmUsername").val("");
@@ -183,7 +179,7 @@ require(["es_ES","create_edit"], function(util)
 
 	function LoginUserDesktop(a) {
 			$.mobile.loading( "show", {
-					text: msgText,
+					text: RES_LOADER_MSG,
 					textonly: textOnly,
 					textVisible: textVisible
 			});
@@ -201,7 +197,7 @@ require(["es_ES","create_edit"], function(util)
 				
 				d = $.parseJSON(JSON.stringify(d, undefined, 2));
 
-				if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : toast("Error de acceso"); 
+				if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : toast(RES_LOGIN_ERROR); 
 				else {
 					SugarSessionId = d.id;
 					$("#SettingsPageSugarCrmUsername").val("");
@@ -247,9 +243,9 @@ require(["es_ES","create_edit"], function(util)
 			method: "set_entry",
 			input_type: "JSON",
 			response_type: "JSON",
-			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"Llamada registrada desde el cliente móvil"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Held"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":1},{"name":"date_start","value":"' + now(true, true) + '"},{"name":"date_end","value":"' + now(true, true) + '"},{"name":"direction","value":"Outbound"}]}'
+			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":'+RES_CALL_LOGGED_FROM_CLIENT +'},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Held"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":1},{"name":"date_start","value":"' + now(true, true) + '"},{"name":"date_end","value":"' + now(true, true) + '"},{"name":"direction","value":"Outbound"}]}'
 		}, function (b) {
-			toast(newRegisteredItem);
+			toast(RES_NEW_ITEM_CREATED);
 		})
 	}
 
@@ -257,7 +253,7 @@ require(["es_ES","create_edit"], function(util)
 	function SugarCrmGetAccountsListFromServer(a) {
 		if ($("#AllAccountsListDiv li").length === 0 || AccountsListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
-				text: msgText,
+				text: RES_LOADER_MSG,
 				textonly: textOnly,
 				textVisible: textVisible
 			});
@@ -278,7 +274,7 @@ require(["es_ES","create_edit"], function(util)
 					if (c !== undefined && c.entry_list !== undefined) {
 						if (c.result_count === 0) AccountsListCurrentOffset = AccountsListPrevOffset + RowsPerPageInListViews;
 						else if (c.next_offset === 0) AccountsListCurrentOffset = 0;
-						if (c.next_offset === 0 || c.result_count === 0) toast("Sin registros que mostrar");
+						if (c.next_offset === 0 || c.result_count === 0) toast(""+RES_NOTHING_TO_SHOW+"");
 						else {
 							$("#AllAccountsListDiv li").remove();
 							var b = 0;
@@ -295,7 +291,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentAccountId = $(this).data("identity");
 											$.mobile.changePage("#ViewAccountDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -340,7 +336,7 @@ require(["es_ES","create_edit"], function(util)
 						a = a.entry_list[0];
 						$("#AccountNameH1").html(a.name_value_list.name.value);
 						$("#AccountDescriptionP").text(a.name_value_list.description.value);
-						$("#ViewAccountDetailsPageDetailsList").append('<li data-role="list-divider">Información de la empresa</li>');
+						$("#ViewAccountDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_ACCOUNT_INFORMATION+'</li>');
 						var c = $("<li/>"),
 							b = a.name_value_list.phone_office.value.replace("(", "");
 						b = b.replace(")", "");
@@ -359,7 +355,7 @@ require(["es_ES","create_edit"], function(util)
 								return true
 							}
 						});
-						b.append("<p><br />Trabajo</p>");
+						b.append("<p><br />"+RES_WORK+"</p>");
 						b.append(d);
 						c.append(b);
 						a.name_value_list.phone_office.value !== "" && $("#ViewAccountDetailsPageDetailsList").append(c);
@@ -375,14 +371,14 @@ require(["es_ES","create_edit"], function(util)
 								target: "_new",
 								style: "text-decoration:none;color:#444;"
 							});
-							b.append("<p><br />Sitio web</p>");
+							b.append("<p><br />"+RES_WEBSITE_LABEL+"</p>");
 							b.append(d);
 							c.append(b);
 							$("#ViewAccountDetailsPageDetailsList").append(c)
 						}
 						c = $("<li/>");
 						c.append("<h4>" + a.name_value_list.phone_fax.value + "</h4>");
-						c.append("<p>Fax</p>");
+						c.append("<p>"+RES_FAX_LABEL+"</p>");
 						a.name_value_list.phone_fax.value !== "" && $("#ViewAccountDetailsPageDetailsList").append(c);
 						c = $("<li/>");
 						b = a.name_value_list.billing_address_street.value;
@@ -397,7 +393,7 @@ require(["es_ES","create_edit"], function(util)
 							target: "_new",
 							style: "text-decoration:none;color:#444;"
 						});
-						d.append("<p><br />Dirección de cobro</p>");
+						d.append("<p><br />"+RES_ACCOUNT_BILLING_ADDRESS_LABEL+"</p>");
 						d.append(i);
 						c.append(d);
 						if (b !== "" || f !== "" || e !== "" || m !== "" || g !== "") $("#ViewAccountDetailsPageDetailsList").append(c);
@@ -415,7 +411,7 @@ require(["es_ES","create_edit"], function(util)
 								target: "_new",
 								style: "text-decoration:none;color:#444;"
 							});
-						n.append("<p><br />Dirección de envio</p>");
+						n.append("<p><br />"+RES_ACCOUNT_SHIPPING_ADDRESS_LABEL+"</p>");
 						n.append(o);
 						b.append(n);
 						c.append(d);
@@ -427,31 +423,31 @@ require(["es_ES","create_edit"], function(util)
 							rel: "external",
 							style: "text-decoration:none;color:#444;"
 						});
-						b.append("<p><br />Email</p>");
+						b.append("<p><br />"+RES_EMAIL_ADDRESS_LABEL+"</p>");
 						b.append(d);
 						c.append(b);
 						a.name_value_list.email1.value !==
 							"" && $("#ViewAccountDetailsPageDetailsList").append(c);
-						$("#ViewAccountDetailsPageDetailsList").append('<li data-role="list-divider">Más información</li>');
-						a.name_value_list.account_type !== undefined && a.name_value_list.account_type.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Tipo de cuenta</p><h4>" + clienttypes[a.name_value_list.account_type.value] + "</h4></li>");
-						a.name_value_list.industry !== undefined && a.name_value_list.industry.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Industria</p><h4>" +
+						$("#ViewAccountDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_MORE_INFORMATION_LABEL+'</li>');
+						a.name_value_list.account_type !== undefined && a.name_value_list.account_type.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />"+RES_ACCOUNT_TYPE+"</p><h4>" + clienttypes[a.name_value_list.account_type.value] + "</h4></li>");
+						a.name_value_list.industry !== undefined && a.name_value_list.industry.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />"+RES_ACCOUNT_INDUSTRY_LABEL+"</p><h4>" +
 							industry[a.name_value_list.industry.value] + "</h4></li>");
-						a.name_value_list.annual_revenue !== undefined && a.name_value_list.annual_revenue.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Ingresos anuales:</p><h4>" + a.name_value_list.annual_revenue.value + "</h4></li>");
-						a.name_value_list.employees !== undefined && a.name_value_list.employees.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Empleados</p><h4>" + a.name_value_list.employees.value + "</h4></li>");
+						a.name_value_list.annual_revenue !== undefined && a.name_value_list.annual_revenue.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />"+RES_ACCOUNT_REVENUE_LABEL+"</p><h4>" + a.name_value_list.annual_revenue.value + "</h4></li>");
+						a.name_value_list.employees !== undefined && a.name_value_list.employees.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />"+RES_ACCOUNT_EMPLOYEES_LABEL+"</p><h4>" + a.name_value_list.employees.value + "</h4></li>");
 						a.name_value_list.sic_code !==
-							undefined && a.name_value_list.sic_code.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><P><br />Código CNAE/SIC:</p><h4>" + a.name_value_list.sic_code.value + "</h4></li>");
-						a.name_value_list.ticker_symbol !== undefined && a.name_value_list.ticker_symbol.value != "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Símbolo Ticker</p><h4>" + a.name_value_list.ticker_symbol.value + "</h4></li>");
-						a.name_value_list.parent_name !== undefined && a.name_value_list.parent_name.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Miembro de</p><h4>" +
+							undefined && a.name_value_list.sic_code.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><P><br />"+RES_ACCOUNT_SIC_LABEL+"</p><h4>" + a.name_value_list.sic_code.value + "</h4></li>");
+						a.name_value_list.ticker_symbol !== undefined && a.name_value_list.ticker_symbol.value != "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />"+RES_ACCOUNT_TICKER_LABEL+"+</p><h4>" + a.name_value_list.ticker_symbol.value + "</h4></li>");
+						a.name_value_list.parent_name !== undefined && a.name_value_list.parent_name.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />"+RES_ACCOUNT_MEMBER_LABEL+"</p><h4>" +
 							a.name_value_list.parent_name.value + "</h4></li>");
-						a.name_value_list.ownership !== undefined && a.name_value_list.ownership.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Propietario</p><h4>" + a.name_value_list.ownership.value + "</h4></li>");
-						a.name_value_list.campaign_name !== undefined && a.name_value_list.campaign_name.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Campaña</p><h4>" + a.name_value_list.campaign_name.value + "</h4></li>");
+						a.name_value_list.ownership !== undefined && a.name_value_list.ownership.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />"+RES_ACCOUNT_OWNERSHIP_LABEL+"</p><h4>" + a.name_value_list.ownership.value + "</h4></li>");
+						a.name_value_list.campaign_name !== undefined && a.name_value_list.campaign_name.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />"+RES_ACCOUNT_CAMPAIGN_LABEL+"</p><h4>" + a.name_value_list.campaign_name.value + "</h4></li>");
 						a.name_value_list.rating !==
-							undefined && a.name_value_list.rating.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Rating</p><h4>" + a.name_value_list.rating.value + "</h4></li>");
-						$("#ViewAccountDetailsPageDetailsList").append('<li data-role="list-divider">Other</li>');
-						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
+							undefined && a.name_value_list.rating.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />"+RES_ACCOUNT_RATING_LABEL+"</p><h4>" + a.name_value_list.rating.value + "</h4></li>");
+						$("#ViewAccountDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_OTHER_LABEL+'</li>');
+						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />"+RES_CONTACT_REPORTS_TO_LABEL+"</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
 						a.name_value_list.date_modified !==
-							undefined && a.name_value_list.date_modified.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + change(a.name_value_list.date_modified.value) + "</h4></li>");
-						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + " por " + a.name_value_list.created_by_name.value + "</h4></li>")
+							undefined && a.name_value_list.date_modified.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_MODIFIED_LABEL+"</p><h4>" + change(a.name_value_list.date_modified.value) + "</h4></li>");
+						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewAccountDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + RES_BY + a.name_value_list.created_by_name.value + "</h4></li>")
 					}
 			}
 			$("#ViewAccountDetailsPageDetailsList").listview("refresh")
@@ -463,7 +459,7 @@ require(["es_ES","create_edit"], function(util)
 			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","module_id":"' + CurrentAccountId + '","link_field_name":"contacts","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
-			$("#ViewAccountDetailsPageContactsListUl").append('<li data-role="list-divider">Contactos</li>');
+			$("#ViewAccountDetailsPageContactsListUl").append('<li data-role="list-divider">'+RES_CONTACTS_LABEL+'</li>');
 			if (a !== undefined) {
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
@@ -486,7 +482,7 @@ require(["es_ES","create_edit"], function(util)
 										CurrentContactId = $(this).data("identity");
 										$.mobile.changePage("#ViewContactDetailsPage");
 										$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -500,7 +496,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewAccountDetailsPageContactsListUl").append(a)
 					}
 				$("#ViewAccountDetailsPageContactsListUl").listview("refresh")
@@ -513,7 +509,7 @@ require(["es_ES","create_edit"], function(util)
 			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","module_id":"' + CurrentAccountId + '","link_field_name":"opportunities","related_module_query":"","related_fields":["id","name","sales_stage"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
-			$("#ViewAccountDetailsPageOpportunitiesListUl").append('<li data-role="list-divider">Oportunidades</li>');
+			$("#ViewAccountDetailsPageOpportunitiesListUl").append('<li data-role="list-divider">'+RES_OPPORTUNITIES_LABEL+'</li>');
 			if (a !== undefined) {
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !==
@@ -537,7 +533,7 @@ require(["es_ES","create_edit"], function(util)
 										CurrentOpportunityId = $(this).data("identity");
 										$.mobile.changePage("#ViewOpportunityDetailsPage");
 										$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -551,7 +547,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewAccountDetailsPageOpportunitiesListUl").append(a)
 					}
 			}
@@ -565,7 +561,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' +
 				SugarSessionId + '","module_name":"Accounts","module_id":"' + CurrentAccountId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
-			$("#ViewAccountDetailsPageLeadsListUl").append('<li data-role="list-divider">Clientes potenciales</li>');
+			$("#ViewAccountDetailsPageLeadsListUl").append('<li data-role="list-divider">'+RES_LEADS_LABEL+'</li>');
 			if (a !== undefined) {
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
@@ -590,7 +586,7 @@ require(["es_ES","create_edit"], function(util)
 										CurrentLeadId = $(this).data("identity");
 										$.mobile.changePage("#ViewLeadDetailsPage");
 										$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -604,7 +600,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewAccountDetailsPageLeadsListUl").append(a)
 					}
 			}
@@ -618,7 +614,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","module_id":"' +
 				CurrentAccountId + '","link_field_name":"calls","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
-			$("#ViewAccountDetailsPageCallsListUl").append('<li data-role="list-divider">Llamadas</li>');
+			$("#ViewAccountDetailsPageCallsListUl").append('<li data-role="list-divider">'+RES_CALLS_LABEL+'</li>');
 			if (a !== undefined) {
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
@@ -647,7 +643,7 @@ require(["es_ES","create_edit"], function(util)
 										CurrentCallId = $(this).data("identity");
 										$.mobile.changePage("#ViewCallDetailsPage");
 										$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -662,7 +658,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewAccountDetailsPageCallsListUl").append(a)
 					}
 			}
@@ -676,7 +672,7 @@ require(["es_ES","create_edit"], function(util)
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","module_id":"' + CurrentAccountId + '","link_field_name":"meetings","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 			},
 			function (a) {
-				$("#ViewAccountDetailsPageMeetingsListUl").append('<li data-role="list-divider">Reuniones</li>');
+				$("#ViewAccountDetailsPageMeetingsListUl").append('<li data-role="list-divider">'+RES_MEETINGS_LABEL+'</li>');
 				if (a !== undefined) {
 					a = $.parseJSON(JSON.stringify(a, undefined, 2));
 					if (a.name !== undefined && a.name === "Invalid Session ID") {
@@ -705,7 +701,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentMeetingId = $(this).data("identity");
 											$.mobile.changePage("#ViewMeetingDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -719,7 +715,7 @@ require(["es_ES","create_edit"], function(util)
 								}
 						} else {
 							a = $("<li/>");
-							a.append("<h4>Sin registros que mostrar</h4>");
+							a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 							$("#ViewAccountDetailsPageMeetingsListUl").append(a)
 						}
 				}
@@ -733,7 +729,7 @@ require(["es_ES","create_edit"], function(util)
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","module_id":"' + CurrentAccountId + '","link_field_name":"tasks","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 			},
 			function (a) {
-				$("#ViewAccountDetailsPageTasksListUl").append('<li data-role="list-divider">Tareas</li>');
+				$("#ViewAccountDetailsPageTasksListUl").append('<li data-role="list-divider">'+RES_TASKS_LABEL+'</li>');
 				if (a !== undefined) {
 					a = $.parseJSON(JSON.stringify(a, undefined, 2));
 					if (a.name !== undefined && a.name === "Invalid Session ID") {
@@ -762,7 +758,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentTaskId = $(this).data("identity");
 											$.mobile.changePage("#ViewTaskDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -776,7 +772,7 @@ require(["es_ES","create_edit"], function(util)
 								}
 						} else {
 							a = $("<li/>");
-							a.append("<h4>Sin registros que mostrar</h4>");
+							a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 							$("#ViewAccountDetailsPageTasksListUl").append(a)
 						}
 				}
@@ -788,7 +784,7 @@ require(["es_ES","create_edit"], function(util)
 	function SugarCrmGetContactsListFromServer(a) {
 		if ($("#AllContactsListDiv li").length === 0 || ContactsListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
-					text: msgText,
+					text: RES_LOADER_MSG,
 					textonly: textOnly,
 					textVisible: textVisible
 			});
@@ -805,7 +801,7 @@ require(["es_ES","create_edit"], function(util)
 					if (c != undefined && c.entry_list != undefined) {
 						if (c.result_count === 0) ContactsListCurrentOffset = ContactsListPrevOffset + RowsPerPageInListViews;
 						else if (c.next_offset === 0) ContactsListCurrentOffset = 0;
-						if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
+						if (c.next_offset == 0 || c.result_count == 0) toast(""+RES_NOTHING_TO_SHOW+"");
 						else {
 							$("#AllContactsListDiv li").remove();
 							var b = 0;
@@ -824,7 +820,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentContactId = $(this).data("identity");
 											$.mobile.changePage("#ViewContactDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -871,7 +867,7 @@ require(["es_ES","create_edit"], function(util)
 						var c = a.name_value_list.title.value;
 						//if (a.name_value_list.account_name != undefined) c += " en " + a.name_value_list.account_name.value; //TODO
 						$("#ContactTitleP").text(c);
-						$("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">Contacto</li>');
+						$("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_CONTACT_LABEL+'</li>');
 						if (a.name_value_list.phone_work !== undefined && a.name_value_list.phone_work.value !== "") {
 							c = $("<li/>");
 							var b = a.name_value_list.phone_work.value.replace("(", "");
@@ -885,7 +881,7 @@ require(["es_ES","create_edit"], function(util)
 										rel: "external",
 										style: "text-decoration:none;color:#444;"
 									});
-								f.append("<p><br />Trabajo</p>");
+								f.append("<p><br />"+RES_WORK+"</p>");
 								f.append(d);
 								c.append(f)
 							}
@@ -900,7 +896,7 @@ require(["es_ES","create_edit"], function(util)
 								rel: "external",
 								style: "text-decoration:none;color:#444;"
 							});
-							f.append("<p><br />Email</p>");
+							f.append("<p><br />"+RES_EMAIL_ADDRESS_LABEL+"</p>");
 							f.append(d);
 							c.append(f);
 							$("#ViewContactDetailsPageDetailsList").append(c)
@@ -908,7 +904,7 @@ require(["es_ES","create_edit"], function(util)
 						if (a.name_value_list.description !== undefined && a.name_value_list.description.value !== "") {
 							c = $("<li/>");
 							d = "<h4>" + a.name_value_list.description.value + "</h4>";
-							c.append("<p><br />Descripción</p>");
+							c.append("<p><br />"+RES_DESCRIPTION_LABEL+"</p>");
 							c.append(d);
 							$("#ViewContactDetailsPageDetailsList").append(c)
 						}
@@ -945,7 +941,7 @@ require(["es_ES","create_edit"], function(util)
 								rel: "external",
 								style: "text-decoration:none;color:#444;"
 							});
-							d.append("<p><br />Móvil</p>");
+							d.append("<p><br />"+RES_MOBILE_PHONE_LABEL+"</p>");
 							d.append(b);
 							c.append(d);
 							$("#ViewContactDetailsPageDetailsList").append(c)
@@ -953,14 +949,14 @@ require(["es_ES","create_edit"], function(util)
 						if (a.name_value_list.phone_fax !== undefined && a.name_value_list.phone_fax.value !== "") {
 							b = $("<li/>");
 							c = "<h4>" + a.name_value_list.phone_fax.value + "</h4>";
-							b.append("<p><br />Fax</p>");
+							b.append("<p><br />"+RES_FAX_LABEL+"</p>");
 							b.append(c);
 							$("#ViewContactDetailsPageDetailsList").append(b)
 						}
 						if (a.name_value_list.department !== undefined && a.name_value_list.department.value !== "") {
 							b = $("<li/>");
 							c = "<h4>" + a.name_value_list.department.value + "</h4>";
-							b.append("<p><br />Department</p>");
+							b.append("<p><br />"+RES_DEPARTMENT_LABEL+"</p>");
 							b.append(c);
 							$("#ViewContactDetailsPageDetailsList").append(b)
 						}
@@ -978,21 +974,21 @@ require(["es_ES","create_edit"], function(util)
 								target: "_new",
 								style: "text-decoration:none;color:#444;"
 							});
-							d.append("<p><br />Otra dirección</p>");
+							d.append("<p><br />"+RES_OTHER_ADDRESS_LABEL+"</p>");
 							d.append(c);
 							b.append(d);
 							$("#ViewContactDetailsPageDetailsList").append(b)
 						}
-						$("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">Más información</li>');
-						a.name_value_list.report_to_name !== undefined && a.name_value_list.report_to_name.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Informa a</p><h4>" + a.name_value_list.report_to_name.value + "</h4></li>");
-						a.name_value_list.lead_source !== undefined && a.name_value_list.lead_source.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Proviene de</p><h4>" +
+						$("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_OVERVIEW_LABEL+'</li>');
+						a.name_value_list.report_to_name !== undefined && a.name_value_list.report_to_name.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />"+RES_LEAD_REFERRED_BY+"</p><h4>" + a.name_value_list.report_to_name.value + "</h4></li>");
+						a.name_value_list.lead_source !== undefined && a.name_value_list.lead_source.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />"+RES_LEAD_SOURCE_LABEL+"</p><h4>" +
 							a.name_value_list.lead_source.value + "</h4></li>");
-						$("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">Otra Información</li>');
-						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
-						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" +
+						$("#ViewContactDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_MORE_INFORMATION_LABEL+'</li>');
+						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />"+ RES_CONTACT_REPORTS_TO_LABEL +"</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
+						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />"+ RES_DATE_MODIFIED_LABEL +"</p><h4>" +
 							a.name_value_list.date_modified.value + "&nbsp;por&nbsp;" + change(a.name_value_list.modified_by_name.value) + "</h4></li>");
-						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
-						a.name_value_list.do_not_call !== undefined && a.name_value_list.do_not_call.value == "true" && toast("*NOTA: Contacto marcado como No llamar.")
+						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewContactDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + RES_BY + a.name_value_list.created_by_name.value + "</h4></li>");
+						a.name_value_list.do_not_call !== undefined && a.name_value_list.do_not_call.value == "true" && toast(RES_DO_NOT_CALL)
 					}
 				$("#ViewContactDetailsPageDetailsList").listview("refresh")
 			}
@@ -1013,7 +1009,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"opportunities","related_module_query":"","related_fields":["id","name","sales_stage"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewContactDetailsPageOpportunitiesListUl").append('<li data-role="list-divider">Oportunidades</li>');
+				$("#ViewContactDetailsPageOpportunitiesListUl").append('<li data-role="list-divider">'+RES_OPPORTUNITIES_LABEL+'</li>');
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
 					SugarSessionId = "";
@@ -1035,7 +1031,7 @@ require(["es_ES","create_edit"], function(util)
 										CurrentOpportunityId = $(this).data("identity");
 										$.mobile.changePage("#ViewOpportunityDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -1049,7 +1045,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewContactDetailsPageOpportunitiesListUl").append(a)
 					}
 				$("#ViewContactDetailsPageOpportunitiesListUl").listview("refresh")
@@ -1066,7 +1062,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewContactDetailsPageLeadsListUl").append('<li data-role="list-divider">Clientes potenciales</li>');
+				$("#ViewContactDetailsPageLeadsListUl").append('<li data-role="list-divider">'+RES_LEADS_LABEL+'</li>');
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
 					SugarSessionId = "";
@@ -1089,7 +1085,7 @@ require(["es_ES","create_edit"], function(util)
 										CurrentLeadId = $(this).data("identity");
 										$.mobile.changePage("#ViewLeadDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -1103,7 +1099,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewContactDetailsPageLeadsListUl").append(a)
 					}
 				$("#ViewContactDetailsPageLeadsListUl").listview("refresh")
@@ -1120,7 +1116,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"calls","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewContactDetailsPageCallsListUl").append('<li data-role="list-divider">Llamadas</li>');
+				$("#ViewContactDetailsPageCallsListUl").append('<li data-role="list-divider">'+RES_CALLS_LABEL+'</li>');
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
 					SugarSessionId = "";
@@ -1148,7 +1144,7 @@ require(["es_ES","create_edit"], function(util)
 										CurrentCallId = $(this).data("identity");
 										$.mobile.changePage("#ViewCallDetailsPage");
 										$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -1162,7 +1158,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewContactDetailsPageCallsListUl").append(a)
 					}
 				$("#ViewContactDetailsPageCallsListUl").listview("refresh")
@@ -1179,7 +1175,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"meetings","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewContactDetailsPageMeetingsListUl").append('<li data-role="list-divider">Reuniones</li>');
+				$("#ViewContactDetailsPageMeetingsListUl").append('<li data-role="list-divider">'+RES_MEETINGS_LABEL+'</li>');
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
 					SugarSessionId = "";
@@ -1206,7 +1202,7 @@ require(["es_ES","create_edit"], function(util)
 										CurrentMeetingId = $(this).data("identity");
 										$.mobile.changePage("#ViewMeetingDetailsPage");
 										$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -1220,7 +1216,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewContactDetailsPageMeetingsListUl").append(a)
 					}
 				$("#ViewContactDetailsPageMeetingsListUl").listview("refresh")
@@ -1240,7 +1236,7 @@ require(["es_ES","create_edit"], function(util)
 			},
 			function (a) {
 				if (a != undefined) {
-					$("#ViewContactDetailsPageTasksListUl").append('<li data-role="list-divider">Tareas</li>');
+					$("#ViewContactDetailsPageTasksListUl").append('<li data-role="list-divider">'+RES_TASKS_LABEL+'</li>');
 					a = $.parseJSON(JSON.stringify(a, undefined, 2));
 					if (a.name !== undefined && a.name === "Invalid Session ID") {
 						SugarSessionId = "";
@@ -1268,7 +1264,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentTaskId = $(this).data("identity");
 											$.mobile.changePage("#ViewTaskDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -1282,7 +1278,7 @@ require(["es_ES","create_edit"], function(util)
 								}
 						} else {
 							a = $("<li/>");
-							a.append("<h4>Sin registros que mostrar</h4>");
+							a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 							$("#ViewContactDetailsPageTasksListUl").append(a)
 						}
 					$("#ViewContactDetailsPageTasksListUl").listview("refresh")
@@ -1294,7 +1290,7 @@ require(["es_ES","create_edit"], function(util)
 	function SugarCrmGetOpportunitiesListFromServer(a) {
 		if ($("#AllOpportunitiesListDiv li").length === 0 || OpportunitiesListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
-					text: msgText,
+					text: RES_LOADER_MSG,
 					textonly: textOnly,
 					textVisible: textVisible
 			});
@@ -1315,7 +1311,7 @@ require(["es_ES","create_edit"], function(util)
 						if (c != undefined && c.entry_list != undefined) {
 							if (c.result_count === 0) OpportunitiesListCurrentOffset = OpportunitiesListPrevOffset + RowsPerPageInListViews;
 							else if (c.next_offset === 0) OpportunitiesListCurrentOffset = 0;
-							if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
+							if (c.next_offset == 0 || c.result_count == 0) toast(""+RES_NOTHING_TO_SHOW+"");
 							else {
 								$("#AllOpportunitiesListDiv li").remove();
 								var b = 0;
@@ -1344,7 +1340,7 @@ require(["es_ES","create_edit"], function(util)
 												CurrentOpportunityId = $(this).data("identity");
 												$.mobile.changePage("#ViewOpportunityDetailsPage");
 												$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -1370,7 +1366,7 @@ require(["es_ES","create_edit"], function(util)
 
 	function SugarCrmGetOpportunityDetails() {
 		$.mobile.loading( "show", {
-				text: msgText,
+				text: RES_LOADER_MSG,
 				textonly: textOnly,
 				textVisible: textVisible
 		});
@@ -1395,12 +1391,12 @@ require(["es_ES","create_edit"], function(util)
 						a = a.entry_list[0];
 						$("#OpportunityNameH1").html(a.name_value_list.name.value);
 						$("#OpportunityDescriptionP").text(a.name_value_list.account_name.value);
-						$("#ViewOpportunityDetailsPageDetailsList").append('<li data-role="list-divider">Oportunidad</li>');
+						$("#ViewOpportunityDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_OPPORTUNITY_LABEL+'</li>');
 						if (a.name_value_list.amount !== undefined && a.name_value_list.amount.value !==
 							"") {
 							var c = $("<li/>"),
 								b = $("<p/>");
-							b.append("<br />Monto de la oportunidad (");
+							b.append("<br />"+RES_OPPORTUNITY_AMOUNT_LABEL+" (");
 							var d = $("<h4/>");
 
 							// Euros Value FIX
@@ -1419,20 +1415,20 @@ require(["es_ES","create_edit"], function(util)
 							$("#ViewOpportunityDetailsPageDetailsList").append(c)
 						}
 						a.name_value_list.date_closed !==
-							undefined && a.name_value_list.date_closed.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Fecha de cierre</p><h4>" + change(a.name_value_list.date_closed.value) + "</h4></li>");
-						a.name_value_list.sales_stage !== undefined && a.name_value_list.sales_stage.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Estado de ventas</p><h4>" + status[a.name_value_list.sales_stage.value] + "</h4></li>");
+							undefined && a.name_value_list.date_closed.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />"+RES_OPPORTUNITY_EXPECTED_CLOSE_DATE_LABEL+"</p><h4>" + change(a.name_value_list.date_closed.value) + "</h4></li>");
+						a.name_value_list.sales_stage !== undefined && a.name_value_list.sales_stage.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />"+RES_OPPORTUNITY_SALES_STAGE_LABEL+"</p><h4>" + status[a.name_value_list.sales_stage.value] + "</h4></li>");
 						a.name_value_list.opportunity_type !== undefined && a.name_value_list.opportunity_type.value !==
 							"" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Type</p><h4>" + a.name_value_list.opportunity_type.value + "</h4></li>");
-						a.name_value_list.probability !== undefined && a.name_value_list.probability.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Probabilidad (%)</p><h4>" + a.name_value_list.probability.value + "</h4></li>");
-						a.name_value_list.lead_source !== undefined && a.name_value_list.lead_source.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Proviene de</p><h4>" +
+						a.name_value_list.probability !== undefined && a.name_value_list.probability.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />"+RES_OPPORTUNITY_PROBABILITY_LABEL+"</p><h4>" + a.name_value_list.probability.value + "</h4></li>");
+						a.name_value_list.lead_source !== undefined && a.name_value_list.lead_source.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />"+RES_LEAD_REFERRED_BY+"</p><h4>" +
 							a.name_value_list.lead_source.value + "</h4></li>");
-						a.name_value_list.next_step !== undefined && a.name_value_list.next_step.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Siguiente paso</p><h4>" + a.name_value_list.next_step.value + "</h4></li>");
-						a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Descripción</p><h4>" + a.name_value_list.description.value + "</h4></li>");
-						$("#ViewOpportunityDetailsPageDetailsList").append('<li data-role="list-divider">Oportunidad</li>');
-						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Asignada a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
-						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + change(a.name_value_list.date_modified.value) + "</h4></li>");
+						a.name_value_list.next_step !== undefined && a.name_value_list.next_step.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />"+RES_OPPORTUNITY_NEXT_STEP_LABEL+"</p><h4>" + a.name_value_list.next_step.value + "</h4></li>");
+						a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />"+RES_DESCRIPTION_LABEL+"</p><h4>" + a.name_value_list.description.value + "</h4></li>");
+						$("#ViewOpportunityDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_OPPORTUNITY_LABEL+'</li>');
+						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />"+RES_LEAD_REFERRED_BY+"</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
+						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_MODIFIED_LABEL+"</p><h4>" + change(a.name_value_list.date_modified.value) + "</h4></li>");
 						a.name_value_list.date_entered !==
-							undefined && a.name_value_list.date_entered.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Fecha de creación </p><h4>" + change(a.name_value_list.date_entered.value) + " por " + a.name_value_list.created_by_name.value + "</h4></li>")
+							undefined && a.name_value_list.date_entered.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+" </p><h4>" + change(a.name_value_list.date_entered.value) + " por " + a.name_value_list.created_by_name.value + "</h4></li>")
 					}
 				$("#ViewOpportunityDetailsPageDetailsList").listview("refresh")
 			}
@@ -1446,7 +1442,7 @@ require(["es_ES","create_edit"], function(util)
 
 	function getOpportunityRelatedContactsInsetList() {
 		$.mobile.loading( "show", {
-				text: msgText,
+				text: RES_LOADER_MSG,
 				textonly: textOnly,
 				textVisible: textVisible
 		});
@@ -1483,7 +1479,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentContactId = $(this).data("identity");
 											$.mobile.changePage("#ViewContactDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -1497,7 +1493,7 @@ require(["es_ES","create_edit"], function(util)
 								}
 						} else {
 							a = $("<li/>");
-							a.append("<h4>Sin registros que mostrar</h4>");
+							a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 							$("#ViewOpportunityDetailsPageContactsListUl").append(a)
 						}
 					}
@@ -1509,7 +1505,7 @@ require(["es_ES","create_edit"], function(util)
 
 	function getOpportunityRelatedLeadsInsetList() {
 		$.mobile.loading( "show", {
-				text: msgText,
+				text: RES_LOADER_MSG,
 				textonly: textOnly,
 				textVisible: textVisible
 		});
@@ -1528,7 +1524,7 @@ require(["es_ES","create_edit"], function(util)
 						$.mobile.changePage("#LoginPage")
 					}
 					if (a != undefined && a.entry_list != undefined) {
-						$("#ViewOpportunityDetailsPageLeadsListUl").append('<li data-role="list-divider">Clientes potenciales</li>');
+						$("#ViewOpportunityDetailsPageLeadsListUl").append('<li data-role="list-divider">'+RES_LEADS_LABEL+'</li>');
 						if (a.entry_list.length > 0) {
 							var c = 0;
 							for (c = 0; c <= a.entry_list.length; c++)
@@ -1546,7 +1542,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentLeadId = $(this).data("identity");
 											$.mobile.changePage("#ViewLeadDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -1560,7 +1556,7 @@ require(["es_ES","create_edit"], function(util)
 								}
 						} else {
 							a = $("<li/>");
-							a.append("<h4>Sin registros que mostrar</h4>");
+							a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 							$("#ViewOpportunityDetailsPageLeadsListUl").append(a)
 						}
 					}
@@ -1572,7 +1568,7 @@ require(["es_ES","create_edit"], function(util)
 
 	function getOpportunityRelatedCallsInsetList() {
 		$.mobile.loading( "show", {
-				text: msgText,
+				text: RES_LOADER_MSG,
 				textonly: textOnly,
 				textVisible: textVisible
 		});
@@ -1591,7 +1587,7 @@ require(["es_ES","create_edit"], function(util)
 						$.mobile.changePage("#LoginPage")
 					}
 					if (a != undefined && a.entry_list != undefined) {
-						$("#ViewOpportunityDetailsPageCallsListUl").append('<li data-role="list-divider">Llamadas</li>');
+						$("#ViewOpportunityDetailsPageCallsListUl").append('<li data-role="list-divider">'+RES_CALLS_LABEL+'</li>');
 						if (a.entry_list.length > 0) {
 							var c = 0;
 							for (c = 0; c <= a.entry_list.length; c++)
@@ -1613,7 +1609,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentCallId = $(this).data("identity");
 											$.mobile.changePage("#ViewCallDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -1627,7 +1623,7 @@ require(["es_ES","create_edit"], function(util)
 								}
 						} else {
 							a = $("<li/>");
-							a.append("<h4>Sin registros que mostrar</h4>");
+							a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 							$("#ViewOpportunityDetailsPageCallsListUl").append(a)
 						}
 					}
@@ -1639,7 +1635,7 @@ require(["es_ES","create_edit"], function(util)
 
 	function getOpportunityRelatedMeetingsInsetList() {
 		$.mobile.loading( "show", {
-				text: msgText,
+				text: RES_LOADER_MSG,
 				textonly: textOnly,
 				textVisible: textVisible
 		});
@@ -1659,7 +1655,7 @@ require(["es_ES","create_edit"], function(util)
 						$.mobile.changePage("#LoginPage")
 					}
 					if (a != undefined && a.entry_list != undefined) {
-						$("#ViewOpportunityDetailsPageMeetingsListUl").append('<li data-role="list-divider">Reuniones</li>');
+						$("#ViewOpportunityDetailsPageMeetingsListUl").append('<li data-role="list-divider">'+RES_MEETINGS_LABEL+'</li>');
 						if (a.entry_list.length > 0) {
 							var c = 0;
 							for (c = 0; c <= a.entry_list.length; c++)
@@ -1681,7 +1677,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentMeetingId = $(this).data("identity");
 											$.mobile.changePage("#ViewMeetingDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -1696,7 +1692,7 @@ require(["es_ES","create_edit"], function(util)
 						} else {
 							a =
 								$("<li/>");
-							a.append("<h4>Sin registros que mostrar</h4>");
+							a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 							$("#ViewOpportunityDetailsPageMeetingsListUl").append(a)
 						}
 					}
@@ -1708,7 +1704,7 @@ require(["es_ES","create_edit"], function(util)
 
 	function getOpportunityRelatedTasksInsetList() {
 		$.mobile.loading( "show", {
-				text: msgText,
+				text: RES_LOADER_MSG,
 				textonly: textOnly,
 				textVisible: textVisible
 		});
@@ -1728,7 +1724,7 @@ require(["es_ES","create_edit"], function(util)
 						$.mobile.changePage("#LoginPage")
 					}
 					if (a != undefined && a.entry_list != undefined) {
-						$("#ViewOpportunityDetailsPageTasksListUl").append('<li data-role="list-divider">Tareas</li>');
+						$("#ViewOpportunityDetailsPageTasksListUl").append('<li data-role="list-divider">'+RES_TASKS_LABEL+'</li>');
 						if (a.entry_list.length > 0) {
 							var c = 0;
 							for (c = 0; c <= a.entry_list.length; c++)
@@ -1750,7 +1746,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentTaskId = $(this).data("identity");
 											$.mobile.changePage("#ViewTaskDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -1764,7 +1760,7 @@ require(["es_ES","create_edit"], function(util)
 								}
 						} else {
 							a = $("<li/>");
-							a.append("<h4>Sin registros que mostrar</h4>");
+							a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 							$("#ViewOpportunityDetailsPageTasksListUl").append(a)
 						}
 					}
@@ -1777,7 +1773,7 @@ require(["es_ES","create_edit"], function(util)
 	function SugarCrmGetLeadsListFromServer(a) {
 		if ($("#AllLeadsListDiv li").length === 0 || LeadsListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
-					text: msgText,
+					text: RES_LOADER_MSG,
 					textonly: textOnly,
 					textVisible: textVisible
 			});
@@ -1797,7 +1793,7 @@ require(["es_ES","create_edit"], function(util)
 					if (c != undefined && c.entry_list != undefined) {
 						if (c.result_count === 0) LeadsListCurrentOffset = LeadsListPrevOffset + RowsPerPageInListViews;
 						else if (c.next_offset === 0) LeadsListCurrentOffset = 0;
-						if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
+						if (c.next_offset == 0 || c.result_count == 0) toast(""+RES_NOTHING_TO_SHOW+"");
 						else {
 							$("#AllLeadsListDiv li").remove();
 							var b = 0;
@@ -1814,7 +1810,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentLeadId = $(this).data("identity");
 											$.mobile.changePage("#ViewLeadDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -1866,7 +1862,7 @@ require(["es_ES","create_edit"], function(util)
 							$("#LeadTitleP").text(c)
 						}
 						*/
-						$("#ViewLeadDetailsPageDetailsList").append('<li data-role="list-divider">Oportunidad</li>');
+						$("#ViewLeadDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_OPPORTUNITY_LABEL+'</li>');
 						if (a.name_value_list.phone_work !==
 							undefined && a.name_value_list.phone_work.value !== "") {
 							c = $("<li/>");
@@ -1880,7 +1876,7 @@ require(["es_ES","create_edit"], function(util)
 								rel: "external",
 								style: "text-decoration:none;color:#444;"
 							});
-							b.append("<p><br />Trabajo</p>");
+							b.append("<p><br />"+RES_WORK+"</p>");
 							b.append(d);
 							c.append(b);
 							$("#ViewLeadDetailsPageDetailsList").append(c)
@@ -1892,13 +1888,13 @@ require(["es_ES","create_edit"], function(util)
 							b = b.replace(")", "");
 							b = b.replace(" ", "");
 							b = b.replace("-", "");
-							d = "<h4>Móvil:&nbsp;" + a.name_value_list.phone_mobile.value + "</h4>";
+							d = "<h4>"+RES_MOBILE_PHONE_LABEL+":&nbsp;" + a.name_value_list.phone_mobile.value + "</h4>";
 							b = $("<a/>", {
 								href: "tel:+1" + b,
 								rel: "external",
 								style: "text-decoration:none;color:#444;"
 							});
-							b.append("<p><br />Móvil</p>");
+							b.append("<p><br />"+RES_MOBILE_PHONE_LABEL+"</p>");
 							b.append(d);
 							c.append(b);
 							$("#ViewLeadDetailsPageDetailsList").append(c)
@@ -1926,7 +1922,7 @@ require(["es_ES","create_edit"], function(util)
 								target: "_new",
 								style: "text-decoration:none;color:#444;"
 							});
-							b.append("<p><br />Dirección principal</p>");
+							b.append("<p><br />"+RES_PRIMARY_ADDRESS_LABEL+"</p>");
 							b.append(d);
 							c.append(b);
 							$("#ViewLeadDetailsPageDetailsList").append(c)
@@ -1945,7 +1941,7 @@ require(["es_ES","create_edit"], function(util)
 								target: "_new",
 								style: "text-decoration:none;color:#444;"
 							});
-							b.append("<p><br />Otra dirección</p>");
+							b.append("<p><br />"+RES_OTHER_ADDRESS_LABEL+"</p>");
 							b.append(d);
 							c.append(b);
 							$("#ViewLeadDetailsPageDetailsList").append(c)
@@ -1959,28 +1955,28 @@ require(["es_ES","create_edit"], function(util)
 								rel: "external",
 								style: "text-decoration:none;color:#444;"
 							});
-							b.append("<p><br />Email</p>");
+							b.append("<p><br />"+RES_EMAIL_ADDRESS_LABEL+"</p>");
 							b.append(d);
 							c.append(b);
 							$("#ViewLeadDetailsPageDetailsList").append(c)
 						}
-						a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Descripción<p><h4>" + a.name_value_list.description.value + "</h4></li>");
-						$("#ViewLeadDetailsPageDetailsList").append('<li data-role="list-divider">Más información</li>');
-						a.name_value_list.status !== undefined && a.name_value_list.status.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Estado<p><h4>" + status2[a.name_value_list.status.value] + "</h4></li>");
-						a.name_value_list.lead_source !== undefined && a.name_value_list.lead_source.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Origen<p><h4>" + sources[a.name_value_list.lead_source.value] + "</h4></li>");
-						a.name_value_list.status_description !== undefined && a.name_value_list.status_description.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Descripción de estado<p><h4>" +
+						a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />"+RES_DESCRIPTION_LABEL+"<p><h4>" + a.name_value_list.description.value + "</h4></li>");
+						$("#ViewLeadDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_MORE_INFORMATION_LABEL+'</li>');
+						a.name_value_list.status !== undefined && a.name_value_list.status.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />"+RES_STATUS_LABEL+"<p><h4>" + status2[a.name_value_list.status.value] + "</h4></li>");
+						a.name_value_list.lead_source !== undefined && a.name_value_list.lead_source.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />"+RES_LEAD_SOURCE_LABEL+"<p><h4>" + sources[a.name_value_list.lead_source.value] + "</h4></li>");
+						a.name_value_list.status_description !== undefined && a.name_value_list.status_description.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />"+RES_DESCRIPTION_STATUS+"<p><h4>" +
 							a.name_value_list.status_description.value + "</h4></li>");
-						a.name_value_list.lead_source_description !== undefined && a.name_value_list.lead_source_description.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Descripción de origen<p><h4>" + a.name_value_list.lead_source_description.value + "</h4></li>");
-						a.name_value_list.opportunity_amount !== undefined && a.name_value_list.opportunity_amount.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Monto de la oportunidad<p><h4>€" + parseFloat(a.name_value_list.opportunity_amount.value).toFixed(2) +
+						a.name_value_list.lead_source_description !== undefined && a.name_value_list.lead_source_description.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />"+RES_DESCRIPTION_SOURCE+"<p><h4>" + a.name_value_list.lead_source_description.value + "</h4></li>");
+						a.name_value_list.opportunity_amount !== undefined && a.name_value_list.opportunity_amount.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />"+RES_OPPORTUNITY_AMOUNT_LABEL+"<p><h4>€" + parseFloat(a.name_value_list.opportunity_amount.value).toFixed(2) +
 							"</h4></li>");
-						a.name_value_list.refered_by !== undefined && a.name_value_list.refered_by.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Referido por<p><h4>" + a.name_value_list.refered_by.value + "</h4></li>");
-						a.name_value_list.campaign_name !== undefined && a.name_value_list.campaign_name.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br /><p><h4>Campaña:&nbsp;" + a.name_value_list.campaign_name.value + "</h4></li>");
+						a.name_value_list.refered_by !== undefined && a.name_value_list.refered_by.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />"+RES_LEAD_SOURCE_LABEL+"<p><h4>" + a.name_value_list.refered_by.value + "</h4></li>");
+						a.name_value_list.campaign_name !== undefined && a.name_value_list.campaign_name.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br /><p><h4>"+RES_CAMPAIGN_LABEL+":&nbsp;" + a.name_value_list.campaign_name.value + "</h4></li>");
 						$("#ViewLeadDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
-						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
-						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + change(a.name_value_list.date_modified.value) + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value +
+						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />"+RES_CONTACT_REPORTS_TO_LABEL+"</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
+						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_MODIFIED_LABEL+"</p><h4>" + change(a.name_value_list.date_modified.value) + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value +
 							"</h4></li>");
-						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
-						a.name_value_list.do_not_call.value == "true" && toast("*NOTA: Contacto marcado como No llamar.")
+						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewLeadDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+						a.name_value_list.do_not_call.value == "true" && toast(RES_DO_NOT_CALL)
 					}
 				$("#ViewLeadDetailsPageDetailsList").listview("refresh")
 			}
@@ -2035,7 +2031,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewLeadDetailsPageCallsListUl").append(a)
 					}
 				$("#ViewLeadDetailsPageCallsListUl").listview("refresh")
@@ -2087,7 +2083,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewLeadDetailsPageMeetingsListUl").append(a)
 					}
 				$("#ViewLeadDetailsPageMeetingsListUl").listview("refresh")
@@ -2139,7 +2135,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewLeadDetailsPageTasksListUl").append(a)
 					}
 				$("#ViewLeadDetailsPageTasksListUl").listview("refresh")
@@ -2151,7 +2147,7 @@ require(["es_ES","create_edit"], function(util)
 	function SugarCrmGetCallsListFromServer(a) {
 		if ($("#AllCallsListDiv li").length === 0 || CallsListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
-					text: msgText,
+					text: RES_LOADER_MSG,
 					textonly: textOnly,
 					textVisible: textVisible
 			});
@@ -2172,7 +2168,7 @@ require(["es_ES","create_edit"], function(util)
 					if (c != undefined && c.entry_list != undefined) {
 						if (c.result_count === 0) CallsListCurrentOffset = CallsListPrevOffset + RowsPerPageInListViews;
 						else if (c.next_offset === 0) CallsListCurrentOffset = 0;
-						if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
+						if (c.next_offset == 0 || c.result_count == 0) toast(""+RES_NOTHING_TO_SHOW+"");
 						else {
 							$("#AllCallsListDiv li").remove();
 							var b = 0;
@@ -2191,7 +2187,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentCallId = $(this).data("identity");
 											$.mobile.changePage("#ViewCallDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -2217,7 +2213,7 @@ require(["es_ES","create_edit"], function(util)
 
 	function SugarCrmGetCallDetails() {
 		$.mobile.loading( "show", {
-				text: msgText,
+				text: RES_LOADER_MSG,
 				textonly: textOnly,
 				textVisible: textVisible
 		});
@@ -2243,17 +2239,17 @@ require(["es_ES","create_edit"], function(util)
 						$("#CallNameH1").html(a.name_value_list.name.value);
 						var c = status2[a.name_value_list.direction.value] + " " + status2[a.name_value_list.status.value];
 						$("#CallSubjectP").text(c);
-						$("#ViewCallDetailsPageDetailsList").append('<li data-role="list-divider">Información de la llamada</li>');
-						a.name_value_list.date_start !== undefined && a.name_value_list.date_start.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Fecha/Hora de Inicio</p><h4>" +
+						$("#ViewCallDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_CALL_LABEL+'</li>');
+						a.name_value_list.date_start !== undefined && a.name_value_list.date_start.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />"+RES_START_DATE_TIME_LABEL+"</p><h4>" +
 							change(a.name_value_list.date_start.value) + "</h4></li>");
-						a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Duración</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
-						a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Descripción</p><h4>" + a.name_value_list.description.value +
+						a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />"+RES_DURATION_LABEL+"</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
+						a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />"+RES_DESCRIPTION_LABEL+"</p><h4>" + a.name_value_list.description.value +
 							"</h4></li>");
 						$("#ViewCallDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
-						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
-						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" +
+						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />"+RES_ASSIGNED_TO_LABEL+"</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
+						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_MODIFIED_LABEL+"</p><h4>" +
 							change(a.name_value_list.date_modified.value) + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewCallDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
 						a.name_value_list.parent_id !== undefined && a.name_value_list.parent_id.value !== "" ? getCallParentDetails(a.name_value_list.parent_type.value,
 							a.name_value_list.parent_id.value) : $("#ViewCallDetailsPageDetailsList").listview("refresh")
 					}
@@ -2283,7 +2279,7 @@ require(["es_ES","create_edit"], function(util)
 					b += d.module_name == "Leads" || d.module_name == "Contacts" ? d.name_value_list.first_name.value + " " + d.name_value_list.last_name.value : d.name_value_list.name.value
 				}
 			b += "</h4>";
-			$("#ViewCallDetailsPageDetailsList").append('<li data-role="list-divider">Enlazado con</li>');
+			$("#ViewCallDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_LINKED_WITH+'</li>');
 			$("#ViewCallDetailsPageDetailsList").append("<li>" + b + "</li>");
 			$("#ViewCallDetailsPageDetailsList").listview("refresh")
 		})
@@ -2298,7 +2294,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","module_id":"' + CurrentCallId + '","link_field_name":"contacts","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewCallDetailsPageContactsListUl").append('<li data-role="list-divider">Contactos</li>');
+				$("#ViewCallDetailsPageContactsListUl").append('<li data-role="list-divider">'+RES_CONTACTS_LABEL+'</li>');
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
 					SugarSessionId = "";
@@ -2321,7 +2317,7 @@ require(["es_ES","create_edit"], function(util)
 											$(this).data("identity");
 										$.mobile.changePage("#ViewContactDetailsPage");
 										$.mobile.loading( "show", {
-												text: msgText,
+												text: RES_LOADER_MSG,
 												textonly: textOnly,
 												textVisible: textVisible
 										});
@@ -2335,7 +2331,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewCallDetailsPageContactsListUl").append(a)
 					}
 				$("#ViewCallDetailsPageContactsListUl").listview("refresh")
@@ -2353,7 +2349,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","module_id":"' + CurrentCallId + '","link_field_name":"users","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewCallDetailsPageUsersListUl").append('<li data-role="list-divider">Usuarios</li>');
+				$("#ViewCallDetailsPageUsersListUl").append('<li data-role="list-divider">'+RES_USERS_LABEL+'</li>');
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
 					SugarSessionId = "";
@@ -2374,7 +2370,7 @@ require(["es_ES","create_edit"], function(util)
 					} else {
 						a =
 							$("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewCallDetailsPageUsersListUl").append(a)
 					}
 				$("#ViewCallDetailsPageUsersListUl").listview("refresh")
@@ -2392,7 +2388,7 @@ require(["es_ES","create_edit"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","module_id":"' + CurrentCallId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
-				$("#ViewCallDetailsPageLeadsListUl").append('<li data-role="list-divider">Clientes potenciales</li>');
+				$("#ViewCallDetailsPageLeadsListUl").append('<li data-role="list-divider">'+RES_LEADS_LABEL+'</li>');
 				a = $.parseJSON(JSON.stringify(a, undefined, 2));
 				if (a.name !== undefined && a.name === "Invalid Session ID") {
 					SugarSessionId = "";
@@ -2415,7 +2411,7 @@ require(["es_ES","create_edit"], function(util)
 										CurrentLeadId = $(this).data("identity");
 										$.mobile.changePage("#ViewLeadDetailsPage");
 										$.mobile.loading( "show", {
-												text: msgText,
+												text: RES_LOADER_MSG,
 												textonly: textOnly,
 												textVisible: textVisible
 										});
@@ -2429,7 +2425,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewCallDetailsPageLeadsListUl").append(a)
 					}
 				$("#ViewCallDetailsPageLeadsListUl").listview("refresh")
@@ -2470,7 +2466,7 @@ require(["es_ES","create_edit"], function(util)
 											$(this).data("identity");
 										$.mobile.changePage("#ViewNoteDetailsPage");
 										$.mobile.loading( "show", {
-												text: msgText,
+												text: RES_LOADER_MSG,
 												textonly: textOnly,
 												textVisible: textVisible
 										});
@@ -2484,7 +2480,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewCallDetailsPageNotesListUl").append(a)
 					}
 				$("#ViewCallDetailsPageNotesListUl").listview("refresh")
@@ -2496,7 +2492,7 @@ require(["es_ES","create_edit"], function(util)
 	function SugarCrmGetMeetingsListFromServer(a) {
 		if ($("#AllMeetingsListDiv li").length === 0 || MeetingsListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
-					text: msgText,
+					text: RES_LOADER_MSG,
 					textonly: textOnly,
 					textVisible: textVisible
 			});
@@ -2517,7 +2513,7 @@ require(["es_ES","create_edit"], function(util)
 					if (c != undefined && c.entry_list != undefined) {
 						if (c.result_count === 0) MeetingsListCurrentOffset = MeetingsListPrevOffset + RowsPerPageInListViews;
 						else if (c.next_offset === 0) MeetingsListCurrentOffset = 0;
-						if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
+						if (c.next_offset == 0 || c.result_count == 0) toast(""+RES_NOTHING_TO_SHOW+"");
 						else {
 							$("#AllMeetingsListDiv li").remove();
 							var b = 0;
@@ -2537,7 +2533,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentMeetingId = $(this).data("identity");
 											$.mobile.changePage("#ViewMeetingDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -2563,7 +2559,7 @@ require(["es_ES","create_edit"], function(util)
 
 	function SugarCrmGetMeetingDetails() {
 		$.mobile.loading( "show", {
-				text: msgText,
+				text: RES_LOADER_MSG,
 				textonly: textOnly,
 				textVisible: textVisible
 		});
@@ -2594,13 +2590,13 @@ require(["es_ES","create_edit"], function(util)
 						a.name_value_list.date_start !== undefined && a.name_value_list.date_start.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Fecha/Hora de inicio</p><h4>" +
 							change(a.name_value_list.date_start.value) + "</h4></li>");
 						a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Duración</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
-						a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Descripción</p><h4>" + a.name_value_list.description.value +
+						a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />"+RES_DESCRIPTION_LABEL+"</p><h4>" + a.name_value_list.description.value +
 							"</h4></li>");
 						$("#ViewMeetingDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
 						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Asignada a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
-						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" +
+						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_MODIFIED_LABEL+"</p><h4>" +
 							change(a.name_value_list.date_modified.value) + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewMeetingDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
 						a.name_value_list.parent_id !== undefined && a.name_value_list.parent_id.value !== "" ? getMeetingParentDetails(a.name_value_list.parent_type.value,
 							a.name_value_list.parent_id.value) : $("#ViewMeetingDetailsPageDetailsList").listview("refresh")
 					}
@@ -2670,7 +2666,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentContactId = $(this).data("identity");
 											$.mobile.changePage("#ViewContactDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -2684,7 +2680,7 @@ require(["es_ES","create_edit"], function(util)
 								}
 						} else {
 							a = $("<li/>");
-							a.append("<h4>Sin registros que mostrar</h4>");
+							a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 							$("#ViewMeetingDetailsPageContactsListUl").append(a)
 						}
 					$("#ViewMeetingDetailsPageContactsListUl").listview("refresh")
@@ -2724,7 +2720,7 @@ require(["es_ES","create_edit"], function(util)
 					} else {
 						a =
 							$("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewMeetingDetailsPageUsersListUl").append(a)
 					}
 				$("#ViewMeetingDetailsPageUsersListUl").listview("refresh")
@@ -2765,7 +2761,7 @@ require(["es_ES","create_edit"], function(util)
 										CurrentLeadId = $(this).data("identity");
 										$.mobile.changePage("#ViewLeadDetailsPage");
 										$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -2779,7 +2775,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewMeetingDetailsPageLeadsListUl").append(a)
 					}
 				$("#ViewMeetingDetailsPageLeadsListUl").listview("refresh")
@@ -2820,7 +2816,7 @@ require(["es_ES","create_edit"], function(util)
 											$(this).data("identity");
 										$.mobile.changePage("#ViewNoteDetailsPage");
 										$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -2834,7 +2830,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewMeetingDetailsPageNotesListUl").append(a)
 					}
 				$("#ViewMeetingDetailsPageNotesListUl").listview("refresh")
@@ -2846,7 +2842,7 @@ require(["es_ES","create_edit"], function(util)
 	function SugarCrmGetTasksListFromServer(a) {
 		if ($("#AllTasksListDiv li").length === 0 || TasksListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
-					text: msgText,
+					text: RES_LOADER_MSG,
 					textonly: textOnly,
 					textVisible: textVisible
 			});
@@ -2867,7 +2863,7 @@ require(["es_ES","create_edit"], function(util)
 					if (c != undefined && c.entry_list != undefined) {
 						if (c.result_count === 0) TasksListCurrentOffset = TasksListPrevOffset + RowsPerPageInListViews;
 						else if (c.next_offset === 0) TasksListCurrentOffset = 0;
-						if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
+						if (c.next_offset == 0 || c.result_count == 0) toast(""+RES_NOTHING_TO_SHOW+"");
 						else {
 							$("#AllTasksListDiv li").remove();
 							var b = 0;
@@ -2885,7 +2881,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentTaskId = $(this).data("identity");
 											$.mobile.changePage("#ViewTaskDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -2910,7 +2906,7 @@ require(["es_ES","create_edit"], function(util)
 
 	function SugarCrmGetTaskDetails() {
 		$.mobile.loading( "show", {
-				text: msgText,
+				text: RES_LOADER_MSG,
 				textonly: textOnly,
 				textVisible: textVisible
 		});
@@ -2940,12 +2936,12 @@ require(["es_ES","create_edit"], function(util)
 						a.name_value_list.date_due !== undefined && a.name_value_list.date_due.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Fecha</p><h4>" + change(a.name_value_list.date_due.value) +
 							"</h4></li>");
 						a.name_value_list.duration_hours !== undefined && a.name_value_list.duration_hours.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Duración</p><h4>" + a.name_value_list.duration_hours.value + "h&nbsp;" + a.name_value_list.duration_minutes.value + "m&nbsp;</h4></li>");
-						a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Descripción</p><h4>" + a.name_value_list.description.value + "</h4></li>");
+						a.name_value_list.description !== undefined && a.name_value_list.description.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />"+RES_DESCRIPTION_LABEL+"</p><h4>" + a.name_value_list.description.value + "</h4></li>");
 						$("#ViewTaskDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
 						a.name_value_list.assigned_user_name !== undefined && a.name_value_list.assigned_user_name.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Asignado a</p><h4>" + a.name_value_list.assigned_user_name.value + "</h4></li>");
-						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" +
+						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_MODIFIED_LABEL+"</p><h4>" +
 							change(a.name_value_list.date_modified.value) + "&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewTaskDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
 						a.name_value_list.parent_id !== undefined && a.name_value_list.parent_id.value !== "" ? getTaskParentDetails(a.name_value_list.parent_type.value,
 							a.name_value_list.parent_id.value) : $("#ViewTaskDetailsPageDetailsList").listview("refresh")
 					}
@@ -3012,7 +3008,7 @@ require(["es_ES","create_edit"], function(util)
 											$(this).data("identity");
 										$.mobile.changePage("#ViewContactDetailsPage");
 										$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -3026,7 +3022,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewTaskDetailsPageContactsListUl").append(a)
 					}
 				$("#ViewTaskDetailsPageContactsListUl").listview("refresh")
@@ -3065,7 +3061,7 @@ require(["es_ES","create_edit"], function(util)
 					} else {
 						a =
 							$("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewTaskDetailsPageUsersListUl").append(a)
 					}
 				$("#ViewTaskDetailsPageUsersListUl").listview("refresh")
@@ -3106,7 +3102,7 @@ require(["es_ES","create_edit"], function(util)
 										CurrentLeadId = $(this).data("identity");
 										$.mobile.changePage("#ViewLeadDetailsPage");
 										$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -3120,7 +3116,7 @@ require(["es_ES","create_edit"], function(util)
 							}
 					} else {
 						a = $("<li/>");
-						a.append("<h4>Sin registros que mostrar</h4>");
+						a.append("<h4>"+RES_NOTHING_TO_SHOW+"</h4>");
 						$("#ViewTaskDetailsPageLeadsListUl").append(a)
 					}
 				$("#ViewTaskDetailsPageLeadsListUl").listview("refresh")
@@ -3132,7 +3128,7 @@ require(["es_ES","create_edit"], function(util)
 	function SugarCrmGetNotesListFromServer(a) {
 		if ($("#AllNotesListDiv li").length === 0 || NotesListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
-					text: msgText,
+					text: RES_LOADER_MSG,
 					textonly: textOnly,
 					textVisible: textVisible
 			});
@@ -3154,7 +3150,7 @@ require(["es_ES","create_edit"], function(util)
 					if (c != undefined && c.entry_list != undefined) {
 						if (c.result_count === 0) NotesListCurrentOffset = NotesListPrevOffset + RowsPerPageInListViews;
 						else if (c.next_offset === 0) NotesListCurrentOffset = 0;
-						if (c.next_offset == 0 || c.result_count == 0) toast("Sin registros que mostrar");
+						if (c.next_offset == 0 || c.result_count == 0) toast(""+RES_NOTHING_TO_SHOW+"");
 						else {
 							$("#AllNotesListDiv li").remove();
 							var b = 0;
@@ -3172,7 +3168,7 @@ require(["es_ES","create_edit"], function(util)
 											CurrentNoteId = $(this).data("identity");
 											$.mobile.changePage("#ViewNoteDetailsPage");
 											$.mobile.loading( "show", {
-													text: msgText,
+													text: RES_LOADER_MSG,
 													textonly: textOnly,
 													textVisible: textVisible
 											});
@@ -3219,9 +3215,9 @@ require(["es_ES","create_edit"], function(util)
 						var c = a.name_value_list.description.value;
 						$("#NoteTextP").text(c);
 						$("#ViewNoteDetailsPageDetailsList").append('<li data-role="list-divider">Otra información</li>');
-						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Fecha de modificación</p><h4>" + change(a.name_value_list.date_modified.value) +
+						a.name_value_list.date_modified !== undefined && a.name_value_list.date_modified.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_MODIFIED_LABEL+"</p><h4>" + change(a.name_value_list.date_modified.value) +
 							"&nbsp;por&nbsp;" + a.name_value_list.modified_by_name.value + "</h4></li>");
-						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />Fecha de creación</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
+						a.name_value_list.date_entered !== undefined && a.name_value_list.date_entered.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><p><br />"+RES_DATE_CREATED_LABEL+"</p><h4>" + change(a.name_value_list.date_entered.value) + "&nbsp;por&nbsp;" + a.name_value_list.created_by_name.value + "</h4></li>");
 						$("#ViewNoteDetailsPageDetailsList").append('<li data-role="list-divider">Archivo adjunto</li>');
 						a.name_value_list.id !== undefined && a.name_value_list.id.value !== "" && $("#ViewNoteDetailsPageDetailsList").append("<li><a href='"+sugarURL+"/index.php?entryPoint=download&id="+ a.name_value_list.id.value + "&type=Notes' target='_blank'>" + a.name_value_list.filename.value + "</a></li>");
 						$("#ViewNoteDetailsPageDetailsList").listview("refresh")
