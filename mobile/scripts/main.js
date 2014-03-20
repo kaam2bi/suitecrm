@@ -243,7 +243,7 @@ require(["es_ES","create_edit"], function(util)
 			method: "set_entry",
 			input_type: "JSON",
 			response_type: "JSON",
-			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"'+RES_CALL_LOGGED_FROM_CLIENT +'"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Held"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":1},{"name":"date_start","value":"' + now(true, true) + '"},{"name":"date_end","value":"' + now(true, true) + '"},{"name":"direction","value":"Outbound"}]}'
+			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"'+RES_CALL_LOGGED_FROM_CLIENT +'"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Held"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":1},{"name":"date_start","value":"' + now(false, true) + '"},{"name":"date_end","value":"' + now(false, true) + '"},{"name":"direction","value":"Outbound"}]}'
 		}, function (b) {
 			toast(RES_NEW_ITEM_CREATED);
 		})
@@ -876,11 +876,16 @@ require(["es_ES","create_edit"], function(util)
 							b = b.replace("-", "");
 							if (a.name_value_list.phone_work !== undefined) {
 								var d = "<h4>" + a.name_value_list.phone_work.value + "</h4>",
-									f = $("<a/>", {
-										href: "tel:+1" + b,
-										rel: "external",
-										style: "text-decoration:none;color:#444;"
-									});
+								f = $("<a/>", {
+									href: "tel:" + b,
+									target: "_blank", //Si no se pone el blank, pierde el foco.
+									rel: "external",
+									style: "text-decoration:none;color:#444;",
+									click: function () {
+										LogCall("Contacts", CurrentContactId);
+										return true
+									}
+								});
 								f.append("<p><br />"+RES_WORK+"</p>");
 								f.append(d);
 								c.append(f)
@@ -937,9 +942,14 @@ require(["es_ES","create_edit"], function(util)
 							d = b.replace("-", "");
 							b = "<h4>" + a.name_value_list.phone_mobile.value + "</h4>";
 							d = $("<a/>", {
-								href: "tel:+1" + d,
+								href: "tel:" + b,
+								target: "_blank", //Si no se pone el blank, pierde el foco.
 								rel: "external",
-								style: "text-decoration:none;color:#444;"
+								style: "text-decoration:none;color:#444;",
+								click: function () {
+									LogCall("Contacts", CurrentContactId);
+									return true
+								}
 							});
 							d.append("<p><br />"+RES_MOBILE_PHONE_LABEL+"</p>");
 							d.append(b);
@@ -1872,9 +1882,14 @@ require(["es_ES","create_edit"], function(util)
 							b = b.replace("-", "");
 							var d = "<h4>" + a.name_value_list.phone_work.value + "</h4>";
 							b = $("<a/>", {
-								href: "tel:+1" + b,
+								href: "tel:" + b,
+								target: "_blank", //Si no se pone el blank, pierde el foco.
 								rel: "external",
-								style: "text-decoration:none;color:#444;"
+								style: "text-decoration:none;color:#444;",
+								click: function () {
+									LogCall("Leads", CurrentLeadId);
+									return true
+								}
 							});
 							b.append("<p><br />"+RES_WORK+"</p>");
 							b.append(d);
@@ -1890,9 +1905,14 @@ require(["es_ES","create_edit"], function(util)
 							b = b.replace("-", "");
 							d = "<h4>"+RES_MOBILE_PHONE_LABEL+":&nbsp;" + a.name_value_list.phone_mobile.value + "</h4>";
 							b = $("<a/>", {
-								href: "tel:+1" + b,
+								href: "tel:" + b,
+								target: "_blank", //Si no se pone el blank, pierde el foco.
 								rel: "external",
-								style: "text-decoration:none;color:#444;"
+								style: "text-decoration:none;color:#444;",
+								click: function () {
+									LogCall("Leads", CurrentLeadId);
+									return true
+								}
 							});
 							b.append("<p><br />"+RES_MOBILE_PHONE_LABEL+"</p>");
 							b.append(d);
@@ -3273,23 +3293,19 @@ require(["es_ES","create_edit"], function(util)
 
 		if (local) currentdate.setHours(currentdate.getHours() + (timeOffset * (-1) / 60));
 
-		currentdate.setMonth(currentdate.getMonth()+1);
+		currentdate.setMonth(currentdate.getMonth()+1); // Incrementar mes en uno.
 
 		if (toStore)
 		{
-			datetime = currentdate.getFullYear() + "-"
-						+ (currentdate.getMonth()+1)  + "-" 
-						+  currentdate.getDate() + " ";
+			datetime = currentdate.getFullYear() + "-" + currentdate.getMonth() + "-" + currentdate.getDate() + " ";
 		}
 		else
 		{
-			datetime = currentdate.getDate() + "-"
-						+ (currentdate.getMonth()+1)  + "-" 
-						+ currentdate.getFullYear() + " ";
+			datetime = currentdate.getDate() + "-" + currentdate.getMonth()  + "-" + currentdate.getFullYear() + " ";
 		}
 
 		// Completar con dos dígitos
-		var hora = '' + currentdate.getMinutes();
+		var hora = '' + currentdate.getHours();
 		if (hora.length == 1) {
 		  hora = '0' + hora;
 		}
@@ -3299,13 +3315,13 @@ require(["es_ES","create_edit"], function(util)
 		  minuto = '0' + minuto;
 		}
 
-		var segundo = '' + currentdate.getMinutes();
+		var segundo = '' + currentdate.getSeconds();
 		if (segundo.length == 1) {
 		  segundo = '0' + segundo;
 		}		
 
 		datetime += hora + ":" + minuto + ":" + segundo;
-		console.log(datetime);
+		console.log("datetime "+datetime);
 
 		return datetime;
 	}
