@@ -243,7 +243,7 @@ require(["es_ES","create_edit"], function(util)
 			method: "set_entry",
 			input_type: "JSON",
 			response_type: "JSON",
-			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":'+RES_CALL_LOGGED_FROM_CLIENT +'},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Held"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":1},{"name":"date_start","value":"' + now(true, true) + '"},{"name":"date_end","value":"' + now(true, true) + '"},{"name":"direction","value":"Outbound"}]}'
+			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"'+RES_CALL_LOGGED_FROM_CLIENT +'"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Held"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":1},{"name":"date_start","value":"' + now(true, true) + '"},{"name":"date_end","value":"' + now(true, true) + '"},{"name":"direction","value":"Outbound"}]}'
 		}, function (b) {
 			toast(RES_NEW_ITEM_CREATED);
 		})
@@ -3262,16 +3262,35 @@ require(["es_ES","create_edit"], function(util)
 		}
 	}
 
+
 	// Devuelve la fecha y hora actual 
 	// param local= true:local, false:GMT
 	// param toStore= true:database format, false: to show on screen
+	// Usar siempre que se pueda (false, true).
 	function now(local, toStore) {
 		var currentdate = new Date(); 
 		var hora, datetime;
 
+		/*
 		if (local) hora = parseInt(currentdate.getHours()) + (timeOffset * (-1) / 60);
 		else hora = currentdate.getHours();
-		
+		*/
+
+		if (local) currentdate.setHours(currentdate.getHours() + (timeOffset * (-1) / 60));
+
+		currentdate.setMonth(currentdate.getMonth()+1);
+
+		/*
+		if (toStore)
+		{
+			currentdate.format("yyyy-mm-dd HH:MM:ss");
+		}
+		else
+		{
+			currentdate.format("dd-mm-yyyy HH:MM:ss"); // Formato español de Fecha.
+		}
+		*/
+
 		if (toStore)
 		{
 			datetime = currentdate.getFullYear() + "-"
@@ -3287,6 +3306,7 @@ require(["es_ES","create_edit"], function(util)
 
 		datetime += hora + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 		console.log(datetime);
+
 		return datetime;
 	}
 

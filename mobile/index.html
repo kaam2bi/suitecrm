@@ -201,6 +201,7 @@
         <div id="NotesListPage" data-role="page" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="NotesListPageTitle"></h1>
+                <a href="#CreateNewNote" data-icon="plus" data-direction="reverse" class="ui-btn-right">Nueva</a>
             </div><!-- /header -->
             <div data-role="content">
                 <ul id="AllNotesListDiv" data-inset="false" data-filter="true" data-filter-placeholder="Buscar..." data-role="listview" />
@@ -447,6 +448,24 @@
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1>Nota</h1>
                 <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
+            </div>
+            <div data-role="content">
+                <h3 id="NoteSubjectH1"></h3>
+                <p id="NoteTextP"></p>
+                <div>
+                    <ul id="ViewNoteDetailsPageDetailsList" data-role="listview" data-inset="true" />
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <p style="font-size:8px" class="mensaje_footer"></p>
+            </div><!-- /footer -->
+        </div>
+
+        <!-- PÁGINAS DE EDICIÓN -->
+        <div data-role="page" id="CreateNewNote" data-theme="b">
+            <div data-role="header" data-add-back-btn="true" data-back-btn-text="Cancelar">
+                <h1>Nueva Nota</h1>
+                <a href="#HomePage" data-icon="check" data-direction="reverse" class="ui-btn-right">Guardar</a>
             </div>
             <div data-role="content">
                 <h3 id="NoteSubjectH1"></h3>
