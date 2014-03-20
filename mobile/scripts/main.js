@@ -3268,28 +3268,12 @@ require(["es_ES","create_edit"], function(util)
 	// param toStore= true:database format, false: to show on screen
 	// Usar siempre que se pueda (false, true).
 	function now(local, toStore) {
-		var currentdate = new Date(); 
-		var hora, datetime;
-
-		/*
-		if (local) hora = parseInt(currentdate.getHours()) + (timeOffset * (-1) / 60);
-		else hora = currentdate.getHours();
-		*/
+		var currentdate = new Date();
+		var hora, minuto, segundo; 
 
 		if (local) currentdate.setHours(currentdate.getHours() + (timeOffset * (-1) / 60));
 
 		currentdate.setMonth(currentdate.getMonth()+1);
-
-		/*
-		if (toStore)
-		{
-			currentdate.format("yyyy-mm-dd HH:MM:ss");
-		}
-		else
-		{
-			currentdate.format("dd-mm-yyyy HH:MM:ss"); // Formato español de Fecha.
-		}
-		*/
 
 		if (toStore)
 		{
@@ -3304,7 +3288,23 @@ require(["es_ES","create_edit"], function(util)
 						+ currentdate.getFullYear() + " ";
 		}
 
-		datetime += hora + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+		// Completar con dos dígitos
+		var hora = '' + currentdate.getMinutes();
+		if (hora.length == 1) {
+		  hora = '0' + hora;
+		}
+
+		var minuto = '' + currentdate.getMinutes();
+		if (minuto.length == 1) {
+		  minuto = '0' + minuto;
+		}
+
+		var segundo = '' + currentdate.getMinutes();
+		if (segundo.length == 1) {
+		  segundo = '0' + segundo;
+		}		
+
+		datetime += hora + ":" + minuto + ":" + segundo;
 		console.log(datetime);
 
 		return datetime;
