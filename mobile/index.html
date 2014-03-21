@@ -16,6 +16,9 @@
         <script type="text/javascript" src="lib/jqm/jquery.mobile-1.4.2.min.js"></script>
         <link rel="stylesheet" href="css/style.min.css" />
 
+        <!-- To upload the images on the Create Note -->
+        <script type="text/javascript" src="lib/megapix-image.js"></script>
+
         <!-- Require.JS loads all the required JS -->
         <script data-main="scripts/main" src="scripts/require.js"></script>
 
@@ -201,7 +204,7 @@
         <div id="NotesListPage" data-role="page" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="NotesListPageTitle"></h1>
-                <!-- <a href="#CreateNewNote" data-icon="plus" data-direction="reverse" class="ui-btn-right">Nueva</a> -->
+                <a href="#CreateNewNote" data-icon="plus" data-direction="reverse" class="ui-btn-right">Nueva</a>
             </div><!-- /header -->
             <div data-role="content">
                 <ul id="AllNotesListDiv" data-inset="false" data-filter="true" data-filter-placeholder="Buscar..." data-role="listview" />
@@ -462,22 +465,30 @@
         </div>
 
         <!-- PÁGINAS DE EDICIÓN -->
-        <!--<div data-role="page" id="CreateNewNote" data-theme="b">
+        <div data-role="page" id="CreateNewNote" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Cancelar">
                 <h1>Nueva Nota</h1>
-                <a href="#HomePage" data-icon="check" data-direction="reverse" class="ui-btn-right">Guardar</a>
+                <a id="SaveNewNote" data-icon="check" data-direction="reverse" class="ui-btn-right">Guardar</a>
             </div>
             <div data-role="content">
-                <h3 id="NoteSubjectH1"></h3>
-                <p id="NoteTextP"></p>
-                <div>
-                    <ul id="ViewNoteDetailsPageDetailsList" data-role="listview" data-inset="true" />
-                </div>
+            <div class="ui-field-contain" data-controltype="textinput">
+                <label for="NewNoteSubject">Asunto</label>
+                <input name="" id="NewNoteSubject" placeholder="" value="" type="text">
+            </div>
+            <div class="ui-field-contain" data-controltype="textarea">
+                <label for="NewNoteDescription">Nota</label>
+                <textarea name="" id="NewNoteDescription" placeholder=""></textarea>
+            </div>
+            <div class="ui-field-contain" data-controltype="camerainput">
+                <label for="NewNoteDescription">Imagen adjunta</label>
+                <canvas id="attachedImage"></canvas>
+                <input type="file" name="" id="fileInput"> <!-- accept="image/*" capture="camera"> -->
+            </div>
             </div>
             <div data-role="footer" data-position="fixed">
                 <p style="font-size:8px" class="mensaje_footer"></p>
             </div>
-        </div>-->
+        </div>
 
     </body>
 </html>
