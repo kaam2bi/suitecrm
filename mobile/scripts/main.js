@@ -3293,25 +3293,29 @@ require(["es_ES"], function(util)
 		}, function (b) {
 			
 			lastNewNoteId = b.id;
+			console.log(b.id);
+			console.log(imageFile);
 
 			if (imageFile != null)
 			{
 				$.get(sugarURL+"/service/v2/rest.php", {
-					method: "set_entry",
+					method: "set_note_attachment",
 					input_type: "JSON",
 					response_type: "JSON",
 					rest_data: '{"session":"' + SugarSessionId + '","note":[{"id":"'+ lastNewNoteId +'","filename":"'+ filename +'","file":"'+ imageFile +'"}]}'
-				}, function (b) {
+				}, function (c) {																											
 					
+					// rest_data: '{"session":"' + SugarSessionId + '","note":[{"id":"'+ lastNewNoteId +'","filename":"'+ filename +'","file":"'+ imageFile +'"}]}' // Cabecera del tipo:  data:image/jpeg;base64,000
+
 					// TODO: Comprobar aquí si la transacción fue bien.
 					
 					// Reset de todos los valores.
-					subject.val("");
-					description.val("");
-					filename.val("");
+					$("input#NewNoteSubject").val("");
+					$("textarea#NewNoteDescription").val("");
+					$("input#imageInput").val("");
 					imageFile = null;
 
-					console.log(b);
+					console.log(c);
 					toast(RES_NEW_ITEM_CREATED);
 				})
 			}
