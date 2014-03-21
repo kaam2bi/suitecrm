@@ -97,6 +97,7 @@ var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para ent
     RES_DESCRIPTION_SOURCE = "Descripción de origen",
     RES_LINKED_WITH = "Enlazado con",
     RES_DATE = "Fecha";
+    RES_NEW_ITEM_LOADING = "Guardando...";
 
 
 // *** LOS ARRAYS AUXILIARES A TRADUCIR VAN AQUÍ ***

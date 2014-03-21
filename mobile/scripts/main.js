@@ -4,7 +4,7 @@
 // ** CÓDIGO DE LA APLICACIÓN (REQUIERE ES_ES.JS)			  **
 // *************************************************************
 
-require(["es_ES","create_edit"], function(util) 
+require(["es_ES"], function(util) 
 {
 	// *************************************************************
 	// ** VARIABLES GLOBALES									  **
@@ -239,21 +239,6 @@ require(["es_ES","create_edit"], function(util)
 		})
 	}
 
-	// Función para registrar la llamada. Parámetros: "Accounts" y Cuenta actual.
-
-	function LogCall(a, c) {
-
-		$.get(sugarURL+"/service/v2/rest.php", {
-			method: "set_entry",
-			input_type: "JSON",
-			response_type: "JSON",
-			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"'+RES_CALL_LOGGED_FROM_CLIENT +'"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Held"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":1},{"name":"date_start","value":"' + now(false, true) + '"},{"name":"date_end","value":"' + now(false, true) + '"},{"name":"direction","value":"Outbound"}]}'
-		}, function (b) {
-			toast(RES_NEW_ITEM_CREATED);
-		})
-	}
-
-
 	function SugarCrmGetAccountsListFromServer(a) {
 		if ($("#AllAccountsListDiv li").length === 0 || AccountsListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
@@ -355,7 +340,7 @@ require(["es_ES","create_edit"], function(util)
 							rel: "external",
 							style: "text-decoration:none;color:#444;",
 							click: function () {
-								LogCall("Accounts", CurrentAccountId);
+								SugarCrmSetNewCall("Accounts", CurrentAccountId);
 								return true
 							}
 						});
@@ -886,7 +871,7 @@ require(["es_ES","create_edit"], function(util)
 									rel: "external",
 									style: "text-decoration:none;color:#444;",
 									click: function () {
-										LogCall("Contacts", CurrentContactId);
+										SugarCrmSetNewCall("Contacts", CurrentContactId);
 										return true
 									}
 								});
@@ -951,7 +936,7 @@ require(["es_ES","create_edit"], function(util)
 								rel: "external",
 								style: "text-decoration:none;color:#444;",
 								click: function () {
-									LogCall("Contacts", CurrentContactId);
+									SugarCrmSetNewCall("Contacts", CurrentContactId);
 									return true
 								}
 							});
@@ -1891,7 +1876,7 @@ require(["es_ES","create_edit"], function(util)
 								rel: "external",
 								style: "text-decoration:none;color:#444;",
 								click: function () {
-									LogCall("Leads", CurrentLeadId);
+									SugarCrmSetNewCall("Leads", CurrentLeadId);
 									return true
 								}
 							});
@@ -1914,7 +1899,7 @@ require(["es_ES","create_edit"], function(util)
 								rel: "external",
 								style: "text-decoration:none;color:#444;",
 								click: function () {
-									LogCall("Leads", CurrentLeadId);
+									SugarCrmSetNewCall("Leads", CurrentLeadId);
 									return true
 								}
 							});
@@ -3251,17 +3236,92 @@ require(["es_ES","create_edit"], function(util)
 		})
 	}
 
+
 	// *************************************************************
-	// ** CÓDIGO DE EDICIÓN Y CREACIÓN DE APUNTES				  **
+	// ** CÓDIGO DE MODIFICACIÓN Y DE CREACIÓN					  **
 	// *************************************************************
 
+	var editionEnabled = true;
+	var lastNewNoteId = "";
+	var imageFile = null;
 
+	// Métodos onclick de boton de edición
+	$("a#SaveNewNote").click(function(event){ SugarCrmSetNewNote(); });
+   	
+   	// Método onchange de imagen
+   	$('#imageInput').on('change', function() {
+   		
+   		var fileInput = document.getElementById('imageInput');	    	
+	    
+   		var file = fileInput.files[0]; // MegaPixImage constructor accepts File/Blob object.
+	    var mpImg = new MegaPixImage(file);
+
+	    // Render resized image into image element using quality option.
+	    // Quality option is valid when rendering into image element.
+	    var resImg = document.getElementById('attachedImage');
+	    mpImg.render(resImg, {quality: 0.9 });
+	    imageFile = resImg.toDataURL("image/jpeg", { quality: 0.9 }); // , { maxWidth: 300, maxHeight: 300, quality: 0.8 });
+    });
+
+
+	// Función para registrar la llamada. Parámetros: "Accounts" y Cuenta actual.
+	function SugarCrmSetNewCall(a, c) {
+
+		$.get(sugarURL+"/service/v2/rest.php", {
+			method: "set_entry",
+			input_type: "JSON",
+			response_type: "JSON",
+			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"'+RES_CALL_LOGGED_FROM_CLIENT +'"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Held"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":1},{"name":"date_start","value":"' + now(false, true) + '"},{"name":"date_end","value":"' + now(false, true) + '"},{"name":"direction","value":"Outbound"}]}'
+		}, function (b) {
+			toast(RES_NEW_ITEM_CREATED);
+		})
+	}
+
+	function SugarCrmSetNewNote()
+	{
+		var subject = $("input#NewNoteSubject").val();
+		var description = $("textarea#NewNoteDescription").val();
+		var filename = $("input#imageInput").val();
+		
+		toast(RES_NEW_ITEM_LOADING);
+
+		$.get(sugarURL+"/service/v2/rest.php", {
+			method: "set_entry",
+			input_type: "JSON",
+			response_type: "JSON",
+			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Notes","name_value_list":[{"name":"name","value":"'+ subject +'"},{"name":"description","value":"'+ description +'"},{"name":"parent_type","value":""},{"name":"parent_id","value":""},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
+		}, function (b) {
+			
+			lastNewNoteId = b.id;
+
+			if (imageFile != null)
+			{
+				$.get(sugarURL+"/service/v2/rest.php", {
+					method: "set_entry",
+					input_type: "JSON",
+					response_type: "JSON",
+					rest_data: '{"session":"' + SugarSessionId + '","note":[{"id":"'+ lastNewNoteId +'","filename":"'+ filename +'","file":"'+ imageFile +'"}]}'
+				}, function (b) {
+					
+					// TODO: Comprobar aquí si la transacción fue bien.
+					
+					// Reset de todos los valores.
+					subject.val("");
+					description.val("");
+					filename.val("");
+					imageFile = null;
+
+					console.log(b);
+					toast(RES_NEW_ITEM_CREATED);
+				})
+			}
+		})
+	}
 
 
 	// *************************************************************
 	// ** FUNCIONES AUXILIARES									  **
 	// *************************************************************
-
 
 
 	// Cambia la fecha al ser mostrada al formato español
