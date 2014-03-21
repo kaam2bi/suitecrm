@@ -11,6 +11,7 @@ require(["es_ES","create_edit"], function(util)
 	// *************************************************************
 
     var SugarSessionId = "",
+    SugarCurrentUserId = -1,
     RowsPerPageInListViews = 100000, // Limit here the number of rows per views
     CurrentAccountId = "",
     CurrentContactId = "",
@@ -65,6 +66,8 @@ require(["es_ES","create_edit"], function(util)
 		$("a#loginWebBtn").click(function(event){  LoginUserDesktop(); });
 		$("a#LogOutButton").click(function(event){  LogOutUser(); });
 		$(".mensaje_footer").html(RES_FOOTER);
+
+		// TODO: Desactivar botones de crear si no está definida la variable "editionEnabled".
 	});
 	
 
@@ -168,6 +171,7 @@ require(["es_ES","create_edit"], function(util)
 				if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : toast(RES_LOGIN_ERROR);
 				else {
 					SugarSessionId = d.id;
+					SugarCurrentUserId = d.name_value_list.user_id.value;
 					$("#SettingsPageSugarCrmUsername").val("");
 					$("#SettingsPageSugarCrmPassword").val("");
 					$.mobile.changePage("#HomePage")
@@ -3250,6 +3254,8 @@ require(["es_ES","create_edit"], function(util)
 	// *************************************************************
 	// ** CÓDIGO DE EDICIÓN Y CREACIÓN DE APUNTES				  **
 	// *************************************************************
+
+
 
 
 	// *************************************************************
