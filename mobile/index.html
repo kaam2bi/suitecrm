@@ -471,19 +471,25 @@
                 <a id="SaveNewNote" data-icon="check" data-direction="reverse" class="ui-btn-right">Guardar</a>
             </div>
             <div data-role="content">
-            <div class="ui-field-contain" data-controltype="textinput">
-                <label for="NewNoteSubject">Asunto</label>
-                <input name="" id="NewNoteSubject" placeholder="" value="" type="text">
-            </div>
-            <div class="ui-field-contain" data-controltype="textarea">
-                <label for="NewNoteDescription">Nota</label>
-                <textarea name="" id="NewNoteDescription" placeholder=""></textarea>
-            </div>
-            <div class="ui-field-contain" data-controltype="camerainput">
-                <label for="NewNoteDescription">Imagen adjunta</label>
-                <canvas id="attachedImage"></canvas>
-                <input type="file" name="" id="fileInput"> <!-- accept="image/*" capture="camera"> -->
-            </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewNoteSubject">Asunto</label>
+                    <input name="" id="NewNoteSubject" placeholder="" value="" type="text">
+                </div>
+                <div class="ui-field-contain" data-controltype="textarea">
+                    <label for="NewNoteDescription">Nota</label>
+                    <textarea name="" id="NewNoteDescription" placeholder=""></textarea>
+                </div>
+                <div class="ui-field-contain" data-controltype="fileinput">
+                    <label for="NewNoteFile">Archivo adjunto</label>
+                    <input type="file" name="" id="fileInput">
+                </div>
+                <div class="ui-field-contain" data-controltype="imageinput">
+                    <label for="NewNoteImage">Imagen adjunta</label>
+                    <input type="file" name="" id="imageInput" accept="image/*" capture="camera">
+                </div>
+                <div class="ui-field-contain" data-controltype="canvas" style="margin-top:2em">
+                    <canvas id="attachedImage" style="width:100%"></canvas>
+                </div>
             </div>
             <div data-role="footer" data-position="fixed">
                 <p style="font-size:8px" class="mensaje_footer"></p>
