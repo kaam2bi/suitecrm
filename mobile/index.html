@@ -119,6 +119,12 @@
         <div id="AccountsListPage" data-role="page" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="AccountsListPageTitle"></h1>
+
+
+
+                <a href="#CreateNewAccount" data-icon="plus" data-direction="reverse" class="ui-btn-right">Nuevo</a>
+
+
             </div><!-- /header -->
             <div data-role="content">
                 <ul id="AllAccountsListDiv" data-inset="false" data-filter="true" data-filter-placeholder="Buscar..." data-role="listview" />
@@ -131,6 +137,7 @@
         <div id="ContactsListPage" data-role="page" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="ContactsListPageTitle"></h1>
+                <a href="#CreateNewContact" data-icon="plus"  class="ui-btn-right">Nuevo</a>
             </div><!-- /header -->
             <div data-role="content">
                 <ul id="AllContactsListDiv" data-inset="false" data-filter="true" data-filter-placeholder="Buscar..." data-role="listview"  />
@@ -155,6 +162,7 @@
         <div id="LeadsListPage" data-role="page" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="LeadsListPageTitle"></h1>
+                <a href="#CreateNewLead" data-icon="plus" data-direction="reverse" class="ui-btn-right">Nuevo</a>
             </div><!-- /header -->
             <div data-role="content">
                 <ul id="AllLeadsListDiv" data-inset="false" data-filter="true" data-filter-placeholder="Buscar..." data-role="listview" />
@@ -219,7 +227,7 @@
         <div id="ViewAccountDetailsPage" data-role="page" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="ViewAccountDetailsPageTitle"></h1>
-                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
+                <a id="EditAccountDetails" href="#CreateNewAccount" data-icon="star" class="ui-btn-right">Editar</a>
             </div>
             <div data-role="content">
                 <h3 id="AccountNameH1"></h3>
@@ -258,7 +266,7 @@
         <div data-role="page" id="ViewContactDetailsPage" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="ViewContactDetailsPageTitle"></h1>
-                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
+                <a id="EditContactDetails" href="#CreateNewContact" data-icon="star" class="ui-btn-right">Editar</a>
             </div>
             <div data-role="content">
                 <h3 id="ContactNameH1"></h3>
@@ -492,5 +500,227 @@
             </div>
         </div>
 
-    </body>
+
+        <!-- CREACION NUEVA EMPRESA -->
+        <div data-role="page" id="CreateNewAccount" data-theme="b">
+            <div data-role="header" data-add-back-btn="true" data-back-btn-text="Cancelar" >
+                
+                <h1>Nueva Empresa</h1>
+                <a id="SaveNewAccount" data-icon="check" data-direction="reverse" class="ui-btn-right">Guardar</a>
+            </div>     
+            <div data-role="content">
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewAccountName">
+                        Nombre de la empresa
+                    </label>
+                    <input name="" id="NewAccountName" placeholder="" value="" type="text">
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewAccountPhoneOffice">
+                        Trabajo
+                    </label>
+                    <input name="" id="NewAccountPhoneOffice" placeholder="" value="" type="text">
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewAccountWebsite">
+                        Sitio Web
+                    </label>
+                    <input name="" id="NewAccountWebsite" placeholder="" value="http://" type="text">
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewAccountPhoneFax">
+                        Fax
+                    </label>
+                    <input name="" id="NewAccountPhoneFax" placeholder="" value="" type="text">
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewAccountBillingAddressStreet">
+                        Calle
+                    </label>
+                    <input name="" id="NewAccountBillingAddressStreet" placeholder="" value="" type="text"></input>
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewAccountBillingAddressCity">
+                        Ciudad
+                    </label>
+                    <input name="" id="NewAccountBillingAddressCity" placeholder="" value="" type="text"></input>
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewAccountBillingAddressState">
+                        Comunidad Autónoma
+                    </label>
+                    <input name="" id="NewAccountBillingAddressState" placeholder="" value="" type="text"></input>
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewAccountBillingAddressPostalCode">
+                        Código Postal
+                    </label>
+                    <input name="" id="NewAccountBillingAddressPostalCode" placeholder="" value="" type="text"></input>
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewAccountBillingAddressCountry">
+                        País
+                    </label>
+                    <input name="" id="NewAccountBillingAddressCountry" placeholder="" value="" type="text"></input>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                    <p style="font-size:8px" class="mensaje_footer"></p>
+            </div>
+        </div>
+
+
+        <!-- CREACION NUEVO CONTACTO -->
+        <div data-role="page" id="CreateNewContact" data-theme="b">
+            <div data-role="header" data-add-back-btn="true" data-back-btn-text="Cancelar" >
+                
+                <h1>Nuevo contacto</h1>
+                <a id="SaveNewContact" data-icon="check" data-direction="reverse" class="ui-btn-right">Guardar</a>
+            </div>     
+            <div data-role="content">
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewContactName">
+                            Nombre del contacto
+                    </label>   
+                    <input name="" id="NewContactName" placeholder="" value="" type="text">
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewContactLastName">
+                        Apellidos
+                    </label>
+                    <input name="" id="NewContactLastName" placeholder="" value="" type="text">
+                </div>    
+
+                   <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewContactPhoneWork">
+                        Telefono
+                    </label>
+                    <input name="" id="NewContactPhoneWork" placeholder="" value="" type="text">
+                </div>
+                 <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewContactPhoneMobile">
+                        Telefono Movil
+                    </label>
+                    <input name="" id="NewContactPhoneMobile" placeholder="" value="" type="text">
+                </div>
+                
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewContactPhoneFax">
+                        Fax
+                    </label>
+                    <input name="" id="NewContactPhoneFax" placeholder="" value="" type="text">
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewContactPrimaryAddressStreet">
+                        Calle
+                    </label>
+                    <input name="" id="NewContactPrimaryAddressStreet" placeholder="" value="" type="text"></input>
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewContactPrimaryAddressCity">
+                        Ciudad
+                    </label>
+                    <input name="" id="NewContactPrimaryAddressCity" placeholder="" value="" type="text"></input>
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewContactPrimaryAddressState">
+                        Comunidad Autónoma
+                    </label>
+                    <input name="" id="NewContactPrimaryAddressState" placeholder="" value="" type="text"></input>
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewContactPrimaryAddressPostalCode">
+                        Código Postal
+                    </label>
+                    <input name="" id="NewContactPrimaryAddressPostalCode" placeholder="" value="" type="text"></input>
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewContactPrimaryAddressCountry">
+                        País
+                    </label>
+                    <input name="" id="NewContactPrimaryAddressCountry" placeholder="" value="" type="text"></input>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                    <p style="font-size:8px" class="mensaje_footer"></p>
+            </div>
+        </div>
+
+ <!-- CREACION NUEVO CLIENTE POTENCIAL -->
+        <div data-role="page" id="CreateNewLead" data-theme="b">
+            <div data-role="header" data-add-back-btn="true" data-back-btn-text="Cancelar" >
+                
+                <h1>Cliente Potencial</h1>
+                <a id="SaveNewLead" data-icon="check" data-direction="reverse" class="ui-btn-right">Guardar</a>
+            </div>     
+            <div data-role="content">
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewLeadName">
+                            Nombre del contacto
+                    </label>   
+                    <input name="" id="NewLeadName" placeholder="" value="" type="text">
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewLeadLastName">
+                        Apellidos
+                    </label>
+                    <input name="" id="NewLeadLastName" placeholder="" value="" type="text">
+                </div>    
+
+                   <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewLeadPhoneWork">
+                        Telefono
+                    </label>
+                    <input name="" id="NewLeadPhoneWork" placeholder="" value="" type="text">
+                </div>
+                 <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewLeadPhoneMobile">
+                        Telefono Movil
+                    </label>
+                    <input name="" id="NewLeadPhoneMobile" placeholder="" value="" type="text">
+                </div>
+                
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewLeadPhoneFax">
+                        Fax
+                    </label>
+                    <input name="" id="NewLeadPhoneFax" placeholder="" value="" type="text">
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewLeadPrimaryAddressStreet">
+                        Calle
+                    </label>
+                    <input name="" id="NewLeadPrimaryAddressStreet" placeholder="" value="" type="text"></input>
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewLeadPrimaryAddressCity">
+                        Ciudad
+                    </label>
+                    <input name="" id="NewLeadPrimaryAddressCity" placeholder="" value="" type="text"></input>
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewLeadPrimaryAddressState">
+                        Comunidad Autónoma
+                    </label>
+                    <input name="" id="NewLeadPrimaryAddressState" placeholder="" value="" type="text"></input>
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewLeadPrimaryAddressPostalCode">
+                        Código Postal
+                    </label>
+                    <input name="" id="NewLeadPrimaryAddressPostalCode" placeholder="" value="" type="text"></input>
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewLeadPrimaryAddressCountry">
+                        País
+                    </label>
+                    <input name="" id="NewLeadPrimaryAddressCountry" placeholder="" value="" type="text"></input>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                    <p style="font-size:8px" class="mensaje_footer"></p>
+            </div>
+        </div>
+
+         </body>
 </html>
