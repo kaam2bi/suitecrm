@@ -122,7 +122,7 @@
 
 
 
-                <a href="#CreateNewAccount" data-icon="plus" data-direction="reverse" class="ui-btn-right">Nuevo</a>
+                <a id="ButtonCreateNewAccount" href="#CreateNewAccount" data-icon="plus" data-direction="reverse" class="ui-btn-right">Nuevo</a>
 
 
             </div><!-- /header -->
@@ -137,7 +137,7 @@
         <div id="ContactsListPage" data-role="page" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="ContactsListPageTitle"></h1>
-                <a href="#CreateNewContact" data-icon="plus"  class="ui-btn-right">Nuevo</a>
+                <a id="ButtonCreateNewContact" href="#CreateNewContact" data-icon="plus" class="ui-btn-right">Nuevo</a>
             </div><!-- /header -->
             <div data-role="content">
                 <ul id="AllContactsListDiv" data-inset="false" data-filter="true" data-filter-placeholder="Buscar..." data-role="listview"  />
@@ -162,7 +162,7 @@
         <div id="LeadsListPage" data-role="page" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="LeadsListPageTitle"></h1>
-                <a href="#CreateNewLead" data-icon="plus" data-direction="reverse" class="ui-btn-right">Nuevo</a>
+                <a id="ButtonCreateNewLead" href="#CreateNewLead" data-icon="plus" class="ui-btn-right">Nuevo</a>
             </div><!-- /header -->
             <div data-role="content">
                 <ul id="AllLeadsListDiv" data-inset="false" data-filter="true" data-filter-placeholder="Buscar..." data-role="listview" />
@@ -337,8 +337,8 @@
 
         <div data-role="page" id="ViewLeadDetailsPage" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
-                <h1>Cliente potencial</h1>
-                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
+                <h1>Clientes potenciales</h1>
+                <a id="EditLeadDetails" href="#CreateNewLead" data-icon="star"  class="ui-btn-right">Editar</a>
             </div>
             <div data-role="content">
                 <h3 id="LeadNameH1"></h3>
@@ -722,5 +722,22 @@
             </div>
         </div>
 
-         </body>
+        <!-- Tareas Nuevas -->
+        <div data-role="page" id="CreateNewTask" data-theme="b">
+            <div data-role="header" data-add-back-btn="true" data-back-btn-text="Cancelar">
+                <h1>Nueva Tarea</h1>
+                <a id="SaveNewTask" data-icon="check" data-direction="reverse" class="ui-btn-right">Guardar</a>
+            </div>
+            <div data-role="content">
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <ul id="autocompleteNewContactTask" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Selecciona un contacto..." data-filter-theme="b"></ul>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <p style="font-size:8px" class="mensaje_footer"></p>
+            </div>
+        </div>
+
+
+    </body>
 </html>

@@ -20,7 +20,7 @@ require(["es_ES"], function(util)
     CurrentCallId = "",
     CurrentMeetingId = "",
     CurrentTaskId = "",
-    CurrentNoteId = "";
+    CurrentNoteId = "",
     AccountsListNextOffset = 0,
     AccountsListPrevOffset = 0,
     AccountsListCurrentOffset = 0,
@@ -44,7 +44,13 @@ require(["es_ES"], function(util)
     TasksListCurrentOffset = 0,
     NotesListNextOffset = 0,
     NotesListPrevOffset = 0,
-    NotesListCurrentOffset = 0;    
+    NotesListCurrentOffset = 0,
+    toUpdateContacts = false,
+    toUpdateAccounts = false,
+    toUpdateLeads = false,
+    toUpdateTasks = false,
+    LoadContactsList = false,
+    ContactsList = "";    
 
 	// Detalles del loader
 	var textVisible = true;
@@ -242,7 +248,8 @@ require(["es_ES"], function(util)
 	}
 
 	function SugarCrmGetAccountsListFromServer(a) {
-		if ($("#AllAccountsListDiv li").length === 0 || AccountsListCurrentOffset !== a) {
+		if ($("#AllAccountsListDiv li").length === 0 || AccountsListCurrentOffset !== a || toUpdateAccounts === true) {
+			toUpdateAccounts = false;
 			$.mobile.loading( "show", {
 				text: RES_LOADER_MSG,
 				textonly: textOnly,
@@ -256,6 +263,7 @@ require(["es_ES"], function(util)
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","query":"","order_by":"name","offset":' + a + ',"select_fields":["name","billing_address_city","billing_address_state"],"link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews +
 					',"deleted":0}'
 			}, function (c) {
+
 				if (c !== undefined) {
 					c = $.parseJSON(JSON.stringify(c, undefined, 2));
 					if (c.name !== undefined && c.name === "Invalid Session ID") {
@@ -774,7 +782,8 @@ require(["es_ES"], function(util)
 	}
 
 	function SugarCrmGetContactsListFromServer(a) {
-		if ($("#AllContactsListDiv li").length === 0 || ContactsListCurrentOffset !== a) {
+		if ($("#AllContactsListDiv li").length === 0 || ContactsListCurrentOffset !== a || toUpdateContacts === true) {
+			toUpdateContacts = false;
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -791,6 +800,7 @@ require(["es_ES"], function(util)
 				if (c != undefined) {
 					c = $.parseJSON(JSON.stringify(c, undefined, 2));
 					if (c != undefined && c.entry_list != undefined) {
+						ContactsList = c;
 						if (c.result_count === 0) ContactsListCurrentOffset = ContactsListPrevOffset + RowsPerPageInListViews;
 						else if (c.next_offset === 0) ContactsListCurrentOffset = 0;
 						if (c.next_offset == 0 || c.result_count == 0) toast(""+RES_NOTHING_TO_SHOW+"");
@@ -1291,7 +1301,7 @@ require(["es_ES"], function(util)
 	}
 
 	function SugarCrmGetOpportunitiesListFromServer(a) {
-		if ($("#AllOpportunitiesListDiv li").length === 0 || OpportunitiesListCurrentOffset !== a) {
+		//if ($("#AllOpportunitiesListDiv li").length === 0 || OpportunitiesListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -1364,7 +1374,7 @@ require(["es_ES"], function(util)
 					}
 					$.mobile.loading( "hide" );
 				})
-		}
+		//}
 	}
 
 	function SugarCrmGetOpportunityDetails() {
@@ -1774,7 +1784,8 @@ require(["es_ES"], function(util)
 	}
 
 	function SugarCrmGetLeadsListFromServer(a) {
-		if ($("#AllLeadsListDiv li").length === 0 || LeadsListCurrentOffset !== a) {
+		if ($("#AllLeadsListDiv li").length === 0 || LeadsListCurrentOffset !== a || toUpdateLeads === true) {
+			toUpdateLeads = false;
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -1856,6 +1867,7 @@ require(["es_ES"], function(util)
 					undefined && a.entry_list != undefined)
 					if (a.entry_list[0] != undefined) {
 						a = a.entry_list[0];
+						CurrentLead=a;
 						$("#LeadNameH1").html(a.name_value_list.first_name.value + "&nbsp;" + a.name_value_list.last_name.value);
 						/*
 						// TODO: Nombre de la cuenta, no lo devuelve (revisar)
@@ -2158,7 +2170,7 @@ require(["es_ES"], function(util)
 	}
 
 	function SugarCrmGetCallsListFromServer(a) {
-		if ($("#AllCallsListDiv li").length === 0 || CallsListCurrentOffset !== a) {
+		//if ($("#AllCallsListDiv li").length === 0 || CallsListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -2221,7 +2233,7 @@ require(["es_ES"], function(util)
 				}
 				$.mobile.loading( "hide" );
 			})
-		}
+		//}
 	}
 
 	function SugarCrmGetCallDetails() {
@@ -2503,7 +2515,7 @@ require(["es_ES"], function(util)
 	}
 
 	function SugarCrmGetMeetingsListFromServer(a) {
-		if ($("#AllMeetingsListDiv li").length === 0 || MeetingsListCurrentOffset !== a) {
+		//if ($("#AllMeetingsListDiv li").length === 0 || MeetingsListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -2567,7 +2579,7 @@ require(["es_ES"], function(util)
 				}
 				$.mobile.loading( "hide" );
 			})
-		}
+		//}
 	}
 
 	function SugarCrmGetMeetingDetails() {
@@ -2853,7 +2865,8 @@ require(["es_ES"], function(util)
 	}
 
 	function SugarCrmGetTasksListFromServer(a) {
-		if ($("#AllTasksListDiv li").length === 0 || TasksListCurrentOffset !== a) {
+		if ($("#AllTasksListDiv li").length === 0 || TasksListCurrentOffset !== a || toUpdateTasks === true) {
+			toUpdateTasks = false;
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -3139,7 +3152,7 @@ require(["es_ES"], function(util)
 	}
 
 	function SugarCrmGetNotesListFromServer(a) {
-		if ($("#AllNotesListDiv li").length === 0 || NotesListCurrentOffset !== a) {
+		//if ($("#AllNotesListDiv li").length === 0 || NotesListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -3201,7 +3214,7 @@ require(["es_ES"], function(util)
 				}
 				$.mobile.loading( "hide" );
 			})
-		}
+		//}
 	}
 
 	function SugarCrmGetNoteDetails() {
@@ -3250,6 +3263,7 @@ require(["es_ES"], function(util)
 	var imageFile = null;
 	var CurrentAccount ="";
 	var CurrentContact ="";
+	var CurrentLead ="";
 
 	// Métodos onclick de boton de edición
 	$("a#SaveNewNote").click(function(event){ SugarCrmSetNewNote(); });
@@ -3257,8 +3271,12 @@ require(["es_ES"], function(util)
 	$("a#EditAccountDetails").click(function(event){ SugarCrmGetAccountData(); }); 
 	$("a#SaveNewContact").click(function(event){ SugarCrmSetNewContact(CurrentContactId); }); 
 	$("a#EditContactDetails").click(function(event){ SugarCrmGetContactData(); });
-
-	
+	$("a#SaveNewLead").click(function(event){ SugarCrmSetNewLead(CurrentLeadId); }); 
+	$("a#EditLeadDetails").click(function(event){ SugarCrmGetLeadData(); });
+	$("a#ButtonCreateNewAccount").click(function(event){ SugarCrmSetDataEmpty(); });
+	$("a#ButtonCreateNewLead").click(function(event){ SugarCrmSetDataEmpty(); });
+	$("a#ButtonCreateNewContact").click(function(event){ SugarCrmSetDataEmpty(); });
+	$("input#NewTaskContact").keypress(function(event){ SugarCrmSelectListContacts(); });
 	
    	// Método onchange de imagen
    	$('#imageInput').on('change', function() {
@@ -3354,20 +3372,19 @@ require(["es_ES"], function(util)
 		toast(RES_NEW_ITEM_LOADING);
 		if(id=="")
 		{
+			
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
 				input_type: "JSON",
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","name_value_list":[{"name":"name","value":"'+ accountName +'"},{"name":"phone_office","value":"'+ phoneOffice +'"},{"name":"website","value":"'+ website +'"},{"name":"phone_fax","value":"'+ phoneFax +'"},{"name":"billing_address_street","value":"'+ billingAddressStreet +'"},{"name":"billing_address_city","value":"'+ billingAddressCity +'"},{"name":"billing_address_state","value":"'+ billingAddressState +'"},{"name":"billing_address_postalcode","value":"'+ billingAddressPostalCode +'"},{"name":"billing_address_country","value":"'+ billingAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 			}, function (b) {
-				
+				toUpdateAccounts = true;
 				console.log(b.id);
 				//$("input[id^='NewAccount']").val("");
 				$("input#NewAccountWebsite").val("http://");
 				$.mobile.changePage("#HomePage");
-				//$( "input[name^='news']" ).val( "news here!" );
-				
-				
+		
 			})
 		}
 		else{
@@ -3404,6 +3421,13 @@ require(["es_ES"], function(util)
 
 	}
 
+	//Función que borra los datos 
+	function SugarCrmSetDataEmpty()
+	{
+		$("input[id^='New']").val("");	
+
+	}
+
 	//Funcion crear nuevo contacto
 	function SugarCrmSetNewContact(id)
 	{
@@ -3422,20 +3446,19 @@ require(["es_ES"], function(util)
 		toast(RES_NEW_ITEM_LOADING);
 		if(id=="")
 		{
+			
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
 				input_type: "JSON",
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","name_value_list":[{"name":"first_name","value":"'+ newContactName +'"},{"name":"last_name","value":"'+ newContactLastName +'"},{"name":"phone_fax","value":"'+ newContactPhoneFax +'"},{"name":"phone_work","value":"'+ newContactPhoneWork +'"},{"name":"phone_mobile","value":"'+ newContactPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newContactPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newContactPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newContactPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newContactPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newContactPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 			}, function (b) {
-				
+				toUpdateContacts = true;
 				console.log(b.id);
 				//$("input[id^='NewAccount']").val("");
-				
 				$.mobile.changePage("#HomePage");
 				//$( "input[name^='news']" ).val( "news here!" );
-				
-				
+		
 			})
 		}
 		else{
@@ -3475,8 +3498,8 @@ require(["es_ES"], function(util)
 
 
 
-	//Funcion crear nuevo contacto
-	function SugarCrmSetNewContact(id)
+	//Funcion crear nuevo potencial
+	function SugarCrmSetNewLead(id)
 	{
 		var newLeadName = $("input#NewLeadName").val();
 		var newLeadPhoneWork = $("input#NewLeadPhoneWork").val();
@@ -3500,7 +3523,7 @@ require(["es_ES"], function(util)
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","name_value_list":[{"name":"first_name","value":"'+ newLeadName +'"},{"name":"last_name","value":"'+ newLeadLastName +'"},{"name":"phone_fax","value":"'+ newLeadPhoneFax +'"},{"name":"phone_work","value":"'+ newLeadPhoneWork +'"},{"name":"phone_mobile","value":"'+ newLeadPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newLeadPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newLeadPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newLeadPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newLeadPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newLeadPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 			}, function (b) {
-				
+				toUpdateLeads = true;
 				console.log(b.id);
 				//$("input[id^='NewAccount']").val("");
 				
@@ -3526,8 +3549,8 @@ require(["es_ES"], function(util)
 		$("input[id^='NewLead']").val("");
 	}
 
-	//Funcion que carga los datos del contacto
-	function SugarCrmGetContactData()
+	//Funcion que carga los datos del potencial
+	function SugarCrmGetLeadData()
 	{
 
 		$("input#NewLeadName").val(CurrentLead.name_value_list.first_name.value);		
@@ -3541,10 +3564,35 @@ require(["es_ES"], function(util)
 		$("input#NewLeadPrimaryAddressPostalCode").val(CurrentLead.name_value_list.primary_address_postalcode.value);
 		$("input#NewLeadPrimaryAddressState").val(CurrentLead.name_value_list.primary_address_state.value);
 		$("input#NewLeadPrimaryAddressCountry").val(CurrentLead.name_value_list.primary_address_country.value);
-		
-
 	}
 
+	//Función que autocompleta el input referente a tareas con los contactos ya cargados,
+	//en caso de no estar cargados, los carga
+	function SugarCrmGetContactsTask(){
+		SugarCrmGetContactsListFromServer(ContactsListCurrentOffset);
+		$("#autocompleteNewContactTask li").remove();
+		var b = 0;
+		for (b = 0; b <= c.entry_list.length; b++)
+			if (c.entry_list[b] != undefined) {
+				var d = c.entry_list[b],
+					f = $("<li/>"),
+					e = d.name_value_list.first_name.value + "&nbsp;" + d.name_value_list.last_name.value,
+					m = d.name_value_list.title.value;
+				m = "<p>" + m + "</p>";
+				d = $("<a/>", {
+					href: "#",
+					"data-identity": d.id,
+					click: function () {
+						
+					}
+				});
+				d.append(e);
+				d.append(m);
+				f.append(d);
+				$("#autocompleteNewContactTask").append(f)
+			}
+		$("#autocompleteNewContactTask").listview("refresh");
+	}
 
 	// *************************************************************
 	// ** FUNCIONES AUXILIARES									  **
