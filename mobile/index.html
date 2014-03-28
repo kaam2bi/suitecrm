@@ -16,6 +16,15 @@
         <script type="text/javascript" src="lib/jqm/jquery.mobile-1.4.2.min.js"></script>
         <link rel="stylesheet" href="css/style.min.css" />
 
+        <link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" />
+        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
+        
+        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
+        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+        <!-- Traduce al castellano los botones de los input tipo fecha e input tipo time de #CreateNewTask-->
+        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.es-ES.asc.js"></script>
+        
+
         <!-- To upload the images on the Create Note -->
         <script type="text/javascript" src="lib/megapix-image.js"></script>
 
@@ -200,6 +209,7 @@
         <div id="TasksListPage" data-role="page" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="TasksListPageTitle"></h1>
+                <a id="ButtonCreateNewTask" href="#CreateNewTask" data-icon="plus" class="ui-btn-right">Nuevo</a>
             </div><!-- /header -->
             <div data-role="content">
                 <ul id="AllTasksListDiv" data-inset="false" data-filter="true" data-filter-placeholder="Buscar..." data-role="listview" />
@@ -430,7 +440,7 @@
         <div data-role="page" id="ViewTaskDetailsPage" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1>Tarea</h1>
-                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
+                <a id="EditTaskDetails" href="#CreateNewTask" data-icon="star" class="ui-btn-right">Editar</a>
             </div>
             <div data-role="content">
                 <h3 id="TaskNameH1"></h3>
@@ -654,6 +664,7 @@
                 <a id="SaveNewLead" data-icon="check" data-direction="reverse" class="ui-btn-right">Guardar</a>
             </div>     
             <div data-role="content">
+
                 <div class="ui-field-contain" data-controltype="textinput">
                     <label for="NewLeadName">
                             Nombre del contacto
@@ -730,8 +741,94 @@
             </div>
             <div data-role="content">
                 <div class="ui-field-contain" data-controltype="textinput">
-                    <ul id="autocompleteNewContactTask" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Selecciona un contacto..." data-filter-theme="b"></ul>
+                    <label for="NewTaskName">
+                        Nombre de la tarea
+                    </label>
+                    <input name="" id="NewTaskName" placeholder="" value="" type="text">
                 </div>
+                <div class="ui-field-contain" data-controltype="dateinput">
+                    <label for="NewTaskStartDate">Fecha de Inicio</label>
+
+                    <input name="NewTaskStartDate" id="NewTaskStartDate" type="date" data-role="datebox" data-options='{"mode": "calbox"}'>
+                    <!-- <label for="NewTaskStartDate">
+                        Fecha de Inicio
+                    </label>
+                    <input name="" id="NewTaskStartDate" placeholder="dd/mm/aaaa" value="" type="date"> -->
+                </div>
+                
+                   <div class="ui-field-contain" data-controltype="dateinput">
+                    <label for="NewTaskStartTime">Hora de Inicio</label>
+                    <input name="NewTaskStartTime" id="NewTaskStartTime" type="date" data-role="datebox" data-options='{"mode": "timebox", "overrideTimeFormat": 24}'>
+                    </div>                    
+                
+                <div class="ui-field-contain" data-controltype="dateinput">
+                    <label for="NewTaskDueDate">Fecha de Vencimiento</label>
+
+                    <input name="NewTaskDueDate" id="NewTaskDueDate" type="date" data-role="datebox" data-options='{"mode": "calbox"}'>
+                </div>
+                <div class="ui-field-contain" data-controltype="dateinput">
+                    <label for="NewTaskDueTime">Hora de Vencimiento</label>
+
+                    <input name="NewTaskDueTime" id="NewTaskDueTime" type="date" data-role="datebox" data-options='{"mode": "timebox", "overrideTimeFormat": 24}'>
+                </div>
+                <div class="ui-field-contain" data-controltype="selectmenu">
+                    <label for="NewTaskPriority">
+                        Prioridad
+                    </label>
+                    <select id="NewTaskPriority" name="" >
+                        <option value="High" >
+                            Alta
+                        </option>
+                        <option value="Medium" >
+                            Media
+                        </option>
+                        <option value="Low" >
+                            Baja
+                        </option>
+                    </select>
+                </div>
+                <div class="ui-field-contain" data-controltype="selectmenu">
+                    <label for="NewTaskStatus">
+                        Estado
+                    </label>
+                    <select id="NewTaskStatus" name="" >
+                        <option value="Not Started" >
+                            No Iniciada
+                        </option>
+                        <option value="In Progress" >
+                            En Progreso
+                        </option>
+                        <option value="Completed" >
+                            Completada
+                        </option>
+                        <option value="Pending Input" >
+                            Pendiente de Entrada
+                        </option>
+                        <option value="Deferred">
+                            Aplazada
+                        </option>
+                    </select>
+                </div>
+                <div class="ui-field-contain" data-controltype="textarea">
+                    <label for="NewTaskDescription">
+                        Descripción
+                    </label>
+                    <textarea name="" id="NewTaskDescription" placeholder=""></textarea>
+                </div>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <div class="ui-field-contain" data-controltype="textinput">
+                            <label for="NewTaskContact">Contacto</label>
+                            <input id="NewTaskContact" type="text" readonly></input>
+                        </div>
+                    </div>
+                    <div class="ui-block-b">
+                        <div class="ui-field-contain" data-controltype="textinput">
+                            <ul id="autocompleteNewContactTask" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Busque un contacto..." data-filter-theme="b"></ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div data-role="footer" data-position="fixed">
                 <p style="font-size:8px" class="mensaje_footer"></p>

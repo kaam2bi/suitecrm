@@ -127,8 +127,14 @@ require(["es_ES"], function(util)
 	$("#NotesListPage").live("pageshow", function () {
 		SugarCrmGetNotesListFromServer(NotesListCurrentOffset);
 	});
+	//Para Cargar los contactos en las nuevas tareas
+	$("#CreateNewTask").live("pageshow", function () {
 
-	
+		SugarCrmGetContactsListFromServer(ContactsListCurrentOffset);
+		$.mobile.loading( "hide" );
+	});
+
+
 
 	$("#HomePage").live("pageshow", function () {
 		if (SugarSessionId === "") $.mobile.changePage("#LoginPage");
@@ -2955,6 +2961,7 @@ require(["es_ES"], function(util)
 				if (a != undefined && a.entry_list != undefined)
 					if (a.entry_list[0] != undefined) {
 						a = a.entry_list[0];
+						CurrentTask = a;
 						$("#TaskNameH1").html(a.name_value_list.name.value);
 						var c = status2[a.name_value_list.status.value];
 						$("#TaskSubjectP").text(c);
@@ -3264,6 +3271,7 @@ require(["es_ES"], function(util)
 	var CurrentAccount ="";
 	var CurrentContact ="";
 	var CurrentLead ="";
+	var CurrentTask = "";
 
 	// Métodos onclick de boton de edición
 	$("a#SaveNewNote").click(function(event){ SugarCrmSetNewNote(); });
@@ -3276,7 +3284,11 @@ require(["es_ES"], function(util)
 	$("a#ButtonCreateNewAccount").click(function(event){ SugarCrmSetDataEmpty(); });
 	$("a#ButtonCreateNewLead").click(function(event){ SugarCrmSetDataEmpty(); });
 	$("a#ButtonCreateNewContact").click(function(event){ SugarCrmSetDataEmpty(); });
-	$("input#NewTaskContact").keypress(function(event){ SugarCrmSelectListContacts(); });
+	$("a#ButtonCreateNewTask").click(function(event){ SugarCrmSetDataEmpty(); });
+	$("#autocompleteNewContactTask").on("listviewbeforefilter", function(event){ SugarCrmGetContactsTask(); });
+	$("a#SaveNewTask").click(function(event){ SugarCrmSetNewTask(CurrentTaskId); });
+	$("a#EditTaskDetails").click(function(event){ SugarCrmGetTaskData(); });
+
 	
    	// Método onchange de imagen
    	$('#imageInput').on('change', function() {
@@ -3425,7 +3437,7 @@ require(["es_ES"], function(util)
 	function SugarCrmSetDataEmpty()
 	{
 		$("input[id^='New']").val("");	
-
+		$("#autocompleteNewContactTask li").remove();
 	}
 
 	//Funcion crear nuevo contacto
@@ -3455,10 +3467,8 @@ require(["es_ES"], function(util)
 			}, function (b) {
 				toUpdateContacts = true;
 				console.log(b.id);
-				//$("input[id^='NewAccount']").val("");
+				
 				$.mobile.changePage("#HomePage");
-				//$( "input[name^='news']" ).val( "news here!" );
-		
 			})
 		}
 		else{
@@ -3552,10 +3562,8 @@ require(["es_ES"], function(util)
 	//Funcion que carga los datos del potencial
 	function SugarCrmGetLeadData()
 	{
-
 		$("input#NewLeadName").val(CurrentLead.name_value_list.first_name.value);		
 		$("input#NewLeadPhoneWork").val(CurrentLead.name_value_list.phone_work.value);
-		
 		$("input#NewLeadPhoneFax").val(CurrentLead.name_value_list.phone_fax.value);	
 		$("input#NewLeadPhoneMobile").val(CurrentLead.name_value_list.phone_mobile.value);
 		$("input#NewLeadLastName").val(CurrentLead.name_value_list.last_name.value);
@@ -3569,35 +3577,152 @@ require(["es_ES"], function(util)
 	//Función que autocompleta el input referente a tareas con los contactos ya cargados,
 	//en caso de no estar cargados, los carga
 	function SugarCrmGetContactsTask(){
-		SugarCrmGetContactsListFromServer(ContactsListCurrentOffset);
+		
 		$("#autocompleteNewContactTask li").remove();
 		var b = 0;
-		for (b = 0; b <= c.entry_list.length; b++)
-			if (c.entry_list[b] != undefined) {
-				var d = c.entry_list[b],
+		for (b = 0; b <= ContactsList.entry_list.length; b++)
+			if (ContactsList.entry_list[b] != undefined) {
+				var d = ContactsList.entry_list[b],
 					f = $("<li/>"),
-					e = d.name_value_list.first_name.value + "&nbsp;" + d.name_value_list.last_name.value,
-					m = d.name_value_list.title.value;
-				m = "<p>" + m + "</p>";
+					e = d.name_value_list.first_name.value + " " + d.name_value_list.last_name.value,
+					//m = d.name_value_list.title.value;
+				//m = "<p>" + e + "</p>";
 				d = $("<a/>", {
-					href: "#",
 					"data-identity": d.id,
+					href: "#",
 					click: function () {
 						
+						
+						$("#NewTaskContact").val($(this).html());
+						$("#NewTaskContact").attr("data-identity", $(this).data("identity"));
+						$("#autocompleteNewContactTask li").remove();
 					}
 				});
 				d.append(e);
-				d.append(m);
+				//d.append(m);
 				f.append(d);
-				$("#autocompleteNewContactTask").append(f)
+				$("#autocompleteNewContactTask").append(f);
 			}
 		$("#autocompleteNewContactTask").listview("refresh");
+	}
+
+
+	// Función para insertar una nueva tarea
+	function SugarCrmSetNewTask(id)
+	{
+		var newTaskStartDate = $("input#NewTaskStartDate").val();
+		var newTaskStartTime = $("input#NewTaskStartTime").val();
+		var newTaskName = $("input#NewTaskName").val();
+		var newTaskStart = changeDate(newTaskStartDate, newTaskStartTime);
+		var newTaskDueDate = $("input#NewTaskDueDate").val();
+		var newTaskDueTime = $("input#NewTaskDueTime").val();
+		var newTaskDue = changeDate(newTaskDueDate, newTaskDueTime);
+		var newTaskPriority = $("#NewTaskPriority").val();
+		var newTaskStatus = $("#NewTaskStatus").val();
+		var newTaskDescription = $("#NewTaskDescription").val();
+		var newTaskContact = $("input#NewTaskContact").data("identity");
+		
+		
+		toast(RES_NEW_ITEM_LOADING);
+		if(id=="")
+		{
+			
+			$.get(sugarURL+"/service/v2/rest.php", {
+				method: "set_entry",
+				input_type: "JSON",
+				response_type: "JSON",
+				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","name_value_list":[{"name":"name","value":"'+ newTaskName +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newTaskDescription +'"},{"name":"status","value":"'+ newTaskStatus +'"},{"name":"date_due","value":"'+ newTaskDue +'"},{"name":"date_start","value":"'+ newTaskStart +'"},{"name":"parent_type","value":"Accounts"},{"name":"contact_id","value":"'+ newTaskContact +'"},{"name":"priority","value":"' + newTaskPriority + '"}]}'
+			}, function (b) {
+				toUpdateTasks = true;
+				console.log(b.id);
+				
+				$.mobile.changePage("#HomePage");
+		
+			})
+		}
+		// else{
+		// 	$.get(sugarURL+"/service/v2/rest.php", {
+		// 		method: "set_entry",
+		// 		input_type: "JSON",
+		// 		response_type: "JSON",
+		// 		rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","name_value_list":[{"name":"name","value":"'+ accountName +'"},{"name":"id","value":"'+ CurrentAccountId +'"},{"name":"phone_office","value":"'+ phoneOffice +'"},{"name":"website","value":"'+ website +'"},{"name":"phone_fax","value":"'+ phoneFax +'"},{"name":"billing_address_street","value":"'+ billingAddressStreet +'"},{"name":"billing_address_city","value":"'+ billingAddressCity +'"},{"name":"billing_address_state","value":"'+ billingAddressState +'"},{"name":"billing_address_postalcode","value":"'+ billingAddressPostalCode +'"},{"name":"billing_address_country","value":"'+ billingAddressCountry +'"},{"name":"date_modified","value":"' + now(false, true) + '"}]}'
+		// 	}, function (c) {
+		// 		console.log(c.name);
+				
+		// 		$("input#NewAccountWebsite").val("http://");
+		// 		$.mobile.changePage("#HomePage");
+		// 		//$( "input[name^='news']" ).val( "news here!" );
+		// 		CurrentAccountId="";	
+		// 	})
+
+		// }
+		$("input[id^='NewTask']").val("");
+		$("#NewTaskDescription").val("");
+	}
+
+	function SugarCrmGetTaskData(){
+		$("input#NewTaskName").val(CurrentTask.name_value_list.name.value);
+		var valueInputStart = setDateInput(CurrentTask.name_value_list.date_start.value);
+		valueInputStart = valueInputStart.split("-",2);
+		$("input#NewTaskStartDate").val(valueInputStart[0]);
+		$("input#NewTaskStartTime").val(valueInputStart[1]);
+		var valueInputDue = setDateInput(CurrentTask.name_value_list.date_due.value);
+		valueInputDue = valueInputDue.split("-",2);
+		$("input#NewTaskDueDate").val(valueInputDue[0]);
+		$("input#NewTaskDueTime").val(valueInputDue[1]);
+		//No funciona
+		//$("#NewTaskPriority option[value='"+CurrentTask.name_value_list.priority+"']").prop("selected", true);
+
+		$("#NewTaskDescription").val(CurrentTask.name_value_list.description.value);
+		var b = 0;
+		for (b = 0; b <= ContactsList.entry_list.length; b++){
+			if (ContactsList.entry_list[b] != undefined) {
+				var d = ContactsList.entry_list[b];
+				//if(d.name_value_list.id.value == CurrentTask.name_value_list.contact_id.value){
+					$("input#NewTaskContact").val("Hola");
+				//}
+			}
+		}
+
+		$("input#NewLeadPrimaryAddressState").val(CurrentLead.name_value_list.primary_address_state.value);
+		$("input#NewLeadPrimaryAddressCountry").val(CurrentLead.name_value_list.primary_address_country.value);
 	}
 
 	// *************************************************************
 	// ** FUNCIONES AUXILIARES									  **
 	// *************************************************************
 
+	// Cambia la fecha y hora a formato datetime
+	function changeDate(date, time){
+		var dayMonthYear = date.split("/",3);
+		var timeMeridian = time.split(" ",2);
+		var hours = timeMeridian[0].split(":", 2);
+		if(timeMeridian[1] === "PM" && hours[0] !== "12"){
+			hours[0] = parseInt(hours[0])+12;
+		}
+		var datetime = dayMonthYear[2]+"-"+dayMonthYear[1]+"-"+dayMonthYear[0]+" "+hours[0]+":"+hours[1]+":00";
+		return datetime;
+	}
+
+	function setDateInput(datetime){
+		var r = datetime.match(/^\s*([0-9]+)\s*-\s*([0-9]+)\s*-\s*([0-9]+)(.*)$/);
+		var meridian ="AM";
+		if ((r !== null) && (r !== undefined))
+		{   
+			horaCompleta = r[4].trim().split(":");
+			minutos = horaCompleta[1];
+			hora = parseInt(horaCompleta[0]);
+			if(hora >=12){
+				meridian ="PM";
+			}
+			return r[3]+"/"+r[2]+"/"+r[1]+"-"+hora+":"+minutos+" "+meridian;
+		}
+		else
+		{
+			return "";
+		}
+	}
+	
 
 	// Cambia la fecha al ser mostrada al formato español
 	function change(time) {
