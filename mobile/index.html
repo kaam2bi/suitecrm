@@ -775,7 +775,7 @@
                     <label for="NewTaskPriority">
                         Prioridad
                     </label>
-                    <select id="NewTaskPriority" name="" >
+                    <select id="NewTaskPriority" name="NewTaskPriority" >
                         <option value="High" >
                             Alta
                         </option>
@@ -791,7 +791,7 @@
                     <label for="NewTaskStatus">
                         Estado
                     </label>
-                    <select id="NewTaskStatus" name="" >
+                    <select id="NewTaskStatus" name="NewTaskStatus" >
                         <option value="Not Started" >
                             No Iniciada
                         </option>
@@ -815,19 +815,14 @@
                     </label>
                     <textarea name="" id="NewTaskDescription" placeholder=""></textarea>
                 </div>
-                <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                        <div class="ui-field-contain" data-controltype="textinput">
-                            <label for="NewTaskContact">Contacto</label>
-                            <input id="NewTaskContact" type="text" readonly></input>
-                        </div>
-                    </div>
-                    <div class="ui-block-b">
-                        <div class="ui-field-contain" data-controltype="textinput">
-                            <ul id="autocompleteNewContactTask" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Busque un contacto..." data-filter-theme="b"></ul>
-                        </div>
-                    </div>
+                
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="autocompleteNewContactTask">
+                        Contacto
+                    </label>
+                    <ul id="autocompleteNewContactTask" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Busque un contacto..." data-filter-theme="b"></ul>
                 </div>
+                
 
             </div>
             <div data-role="footer" data-position="fixed">
