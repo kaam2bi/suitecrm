@@ -159,6 +159,7 @@
         <div id="OpportunitiesListPage" data-role="page" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="OpportunitiesListPageTitle"></h1>
+                <a id="ButtonCreateNewOpportunity" href="#CreateNewOpportunity" data-icon="plus" class="ui-btn-right">Nueva</a>
             </div><!-- /header -->
             <div data-role="content">
                 <ul id="AllOpportunitiesListDiv" data-inset="false" data-filter="true" data-filter-placeholder="Buscar..." data-role="listview"  />
@@ -196,6 +197,7 @@
         <div id="MeetingsListPage" data-role="page" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="MeetingsListPageTitle"></h1>
+                <a id="ButtonCreateNewMeeting" href="#CreateNewMeeting" data-icon="plus" class="ui-btn-right">Nueva</a>
             </div><!-- /header -->
             <div data-role="content">
                 <ul id="AllMeetingsListDiv" data-inset="false" data-filter="true" data-filter-placeholder="Buscar..." data-role="listview" />
@@ -312,7 +314,7 @@
         <div data-role="page" id="ViewOpportunityDetailsPage" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1>Oportunidad</h1>
-                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
+                <a id="EditOpportunityDetails" href="#CreateNewOpportunity" data-icon="star" class="ui-btn-right">Editar</a>
             </div>
             <div data-role="content">
                 <h3 id="OpportunityNameH1"></h3>
@@ -408,7 +410,7 @@
         <div data-role="page" id="ViewMeetingDetailsPage" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1>Reunión</h1>
-                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
+                <a id="EditMeetingDetails" href="#CreateNewMeeting" data-icon="star" class="ui-btn-right">Editar</a>
             </div>
             <div data-role="content">
                 <h3 id="MeetingNameH1"></h3>
@@ -756,10 +758,10 @@
                     <input name="" id="NewTaskStartDate" placeholder="dd/mm/aaaa" value="" type="date"> -->
                 </div>
                 
-                   <div class="ui-field-contain" data-controltype="dateinput">
+                <div class="ui-field-contain" data-controltype="dateinput">
                     <label for="NewTaskStartTime">Hora de Inicio</label>
                     <input name="NewTaskStartTime" id="NewTaskStartTime" type="date" data-role="datebox" data-options='{"mode": "timebox", "overrideTimeFormat": 24}'>
-                    </div>                    
+                </div>                    
                 
                 <div class="ui-field-contain" data-controltype="dateinput">
                     <label for="NewTaskDueDate">Fecha de Vencimiento</label>
@@ -830,6 +832,263 @@
             </div>
         </div>
 
+        <!--Crear Oportunidades-->
+        <div data-role="page" id="CreateNewOpportunity" data-theme="b">
+            <div data-role="header" data-add-back-btn="true" data-back-btn-text="Cancelar">
+                <h1>Nueva Oportunidad</h1>
+                <a id="SaveNewOpportunity" data-icon="check" data-direction="reverse" class="ui-btn-right">Guardar</a>
+            </div>
+            <div role="main" class="ui-content">
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewOpportunityName">
+                        Nombre
+                    </label>
+                    <input name="" id="NewOpportunityName" placeholder="" value="" type="text">
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewOpportunityAccountName">
+                        Nombre Empresa
+                    </label>
+                    <ul id="NewOpportunityAccountName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Busque una empresa..." data-filter-theme="b"></ul>
+                    <br><br><br><br><br><br><br>
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewOpportunityQuantity">
+                        Cantidad ($)
+                    </label>
+                    <input name="" id="NewOpportunityQuantity" placeholder="" value="" type="text">
+                </div>
+                <div class="ui-field-contain" data-controltype="dateinput">
+                    <label for="NewOpportunityCloseDate">Fecha de cierre</label>
+                    <input name="NewOpportunityCloseDate" id="NewOpportunityCloseDate" type="date" data-role="datebox" data-options='{"mode": "calbox"}'>
+                </div>
+                <div class="ui-field-contain" data-controltype="selectmenu">
+                    <label for="NewOpportunitySalesStage">
+                        Etapa de Ventas
+                    </label>
+                    <select id="NewOpportunitySalesStage" name="NewOpportunitySalesStage">
+                        <option value="Prospecting">
+                            Prospecto
+                        </option>
+                        <option value="Qualification">
+                            Calificación
+                        </option>
+                        <option value="Needs Analysis">
+                            Necesita Análisis
+                        </option>
+                        <option value="Value Proposition">
+                            Propuesta de Valor
+                        </option>
+                        <option value="Id. Decision Makers">
+                            Id. Tomadores de Decisiones
+                        </option>
+                        <option value="Perception Analysis">
+                            Análisis de Percepción
+                        </option>
+                        <option value="Proposal/Price Quote">
+                            Propuesta/Presupuesto
+                        </option>
+                        <option value="Negotiation/Review">
+                            Negociación/Revisión
+                        </option>
+                        <option value="Closed Won">
+                            Ganada
+                        </option>
+                        <option value="Closed Lost">
+                            Perdida
+                        </option>
+                    </select>
+                </div>
+                <div class="ui-field-contain" data-controltype="selectmenu">
+                    <label for="NewOpportunityType">
+                        Tipo de Oportunidad
+                    </label>
+                    <select id="NewOpportunityType" name="NewOpportunityType">
+                        <option value="New Business">
+                            New Business
+                        </option>
+                        <option value="Existing Business">
+                            Existing Business
+                        </option>
+                    </select>
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewOpportunityProbability" >
+                        Probabilidad (%)
+                    </label>
+                    <input name="" id="NewOpportunityProbability" placeholder="" value="10" type="text" readonly>
+                </div>
+                <div class="ui-field-contain" data-controltype="selectmenu">
+                    <label for="NewOpportunityLeadSource">
+                        Asignado a
+                    </label>
+                    <select id="NewOpportunityLeadSource" name="NewOpportunityLeadSource">
+                        <option value="Cold Call">
+                            Llamada en frío
+                        </option>
+                        <option value="Existing Customer">
+                            Cliente existente
+                        </option>
+                        <option value="Self Generated">
+                            Autogenerada
+                        </option>
+                        <option value="Employee">
+                            Empleado
+                        </option>
+                        <option value="Partner">
+                            Socio
+                        </option>
+                        <option value="Public Relations">
+                            Relaciones públicas
+                        </option>
+                        <option value="Direct Mail">
+                            Correo
+                        </option>
+                        <option value="Conference">
+                            Conferencia
+                        </option>
+                        <option value="Trade Show">
+                            Feria de muestras
+                        </option>
+                        <option value="Web Site">
+                            Página web
+                        </option>
+                        <option value="Word of mouth">
+                            Por el boca a boca
+                        </option>
+                        <option value="Email">
+                            Correo electrónico
+                        </option>
+                        <option value="Campaign">
+                            Campaña
+                        </option>
+                        <option value="Other">
+                            Otro
+                        </option>
+                    </select>
+                </div>
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewOpportunityNextStep">
+                        Próximo Paso
+                    </label>
+                    <input name="" id="NewOpportunityNextStep" placeholder="" value="" type="text">
+                </div>
+                <div class="ui-field-contain" data-controltype="textarea">
+                    <label for="NewOpportunityDescription">
+                        Descripción
+                    </label>
+                    <textarea name="" id="NewOpportunityDescription" placeholder=""></textarea>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <p style="font-size:8px" class="mensaje_footer"></p>
+            </div>
+        </div>
+
+        <!-- Crear nueva Reunión [faltan los ul de invitados]-->
+        <div data-role="page" id="CreateNewMeeting" data-theme="b">
+            <div data-role="header" data-add-back-btn="true" data-back-btn-text="Cancelar">
+                <h1>Nueva Reunión</h1>
+                <a id="SaveNewMeeting" data-icon="check" data-direction="reverse" class="ui-btn-right">Guardar</a>
+            </div>
+            <div role="main" class="ui-content">
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewMeetingSubject">
+                        Asunto
+                    </label>
+                    <input name="" id="NewMeetingSubject" placeholder="" value="" type="text">
+                </div>
+                <div class="ui-field-contain" data-controltype="selectmenu">
+                    <label for="NewMeetingStatus">
+                        Estado
+                    </label>
+                    <select id="NewMeetingStatus" name="">
+                        <option value="Planned">
+                            Planificada
+                        </option>
+                        <option value="Held">
+                            Realizada
+                        </option>
+                        <option value="Not Held">
+                            No Realizada
+                        </option>
+                    </select>
+                </div>
+                <div class="ui-field-contain" data-controltype="dateinput">
+                    <label for="NewMeetingStartDate">Fecha de Inicio</label>
+                    <input name="NewMeetingStartDate" id="NewMeetingStartDate" type="date" data-role="datebox" data-options='{"mode": "calbox"}'>
+                </div>
+                <div class="ui-field-contain" data-controltype="dateinput">
+                    <label for="NewMeetingStartTime">Hora de Inicio</label>
+
+                    <input name="NewMeetingStartTime" id="NewMeetingStartTime" type="date" data-role="datebox" data-options='{"mode": "timebox", "overrideTimeFormat": 24}'>
+                </div>
+                <div class="ui-field-contain" data-controltype="dateinput">
+                    <label for="NewMeetingEndDate">Fecha de Finalización</label>
+                    <input name="NewMeetingEndDate" id="NewMeetingEndDate" type="date" data-role="datebox" data-options='{"mode": "calbox"}'>
+                </div>
+                <div class="ui-field-contain" data-controltype="dateinput">
+                    <label for="NewMeetingEndTime">Hora de Finalización</label>
+
+                    <input name="NewMeetingEndTime" id="NewMeetingEndTime" type="date" data-role="datebox" data-options='{"mode": "timebox", "overrideTimeFormat": 24}'>
+                </div>
+                <div class="ui-field-contain" data-controltype="selectmenu">
+                    <label for="NewMeetingDuration">
+                        Duración
+                    </label>
+                    <select id="NewMeetingDuration" name="NewMeetingDuration">
+                        <option value="">
+                            None
+                        </option>
+                        <option value="900">
+                            15 Minutos
+                        </option>
+                        <option value="1800">
+                            30 Minutos
+                        </option>
+                        <option value="2700">
+                            45 Minutos
+                        </option>
+                        <option value="3600">
+                            1 Hora
+                        </option>
+                        <option value="5400">
+                            1.5 Horas
+                        </option>
+                        <option value="7200">
+                            2 Horas
+                        </option>
+                        <option value="10800">
+                            3 Horas
+                        </option>
+                        <option value="21600">
+                            6 Horas
+                        </option>
+                        <option value="86400">
+                            1 Día
+                        </option>
+                        <option value="172800">
+                            2 Días
+                        </option>
+                        <option value="259200">
+                            3 Días
+                        </option>
+                        <option value="604800">
+                            1 Semana
+                        </option>
+                    </select>
+                </div>
+                <div class="ui-field-contain" data-controltype="textarea">
+                    <label for="NewMeetingDescription">
+                        Descripción
+                    </label>
+                    <textarea name="NewMeetingDescription" id="NewMeetingDescription" placeholder=""></textarea>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <p style="font-size:8px" class="mensaje_footer"></p>
+            </div>
+        </div>
 
     </body>
 </html>

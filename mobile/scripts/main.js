@@ -45,12 +45,17 @@ require(["es_ES"], function(util)
     NotesListNextOffset = 0,
     NotesListPrevOffset = 0,
     NotesListCurrentOffset = 0,
+    //Variable usadas para comprobar si ha habido una modificacion en las tablas tanto por modificacion como por insercion
     toUpdateContacts = false,
     toUpdateAccounts = false,
     toUpdateLeads = false,
     toUpdateTasks = false,
-    LoadContactsList = false,
-    ContactsList = "";
+    toUpdateOpportunities=false,
+    toUpdateMeetings = false,
+    //Listas de contactos para despues cargarlos en un input,ul de las busquedas    
+    ContactsList = "",
+    AccountsList = "";
+
 
 
 	// Detalles del loader
@@ -129,8 +134,6 @@ require(["es_ES"], function(util)
 		SugarCrmGetNotesListFromServer(NotesListCurrentOffset);
 	});
 	//Para Cargar los contactos en las nuevas tareas
-
-
 	$("#CreateNewTask").live("pageshow", function () {
 
 		SugarCrmGetContactsListFromServer(ContactsListCurrentOffset);
@@ -138,12 +141,13 @@ require(["es_ES"], function(util)
 		$.mobile.loading( "hide" );
 
 	});
-	/*$("#TasksListPage").live("pageshow", function () {
+	//Para cargar las empresas referentes a las oportunidades
+	$("#CreateNewOpportunity").live("pageshow", function () {
 
-		SugarCrmGetContactsListFromServer(ContactsListCurrentOffset);
-		$("#autocompleteNewContactTask").listview("refresh");
-				$.mobile.loading( "hide" );
-	});*/
+		SugarCrmGetAccountsListFromServer(AccountsListCurrentOffset);
+		$.mobile.loading( "hide" );
+
+	});
 
 
 
@@ -292,6 +296,7 @@ require(["es_ES"], function(util)
 						$.mobile.changePage("#LoginPage")
 					}
 					if (c !== undefined && c.entry_list !== undefined) {
+						AccountsList = c;
 						if (c.result_count === 0) AccountsListCurrentOffset = AccountsListPrevOffset + RowsPerPageInListViews;
 						else if (c.next_offset === 0) AccountsListCurrentOffset = 0;
 						if (c.next_offset === 0 || c.result_count === 0) toast(""+RES_NOTHING_TO_SHOW+"");
@@ -1322,7 +1327,7 @@ require(["es_ES"], function(util)
 	}
 
 	function SugarCrmGetOpportunitiesListFromServer(a) {
-		//if ($("#AllOpportunitiesListDiv li").length === 0 || OpportunitiesListCurrentOffset !== a) {
+		if ($("#AllOpportunitiesListDiv li").length === 0 || OpportunitiesListCurrentOffset !== a || toUpdateOpportunities ===true) {
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -1395,7 +1400,7 @@ require(["es_ES"], function(util)
 					}
 					$.mobile.loading( "hide" );
 				})
-		//}
+		}
 	}
 
 	function SugarCrmGetOpportunityDetails() {
@@ -1423,6 +1428,7 @@ require(["es_ES"], function(util)
 				if (a != undefined && a.entry_list != undefined)
 					if (a.entry_list[0] != undefined) {
 						a = a.entry_list[0];
+						CurrentOpportunity=a;
 						$("#OpportunityNameH1").html(a.name_value_list.name.value);
 						$("#OpportunityDescriptionP").text(a.name_value_list.account_name.value);
 						$("#ViewOpportunityDetailsPageDetailsList").append('<li data-role="list-divider">'+RES_OPPORTUNITY_LABEL+'</li>');
@@ -2536,7 +2542,7 @@ require(["es_ES"], function(util)
 	}
 
 	function SugarCrmGetMeetingsListFromServer(a) {
-		//if ($("#AllMeetingsListDiv li").length === 0 || MeetingsListCurrentOffset !== a) {
+		if ($("#AllMeetingsListDiv li").length === 0 || MeetingsListCurrentOffset !== a || toUpdateMeetings === true) {
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -2600,7 +2606,7 @@ require(["es_ES"], function(util)
 				}
 				$.mobile.loading( "hide" );
 			})
-		//}
+		}
 	}
 
 	function SugarCrmGetMeetingDetails() {
@@ -2628,6 +2634,7 @@ require(["es_ES"], function(util)
 				if (a != undefined && a.entry_list != undefined)
 					if (a.entry_list[0] != undefined) {
 						a = a.entry_list[0];
+						CurrentMeeting = a;
 						$("#MeetingNameH1").html(a.name_value_list.name.value);
 						var c = status2[a.name_value_list.status.value];
 
@@ -3276,9 +3283,9 @@ require(["es_ES"], function(util)
 	}
 
 
-	// *************************************************************
-	// ** CÓDIGO DE MODIFICACIÓN Y DE CREACIÓN					  **
-	// *************************************************************
+	// ***********************************************************************************************************************
+	// ** CÓDIGO DE MODIFICACIÓN Y DE CREACIÓN					  															**
+	// ***********************************************************************************************************************
 
 	var editionEnabled = true;
 	var lastNewNoteId = "";
@@ -3287,6 +3294,8 @@ require(["es_ES"], function(util)
 	var CurrentContact ="";
 	var CurrentLead ="";
 	var CurrentTask = "";
+	var CurrentOpportunity ="";
+	var CurrentMeeting = "";
 
 	// Métodos onclick de boton de edición
 	$("a#SaveNewNote").click(function(event){ SugarCrmSetNewNote(); });
@@ -3296,16 +3305,23 @@ require(["es_ES"], function(util)
 	$("a#EditContactDetails").click(function(event){ SugarCrmGetContactData(); });
 	$("a#SaveNewLead").click(function(event){ SugarCrmSetNewLead(CurrentLeadId); }); 
 	$("a#EditLeadDetails").click(function(event){ SugarCrmGetLeadData(); });
+	
 	$("a#ButtonCreateNewAccount").click(function(event){ SugarCrmSetDataEmpty(); });
 	$("a#ButtonCreateNewLead").click(function(event){ SugarCrmSetDataEmpty(); });
 	$("a#ButtonCreateNewContact").click(function(event){ SugarCrmSetDataEmpty(); });
 	$("a#ButtonCreateNewTask").click(function(event){ SugarCrmSetDataEmpty(); });
+
 	$("#autocompleteNewContactTask").on("listviewbeforefilter", function(event){ SugarCrmGetContactsTask(); });
 	$("a#SaveNewTask").click(function(event){ SugarCrmSetNewTask(CurrentTaskId); });
-	$("a#EditTaskDetails").click(function(event){ 
-		SugarCrmGetTaskData(); });
+	$("a#EditTaskDetails").click(function(event){ SugarCrmGetTaskData(); });
 
-	
+	$("#NewOpportunityAccountName").on("listviewbeforefilter", function(event){ SugarCrmGetAccountsOpportunities(); });
+	$("a#SaveNewOpportunity").click(function(event){ SugarCrmSetNewOpportunity(CurrentOpportunityId); });
+	$("a#EditOpportunityDetails").click(function(event){ SugarCrmGetOpportunityData(); });
+
+	$("a#SaveNewMeeting").click(function(event){ SugarCrmSetNewMeeting(CurrentMeetingId); });
+	$("a#EditMeetingDetails").click(function(event){ SugarCrmGetMeetingData(); });
+
    	// Método onchange de imagen
    	$('#imageInput').on('change', function() {
    		
@@ -3604,9 +3620,13 @@ require(["es_ES"], function(util)
 
 	//Función que autocompleta el input referente a tareas con los contactos ya cargados,
 	//en caso de no estar cargados, los carga
-	function SugarCrmGetContactsTask(){
+	//requiere que el usuario teclee al menos 3 caracteres
+function SugarCrmGetContactsTask(){
 		
+	var value;
+	value = $("ul#autocompleteNewContactTask").closest('[data-role=listview]').prev('form').find('input').val();
 		$("#autocompleteNewContactTask li").remove();
+		if(value.length > 2){		
 		var b = 0;
 		for (b = 0; b <= ContactsList.entry_list.length; b++)
 			if (ContactsList.entry_list[b] != undefined) {
@@ -3631,9 +3651,8 @@ require(["es_ES"], function(util)
 				$("#autocompleteNewContactTask").append(f);
 			}
 		$("#autocompleteNewContactTask").listview("refresh");
+		}
 	}
-
-
 
 
 	// Función para insertar una nueva tarea
@@ -3654,7 +3673,6 @@ require(["es_ES"], function(util)
 		toast(RES_NEW_ITEM_LOADING);
 		if(id=="")
 		{
-			
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
 				input_type: "JSON",
@@ -3686,11 +3704,8 @@ require(["es_ES"], function(util)
 		$("#NewTaskDescription").val("");
 	}
 
+	//Obtener los datos de la tarea
 	function SugarCrmGetTaskData(){
-		
-		
-
-		
 		var b = 0;
 		
 		for (b = 0; b <= ContactsList.entry_list.length; b++){
@@ -3726,20 +3741,258 @@ require(["es_ES"], function(util)
 		
 	}
 
+
+	//rellena el % asociado a cada etapa de ventas en oportunidades
+	$("select#NewOpportunitySalesStage").on("change", function(event){
+		var selectvalue = $("select#NewOpportunitySalesStage").val();
+		switch(selectvalue){
+			case "Prospecting":
+				$("input#NewOpportunityProbability").val(10);
+			break;
+			case "Qualification":
+				$("input#NewOpportunityProbability").val(20);
+			break;
+			case "Needs Analysis":
+				$("input#NewOpportunityProbability").val(25);
+			break;
+			case "Value Proposition":
+				$("input#NewOpportunityProbability").val(30);
+			break;
+			case "Id. Decision Makers":
+				$("input#NewOpportunityProbability").val(40);
+			break;
+			case "Perception Analysis":
+				$("input#NewOpportunityProbability").val(50);	
+			break;
+			case "Proposal/Price Quote":
+				$("input#NewOpportunityProbability").val(65);
+			break;
+			case "Negotiation/Review":
+				$("input#NewOpportunityProbability").val(80);
+			break;
+			case "Closed Won":
+				$("input#NewOpportunityProbability").val(100);
+			break;
+			case "Closed Lost":
+				$("input#NewOpportunityProbability").val(0);
+			break;
+		}
+	});
+
+	//Inserta o modifica las oportunidades
+	function SugarCrmSetNewOpportunity(id)
+	{
+		var newOpportunityName = $("input#NewOpportunityName").val();
+		var newOpportunityAccountId = $("ul#NewOpportunityAccountName").data("identity");
+		var newOpportunityQuantity = $("input#NewOpportunityQuantity").val();
+		var newOpportunityCloseDate =changeDate($("input#NewOpportunityCloseDate").val(),0);
+		var newOpportunitySalesStage = $("select#NewOpportunitySalesStage").val();
+		var newOpportunityType = $("select#NewOpportunityType").val();
+		var newOpportunityProbability = $("input#NewOpportunityProbability").val();
+		var newOpportunityLeadSource = $("select#NewOpportunityLeadSource").val();
+		var newOpportunityNextStep = $("input#NewOpportunityNextStep").val();
+		var newOpportunityDescription = $("textarea#NewOpportunityDescription").val();
+		
+		
+		toast(RES_NEW_ITEM_LOADING);
+		if(id=="")
+		{
+			$.get(sugarURL+"/service/v2/rest.php", {
+				method: "set_entry",
+				input_type: "JSON",
+				response_type: "JSON",
+				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","name_value_list":[{"name":"name","value":"'+ newOpportunityName +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newOpportunityDescription +'"},{"name":"opportunity_type","value":"'+ newOpportunityType +'"},{"name":"lead_source","value":"'+ newOpportunityLeadSource +'"},{"name":"amount","value":"'+ newOpportunityQuantity +'"},{"name":"amount_usdollar","value":"'+newOpportunityQuantity+'"},{"name":"currency_id","value":"-99"},{"name":"date_closed","value":"' + newOpportunityCloseDate + '"},{"name":"next_step","value":"' + newOpportunityNextStep + '"},{"name":"sales_stage","value":"' + newOpportunitySalesStage + '"},{"name":"probability","value":"' + newOpportunityProbability + '"}]}'
+			}, function (b) {
+				$.get(sugarURL+"/service/v2/rest.php", {
+					method: "set_entry",
+					input_type: "JSON",
+					response_type: "JSON",
+					rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts_opportunities","name_value_list":[{"name":"opportunity_id","value":"'+ b.id +'"},{"name":"account_id","value":"'+ newOpportunityAccountId +'"},{"name":"date_modified","value":"'+ now(false, true) +'"}]}'
+				}, function (c) {
+					toUpdateOpportunities = true;
+					console.log(c.id);
+					$.mobile.changePage("#HomePage");
+			
+				})
+			
+			})
+		}
+		else{
+			$.get(sugarURL+"/service/v2/rest.php", {
+				method: "set_entry",
+				input_type: "JSON",
+				response_type: "JSON",
+				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","name_value_list":[{"name":"id","value":"'+ CurrentOpportunityId +'"},{"name":"name","value":"'+ newOpportunityName +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newOpportunityDescription +'"},{"name":"opportunity_type","value":"'+ newOpportunityType +'"},{"name":"lead_source","value":"'+ newOpportunityLeadSource +'"},{"name":"amount","value":"'+ newOpportunityQuantity +'"},{"name":"amount_usdollar","value":"'+newOpportunityQuantity+'"},{"name":"currency_id","value":"-99"},{"name":"date_closed","value":"' + newOpportunityCloseDate + '"},{"name":"next_step","value":"' + newOpportunityNextStep + '"},{"name":"sales_stage","value":"' + newOpportunitySalesStage + '"},{"name":"probability","value":"' + newOpportunityProbability + '"}]}'
+			}, function (b) {
+				toUpdateOpportunities = true;
+				console.log(b.id);
+						
+				$.mobile.changePage("#HomePage");
+				CurrentOpportunityId="";
+			})
+		}
+		$("input[id^='NewOpportunity']").val("");
+		$("textarea#NewOpportunityDescription").val("");
+	}
+
+	//Obtener los datos de las oportunidades (NO OBTENEMOS ACCOUNTS/EMPRESAS)
+	function SugarCrmGetOpportunityData(){
+			
+		//$("ul#NewOpportunityAccountName").closest('[data-role=listview]').prev('form').find('input').val();
+		$("input#NewOpportunityName").val(CurrentOpportunity.name_value_list.name.value);
+		$("input#NewOpportunityQuantity").val(CurrentOpportunity.name_value_list.amount.value);
+		var valueInputStart = setDateInput(CurrentOpportunity.name_value_list.date_closed.value);
+		$("input#NewOpportunityCloseDate").val(valueInputStart);
+		$('[name=NewOpportunitySalesStage]').val(CurrentOpportunity.name_value_list.sales_stage.value);
+		$('select#NewOpportunitySalesStage').selectmenu('refresh', true);
+		$('[name=NewOpportunityType]').val(CurrentOpportunity.name_value_list.opportunity_type.value);
+		$('select#NewOpportunityType').selectmenu('refresh', true);
+		$("input#NewOpportunityProbability").val(CurrentOpportunity.name_value_list.probability.value);
+		$('[name=NewOpportunityLeadSource]').val(CurrentOpportunity.name_value_list.lead_source.value);
+		$('select#NewOpportunityLeadSource').selectmenu('refresh', true);
+		$("input#NewOpportunityNextStep").val(CurrentOpportunity.name_value_list.next_step.value);
+		$("textarea#NewOpportunityDescription").val(CurrentOpportunity.name_value_list.description.value);
+			
+			
+		/*var b = 0;		
+		for (b = 0; b <= AccountsList.entry_list.length; b++){
+			if (AccountsList.entry_list[b] != undefined) {
+				var d = AccountsList.entry_list[b];
+
+				//if(d.id == CurrentOpportunity.name_value_list.contact_id.value){
+					
+				//}
+			}
+		}*/
+	}
+
+	//Función que autocompleta el input referente a oportunidades con los empresas ya cargadas,
+	//en caso de no estar cargadas, las carga
+	function SugarCrmGetAccountsOpportunities(){
+		var	value = $("ul#NewOpportunityAccountName").closest('[data-role=listview]').prev('form').find('input').val();
+		$("#NewOpportunityAccountName li").remove();
+		if(value.length > 2){
+			var b = 0;
+			for (b = 0; b <= AccountsList.entry_list.length; b++)
+				if (AccountsList.entry_list[b] != undefined) {
+					var d = AccountsList.entry_list[b],
+						f = $("<li class='ui-screen-hidden'/>"),
+						e = d.name_value_list.name.value ,
+						
+					d = $("<a/>", {
+						"data-identity": d.id,
+						href: "#",
+						click: function () {
+							var text = $(this).html();
+							$(this).closest('[data-role=listview]').prev('form').find('input').val(text);
+							$("ul#NewOpportunityAccountName").attr("data-identity", $(this).data("identity"));
+						 	$("#NewOpportunityAccountName li").remove();
+
+						}
+					});
+					d.append(e);
+					f.append(d);
+					$("#NewOpportunityAccountName").append(f);
+				}
+			$("#NewOpportunityAccountName").listview("refresh");
+		}
+	}
+
+	//Inserta o modifica las oportunidades
+	function SugarCrmSetNewMeeting(id)
+	{
+		var newMeetingSubject = $("input#NewMeetingSubject").val();
+		var newMeetingStatus = $("select#NewMeetingStatus").val();
+		var newMeetingStartDateTime = changeDate($("input#NewMeetingStartDate").val(), $("input#NewMeetingStartTime").val());
+		var newMeetingEndDateTime = changeDate($("input#NewMeetingEndDate").val(), $("input#NewMeetingEndTime").val());
+		var newMeetingStatus = $("select#NewMeetingDuration").val();
+		var time = secondsToHoursandMinutes(newMeetingStatus);
+			time = time.split("-",2);
+		var hours = time[0];
+		var minutes = time[1];
+		var newMeetingDescription = $("textarea#NewMeetingDescription").val();
+		
+		
+		toast(RES_NEW_ITEM_LOADING);
+		if(id=="")
+		{
+			$.get(sugarURL+"/service/v2/rest.php", {
+				method: "set_entry",
+				input_type: "JSON",
+				response_type: "JSON",
+				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","name_value_list":[{"name":"name","value":"'+ newMeetingSubject +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newMeetingDescription +'"},{"name":"duration_hours","value":"'+ hours +'"},{"name":"duration_minutes","value":"'+ minutes +'"},{"name":"date_start","value":"'+ newMeetingStartDateTime +'"},{"name":"date_end","value":"'+newMeetingEndDateTime+'"},{"name":"parent_id","value":"Accounts"},{"name":"status","value":"' + NewMeetingStatus + '"},{"name":"type","value":"Sugar"}]}'
+			}, function (b) {
+				toUpdateMeetings = true;
+				console.log(b.id);
+				$.mobile.changePage("#HomePage");
+			
+			})
+		}
+		else{
+			$.get(sugarURL+"/service/v2/rest.php", {
+				method: "set_entry",
+				input_type: "JSON",
+				response_type: "JSON",
+				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","name_value_list":[{"name":"name","value":"'+ newMeetingSubject +'"},{"name":"id","value":"'+ CurrentMeetingId +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newMeetingDescription +'"},{"name":"duration_hours","value":"'+ hours +'"},{"name":"duration_minutes","value":"'+ minutes +'"},{"name":"date_start","value":"'+ newMeetingStartDateTime +'"},{"name":"date_end","value":"'+newMeetingEndDateTime+'"},{"name":"parent_id","value":"Accounts"},{"name":"status","value":"' + NewMeetingStatus + '"},{"name":"type","value":"Sugar"}]}'
+			}, function (b) {
+				toUpdateMeetings = true;
+				console.log(b.id);
+						
+				$.mobile.changePage("#HomePage");
+				CurrentMeetingId="";
+			})
+		}
+		$("input[id^='NewMeeting']").val("");
+		$("textarea#NewMeetingDescription").val("");
+	}
+
+
+	//Obtener los datos de las reuniones (NO OBTENEMOS INVITADOS [faltan los ul] )
+	function SugarCrmGetMeetingData(){
+		$("input#NewMeetingSubject").val(CurrentMeeting.name_value_list.name.value);
+		
+
+		var valueInputStart = setDateInput(CurrentMeeting.name_value_list.date_start.value);
+					valueInputStart = valueInputStart.split("-",2);
+					$("input#NewMeetingStartDate").val(valueInputStart[0]);
+					$("input#NewMeetingStartTime").val(valueInputStart[1]);
+		var valueInputEnd = setDateInput(CurrentMeeting.name_value_list.date_end.value);
+					valueInputEnd = valueInputEnd.split("-",2);
+					$("input#NewMeetingEndDate").val(valueInputEnd[0]);
+					$("input#NewMeetingEndTime").val(valueInputEnd[1]);
+
+		$('[name=NewMeetingDuration]').val(HoursandMinutesToSeconds(CurrentMeeting.name_value_list.duration_hours.value,CurrentMeeting.name_value_list.duration_minutes.value));
+		
+		$("textarea#NewMeetingDescription").val(CurrentMeeting.name_value_list.description.value);
+
+
+		$('[name=NewMeetingStatus]').val(CurrentMeeting.name_value_list.status.value);
+		$('select#NewMeetingStatus').selectmenu('refresh', true);
+		$('select#NewMeetingDuration').selectmenu('refresh', true);			
+	}
+
 	// *************************************************************
 	// ** FUNCIONES AUXILIARES									  **
 	// *************************************************************
 
-	// Cambia la fecha y hora a formato datetime
+	// Cambia la fecha y hora a formato datetime si time es 0 es que no pasamos time
 	function changeDate(date, time){
-		var dayMonthYear = date.split("/",3);
-		var timeMeridian = time.split(" ",2);
-		var hours = timeMeridian[0].split(":", 2);
-		if(timeMeridian[1] === "PM" && hours[0] !== "12"){
-			hours[0] = parseInt(hours[0])+12;
+		
+		if(time==0){
+			var dayMonthYear = date.split("/",3);
+			var datetime = dayMonthYear[2]+"-"+dayMonthYear[1]+"-"+dayMonthYear[0];
+			return datetime;
 		}
-		var datetime = dayMonthYear[2]+"-"+dayMonthYear[1]+"-"+dayMonthYear[0]+" "+hours[0]+":"+hours[1]+":00";
-		return datetime;
+		else{
+			var dayMonthYear = date.split("/",3);
+			var timeMeridian = time.split(" ",2);
+			var hours = timeMeridian[0].split(":", 2);
+			if(timeMeridian[1] === "PM" && hours[0] !== "12"){
+				hours[0] = parseInt(hours[0])+12;
+			}
+			var datetime = dayMonthYear[2]+"-"+dayMonthYear[1]+"-"+dayMonthYear[0]+" "+hours[0]+":"+hours[1]+":00";
+			return datetime;
+		}
 	}
 
 	function setDateInput(datetime){
@@ -3750,10 +4003,21 @@ require(["es_ES"], function(util)
 			horaCompleta = r[4].trim().split(":");
 			minutos = horaCompleta[1];
 			hora = parseInt(horaCompleta[0]);
-			if(hora >=12){
-				meridian ="PM";
+			
+
+			if (minutos !== undefined)
+			{	
+				if(hora >=12){
+					meridian ="PM";
+					hora = hora-12;
+				}			
+				return r[3]+"/"+r[2]+"/"+r[1]+"-"+hora+":"+minutos+" "+meridian;
 			}
-			return r[3]+"/"+r[2]+"/"+r[1]+"-"+hora+":"+minutos+" "+meridian;
+			else
+			{
+				return r[3]+"/"+r[2]+"/"+r[1];
+			}
+			
 		}
 		else
 		{
@@ -3761,6 +4025,22 @@ require(["es_ES"], function(util)
 		}
 	}
 	
+//Conversor de horas y minutos a segundos usado en la duracion de las reuniones para guardarlas en la BD
+	function secondsToHoursandMinutes(seconds){
+		var minutes,
+			hours;
+		minutes = parseInt(seconds)/60;
+		hours = minutes/60;
+		minutes = minutes%60;
+		return hours+"-"+minutes;
+	}
+	//Conversor de horas y minutos a segundos usado en la duracion de las reuniones al leer de la BD
+	function HoursandMinutesToSeconds(hours,minutes){
+		var seconds=parseInt(hours)*3600;
+		seconds+=parseInt(minutes)*60;
+		return seconds;
+
+	}
 
 	// Cambia la fecha al ser mostrada al formato español
 	function change(time) {
