@@ -56,7 +56,26 @@ require(["es_ES"], function(util)
     ContactsList = "",
     AccountsList = "";
 
+    var load = {
+    	firstLoad: function(){
+    		$.mobile.loading( "show", {
+					text: RES_LOADER_MSG,
+					textonly: textOnly,
+					textVisible: textVisible
+			});
+    		/*$.when(SugarCrmGetContactsListFromServer(ContactsListCurrentOffset))
+    		.then(
+    			function(){ 
+    			SugarCrmGetAccountsListFromServer(AccountsListCurrentOffset);
+    			}
+    			);*/
+    		SugarCrmGetContacts(ContactsListCurrentOffset);
+    		SugarCrmGetAccounts(AccountsListCurrentOffset);
+    		
 
+    		$.mobile.loading("hide");
+    	}
+    }
 
 	// Detalles del loader
 	var textVisible = true;
@@ -133,21 +152,16 @@ require(["es_ES"], function(util)
 	$("#NotesListPage").live("pageshow", function () {
 		SugarCrmGetNotesListFromServer(NotesListCurrentOffset);
 	});
-	//Para Cargar los contactos en las nuevas tareas
+	/*//Para Cargar los contactos en las nuevas tareas
 	$("#CreateNewTask").live("pageshow", function () {
-
-		SugarCrmGetContactsListFromServer(ContactsListCurrentOffset);
-
-		$.mobile.loading( "hide" );
-
+		$.when(SugarCrmGetContactsListFromServer(ContactsListCurrentOffset))
+		.then(SugarCrmGetContactsTask())
+		.done(SugarCrmGetTaskData());
 	});
 	//Para cargar las empresas referentes a las oportunidades
 	$("#CreateNewOpportunity").live("pageshow", function () {
-
 		SugarCrmGetAccountsListFromServer(AccountsListCurrentOffset);
-		$.mobile.loading( "hide" );
-
-	});
+	});*/
 
 
 
@@ -205,6 +219,10 @@ require(["es_ES"], function(util)
 						SugarCurrentUserId = d.name_value_list.user_id.value;
 						$("#SettingsPageSugarCrmUsername").val("");
 						$("#SettingsPageSugarCrmPassword").val("");
+
+
+						load.firstLoad();
+
 						$.mobile.changePage("#HomePage");
 					}
 					else toast("Error inesperado");
@@ -272,6 +290,56 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/************************************************************************************************
+	***											QUERIES 										  ***
+	*************************************************************************************************/
+
+	/**
+	 * To obtain Contacts from server
+	 * @param a ContactsListCurrentOffset
+	 */
+	function SugarCrmGetContacts(a){
+		$.get(sugarURL+"/service/v2/rest.php", {
+			method: "get_entry_list",
+			input_type: "JSON",
+			response_type: "JSON",
+			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","query":"","order_by":"first_name","offset":' + a + ',"select_fields":["first_name","last_name","title"],"link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews +
+				',"deleted":0}'
+		}, function (c) {
+			if (c != undefined) {
+				c = $.parseJSON(JSON.stringify(c, undefined, 2));
+				if (c != undefined && c.entry_list != undefined) {
+					ContactsList = c;
+				}
+			}
+		})
+	}
+
+	/**
+	 * To obtain Accounts from server
+	 * @param a AccountsListCurrentOffset
+	 */
+	function SugarCrmGetAccounts(a){
+		$.get(sugarURL+"/service/v2/rest.php", {
+			method: "get_entry_list",
+			input_type: "JSON",
+			response_type: "JSON",
+			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","query":"","order_by":"name","offset":' + a + ',"select_fields":["name","billing_address_city","billing_address_state"],"link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews +
+				',"deleted":0}'
+		}, function (c) {
+			if (c !== undefined) {
+				c = $.parseJSON(JSON.stringify(c, undefined, 2));
+				if (c.name !== undefined && c.name === "Invalid Session ID") {
+					SugarSessionId = "";
+					$.mobile.changePage("#LoginPage")
+				}
+				if (c !== undefined && c.entry_list !== undefined) {
+					AccountsList = c;
+				}
+			}
+		})
+	}
+
 	function SugarCrmGetAccountsListFromServer(a) {
 		if ($("#AllAccountsListDiv li").length === 0 || AccountsListCurrentOffset !== a || toUpdateAccounts === true) {
 			toUpdateAccounts = false;
@@ -281,61 +349,35 @@ require(["es_ES"], function(util)
 				textVisible: textVisible
 			});
 			AccountsListCurrentOffset = a;
-			$.get(sugarURL+"/service/v2/rest.php", {
-				method: "get_entry_list",
-				input_type: "JSON",
-				response_type: "JSON",
-				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","query":"","order_by":"name","offset":' + a + ',"select_fields":["name","billing_address_city","billing_address_state"],"link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews +
-					',"deleted":0}'
-			}, function (c) {
-
-				if (c !== undefined) {
-					c = $.parseJSON(JSON.stringify(c, undefined, 2));
-					if (c.name !== undefined && c.name === "Invalid Session ID") {
-						SugarSessionId = "";
-						$.mobile.changePage("#LoginPage")
-					}
-					if (c !== undefined && c.entry_list !== undefined) {
-						AccountsList = c;
-						if (c.result_count === 0) AccountsListCurrentOffset = AccountsListPrevOffset + RowsPerPageInListViews;
-						else if (c.next_offset === 0) AccountsListCurrentOffset = 0;
-						if (c.next_offset === 0 || c.result_count === 0) toast(""+RES_NOTHING_TO_SHOW+"");
-						else {
-							$("#AllAccountsListDiv li").remove();
-							var b = 0;
-							for (b = 0; b <= c.entry_list.length; b++)
-								if (c.entry_list[b] !== undefined) {
-									var d = c.entry_list[b],
-										f = $("<li/>"),
-										e = "<h4>" + d.name_value_list.name.value + "</h4>",
-										m = "<p>" + d.name_value_list.billing_address_city.value + "&nbsp;" + d.name_value_list.billing_address_state.value + "</p>";
-									d = $("<a/>", {
-										href: "#",
-										"data-identity": d.id,
-										click: function () {
-											CurrentAccountId = $(this).data("identity");
-											$.mobile.changePage("#ViewAccountDetailsPage");
-											$.mobile.loading( "show", {
-													text: RES_LOADER_MSG,
-													textonly: textOnly,
-													textVisible: textVisible
-											});
-											SugarCrmGetAccountDetails()
-										}
-									});
-									d.append(e);
-									d.append(m);
-									f.append(d);
-									$("#AllAccountsListDiv").append(f)
-								}
-							$("#AllAccountsListDiv").listview("refresh");
-							AccountsListNextOffset = c.next_offset;
-							AccountsListPrevOffset = a - RowsPerPageInListViews
+			if (AccountsList == "")
+			{
+				$.get(sugarURL+"/service/v2/rest.php", {
+					method: "get_entry_list",
+					input_type: "JSON",
+					response_type: "JSON",
+					rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","query":"","order_by":"name","offset":' + a + ',"select_fields":["name","billing_address_city","billing_address_state"],"link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews +
+						',"deleted":0}'
+				}, function (c) {
+	
+					if (c !== undefined) {
+						c = $.parseJSON(JSON.stringify(c, undefined, 2));
+						if (c.name !== undefined && c.name === "Invalid Session ID") {
+							SugarSessionId = "";
+							$.mobile.changePage("#LoginPage")
+						}
+						if (c !== undefined && c.entry_list !== undefined) {
+							AccountsList = c;
+							DOMAccountsList(c, a);
 						}
 					}
-				}
-				$.mobile.loading( "hide" );
-			})
+					//$.mobile.loading( "hide" );
+				})
+			}
+			else{
+				DOMAccountsList(AccountsList, a);
+			}
+			$.mobile.loading( "hide" );
+
 		}
 	}
 
@@ -816,60 +858,129 @@ require(["es_ES"], function(util)
 					textVisible: textVisible
 			});
 			ContactsListCurrentOffset = a;
-			$.get(sugarURL+"/service/v2/rest.php", {
-				method: "get_entry_list",
-				input_type: "JSON",
-				response_type: "JSON",
-				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","query":"","order_by":"first_name","offset":' + a + ',"select_fields":["first_name","last_name","title"],"link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews +
-					',"deleted":0}'
-			}, function (c) {
-				if (c != undefined) {
-					c = $.parseJSON(JSON.stringify(c, undefined, 2));
-					if (c != undefined && c.entry_list != undefined) {
-						ContactsList = c;
-						if (c.result_count === 0) ContactsListCurrentOffset = ContactsListPrevOffset + RowsPerPageInListViews;
-						else if (c.next_offset === 0) ContactsListCurrentOffset = 0;
-						if (c.next_offset == 0 || c.result_count == 0) toast(""+RES_NOTHING_TO_SHOW+"");
-						else {
-							$("#AllContactsListDiv li").remove();
-							var b = 0;
-							for (b = 0; b <= c.entry_list.length; b++)
-								if (c.entry_list[b] != undefined) {
-									var d = c.entry_list[b],
-										f = $("<li/>"),
-										e = "<h4>" + d.name_value_list.first_name.value + "&nbsp;" + d.name_value_list.last_name.value + "</h4>",
-										m = d.name_value_list.title.value;
-									//if (d.name_value_list.account_name != undefined) m += " en " + d.name_value_list.account_name.value; //TODO
-									m = "<p>" + m + "</p>";
-									d = $("<a/>", {
-										href: "#",
-										"data-identity": d.id,
-										click: function () {
-											CurrentContactId = $(this).data("identity");
-											$.mobile.changePage("#ViewContactDetailsPage");
-											$.mobile.loading( "show", {
-													text: RES_LOADER_MSG,
-													textonly: textOnly,
-													textVisible: textVisible
-											});
-											SugarCrmGetContactDetails()
-										}
-									});
-									d.append(e);
-									d.append(m);
-									f.append(d);
-									$("#AllContactsListDiv").append(f)
-								}
-							$("#AllContactsListDiv").listview("refresh");
-							ContactsListNextOffset = c.next_offset;
-							ContactsListPrevOffset = a - RowsPerPageInListViews
+			
+			if (ContactsList == "")
+			{
+				$.get(sugarURL+"/service/v2/rest.php", {
+					method: "get_entry_list",
+					input_type: "JSON",
+					response_type: "JSON",
+					rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","query":"","order_by":"first_name","offset":' + a + ',"select_fields":["first_name","last_name","title"],"link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews +
+						',"deleted":0}'
+				}, function (c) {
+					if (c != undefined) {
+						c = $.parseJSON(JSON.stringify(c, undefined, 2));
+						if (c != undefined && c.entry_list != undefined) {
+							ContactsList = c;
+							DOMContactsList(c, a);
 						}
 					}
-				}
-				$.mobile.loading( "hide" );
-			})
+					
+				})
+			}
+			else {
+				DOMContactsList(ContactsList, a);
+			}
+			$.mobile.loading( "hide" );
 		}
 	}
+
+	/******************************************************************************************************
+	***								FUNCIONES DEL DOM 													***
+	*******************************************************************************************************/
+
+	/**
+	 * To create DOM Objects from ContactsList
+	 * @param {JSON} contacts from Server or ConstactsList
+	 */
+	function DOMContactsList(contacts, currentoffset){
+		var c = contacts;
+		var a = currentoffset;
+		if (c.result_count === 0) ContactsListCurrentOffset = ContactsListPrevOffset + RowsPerPageInListViews;
+		else if (c.next_offset === 0) ContactsListCurrentOffset = 0;
+		if (c.next_offset == 0 || c.result_count == 0) toast(""+RES_NOTHING_TO_SHOW+"");
+		else {
+			$("#AllContactsListDiv li").remove();
+			var b = 0;
+			for (b = 0; b <= c.entry_list.length; b++)
+				if (c.entry_list[b] != undefined) {
+					var d = c.entry_list[b],
+						f = $("<li/>"),
+						e = "<h4>" + d.name_value_list.first_name.value + "&nbsp;" + d.name_value_list.last_name.value + "</h4>",
+						m = d.name_value_list.title.value;
+					//if (d.name_value_list.account_name != undefined) m += " en " + d.name_value_list.account_name.value; //TODO
+					m = "<p>" + m + "</p>";
+					d = $("<a/>", {
+						href: "#",
+						"data-identity": d.id,
+						click: function () {
+							CurrentContactId = $(this).data("identity");
+							$.mobile.changePage("#ViewContactDetailsPage");
+							$.mobile.loading( "show", {
+									text: RES_LOADER_MSG,
+									textonly: textOnly,
+									textVisible: textVisible
+							});
+							SugarCrmGetContactDetails()
+						}
+					});
+					d.append(e);
+					d.append(m);
+					f.append(d);
+					$("#AllContactsListDiv").append(f)
+				}
+			$("#AllContactsListDiv").listview("refresh");
+			ContactsListNextOffset = c.next_offset;
+			ContactsListPrevOffset = a - RowsPerPageInListViews
+		}
+	}
+
+	/**
+	 * To create DOM Objects from AccountsList
+	 * @param {JSON} accounts from Server or AccountsList
+	 */
+	function DOMAccountsList(accounts, currentoffset){
+		var c = accounts;
+		var a = currentoffset;
+		if (c.result_count === 0) AccountsListCurrentOffset = AccountsListPrevOffset + RowsPerPageInListViews;
+		else if (c.next_offset === 0) AccountsListCurrentOffset = 0;
+		if (c.next_offset === 0 || c.result_count === 0) toast(""+RES_NOTHING_TO_SHOW+"");
+		else {
+			$("#AllAccountsListDiv li").remove();
+			var b = 0;
+			for (b = 0; b <= c.entry_list.length; b++)
+				if (c.entry_list[b] !== undefined) {
+					var d = c.entry_list[b],
+						f = $("<li/>"),
+						e = "<h4>" + d.name_value_list.name.value + "</h4>",
+						m = "<p>" + d.name_value_list.billing_address_city.value + "&nbsp;" + d.name_value_list.billing_address_state.value + "</p>";
+					d = $("<a/>", {
+						href: "#",
+						"data-identity": d.id,
+						click: function () {
+							CurrentAccountId = $(this).data("identity");
+							$.mobile.changePage("#ViewAccountDetailsPage");
+							$.mobile.loading( "show", {
+									text: RES_LOADER_MSG,
+									textonly: textOnly,
+									textVisible: textVisible
+							});
+							SugarCrmGetAccountDetails()
+						}
+					});
+					d.append(e);
+					d.append(m);
+					f.append(d);
+					$("#AllAccountsListDiv").append(f)
+				}
+			$("#AllAccountsListDiv").listview("refresh");
+			AccountsListNextOffset = c.next_offset;
+			AccountsListPrevOffset = a - RowsPerPageInListViews
+		}
+	}
+
+
+
 
 	function SugarCrmGetContactDetails() {
 		$("#ContactNameH1").html("");
@@ -1328,6 +1439,7 @@ require(["es_ES"], function(util)
 
 	function SugarCrmGetOpportunitiesListFromServer(a) {
 		if ($("#AllOpportunitiesListDiv li").length === 0 || OpportunitiesListCurrentOffset !== a || toUpdateOpportunities ===true) {
+			toUpdateOpportunities = false;
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -2543,6 +2655,7 @@ require(["es_ES"], function(util)
 
 	function SugarCrmGetMeetingsListFromServer(a) {
 		if ($("#AllMeetingsListDiv li").length === 0 || MeetingsListCurrentOffset !== a || toUpdateMeetings === true) {
+			toUpdateMeetings = false;
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -3311,9 +3424,15 @@ require(["es_ES"], function(util)
 	$("a#ButtonCreateNewContact").click(function(event){ SugarCrmSetDataEmpty(); });
 	$("a#ButtonCreateNewTask").click(function(event){ SugarCrmSetDataEmpty(); });
 
-	$("#autocompleteNewContactTask").on("listviewbeforefilter", function(event){ SugarCrmGetContactsTask(); });
+	$("#autocompleteNewContactTask").on("listviewbeforefilter", function(event){ 
+		SugarCrmGetContactsTask();
+	});
 	$("a#SaveNewTask").click(function(event){ SugarCrmSetNewTask(CurrentTaskId); });
-	$("a#EditTaskDetails").click(function(event){ SugarCrmGetTaskData(); });
+	$("a#EditTaskDetails").click(function(event){
+		SugarCrmGetTaskData();
+		//SugarCrmGetContactsListFromServer(ContactsListCurrentOffset);
+		//SugarCrmGetContactsTask();
+	});
 
 	$("#NewOpportunityAccountName").on("listviewbeforefilter", function(event){ SugarCrmGetAccountsOpportunities(); });
 	$("a#SaveNewOpportunity").click(function(event){ SugarCrmSetNewOpportunity(CurrentOpportunityId); });
@@ -3545,10 +3664,7 @@ require(["es_ES"], function(util)
 		$("input#NewContactPrimaryAddressPostalCode").val(CurrentContact.name_value_list.primary_address_postalcode.value);
 		$("input#NewContactPrimaryAddressState").val(CurrentContact.name_value_list.primary_address_state.value);
 		$("input#NewContactPrimaryAddressCountry").val(CurrentContact.name_value_list.primary_address_country.value);
-		
-
 	}
-
 
 
 	//Funcion crear nuevo potencial
@@ -3630,6 +3746,8 @@ function SugarCrmGetContactsTask(){
 		var b = 0;
 		for (b = 0; b <= ContactsList.entry_list.length; b++)
 			if (ContactsList.entry_list[b] != undefined) {
+					
+				
 				var d = ContactsList.entry_list[b],
 					f = $("<li class='ui-screen-hidden'/>"),
 					e = d.name_value_list.first_name.value + " " + d.name_value_list.last_name.value,
@@ -3646,9 +3764,11 @@ function SugarCrmGetContactsTask(){
 					}
 				});
 				d.append(e);
-				//d.append(m);
 				f.append(d);
 				$("#autocompleteNewContactTask").append(f);
+
+				
+
 			}
 		$("#autocompleteNewContactTask").listview("refresh");
 		}
@@ -3706,39 +3826,39 @@ function SugarCrmGetContactsTask(){
 
 	//Obtener los datos de la tarea
 	function SugarCrmGetTaskData(){
-		var b = 0;
-		
-		for (b = 0; b <= ContactsList.entry_list.length; b++){
-			if (ContactsList.entry_list[b] != undefined) {
-				var d = ContactsList.entry_list[b];
+			var b;
+			
+			for (b = 0; b <= ContactsList.entry_list.length; b++){
+				if (ContactsList.entry_list[b] != undefined) {
+					var d = ContactsList.entry_list[b];
 
-				if(d.id == CurrentTask.name_value_list.contact_id.value){
-					$("ul#autocompleteNewContactTask").closest('[data-role=listview]').prev('form').find('input').val(d.name_value_list.first_name.value+" "+d.name_value_list.last_name.value);
-					$("ul#autocompleteNewContactTask").attr("data-identity", d.id);
-					//$("ul#autocompleteNewContactTask").closest('[data-role=listview]').prev('form').find('input').val();
-					$("input#NewTaskName").val(CurrentTask.name_value_list.name.value);
-					var valueInputStart = setDateInput(CurrentTask.name_value_list.date_start.value);
-					valueInputStart = valueInputStart.split("-",2);
-					$("input#NewTaskStartDate").val(valueInputStart[0]);
-					$("input#NewTaskStartTime").val(valueInputStart[1]);
-					var valueInputDue = setDateInput(CurrentTask.name_value_list.date_due.value);
-					valueInputDue = valueInputDue.split("-",2);
-					$("input#NewTaskDueDate").val(valueInputDue[0]);
-					$("input#NewTaskDueTime").val(valueInputDue[1]);
-					$("#NewTaskDescription").val(CurrentTask.name_value_list.description.value);
+					if(d.id == CurrentTask.name_value_list.contact_id.value){
+						$("ul#autocompleteNewContactTask").closest('[data-role=listview]').prev('form').find('input').val(d.name_value_list.first_name.value+" "+d.name_value_list.last_name.value);
+						$("ul#autocompleteNewContactTask").attr("data-identity", d.id);
+						//$("ul#autocompleteNewContactTask").closest('[data-role=listview]').prev('form').find('input').val();
+						
+					}
 				}
 			}
-		}
+			$("input#NewTaskName").val(CurrentTask.name_value_list.name.value);
+			var valueInputStart = setDateInput(CurrentTask.name_value_list.date_start.value);
+			valueInputStart = valueInputStart.split("-",2);
+			$("input#NewTaskStartDate").val(valueInputStart[0]);
+			$("input#NewTaskStartTime").val(valueInputStart[1]);
+			var valueInputDue = setDateInput(CurrentTask.name_value_list.date_due.value);
+			valueInputDue = valueInputDue.split("-",2);
+			$("input#NewTaskDueDate").val(valueInputDue[0]);
+			$("input#NewTaskDueTime").val(valueInputDue[1]);
+			$("#NewTaskDescription").val(CurrentTask.name_value_list.description.value);
 
-		$("input#NewLeadPrimaryAddressState").val(CurrentLead.name_value_list.primary_address_state.value);
-		$("input#NewLeadPrimaryAddressCountry").val(CurrentLead.name_value_list.primary_address_country.value);
+			$('[name=NewTaskPriority]').val(CurrentTask.name_value_list.priority.value);
+			$('[name=NewTaskStatus]').val(CurrentTask.name_value_list.status.value);
+			$('select#NewTaskPriority').selectmenu('refresh', true);
+			$('select#NewTaskStatus').selectmenu('refresh', true);
+			//$("ul#autocompleteNewContactTask").listview('refresh');
+			$("ul#autocompleteNewContactTask").closest('[data-role=listview]').prev('form').find('input').filterable('refresh');
 
 
-		$('[name=NewTaskPriority]').val(CurrentTask.name_value_list.priority.value);
-		$('select#NewTaskPriority').selectmenu('refresh', true);
-		$('[name=NewTaskStatus]').val(CurrentTask.name_value_list.status.value);
-		$('select#NewTaskStatus').selectmenu('refresh', true);
-		
 	}
 
 
@@ -3803,33 +3923,61 @@ function SugarCrmGetContactsTask(){
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","name_value_list":[{"name":"name","value":"'+ newOpportunityName +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newOpportunityDescription +'"},{"name":"opportunity_type","value":"'+ newOpportunityType +'"},{"name":"lead_source","value":"'+ newOpportunityLeadSource +'"},{"name":"amount","value":"'+ newOpportunityQuantity +'"},{"name":"amount_usdollar","value":"'+newOpportunityQuantity+'"},{"name":"currency_id","value":"-99"},{"name":"date_closed","value":"' + newOpportunityCloseDate + '"},{"name":"next_step","value":"' + newOpportunityNextStep + '"},{"name":"sales_stage","value":"' + newOpportunitySalesStage + '"},{"name":"probability","value":"' + newOpportunityProbability + '"}]}'
 			}, function (b) {
+				console.log(b);
 				$.get(sugarURL+"/service/v2/rest.php", {
-					method: "set_entry",
-					input_type: "JSON",
-					response_type: "JSON",
-					rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts_opportunities","name_value_list":[{"name":"opportunity_id","value":"'+ b.id +'"},{"name":"account_id","value":"'+ newOpportunityAccountId +'"},{"name":"date_modified","value":"'+ now(false, true) +'"}]}'
+    				method: "set_relationship",
+    				input_type: "JSON",
+    				response_type: "JSON",
+    				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + b.id + '","link_field_name":"accounts","related_ids":["'+ newOpportunityAccountId +'"],"name_value_list":[],"deleted":"0"}'
 				}, function (c) {
-					toUpdateOpportunities = true;
-					console.log(c.id);
-					$.mobile.changePage("#HomePage");
-			
+					if (c !== undefined) {
+     				    console.log(c);
+						toUpdateOpportunities = true;
+						$.mobile.changePage("#HomePage");
+					}	
 				})
-			
 			})
 		}
 		else{
-			$.get(sugarURL+"/service/v2/rest.php", {
+			/*$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
 				input_type: "JSON",
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","name_value_list":[{"name":"id","value":"'+ CurrentOpportunityId +'"},{"name":"name","value":"'+ newOpportunityName +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newOpportunityDescription +'"},{"name":"opportunity_type","value":"'+ newOpportunityType +'"},{"name":"lead_source","value":"'+ newOpportunityLeadSource +'"},{"name":"amount","value":"'+ newOpportunityQuantity +'"},{"name":"amount_usdollar","value":"'+newOpportunityQuantity+'"},{"name":"currency_id","value":"-99"},{"name":"date_closed","value":"' + newOpportunityCloseDate + '"},{"name":"next_step","value":"' + newOpportunityNextStep + '"},{"name":"sales_stage","value":"' + newOpportunitySalesStage + '"},{"name":"probability","value":"' + newOpportunityProbability + '"}]}'
 			}, function (b) {
-				toUpdateOpportunities = true;
-				console.log(b.id);
-						
-				$.mobile.changePage("#HomePage");
-				CurrentOpportunityId="";
-			})
+				console.log(b);
+				$.get(sugarURL +"/service/v2/rest.php", {
+					method: "get_relationship",
+    				input_type: "JSON",
+    				response_type: "JSON",
+    				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + b.id + '","link_field_name":"accounts","related_module_query":"","related_fields":["id"]}'
+    				
+    				}, function(c){
+    					console.log(c);
+
+				})*/
+				/*$.get(sugarURL +"/service/v2/rest.php", {
+    				method: "set_relationship",
+    				input_type: "JSON",
+    				response_type: "JSON",
+    				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + b.id + '","link_field_name":"accounts","name_value_list":[],"deleted":"1"}'
+    				}, function(c) {
+    					if (c !== undefined) {
+							$.get(sugarURL +"/service/v2/rest.php", {
+    							method: "set_relationship",
+			    				input_type: "JSON",
+    							response_type: "JSON",
+    							rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + b.id + '","link_field_name":"accounts","related_ids":["'+ newOpportunityAccountId +'"],"name_value_list":[],"deleted":"0"}'
+    						}, function(d){
+    							console.log(d);
+    							toUpdateOpportunities = true;						
+								$.mobile.changePage("#HomePage");
+								CurrentOpportunityId="";
+    						})
+    				    }
+    				})*/
+			//})
+
 		}
 		$("input[id^='NewOpportunity']").val("");
 		$("textarea#NewOpportunityDescription").val("");
@@ -3838,7 +3986,7 @@ function SugarCrmGetContactsTask(){
 	//Obtener los datos de las oportunidades (NO OBTENEMOS ACCOUNTS/EMPRESAS)
 	function SugarCrmGetOpportunityData(){
 			
-		//$("ul#NewOpportunityAccountName").closest('[data-role=listview]').prev('form').find('input').val();
+		$("ul#NewOpportunityAccountName").closest('[data-role=listview]').prev('form').find('input').val();
 		$("input#NewOpportunityName").val(CurrentOpportunity.name_value_list.name.value);
 		$("input#NewOpportunityQuantity").val(CurrentOpportunity.name_value_list.amount.value);
 		var valueInputStart = setDateInput(CurrentOpportunity.name_value_list.date_closed.value);
@@ -3852,18 +4000,16 @@ function SugarCrmGetContactsTask(){
 		$('select#NewOpportunityLeadSource').selectmenu('refresh', true);
 		$("input#NewOpportunityNextStep").val(CurrentOpportunity.name_value_list.next_step.value);
 		$("textarea#NewOpportunityDescription").val(CurrentOpportunity.name_value_list.description.value);
-			
-			
-		/*var b = 0;		
-		for (b = 0; b <= AccountsList.entry_list.length; b++){
+				
+		for (var b = 0; b <= AccountsList.entry_list.length; b++){
 			if (AccountsList.entry_list[b] != undefined) {
 				var d = AccountsList.entry_list[b];
 
-				//if(d.id == CurrentOpportunity.name_value_list.contact_id.value){
+				if(d.name == CurrentOpportunity.name_value_list.account_name.value){
 					
-				//}
+				}
 			}
-		}*/
+		}
 	}
 
 	//Función que autocompleta el input referente a oportunidades con los empresas ya cargadas,
@@ -3898,7 +4044,7 @@ function SugarCrmGetContactsTask(){
 		}
 	}
 
-	//Inserta o modifica las oportunidades
+	//Inserta o modifica las reuniones
 	function SugarCrmSetNewMeeting(id)
 	{
 		var newMeetingSubject = $("input#NewMeetingSubject").val();
