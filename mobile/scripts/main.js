@@ -3430,8 +3430,6 @@ require(["es_ES"], function(util)
 	$("a#SaveNewTask").click(function(event){ SugarCrmSetNewTask(CurrentTaskId); });
 	$("a#EditTaskDetails").click(function(event){
 		SugarCrmGetTaskData();
-		//SugarCrmGetContactsListFromServer(ContactsListCurrentOffset);
-		//SugarCrmGetContactsTask();
 	});
 
 	$("#NewOpportunityAccountName").on("listviewbeforefilter", function(event){ SugarCrmGetAccountsOpportunities(); });
@@ -3558,11 +3556,12 @@ require(["es_ES"], function(util)
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","name_value_list":[{"name":"name","value":"'+ accountName +'"},{"name":"id","value":"'+ CurrentAccountId +'"},{"name":"phone_office","value":"'+ phoneOffice +'"},{"name":"website","value":"'+ website +'"},{"name":"phone_fax","value":"'+ phoneFax +'"},{"name":"billing_address_street","value":"'+ billingAddressStreet +'"},{"name":"billing_address_city","value":"'+ billingAddressCity +'"},{"name":"billing_address_state","value":"'+ billingAddressState +'"},{"name":"billing_address_postalcode","value":"'+ billingAddressPostalCode +'"},{"name":"billing_address_country","value":"'+ billingAddressCountry +'"},{"name":"date_modified","value":"' + now(false, true) + '"}]}'
 			}, function (c) {
 				console.log(c.name);
+				CurrentAccountId="";
 				toUpdateAccounts = true;
 				$("input#NewAccountWebsite").val("http://");
 				$.mobile.changePage("#HomePage");
 				//$( "input[name^='news']" ).val( "news here!" );
-				CurrentAccountId="";	
+					
 			})
 
 		}
@@ -3596,8 +3595,8 @@ require(["es_ES"], function(util)
 		$('[name=NewTaskStatus]').val( "Not Started" );
 		$('select#NewTaskStatus').selectmenu('refresh', true);
 
-		$("ul#autocompleteNewContactTask").closest('[data-role=listview]').prev('form').find('input').val("");
-		$("ul#autocompleteNewContactTask").attr("data-identity", "");
+		$("input#autocomplete").val("");
+		$("input#autocomplete").attr("data-identity", "");
 
 	}
 
@@ -3640,9 +3639,10 @@ require(["es_ES"], function(util)
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","name_value_list":[{"name":"id","value":"'+ CurrentContactId +'"},{"name":"first_name","value":"'+ newContactName +'"},{"name":"last_name","value":"'+ newContactLastName +'"},{"name":"phone_fax","value":"'+ newContactPhoneFax +'"},{"name":"phone_work","value":"'+ newContactPhoneWork +'"},{"name":"phone_mobile","value":"'+ newContactPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newContactPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newContactPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newContactPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newContactPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newContactPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 			}, function (c) {
 				console.log(c.name);
+				CurrentContactId="";
 				toUpdateContacts = true;
 				$.mobile.changePage("#HomePage");
-				CurrentContactId="";	
+				
 			})
 
 		}
@@ -3710,9 +3710,10 @@ require(["es_ES"], function(util)
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","name_value_list":[{"name":"id","value":"'+ CurrentLeadId +'"},{"name":"first_name","value":"'+ newLeadName +'"},{"name":"last_name","value":"'+ newLeadLastName +'"},{"name":"phone_fax","value":"'+ newLeadPhoneFax +'"},{"name":"phone_work","value":"'+ newLeadPhoneWork +'"},{"name":"phone_mobile","value":"'+ newLeadPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newLeadPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newLeadPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newLeadPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newLeadPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newLeadPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 			}, function (c) {
 				console.log(c.name);
+				CurrentLeadId="";
 				toUpdateLeads = true;
 				$.mobile.changePage("#HomePage");
-				CurrentLeadId="";	
+					
 			})
 
 		}
@@ -3740,7 +3741,7 @@ require(["es_ES"], function(util)
 function SugarCrmGetContactsTask(){
 		
 	var value;
-	value = $("ul#autocompleteNewContactTask").closest('[data-role=listview]').prev('form').find('input').val();
+	value = $("input#autocomplete").val();
 		$("#autocompleteNewContactTask li").remove();
 		if(value.length > 2){		
 		var b = 0;
@@ -3749,7 +3750,7 @@ function SugarCrmGetContactsTask(){
 					
 				
 				var d = ContactsList.entry_list[b],
-					f = $("<li class='ui-screen-hidden'/>"),
+					f = $("<li class='ui-screen-hidden' data-filtertext='"+d.name_value_list.first_name.value + " " + d.name_value_list.last_name.value+"'/>"),
 					e = d.name_value_list.first_name.value + " " + d.name_value_list.last_name.value,
 					
 				d = $("<a/>", {
@@ -3757,20 +3758,17 @@ function SugarCrmGetContactsTask(){
 					href: "#",
 					click: function () {
 						var text = $(this).html();
-						$(this).closest('[data-role=listview]').prev('form').find('input').val(text);
-						$("ul#autocompleteNewContactTask").attr("data-identity", $(this).data("identity"));
+						$("input#autocomplete").val(text);
+						$("input#autocomplete").attr("data-identity", $(this).data("identity"));
 					 	$("#autocompleteNewContactTask li").remove();
-
+					 	$("input#autocomplete").textinput('refresh');
 					}
 				});
 				d.append(e);
 				f.append(d);
 				$("#autocompleteNewContactTask").append(f);
-
-				
-
 			}
-		$("#autocompleteNewContactTask").listview("refresh");
+		$("ul#autocompleteNewContactTask").listview("refresh");
 		}
 	}
 
@@ -3788,8 +3786,7 @@ function SugarCrmGetContactsTask(){
 		var newTaskPriority = $("#NewTaskPriority").val();
 		var newTaskStatus = $("#NewTaskStatus").val();
 		var newTaskDescription = $("#NewTaskDescription").val();
-		var newTaskContact = $("ul#autocompleteNewContactTask").data("identity");
-		
+		var newTaskContact = $("input#autocomplete").data("identity");
 		toast(RES_NEW_ITEM_LOADING);
 		if(id=="")
 		{
@@ -3801,7 +3798,6 @@ function SugarCrmGetContactsTask(){
 			}, function (b) {
 				toUpdateTasks = true;
 				console.log(b.id);
-				//
 				$.mobile.changePage("#HomePage");
 		
 			})
@@ -3813,15 +3809,18 @@ function SugarCrmGetContactsTask(){
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","name_value_list":[{"name":"name","value":"'+ newTaskName +'"},{"name":"id","value":"'+ CurrentTaskId +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newTaskDescription +'"},{"name":"status","value":"'+ newTaskStatus +'"},{"name":"date_due","value":"'+ newTaskDue +'"},{"name":"date_start","value":"'+ newTaskStart +'"},{"name":"parent_type","value":"Accounts"},{"name":"contact_id","value":"'+ newTaskContact +'"},{"name":"priority","value":"' + newTaskPriority + '"}]}'
 			}, function (b) {
+				CurrentTaskId="";
 				toUpdateTasks = true;
 				console.log(b.id);
-						
 				$.mobile.changePage("#HomePage");
-				CurrentTaskId="";
 			})
 		}
 		$("input[id^='NewTask']").val("");
 		$("#NewTaskDescription").val("");
+		$("input#autocomplete").removeAttr("data-identity");
+
+		
+
 	}
 
 	//Obtener los datos de la tarea
@@ -3833,10 +3832,10 @@ function SugarCrmGetContactsTask(){
 					var d = ContactsList.entry_list[b];
 
 					if(d.id == CurrentTask.name_value_list.contact_id.value){
-						$("ul#autocompleteNewContactTask").closest('[data-role=listview]').prev('form').find('input').val(d.name_value_list.first_name.value+" "+d.name_value_list.last_name.value);
-						$("ul#autocompleteNewContactTask").attr("data-identity", d.id);
+						$("input#autocomplete").val(d.name_value_list.first_name.value+" "+d.name_value_list.last_name.value);
+						$("input#autocomplete").attr("data-identity", d.id);
 						//$("ul#autocompleteNewContactTask").closest('[data-role=listview]').prev('form').find('input').val();
-						
+						break;
 					}
 				}
 			}
@@ -3853,10 +3852,11 @@ function SugarCrmGetContactsTask(){
 
 			$('[name=NewTaskPriority]').val(CurrentTask.name_value_list.priority.value);
 			$('[name=NewTaskStatus]').val(CurrentTask.name_value_list.status.value);
+
 			$('select#NewTaskPriority').selectmenu('refresh', true);
 			$('select#NewTaskStatus').selectmenu('refresh', true);
 			//$("ul#autocompleteNewContactTask").listview('refresh');
-			$("ul#autocompleteNewContactTask").closest('[data-role=listview]').prev('form').find('input').filterable('refresh');
+			//$("ul#autocompleteNewContactTask").closest('[data-role=listview]').prev('form').find('input').filterable('refresh');
 
 
 	}
@@ -3969,10 +3969,11 @@ function SugarCrmGetContactsTask(){
     							response_type: "JSON",
     							rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + b.id + '","link_field_name":"accounts","related_ids":["'+ newOpportunityAccountId +'"],"name_value_list":[],"deleted":"0"}'
     						}, function(d){
+    							CurrentOpportunityId="";
     							console.log(d);
     							toUpdateOpportunities = true;						
 								$.mobile.changePage("#HomePage");
-								CurrentOpportunityId="";
+								
     						})
     				    }
     				})*/
@@ -4081,11 +4082,10 @@ function SugarCrmGetContactsTask(){
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","name_value_list":[{"name":"name","value":"'+ newMeetingSubject +'"},{"name":"id","value":"'+ CurrentMeetingId +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newMeetingDescription +'"},{"name":"duration_hours","value":"'+ hours +'"},{"name":"duration_minutes","value":"'+ minutes +'"},{"name":"date_start","value":"'+ newMeetingStartDateTime +'"},{"name":"date_end","value":"'+newMeetingEndDateTime+'"},{"name":"parent_id","value":"Accounts"},{"name":"status","value":"' + NewMeetingStatus + '"},{"name":"type","value":"Sugar"}]}'
 			}, function (b) {
-				toUpdateMeetings = true;
-				console.log(b.id);
-						
-				$.mobile.changePage("#HomePage");
 				CurrentMeetingId="";
+				toUpdateMeetings = true;
+				console.log(b.id);		
+				$.mobile.changePage("#HomePage");
 			})
 		}
 		$("input[id^='NewMeeting']").val("");

@@ -822,7 +822,11 @@
                     <label for="autocompleteNewContactTask">
                         Contacto
                     </label>
-                    <ul id="autocompleteNewContactTask" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Busque un contacto..." data-filter-theme="b"></ul>
+                    <form class="ui-filterable">
+                        <input id="autocomplete" data-type="search" >
+                    </form>
+                    <ul id="autocompleteNewContactTask" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Busque un contacto..." data-filter-theme="b"
+                    data-input="#autocomplete"></ul>
                 </div>
                 
 
