@@ -3759,6 +3759,7 @@ function SugarCrmGetContactsTask(){
 					click: function () {
 						var text = $(this).html();
 						$("input#autocomplete").val(text);
+						$("input#autocomplete").removeAttr("data-identity");
 						$("input#autocomplete").attr("data-identity", $(this).data("identity"));
 					 	$("#autocompleteNewContactTask li").remove();
 					 	$("input#autocomplete").textinput('refresh');
@@ -3776,48 +3777,50 @@ function SugarCrmGetContactsTask(){
 	// Función para insertar una nueva tarea
 	function SugarCrmSetNewTask(id)
 	{
-		var newTaskStartDate = $("input#NewTaskStartDate").val();
-		var newTaskStartTime = $("input#NewTaskStartTime").val();
-		var newTaskName = $("input#NewTaskName").val();
-		var newTaskStart = changeDate(newTaskStartDate, newTaskStartTime);
-		var newTaskDueDate = $("input#NewTaskDueDate").val();
-		var newTaskDueTime = $("input#NewTaskDueTime").val();
-		var newTaskDue = changeDate(newTaskDueDate, newTaskDueTime);
-		var newTaskPriority = $("#NewTaskPriority").val();
-		var newTaskStatus = $("#NewTaskStatus").val();
-		var newTaskDescription = $("#NewTaskDescription").val();
-		var newTaskContact = $("input#autocomplete").data("identity");
-		toast(RES_NEW_ITEM_LOADING);
-		if(id=="")
-		{
-			$.get(sugarURL+"/service/v2/rest.php", {
-				method: "set_entry",
-				input_type: "JSON",
-				response_type: "JSON",
-				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","name_value_list":[{"name":"name","value":"'+ newTaskName +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newTaskDescription +'"},{"name":"status","value":"'+ newTaskStatus +'"},{"name":"date_due","value":"'+ newTaskDue +'"},{"name":"date_start","value":"'+ newTaskStart +'"},{"name":"parent_type","value":"Accounts"},{"name":"contact_id","value":"'+ newTaskContact +'"},{"name":"priority","value":"' + newTaskPriority + '"}]}'
-			}, function (b) {
-				toUpdateTasks = true;
-				console.log(b.id);
-				$.mobile.changePage("#HomePage");
 		
-			})
-		}
-		else{
-			$.get(sugarURL+"/service/v2/rest.php", {
-				method: "set_entry",
-				input_type: "JSON",
-				response_type: "JSON",
-				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","name_value_list":[{"name":"name","value":"'+ newTaskName +'"},{"name":"id","value":"'+ CurrentTaskId +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newTaskDescription +'"},{"name":"status","value":"'+ newTaskStatus +'"},{"name":"date_due","value":"'+ newTaskDue +'"},{"name":"date_start","value":"'+ newTaskStart +'"},{"name":"parent_type","value":"Accounts"},{"name":"contact_id","value":"'+ newTaskContact +'"},{"name":"priority","value":"' + newTaskPriority + '"}]}'
-			}, function (b) {
-				CurrentTaskId="";
-				toUpdateTasks = true;
-				console.log(b.id);
-				$.mobile.changePage("#HomePage");
-			})
-		}
-		$("input[id^='NewTask']").val("");
-		$("#NewTaskDescription").val("");
-		$("input#autocomplete").removeAttr("data-identity");
+			var newTaskStartDate = $("input#NewTaskStartDate").val();
+			var newTaskStartTime = $("input#NewTaskStartTime").val();
+			var newTaskName = $("input#NewTaskName").val();
+			var newTaskStart = changeDate(newTaskStartDate, newTaskStartTime);
+			var newTaskDueDate = $("input#NewTaskDueDate").val();
+			var newTaskDueTime = $("input#NewTaskDueTime").val();
+			var newTaskDue = changeDate(newTaskDueDate, newTaskDueTime);
+			var newTaskPriority = $("#NewTaskPriority").val();
+			var newTaskStatus = $("#NewTaskStatus").val();
+			var newTaskDescription = $("#NewTaskDescription").val();
+			var newTaskContact = $("input#autocomplete").attr("data-identity");
+		
+			toast(RES_NEW_ITEM_LOADING);
+			if(id=="")
+			{
+				$.get(sugarURL+"/service/v2/rest.php", {
+					method: "set_entry",
+					input_type: "JSON",
+					response_type: "JSON",
+					rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","name_value_list":[{"name":"name","value":"'+ newTaskName +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newTaskDescription +'"},{"name":"status","value":"'+ newTaskStatus +'"},{"name":"date_due","value":"'+ newTaskDue +'"},{"name":"date_start","value":"'+ newTaskStart +'"},{"name":"parent_type","value":"Accounts"},{"name":"contact_id","value":"'+ newTaskContact +'"},{"name":"priority","value":"' + newTaskPriority + '"}]}'
+				}, function (b) {
+					toUpdateTasks = true;
+					console.log(b.id);
+					$.mobile.changePage("#HomePage");
+			
+				})
+			}
+			else{
+				$.get(sugarURL+"/service/v2/rest.php", {
+					method: "set_entry",
+					input_type: "JSON",
+					response_type: "JSON",
+					rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","name_value_list":[{"name":"name","value":"'+ newTaskName +'"},{"name":"id","value":"'+ CurrentTaskId +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newTaskDescription +'"},{"name":"status","value":"'+ newTaskStatus +'"},{"name":"date_due","value":"'+ newTaskDue +'"},{"name":"date_start","value":"'+ newTaskStart +'"},{"name":"parent_type","value":"Accounts"},{"name":"contact_id","value":"'+ newTaskContact +'"},{"name":"priority","value":"' + newTaskPriority + '"}]}'
+				}, function (b) {
+					CurrentTaskId="";
+					toUpdateTasks = true;
+					console.log(b.id);
+					$.mobile.changePage("#HomePage");
+				})
+			}
+			$("input[id^='NewTask']").val("");
+			$("#NewTaskDescription").val("");
+			$("input#autocomplete").removeAttr("data-identity");
 
 		
 
