@@ -152,17 +152,6 @@ require(["es_ES"], function(util)
 	$("#NotesListPage").live("pageshow", function () {
 		SugarCrmGetNotesListFromServer(NotesListCurrentOffset);
 	});
-	/*//Para Cargar los contactos en las nuevas tareas
-	$("#CreateNewTask").live("pageshow", function () {
-		$.when(SugarCrmGetContactsListFromServer(ContactsListCurrentOffset))
-		.then(SugarCrmGetContactsTask())
-		.done(SugarCrmGetTaskData());
-	});
-	//Para cargar las empresas referentes a las oportunidades
-	$("#CreateNewOpportunity").live("pageshow", function () {
-		SugarCrmGetAccountsListFromServer(AccountsListCurrentOffset);
-	});*/
-
 
 
 	$("#HomePage").live("pageshow", function () {
@@ -342,15 +331,16 @@ require(["es_ES"], function(util)
 
 	function SugarCrmGetAccountsListFromServer(a) {
 		if ($("#AllAccountsListDiv li").length === 0 || AccountsListCurrentOffset !== a || toUpdateAccounts === true) {
-			toUpdateAccounts = false;
+			
 			$.mobile.loading( "show", {
 				text: RES_LOADER_MSG,
 				textonly: textOnly,
 				textVisible: textVisible
 			});
 			AccountsListCurrentOffset = a;
-			if (AccountsList == "")
+			if (AccountsList == "" || AccountsList.entry_list.length == 0 || toUpdateAccounts === true)
 			{
+				
 				$.get(sugarURL+"/service/v2/rest.php", {
 					method: "get_entry_list",
 					input_type: "JSON",
@@ -369,6 +359,7 @@ require(["es_ES"], function(util)
 							AccountsList = c;
 							DOMAccountsList(c, a);
 						}
+						toUpdateAccounts = false;
 					}
 					//$.mobile.loading( "hide" );
 				})
@@ -636,8 +627,7 @@ require(["es_ES"], function(util)
 					SugarSessionId = "";
 					$.mobile.changePage("#LoginPage")
 				}
-				if (a !==
-					undefined && a.entry_list !== undefined)
+				if (a !== undefined && a.entry_list !== undefined)
 					if (a.entry_list.length > 0) {
 						var c = 0;
 						for (c = 0; c <= a.entry_list.length; c++)
@@ -851,7 +841,7 @@ require(["es_ES"], function(util)
 
 	function SugarCrmGetContactsListFromServer(a) {
 		if ($("#AllContactsListDiv li").length === 0 || ContactsListCurrentOffset !== a || toUpdateContacts === true) {
-			toUpdateContacts = false;
+			
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -859,7 +849,7 @@ require(["es_ES"], function(util)
 			});
 			ContactsListCurrentOffset = a;
 			
-			if (ContactsList == "")
+			if (ContactsList == "" || ContactsList.entry_list.length == 0 || toUpdateContacts === true)
 			{
 				$.get(sugarURL+"/service/v2/rest.php", {
 					method: "get_entry_list",
@@ -874,6 +864,7 @@ require(["es_ES"], function(util)
 							ContactsList = c;
 							DOMContactsList(c, a);
 						}
+						toUpdateContacts = false;
 					}
 					
 				})
@@ -2309,7 +2300,7 @@ require(["es_ES"], function(util)
 	}
 
 	function SugarCrmGetCallsListFromServer(a) {
-		//if ($("#AllCallsListDiv li").length === 0 || CallsListCurrentOffset !== a) {
+		if ($("#AllCallsListDiv li").length === 0 || CallsListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -2372,7 +2363,7 @@ require(["es_ES"], function(util)
 				}
 				$.mobile.loading( "hide" );
 			})
-		//}
+		}
 	}
 
 	function SugarCrmGetCallDetails() {
@@ -2655,7 +2646,7 @@ require(["es_ES"], function(util)
 
 	function SugarCrmGetMeetingsListFromServer(a) {
 		if ($("#AllMeetingsListDiv li").length === 0 || MeetingsListCurrentOffset !== a || toUpdateMeetings === true) {
-			toUpdateMeetings = false;
+			
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -2668,14 +2659,13 @@ require(["es_ES"], function(util)
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","query":"","order_by":"date_start desc","offset":' + a + ',"select_fields":"","link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews + ',"deleted":0}'
 			}, function (c) {
-				if (c !=
-					undefined) {
+				if (c != undefined) {
 					c = $.parseJSON(JSON.stringify(c, undefined, 2));
 					if (c.name !== undefined && c.name === "Invalid Session ID") {
 						SugarSessionId = "";
 						$.mobile.changePage("#LoginPage")
 					}
-					if (c != undefined && c.entry_list != undefined) {
+					if (c !== undefined && c.entry_list !== undefined) {
 						if (c.result_count === 0) MeetingsListCurrentOffset = MeetingsListPrevOffset + RowsPerPageInListViews;
 						else if (c.next_offset === 0) MeetingsListCurrentOffset = 0;
 						if (c.next_offset == 0 || c.result_count == 0) toast(""+RES_NOTHING_TO_SHOW+"");
@@ -2683,8 +2673,7 @@ require(["es_ES"], function(util)
 							$("#AllMeetingsListDiv li").remove();
 							var b = 0;
 							for (b = 0; b <= c.entry_list.length; b++)
-								if (c.entry_list[b] !=
-									undefined) {
+								if (c.entry_list[b] != undefined) {
 									var d = c.entry_list[b],
 										f = $("<li/>"),
 										e = "<h4>" + d.name_value_list.name.value + "</h4>";
@@ -2715,6 +2704,7 @@ require(["es_ES"], function(util)
 								c.next_offset;
 							MeetingsListPrevOffset = a - RowsPerPageInListViews
 						}
+						toUpdateMeetings = false;
 					}
 				}
 				$.mobile.loading( "hide" );
@@ -3294,7 +3284,7 @@ require(["es_ES"], function(util)
 	}
 
 	function SugarCrmGetNotesListFromServer(a) {
-		//if ($("#AllNotesListDiv li").length === 0 || NotesListCurrentOffset !== a) {
+		if ($("#AllNotesListDiv li").length === 0 || NotesListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -3356,7 +3346,7 @@ require(["es_ES"], function(util)
 				}
 				$.mobile.loading( "hide" );
 			})
-		//}
+		}
 	}
 
 	function SugarCrmGetNoteDetails() {
@@ -3423,6 +3413,8 @@ require(["es_ES"], function(util)
 	$("a#ButtonCreateNewLead").click(function(event){ SugarCrmSetDataEmpty(); });
 	$("a#ButtonCreateNewContact").click(function(event){ SugarCrmSetDataEmpty(); });
 	$("a#ButtonCreateNewTask").click(function(event){ SugarCrmSetDataEmpty(); });
+	$("a#ButtonCreateNewOpportunity").click(function(event){ SugarCrmSetDataEmptyOpportunity(); });
+	$("a#ButtonCreateNewMeeting").click(function(event){ SugarCrmSetDataEmptyMeeting(); });
 
 	$("#autocompleteNewContactTask").on("listviewbeforefilter", function(event){ 
 		SugarCrmGetContactsTask();
@@ -3589,15 +3581,48 @@ require(["es_ES"], function(util)
 		$("input[id^='New']").val("");	
 		$("#autocompleteNewContactTask li").remove();
 		$("#NewTaskDescription").val("");
-
-		$('[name=NewTaskPriority]').val( "High" );
-		$('select#NewTaskPriority').selectmenu('refresh', true);
+		$('[name=NewTaskPriority]').val( "High" );		
 		$('[name=NewTaskStatus]').val( "Not Started" );
-		$('select#NewTaskStatus').selectmenu('refresh', true);
 
 		$("input#autocomplete").val("");
 		$("input#autocomplete").attr("data-identity", "");
 
+		$("input#autocomplete").removeAttr("data-identity");		
+
+		//refresh
+		$('select#NewTaskStatus').selectmenu("refresh",true);		
+		$('select#NewTaskPriority').selectmenu("refresh",true);
+		
+
+	}
+	//borra la pagina de las oportunidades
+	function SugarCrmSetDataEmptyOpportunity(){
+		$("input[id^='NewOpportunity']").val("");	
+		$("input#autocompleteAccounts").val("");
+		$("input#autocompleteAccounts").attr("data-identity", "");
+		$("textarea#NewOpportunityDescription").val("");
+
+		$('[name=NewOpportunitySalesStage]').val( "Prospecting" );		
+		$('[name=NewOpportunityType]').val( "New Business" );		
+		$('[name=NewOpportunityLeadSource]').val( "Cold Call" );
+
+		$('select#NewOpportunitySalesStage').selectmenu("refresh",true);
+		$('select#NewOpportunityType').selectmenu("refresh",true);
+		$('select#NewOpportunityLeadSource').selectmenu("refresh",true);
+	}
+
+	//borra la pagina de las reuniones
+	function SugarCrmSetDataEmptyMeeting(){
+		$("input[id^='NewMeeting']").val("");
+		$("textarea#NewMeetingDescription").val("");	
+		
+		
+		$('select#NewMeetingStatus').val("Planned");		
+		$('[name=NewMeetingDuration]').val( "" );		
+		
+		$('select#NewMeetingStatus').selectmenu("refresh",true);
+		$('select#NewMeetingDuration').selectmenu("refresh",true);
+		
 	}
 
 	//Funcion crear nuevo contacto
@@ -3740,36 +3765,46 @@ require(["es_ES"], function(util)
 	//requiere que el usuario teclee al menos 3 caracteres
 function SugarCrmGetContactsTask(){
 		
-	var value;
-	value = $("input#autocomplete").val();
+	var value, results=0;
+	value = $("input#autocomplete").val().toLowerCase();
 		$("#autocompleteNewContactTask li").remove();
 		if(value.length > 2){		
-		var b = 0;
-		for (b = 0; b <= ContactsList.entry_list.length; b++)
-			if (ContactsList.entry_list[b] != undefined) {
-					
-				
-				var d = ContactsList.entry_list[b],
-					f = $("<li class='ui-screen-hidden' data-filtertext='"+d.name_value_list.first_name.value + " " + d.name_value_list.last_name.value+"'/>"),
-					e = d.name_value_list.first_name.value + " " + d.name_value_list.last_name.value,
-					
-				d = $("<a/>", {
-					"data-identity": d.id,
-					href: "#",
-					click: function () {
-						var text = $(this).html();
-						$("input#autocomplete").val(text);
-						$("input#autocomplete").removeAttr("data-identity");
-						$("input#autocomplete").attr("data-identity", $(this).data("identity"));
-					 	$("#autocompleteNewContactTask li").remove();
-					 	$("input#autocomplete").textinput('refresh');
+			var b = 0;
+			for (b = 0; b <= ContactsList.entry_list.length; b++)
+				if (ContactsList.entry_list[b] != undefined) {
+						
+					//Obtener el dato del input
+
+					//Ver si hace match en ContactList -> elemento en cuestión
+					var contact = ContactsList.entry_list[b].name_value_list.first_name.value+" "+ContactsList.entry_list[b].name_value_list.last_name.value;
+					contact=contact.toLowerCase();
+					var n = contact.indexOf(value); 
+					if(n !== -1 && results < 5){
+						
+						var d = ContactsList.entry_list[b],
+							f = $("<li class='ui-screen-hidden' data-filtertext='"+d.name_value_list.first_name.value + " " + d.name_value_list.last_name.value+"'/>"),
+							e = d.name_value_list.first_name.value + " " + d.name_value_list.last_name.value,
+							
+						d = $("<a/>", {
+							"data-identity": d.id,
+							href: "#",
+							click: function () {
+								var text = $(this).html();
+								$("input#autocomplete").val(text);
+								$("input#autocomplete").removeAttr("data-identity");
+								$("input#autocomplete").attr("data-identity", $(this).data("identity"));
+							 	$("#autocompleteNewContactTask li").remove();
+							 	$("input#autocomplete").textinput('refresh');
+							}
+						});
+						d.append(e);
+						f.append(d);
+						$("#autocompleteNewContactTask").append(f);
+						results++;
 					}
-				});
-				d.append(e);
-				f.append(d);
-				$("#autocompleteNewContactTask").append(f);
-			}
-		$("ul#autocompleteNewContactTask").listview("refresh");
+				}
+			$("ul#autocompleteNewContactTask").listview("refresh");
+
 		}
 	}
 
@@ -3906,7 +3941,7 @@ function SugarCrmGetContactsTask(){
 	function SugarCrmSetNewOpportunity(id)
 	{
 		var newOpportunityName = $("input#NewOpportunityName").val();
-		var newOpportunityAccountId = $("ul#NewOpportunityAccountName").data("identity");
+		var newOpportunityAccountId = $("input#autocompleteAccounts").attr("data-identity");
 		var newOpportunityQuantity = $("input#NewOpportunityQuantity").val();
 		var newOpportunityCloseDate =changeDate($("input#NewOpportunityCloseDate").val(),0);
 		var newOpportunitySalesStage = $("select#NewOpportunitySalesStage").val();
@@ -3989,7 +4024,17 @@ function SugarCrmGetContactsTask(){
 
 	//Obtener los datos de las oportunidades (NO OBTENEMOS ACCOUNTS/EMPRESAS)
 	function SugarCrmGetOpportunityData(){
-			
+		for (var b = 0; b <= AccountsList.entry_list.length; b++){
+			if (AccountsList.entry_list[b] != undefined) {
+				var d = AccountsList.entry_list[b];
+
+				if(d.name_value_list.name.value == CurrentOpportunity.name_value_list.account_name.value){
+					$("input#autocompleteAccounts").val(d.name_value_list.name.value);
+					$("input#autocompleteAccounts").attr("data-identity", d.id);
+					break;
+				}
+			}
+		}	
 		$("ul#NewOpportunityAccountName").closest('[data-role=listview]').prev('form').find('input').val();
 		$("input#NewOpportunityName").val(CurrentOpportunity.name_value_list.name.value);
 		$("input#NewOpportunityQuantity").val(CurrentOpportunity.name_value_list.amount.value);
@@ -4004,22 +4049,12 @@ function SugarCrmGetContactsTask(){
 		$('select#NewOpportunityLeadSource').selectmenu('refresh', true);
 		$("input#NewOpportunityNextStep").val(CurrentOpportunity.name_value_list.next_step.value);
 		$("textarea#NewOpportunityDescription").val(CurrentOpportunity.name_value_list.description.value);
-				
-		for (var b = 0; b <= AccountsList.entry_list.length; b++){
-			if (AccountsList.entry_list[b] != undefined) {
-				var d = AccountsList.entry_list[b];
-
-				if(d.name == CurrentOpportunity.name_value_list.account_name.value){
-					
-				}
-			}
-		}
 	}
 
 	//Función que autocompleta el input referente a oportunidades con los empresas ya cargadas,
 	//en caso de no estar cargadas, las carga
 	function SugarCrmGetAccountsOpportunities(){
-		var	value = $("ul#NewOpportunityAccountName").closest('[data-role=listview]').prev('form').find('input').val();
+		var	value = $("input#autocompleteAccounts").val();
 		$("#NewOpportunityAccountName li").remove();
 		if(value.length > 2){
 			var b = 0;
@@ -4034,8 +4069,8 @@ function SugarCrmGetContactsTask(){
 						href: "#",
 						click: function () {
 							var text = $(this).html();
-							$(this).closest('[data-role=listview]').prev('form').find('input').val(text);
-							$("ul#NewOpportunityAccountName").attr("data-identity", $(this).data("identity"));
+							$("input#autocompleteAccounts").val(text);
+							$("input#autocompleteAccounts").attr("data-identity", $(this).data("identity"));
 						 	$("#NewOpportunityAccountName li").remove();
 
 						}
@@ -4049,11 +4084,15 @@ function SugarCrmGetContactsTask(){
 	}
 
 	//Inserta o modifica las reuniones
-	function SugarCrmSetNewMeeting(id)
-	{
+	function SugarCrmSetNewMeeting(id){
 		var newMeetingSubject = $("input#NewMeetingSubject").val();
 		var newMeetingStatus = $("select#NewMeetingStatus").val();
-		var newMeetingStartDateTime = changeDate($("input#NewMeetingStartDate").val(), $("input#NewMeetingStartTime").val());
+		if($("input#NewMeetingStartTime").val()!==""){
+			var newMeetingStartDateTime = changeDate($("input#NewMeetingStartDate").val(), $("input#NewMeetingStartTime").val());
+		}
+		else{
+			var newMeetingStartDateTime = changeDate($("input#NewMeetingStartDate").val(), "00:00 AM");
+		}
 		var newMeetingEndDateTime = changeDate($("input#NewMeetingEndDate").val(), $("input#NewMeetingEndTime").val());
 		var newMeetingStatus = $("select#NewMeetingDuration").val();
 		var time = secondsToHoursandMinutes(newMeetingStatus);
@@ -4099,7 +4138,6 @@ function SugarCrmGetContactsTask(){
 	//Obtener los datos de las reuniones (NO OBTENEMOS INVITADOS [faltan los ul] )
 	function SugarCrmGetMeetingData(){
 		$("input#NewMeetingSubject").val(CurrentMeeting.name_value_list.name.value);
-		
 
 		var valueInputStart = setDateInput(CurrentMeeting.name_value_list.date_start.value);
 					valueInputStart = valueInputStart.split("-",2);
@@ -4174,7 +4212,7 @@ function SugarCrmGetContactsTask(){
 		}
 	}
 	
-//Conversor de horas y minutos a segundos usado en la duracion de las reuniones para guardarlas en la BD
+	//Conversor de horas y minutos a segundos usado en la duracion de las reuniones para guardarlas en la BD
 	function secondsToHoursandMinutes(seconds){
 		var minutes,
 			hours;

@@ -10,19 +10,28 @@
         <script src="lib/jquery-migrate-1.2.1.min.js"></script>
 
         <link rel="stylesheet" href="lib/jqm/jquery.mobile-1.4.2.min.css" />
-        <link rel="stylesheet" href="css/jlcmCRM.min.css" />
+        <link rel="stylesheet" href="css/jlcmCRM.css" />
         <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
         <script type="text/javascript" src="js/jquery.mobile-config.js"></script>
         <script type="text/javascript" src="lib/jqm/jquery.mobile-1.4.2.min.js"></script>
         <link rel="stylesheet" href="css/style.min.css" />
 
-        <link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" />
-        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
+        <!--<link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" /> -->
+        <link rel="stylesheet" type="text/css" href="css/jqm-datebox.min.css" />
+
+        <!-- <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script> -->
+        <script type="text/javascript" src="js/jqm-datebox.core.min.js"></script>
         
-        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
-        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+        <!-- <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>-->
+        <script type="text/javascript" src="js/jqm-datebox.mode.calbox.min.js"></script>
+
+        <!--<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script> -->
+        <script type="text/javascript" src="js/jqm-datebox.mode.datebox.min.js"></script>
+
+
         <!-- Traduce al castellano los botones de los input tipo fecha e input tipo time de #CreateNewTask-->
-        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.es-ES.asc.js"></script>
+        <!--<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.es-ES.asc.js"></script>-->
+        <script type="text/javascript" src="js/jquery.mobile.datebox.i18n.es-ES.asc.js"></script>
         
 
         <!-- To upload the images on the Create Note -->
@@ -853,7 +862,10 @@
                     <label for="NewOpportunityAccountName">
                         Nombre Empresa
                     </label>
-                    <ul id="NewOpportunityAccountName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Busque una empresa..." data-filter-theme="b"></ul>
+                    <form class="ui-filterable">
+                        <input id="autocompleteAccounts" data-type="search" >
+                    </form>
+                    <ul id="NewOpportunityAccountName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Busque una empresa..." data-filter-theme="b" data-input="#autocompleteAccounts"></ul>
                     <br><br><br><br><br><br><br>
                 </div>
                 <div class="ui-field-contain" data-controltype="textinput">
