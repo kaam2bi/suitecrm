@@ -3599,7 +3599,10 @@ require(["es_ES"], function(util)
 	function SugarCrmSetDataEmptyOpportunity(){
 		$("input[id^='NewOpportunity']").val("");	
 		$("input#autocompleteAccounts").val("");
+
 		$("input#autocompleteAccounts").attr("data-identity", "");
+		$("input#autocompleteAccounts").removeAttr("data-identity");
+
 		$("textarea#NewOpportunityDescription").val("");
 
 		$('[name=NewOpportunitySalesStage]').val( "Prospecting" );		
@@ -3773,9 +3776,7 @@ function SugarCrmGetContactsTask(){
 			for (b = 0; b <= ContactsList.entry_list.length; b++)
 				if (ContactsList.entry_list[b] != undefined) {
 						
-					//Obtener el dato del input
-
-					//Ver si hace match en ContactList -> elemento en cuestión
+				
 					var contact = ContactsList.entry_list[b].name_value_list.first_name.value+" "+ContactsList.entry_list[b].name_value_list.last_name.value;
 					contact=contact.toLowerCase();
 					var n = contact.indexOf(value); 
@@ -3872,7 +3873,6 @@ function SugarCrmGetContactsTask(){
 					if(d.id == CurrentTask.name_value_list.contact_id.value){
 						$("input#autocomplete").val(d.name_value_list.first_name.value+" "+d.name_value_list.last_name.value);
 						$("input#autocomplete").attr("data-identity", d.id);
-						//$("ul#autocompleteNewContactTask").closest('[data-role=listview]').prev('form').find('input').val();
 						break;
 					}
 				}
@@ -3893,10 +3893,7 @@ function SugarCrmGetContactsTask(){
 
 			$('select#NewTaskPriority').selectmenu('refresh', true);
 			$('select#NewTaskStatus').selectmenu('refresh', true);
-			//$("ul#autocompleteNewContactTask").listview('refresh');
-			//$("ul#autocompleteNewContactTask").closest('[data-role=listview]').prev('form').find('input').filterable('refresh');
-
-
+			
 	}
 
 
@@ -3950,6 +3947,7 @@ function SugarCrmGetContactsTask(){
 		var newOpportunityLeadSource = $("select#NewOpportunityLeadSource").val();
 		var newOpportunityNextStep = $("input#NewOpportunityNextStep").val();
 		var newOpportunityDescription = $("textarea#NewOpportunityDescription").val();
+
 		
 		
 		toast(RES_NEW_ITEM_LOADING);
@@ -3977,107 +3975,119 @@ function SugarCrmGetContactsTask(){
 			})
 		}
 		else{
-			/*$.get(sugarURL+"/service/v2/rest.php", {
+			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
 				input_type: "JSON",
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","name_value_list":[{"name":"id","value":"'+ CurrentOpportunityId +'"},{"name":"name","value":"'+ newOpportunityName +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newOpportunityDescription +'"},{"name":"opportunity_type","value":"'+ newOpportunityType +'"},{"name":"lead_source","value":"'+ newOpportunityLeadSource +'"},{"name":"amount","value":"'+ newOpportunityQuantity +'"},{"name":"amount_usdollar","value":"'+newOpportunityQuantity+'"},{"name":"currency_id","value":"-99"},{"name":"date_closed","value":"' + newOpportunityCloseDate + '"},{"name":"next_step","value":"' + newOpportunityNextStep + '"},{"name":"sales_stage","value":"' + newOpportunitySalesStage + '"},{"name":"probability","value":"' + newOpportunityProbability + '"}]}'
 			}, function (b) {
 				console.log(b);
-				$.get(sugarURL +"/service/v2/rest.php", {
-					method: "get_relationship",
-    				input_type: "JSON",
-    				response_type: "JSON",
-    				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + b.id + '","link_field_name":"accounts","related_module_query":"","related_fields":["id"]}'
-    				
-    				}, function(c){
-    					console.log(c);
-
-				})*/
-				/*$.get(sugarURL +"/service/v2/rest.php", {
-    				method: "set_relationship",
-    				input_type: "JSON",
-    				response_type: "JSON",
-    				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + b.id + '","link_field_name":"accounts","name_value_list":[],"deleted":"1"}'
-    				}, function(c) {
-    					if (c !== undefined) {
-							$.get(sugarURL +"/service/v2/rest.php", {
+				var idOpportunity = b.id;
+				for(var c=0; c<AccountsList.entry_list.length; c++){
+					if(AccountsList.entry_list[c].name_value_list.name.value == CurrentOpportunity.name_value_list.account_name.value){
+						$.get(sugarURL+"/service/v2/rest.php", {
+    						method: "set_relationship",
+    						input_type: "JSON",
+    						response_type: "JSON",
+    						rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + idOpportunity + '","link_field_name":"accounts","related_ids":["'+ AccountsList.entry_list[c].id +'"],"name_value_list":[],"deleted":"1"}'
+						}, function (d) {
+							$.get(sugarURL+"/service/v2/rest.php", {
     							method: "set_relationship",
-			    				input_type: "JSON",
+    							input_type: "JSON",
     							response_type: "JSON",
-    							rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + b.id + '","link_field_name":"accounts","related_ids":["'+ newOpportunityAccountId +'"],"name_value_list":[],"deleted":"0"}'
-    						}, function(d){
-    							CurrentOpportunityId="";
-    							console.log(d);
-    							toUpdateOpportunities = true;						
+    							rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + idOpportunity + '","link_field_name":"accounts","related_ids":["'+ newOpportunityAccountId +'"],"name_value_list":[],"deleted":"0"}'
+							}, function (e) {
+								console.log(e);
+								toUpdateOpportunities = true;
 								$.mobile.changePage("#HomePage");
-								
-    						})
-    				    }
-    				})*/
-			//})
+							});
+						});
+					}
+				}
+			})
 
 		}
 		$("input[id^='NewOpportunity']").val("");
 		$("textarea#NewOpportunityDescription").val("");
+		$("input#autocompleteAccounts").removeAttr("data-identity");
+
 	}
 
-	//Obtener los datos de las oportunidades (NO OBTENEMOS ACCOUNTS/EMPRESAS)
+	//Obtener los datos de las oportunidades
 	function SugarCrmGetOpportunityData(){
+			
+		$("#NewOpportunityAccountName li").remove();
 		for (var b = 0; b <= AccountsList.entry_list.length; b++){
 			if (AccountsList.entry_list[b] != undefined) {
 				var d = AccountsList.entry_list[b];
 
 				if(d.name_value_list.name.value == CurrentOpportunity.name_value_list.account_name.value){
+
 					$("input#autocompleteAccounts").val(d.name_value_list.name.value);
 					$("input#autocompleteAccounts").attr("data-identity", d.id);
 					break;
 				}
 			}
 		}	
-		$("ul#NewOpportunityAccountName").closest('[data-role=listview]').prev('form').find('input').val();
+		
 		$("input#NewOpportunityName").val(CurrentOpportunity.name_value_list.name.value);
 		$("input#NewOpportunityQuantity").val(CurrentOpportunity.name_value_list.amount.value);
 		var valueInputStart = setDateInput(CurrentOpportunity.name_value_list.date_closed.value);
 		$("input#NewOpportunityCloseDate").val(valueInputStart);
 		$('[name=NewOpportunitySalesStage]').val(CurrentOpportunity.name_value_list.sales_stage.value);
-		$('select#NewOpportunitySalesStage').selectmenu('refresh', true);
+		
 		$('[name=NewOpportunityType]').val(CurrentOpportunity.name_value_list.opportunity_type.value);
-		$('select#NewOpportunityType').selectmenu('refresh', true);
+		
 		$("input#NewOpportunityProbability").val(CurrentOpportunity.name_value_list.probability.value);
 		$('[name=NewOpportunityLeadSource]').val(CurrentOpportunity.name_value_list.lead_source.value);
-		$('select#NewOpportunityLeadSource').selectmenu('refresh', true);
+		
 		$("input#NewOpportunityNextStep").val(CurrentOpportunity.name_value_list.next_step.value);
 		$("textarea#NewOpportunityDescription").val(CurrentOpportunity.name_value_list.description.value);
+
+		$('select#NewOpportunitySalesStage').selectmenu('refresh', true);
+		$('select#NewOpportunityType').selectmenu('refresh', true);
+		$('select#NewOpportunityLeadSource').selectmenu('refresh', true);
 	}
 
 	//Función que autocompleta el input referente a oportunidades con los empresas ya cargadas,
 	//en caso de no estar cargadas, las carga
 	function SugarCrmGetAccountsOpportunities(){
-		var	value = $("input#autocompleteAccounts").val();
+		var results=0;
+
+		var	value = $("input#autocompleteAccounts").val().toLowerCase();
 		$("#NewOpportunityAccountName li").remove();
 		if(value.length > 2){
 			var b = 0;
 			for (b = 0; b <= AccountsList.entry_list.length; b++)
 				if (AccountsList.entry_list[b] != undefined) {
-					var d = AccountsList.entry_list[b],
-						f = $("<li class='ui-screen-hidden'/>"),
-						e = d.name_value_list.name.value ,
-						
-					d = $("<a/>", {
-						"data-identity": d.id,
-						href: "#",
-						click: function () {
-							var text = $(this).html();
-							$("input#autocompleteAccounts").val(text);
-							$("input#autocompleteAccounts").attr("data-identity", $(this).data("identity"));
-						 	$("#NewOpportunityAccountName li").remove();
 
-						}
-					});
-					d.append(e);
-					f.append(d);
-					$("#NewOpportunityAccountName").append(f);
+					var account = AccountsList.entry_list[b].name_value_list.name.value;
+					account=account.toLowerCase();
+					var n = account.indexOf(value); 
+					if(n !== -1 && results < 5){
+
+						var d = AccountsList.entry_list[b],
+							f = $("<li class='ui-screen-hidden' data-filtertext='"+d.name_value_list.name.value+"'/>"),
+							e = d.name_value_list.name.value ,
+							
+						d = $("<a/>", {
+							"data-identity": d.id,
+							href: "#",
+							click: function () {
+								var text = $(this).html();
+								$("input#autocompleteAccounts").val(text);
+								$("input#autocompleteAccounts").removeAttr("data-identity");
+								$("input#autocompleteAccounts").attr("data-identity", $(this).data("identity"));
+							 	$("#NewOpportunityAccountName li").remove();
+							 	$("input#autocompleteAccounts").textinput('refresh');
+
+							}
+						});
+						d.append(e);
+						f.append(d);
+						$("#NewOpportunityAccountName").append(f);
+						results++;
+					}
 				}
 			$("#NewOpportunityAccountName").listview("refresh");
 		}
