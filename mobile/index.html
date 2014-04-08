@@ -387,7 +387,7 @@
         <div data-role="page" id="ViewCallDetailsPage" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1>Llamada</h1>
-                <a href="#HomePage" data-icon="home" data-direction="reverse" class="ui-btn-right">Inicio</a>
+                <a id="EditCallDetails" href="#EditingCallDetails" data-icon="star"  class="ui-btn-right">Editar</a>
             </div>
             <div data-role="content">
                 <h3 id="CallNameH1"></h3>
@@ -510,7 +510,7 @@
                 </div>
                 <div class="ui-field-contain" data-controltype="imageinput">
                     <label for="NewNoteImage">Imagen adjunta</label>
-                    <input type="file" name="" id="imageInput" accept="image/*" capture="camera">
+                    <input type="file" name="" id="imageInput" accept="*/*">
                 </div>
                 <div class="ui-field-contain" data-controltype="canvas" style="margin-top:2em">
                     <canvas id="attachedImage" style="width:100%"></canvas>
@@ -610,9 +610,14 @@
                         Apellidos
                     </label>
                     <input name="" id="NewContactLastName" placeholder="" value="" type="text">
-                </div>    
-
-                   <div class="ui-field-contain" data-controltype="textinput">
+                </div>
+                 <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewContactEmail">
+                        Email
+                    </label>
+                    <input name="" id="NewContactEmail" placeholder="" value="" type="email">
+                </div>                
+                <div class="ui-field-contain" data-controltype="textinput">
                     <label for="NewContactPhoneWork">
                         Telefono
                     </label>
@@ -1106,6 +1111,49 @@
                 <p style="font-size:8px" class="mensaje_footer"></p>
             </div>
         </div>
+<!-- Edicion de la duracion de la llamada -->        
+<div data-role="page"  id="EditingCallDetails" data-theme="b">
+     <div data-role="header" data-add-back-btn="true" data-back-btn-text="Cancelar">
+        <h1>Editar llamada</h1>
+        <a id="SaveNewCall" data-icon="check" data-direction="reverse" class="ui-btn-right">Guardar</a>
+     </div>
+    <div role="main" class="ui-content">
+<div class="ui-field-contain" data-controltype="textinput">
+            <label for="NewCallDateTime">
+                Fecha-Hora
+            </label>
+            <input name="" id="NewCallDateTime" placeholder="" value="" type="text" readonly>
+        </div>
+        <div class="ui-field-contain" data-controltype="textinput">
+            <label for="NewCallContact">
+                Contacto
+            </label>
+            <input name="" id="NewCallContact" placeholder="" value="" type="text" readonly>
+        </div>        
 
+        <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewCallHours">
+                        Horas
+                    </label>
+                    <input name="" id="NewCallHours" placeholder="" value="" type="number" maxlength="2" min="0" max="23">
+                </div>
+            </div>
+            <div class="ui-block-b">
+                <div class="ui-field-contain" data-controltype="textinput">
+                    <label for="NewCallMinutes">
+                        Minutos
+                    </label>
+                    <input name="" id="NewCallMinutes" placeholder="" value="" type="number" maxlength="2" min="0" max="59">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="footer" data-position="fixed">
+                <p style="font-size:8px" class="mensaje_footer"></p>
+            </div>
+</div>
     </body>
 </html>

@@ -52,6 +52,7 @@ require(["es_ES"], function(util)
     toUpdateTasks = false,
     toUpdateOpportunities=false,
     toUpdateMeetings = false,
+    toUpdateCalls = false,
     //Listas de contactos para despues cargarlos en un input,ul de las busquedas    
     ContactsList = "",
     AccountsList = "";
@@ -2300,7 +2301,7 @@ require(["es_ES"], function(util)
 	}
 
 	function SugarCrmGetCallsListFromServer(a) {
-		if ($("#AllCallsListDiv li").length === 0 || CallsListCurrentOffset !== a) {
+		if ($("#AllCallsListDiv li").length === 0 || CallsListCurrentOffset !== a || toUpdateCalls === true) {
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -2361,6 +2362,7 @@ require(["es_ES"], function(util)
 						}
 					}
 				}
+				toUpdateCalls= false;
 				$.mobile.loading( "hide" );
 			})
 		}
@@ -2391,6 +2393,7 @@ require(["es_ES"], function(util)
 				if (a != undefined && a.entry_list != undefined)
 					if (a.entry_list[0] != undefined) {
 						a = a.entry_list[0];
+						CurrentCall = a;
 						$("#CallNameH1").html(a.name_value_list.name.value);
 						var c = status2[a.name_value_list.direction.value] + " " + status2[a.name_value_list.status.value];
 						$("#CallSubjectP").text(c);
@@ -3399,6 +3402,7 @@ require(["es_ES"], function(util)
 	var CurrentTask = "";
 	var CurrentOpportunity ="";
 	var CurrentMeeting = "";
+	var CurrentCall = "";
 
 	// Métodos onclick de boton de edición
 	$("a#SaveNewNote").click(function(event){ SugarCrmSetNewNote(); });
@@ -3431,6 +3435,10 @@ require(["es_ES"], function(util)
 	$("a#SaveNewMeeting").click(function(event){ SugarCrmSetNewMeeting(CurrentMeetingId); });
 	$("a#EditMeetingDetails").click(function(event){ SugarCrmGetMeetingData(); });
 
+	$("a#EditCallDetails").click(function(event){ SugarCrmGetCallData(); });
+	$("a#SaveNewCall").click(function(event){ SugarCrmEditCall(CurrentCallId); });
+
+
    	// Método onchange de imagen
    	$('#imageInput').on('change', function() {
    		
@@ -3457,6 +3465,7 @@ require(["es_ES"], function(util)
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"'+RES_CALL_LOGGED_FROM_CLIENT +'"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Held"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":1},{"name":"date_start","value":"' + now(false, true) + '"},{"name":"date_end","value":"' + now(false, true) + '"},{"name":"direction","value":"Outbound"}]}'
 		}, function (b) {
 			toast(RES_NEW_ITEM_CREATED);
+			toUpdateCalls = true;
 		})
 	}
 
@@ -3635,15 +3644,19 @@ require(["es_ES"], function(util)
 		var newContactPhoneWork = $("input#NewContactPhoneWork").val();
 		var newContactPhoneFax = $("input#NewContactPhoneFax").val();
 		var newContactPhoneMobile = $("input#NewContactPhoneMobile").val();
-		
+		var newContactEmail = $("input#NewContactEmail").val();		
 		var newContactLastName = $("input#NewContactLastName").val();
 		var newContactPrimaryAddressStreet = $("input#NewContactPrimaryAddressStreet").val();
 		var newContactPrimaryAddressCity = $("input#NewContactPrimaryAddressCity").val();
 		var newContactPrimaryAddressState = $("input#NewContactPrimaryAddressState").val();
 		var newContactPrimaryAddressPostalCode = $("input#NewContactPrimaryAddressPostalCode").val();
 		var newContactPrimaryAddressCountry = $("input#NewContactPrimaryAddressCountry").val();
+
+		var idEmail="";
+		var idContact="";
 		
 		toast(RES_NEW_ITEM_LOADING);
+
 		if(id=="")
 		{
 			
@@ -3652,12 +3665,30 @@ require(["es_ES"], function(util)
 				input_type: "JSON",
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","name_value_list":[{"name":"first_name","value":"'+ newContactName +'"},{"name":"last_name","value":"'+ newContactLastName +'"},{"name":"phone_fax","value":"'+ newContactPhoneFax +'"},{"name":"phone_work","value":"'+ newContactPhoneWork +'"},{"name":"phone_mobile","value":"'+ newContactPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newContactPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newContactPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newContactPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newContactPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newContactPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
-			}, function (b) {
-				toUpdateContacts = true;
-				console.log(b.id);
-				
-				$.mobile.changePage("#HomePage");
-			})
+				}, function (b) {
+					idContact=b.id;
+					$.get(sugarURL+"/service/v2/rest.php", {
+						method: "set_entry",
+						input_type: "JSON",
+						response_type: "JSON",
+						rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","name_value_list":[{"name":"email_address","value":"'+ newContactEmail +'"},{"name":"email_address_caps","value":"'+ newContactEmail.toUpperCase() +'"},{"name":"date_created","value":"'+ now(false,true) +'"},{"name":"date_modified","value":"'+ now(false,true) +'"},"deleted":"0"]}'
+					}, function (c) {
+						idEmail=c.id;
+						$.get(sugarURL+"/service/v2/rest.php", {
+    						method: "set_relationship",
+    						input_type: "JSON",
+    						response_type: "JSON",
+    						rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + idContact + '","link_field_name":"email_addresses","related_ids":["'+ idEmail +'"],"name_value_list":[],"deleted":"0"}'
+						
+						}, function (d) {
+		
+							toUpdateContacts = true;
+							console.log(b.id);
+							$.mobile.changePage("#HomePage");
+						})
+					})
+				})
+			
 		}
 		else{
 			$.get(sugarURL+"/service/v2/rest.php", {
@@ -3680,6 +3711,8 @@ require(["es_ES"], function(util)
 	//Funcion que carga los datos del contacto
 	function SugarCrmGetContactData()
 	{
+		
+		$("input#NewContactEmail").val(CurrentContact.name_value_list.email1.value);	
 
 		$("input#NewContactName").val(CurrentContact.name_value_list.first_name.value);		
 		$("input#NewContactPhoneWork").val(CurrentContact.name_value_list.phone_work.value);
@@ -4000,8 +4033,8 @@ function SugarCrmGetContactsTask(){
 								console.log(e);
 								toUpdateOpportunities = true;
 								$.mobile.changePage("#HomePage");
-							});
-						});
+							})
+						})
 					}
 				}
 			})
@@ -4168,6 +4201,55 @@ function SugarCrmGetContactsTask(){
 		$('select#NewMeetingDuration').selectmenu('refresh', true);			
 	}
 
+	 
+
+
+	function SugarCrmGetCallData(){
+		$("input#NewCallDateTime").val(change(CurrentCall.name_value_list.date_start.value));
+		$("input#NewCallHours").val(CurrentCall.name_value_list.duration_hours.value);
+		$("input#NewCallMinutes").val(CurrentCall.name_value_list.duration_minutes.value);
+
+
+		switch(CurrentCall.name_value_list.parent_type.value){
+			case "Accounts":
+				for( var c=0;c<AccountsList.entry_list.length;c++){
+					if(CurrentCall.name_value_list.parent_id.value === AccountsList.entry_list[c].id ){
+						$("input#NewCallContact").val(AccountsList.entry_list[c].name_value_list.name.value);
+						break;
+					}
+				}
+
+
+			
+			case "Contacts":
+				for( var c=0;c<ContactsList.entry_list.length;c++){
+					if(CurrentCall.name_value_list.parent_id.value === ContactsList.entry_list[c].id ){
+						$("input#NewCallContact").val(ContactsList.entry_list[c].name_value_list.first_name.value+" "+ContactsList.entry_list[c].name_value_list.last_name.value);
+						break;
+					}
+				}
+			
+		
+		}
+	}
+
+
+	// Función para editar la llamada
+	function SugarCrmEditCall(id) {
+		var hours = $("input#NewCallHours").val();
+		var minutes = $("input#NewCallMinutes").val();
+
+		$.get(sugarURL+"/service/v2/rest.php", {
+			method: "set_entry",
+			input_type: "JSON",
+			response_type: "JSON",
+			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"id","value":"'+id+'"},{"name":"date_modified","value":"'+now(false,true)+'"},{"name":"duration_hours","value":'+hours+'},{"name":"duration_minutes","value":'+minutes+'}]}'
+		}, function (b) {
+			toUpdateCalls = true;
+			$.mobile.changePage("#HomePage");
+		})
+	}
+
 	// *************************************************************
 	// ** FUNCIONES AUXILIARES									  **
 	// *************************************************************
@@ -4262,6 +4344,7 @@ function SugarCrmGetContactsTask(){
 			return "";
 		}
 	}
+
 
 
 	// Devuelve la fecha y hora actual 
