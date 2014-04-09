@@ -16,6 +16,8 @@
         <script type="text/javascript" src="lib/jqm/jquery.mobile-1.4.2.min.js"></script>
         <link rel="stylesheet" href="css/style.min.css" />
 
+        <script type="text/javascript" src="js/jquery.cookie.js"></script>
+
         <!--<link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" /> -->
         <link rel="stylesheet" type="text/css" href="css/jqm-datebox.min.css" />
 
@@ -57,6 +59,9 @@
                 <br /><br />
                 <label for="SettingsPageSugarCrmPassword">Contraseña:</label>
                 <input id="SettingsPageSugarCrmPassword" type="password" />
+                <br /><br />
+                <label for="SettingsPageSugarCrmPassword">Dirección de Sugar:</label>
+                <input id="SettingsPageSugarCrmUrl" type="text" value=".." />
                 <br /><br />
                 <a id="loginWebBtn" data-role="button" data-inline="true">Versión Web</a>
                 <a id="loginMobileBtn" data-role="button" data-inline="true">Cliente Móvil</a>
@@ -1106,6 +1111,20 @@
                     </label>
                     <textarea name="NewMeetingDescription" id="NewMeetingDescription" placeholder=""></textarea>
                 </div>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        
+                        <form class="ui-filterable">
+                            <input id="autocompleteContacts" data-type="search" >
+                        </form>
+                        <ul id="NewMeetingContactsList" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Busque un contacto..." data-filter-theme="b" data-input="#autocompleteContacts"></ul>
+
+                    </div>
+                    <div class="ui-block-b">
+                        <ul id="NewContactsMetting" data-role="listview" data-inset="true"></ul>
+                    </div>
+                 </div>
+
             </div>
             <div data-role="footer" data-position="fixed">
                 <p style="font-size:8px" class="mensaje_footer"></p>
