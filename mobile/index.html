@@ -770,27 +770,23 @@
                 <div class="ui-field-contain" data-controltype="dateinput">
                     <label for="NewTaskStartDate">Fecha de Inicio</label>
 
-                    <input name="NewTaskStartDate" id="NewTaskStartDate" type="date" data-role="datebox" data-options='{"mode": "calbox"}'>
-                    <!-- <label for="NewTaskStartDate">
-                        Fecha de Inicio
-                    </label>
-                    <input name="" id="NewTaskStartDate" placeholder="dd/mm/aaaa" value="" type="date"> -->
+                    <input name="NewTaskStartDate" id="NewTaskStartDate" type="date" data-role="datebox" data-options='{"mode": "calbox", "overrideCalStartDay": 1, "useFocus": true, "useButton": false}'>
                 </div>
                 
                 <div class="ui-field-contain" data-controltype="dateinput">
                     <label for="NewTaskStartTime">Hora de Inicio</label>
-                    <input name="NewTaskStartTime" id="NewTaskStartTime" type="date" data-role="datebox" data-options='{"mode": "timebox", "overrideTimeFormat": 24}'>
+                    <input name="NewTaskStartTime" id="NewTaskStartTime" type="date" data-role="datebox" data-options='{"mode": "timebox", "overrideTimeFormat": 24, "useFocus": true, "useButton": false}'>
                 </div>                    
                 
                 <div class="ui-field-contain" data-controltype="dateinput">
                     <label for="NewTaskDueDate">Fecha de Vencimiento</label>
 
-                    <input name="NewTaskDueDate" id="NewTaskDueDate" type="date" data-role="datebox" data-options='{"mode": "calbox"}'>
+                    <input name="NewTaskDueDate" id="NewTaskDueDate" type="date" data-role="datebox" data-options='{"mode": "calbox", "overrideCalStartDay": 1, "useFocus": true, "useButton": false}'>
                 </div>
                 <div class="ui-field-contain" data-controltype="dateinput">
                     <label for="NewTaskDueTime">Hora de Vencimiento</label>
 
-                    <input name="NewTaskDueTime" id="NewTaskDueTime" type="date" data-role="datebox" data-options='{"mode": "timebox", "overrideTimeFormat": 24}'>
+                    <input name="NewTaskDueTime" id="NewTaskDueTime" type="date" data-role="datebox" data-options='{"mode": "timebox", "overrideTimeFormat": 24, "useFocus": true, "useButton": false}'>
                 </div>
                 <div class="ui-field-contain" data-controltype="selectmenu">
                     <label for="NewTaskPriority">
@@ -887,7 +883,7 @@
                 </div>
                 <div class="ui-field-contain" data-controltype="dateinput">
                     <label for="NewOpportunityCloseDate">Fecha de cierre</label>
-                    <input name="NewOpportunityCloseDate" id="NewOpportunityCloseDate" type="date" data-role="datebox" data-options='{"mode": "calbox"}'>
+                    <input name="NewOpportunityCloseDate" id="NewOpportunityCloseDate" type="date" data-role="datebox" data-options='{"mode": "calbox", "overrideCalStartDay": 1,"useFocus": true, "useButton": false}'>
                 </div>
                 <div class="ui-field-contain" data-controltype="selectmenu">
                     <label for="NewOpportunitySalesStage">
@@ -1029,7 +1025,7 @@
                     <label for="NewMeetingStatus">
                         Estado
                     </label>
-                    <select id="NewMeetingStatus" name="">
+                    <select id="NewMeetingStatus" name="NewMeetingStatus">
                         <option value="Planned">
                             Planificada
                         </option>
@@ -1043,21 +1039,12 @@
                 </div>
                 <div class="ui-field-contain" data-controltype="dateinput">
                     <label for="NewMeetingStartDate">Fecha de Inicio</label>
-                    <input name="NewMeetingStartDate" id="NewMeetingStartDate" type="date" data-role="datebox" data-options='{"mode": "calbox"}'>
+                    <input name="NewMeetingStartDate" id="NewMeetingStartDate" type="date" data-role="datebox" data-options='{"mode": "calbox", "overrideCalStartDay": 1, "useFocus": true, "useButton": false}'>
                 </div>
                 <div class="ui-field-contain" data-controltype="dateinput">
                     <label for="NewMeetingStartTime">Hora de Inicio</label>
 
-                    <input name="NewMeetingStartTime" id="NewMeetingStartTime" type="date" data-role="datebox" data-options='{"mode": "timebox", "overrideTimeFormat": 24}'>
-                </div>
-                <div class="ui-field-contain" data-controltype="dateinput">
-                    <label for="NewMeetingEndDate">Fecha de Finalización</label>
-                    <input name="NewMeetingEndDate" id="NewMeetingEndDate" type="date" data-role="datebox" data-options='{"mode": "calbox"}'>
-                </div>
-                <div class="ui-field-contain" data-controltype="dateinput">
-                    <label for="NewMeetingEndTime">Hora de Finalización</label>
-
-                    <input name="NewMeetingEndTime" id="NewMeetingEndTime" type="date" data-role="datebox" data-options='{"mode": "timebox", "overrideTimeFormat": 24}'>
+                    <input name="NewMeetingStartTime" id="NewMeetingStartTime" type="date" data-role="datebox" data-options='{"mode": "timebox", "overrideTimeFormat": 24,"useFocus": true, "useButton": false}'>
                 </div>
                 <div class="ui-field-contain" data-controltype="selectmenu">
                     <label for="NewMeetingDuration">

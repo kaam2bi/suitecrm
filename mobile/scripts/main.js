@@ -2850,6 +2850,7 @@ require(["es_ES"], function(util)
 					}
 					if (a != undefined && a.entry_list != undefined)
 						if (a.entry_list.length > 0) {
+							CurrentMeetingContactsDetails = a;
 							var c = 0;
 							for (c = 0; c <= a.entry_list.length; c++)
 								if (a.entry_list[c] != undefined) {
@@ -3443,6 +3444,7 @@ require(["es_ES"], function(util)
 	var CurrentOpportunity ="";
 	var CurrentMeeting = "";
 	var CurrentCall = "";
+	var CurrentMeetingContactsDetails="";
 
 	// Métodos onclick de boton de edición
 	$("a#SaveNewNote").click(function(event){ SugarCrmSetNewNote(); });
@@ -3666,6 +3668,9 @@ require(["es_ES"], function(util)
 
 	//borra la pagina de las reuniones
 	function SugarCrmSetDataEmptyMeeting(){
+
+		$("ul#NewContactsMetting li").remove();
+
 		$("input[id^='NewMeeting']").val("");
 		$("textarea#NewMeetingDescription").val("");	
 		
@@ -3675,6 +3680,7 @@ require(["es_ES"], function(util)
 		
 		$('select#NewMeetingStatus').selectmenu("refresh",true);
 		$('select#NewMeetingDuration').selectmenu("refresh",true);
+		$("ul#NewContactsMetting").listview("refresh");
 		
 	}
 
@@ -3735,26 +3741,68 @@ require(["es_ES"], function(util)
 				})
 			
 		}
-		else{
+		else {
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
 				input_type: "JSON",
 				response_type: "JSON",
-				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","name_value_list":[{"name":"id","value":"'+ CurrentContactId +'"},{"name":"first_name","value":"'+ newContactName +'"},{"name":"last_name","value":"'+ newContactLastName +'"},{"name":"phone_fax","value":"'+ newContactPhoneFax +'"},{"name":"phone_work","value":"'+ newContactPhoneWork +'"},{"name":"phone_mobile","value":"'+ newContactPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newContactPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newContactPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newContactPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newContactPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newContactPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
-			}, function (c) {
-				$.get(sugarURL+"/service/v2/rest.php", {
-					method: "get_entry",
+				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","name_value_list":[{"name":"first_name","value":"'+ newContactName +'"},{"name":"last_name","value":"'+ newContactLastName +'"},{"name":"phone_fax","value":"'+ newContactPhoneFax +'"},{"name":"phone_work","value":"'+ newContactPhoneWork +'"},{"name":"phone_mobile","value":"'+ newContactPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newContactPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newContactPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newContactPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newContactPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newContactPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
+				}, function (b) {
+					idContact=b.id;
+					$.get(sugarURL+"/service/v2/rest.php", {
+						method: "set_entry",
+						input_type: "JSON",
+						response_type: "JSON",
+						rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","name_value_list":[{"name":"email_address","value":"'+ newContactEmail +'"},{"name":"email_address_caps","value":"'+ newContactEmail.toUpperCase() +'"},{"name":"date_created","value":"'+ now(false,true) +'"},{"name":"date_modified","value":"'+ now(false,true) +'"}]}'
+					}, function (c) {
+						idEmail=c.id;
+						$.get(sugarURL+"/service/v2/rest.php", {
+    						method: "set_relationship",
+    						input_type: "JSON",
+    						response_type: "JSON",
+    						rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + idContact + '","link_field_name":"email_addresses","related_ids":["'+ idEmail +'"],"name_value_list":[],"deleted":"0"}'
+						
+						}, function (d) {
+		
+							toUpdateContacts = true;
+							console.log(b.id);
+							$.mobile.changePage("#HomePage");
+						})
+					})
+				})
+
+			/*$.get(sugarURL+"/service/v2/rest.php", {
+					method: "get_entry_list",
 					input_type: "JSON",
 					response_type: "JSON",
-					rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","email_address":"' + CurrentContact.name_value_list.email1.value + '","select_fields":"","link_name_to_fields_array":""}'
-			}, function (d){
-				console.log(d);
-				CurrentContactId="";
-				toUpdateContacts = true;
-				//$.mobile.changePage("#HomePage");
+					rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","query":"","order_by":"email_address desc","select_fields":"","link_name_to_fields_array":"","deleted":0}'
+			}, function (c){
+
+				if (c != undefined) {
+					c = $.parseJSON(JSON.stringify(c, undefined, 2));
+					if (c.name !== undefined && c.name === "Invalid Session ID") {
+						SugarSessionId = "";
+						$.mobile.changePage("#LoginPage")
+					}
+					if (c != undefined && c.entry_list != undefined) {
+							var emails = c.entry_list;
+							console.log(emails);
+					}
+				}*/
+				/*$.get(sugarURL+"/service/v2/rest.php", {
+					method: "set_entry",
+					input_type: "JSON",
+					response_type: "JSON",
+					rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","name_value_list":[{"name":"id","value":"'+ CurrentContactId +'"},{"name":"first_name","value":"'+ newContactName +'"},{"name":"last_name","value":"'+ newContactLastName +'"},{"name":"phone_fax","value":"'+ newContactPhoneFax +'"},{"name":"phone_work","value":"'+ newContactPhoneWork +'"},{"name":"phone_mobile","value":"'+ newContactPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newContactPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newContactPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newContactPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newContactPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newContactPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
+				}, function (d) {
+					
+					console.log(d);
+					CurrentContactId="";
+					toUpdateContacts = true;
+					//$.mobile.changePage("#HomePage");
 			
-				})	
-			})
+				})*/	
+			//})
 
 		}
 		$("input[id^='NewContact']").val("");
@@ -3763,8 +3811,8 @@ require(["es_ES"], function(util)
 	//Funcion que carga los datos del contacto
 	function SugarCrmGetContactData()
 	{
-		
-		$("input#NewContactEmail").val(CurrentContact.name_value_list.email1.value);	
+		if(CurrentContact.name_value_list.email1.value !== undefined)
+			$("input#NewContactEmail").val(CurrentContact.name_value_list.email1.value);	
 
 		$("input#NewContactName").val(CurrentContact.name_value_list.first_name.value);		
 		$("input#NewContactPhoneWork").val(CurrentContact.name_value_list.phone_work.value);
@@ -4100,6 +4148,7 @@ function SugarCrmGetContactsTask(){
 
 	//Obtener los datos de las oportunidades
 	function SugarCrmGetOpportunityData(){
+
 		var AccountsList = JSON.parse(localStorage.getItem("AccountsList"));	
 		$("#NewOpportunityAccountName li").remove();
 		for (var b = 0; b <= AccountsList.entry_list.length; b++){
@@ -4178,19 +4227,24 @@ function SugarCrmGetContactsTask(){
 		}
 	}
 
-	//Inserta o modifica las reuniones
+	
+	/**
+	*To insert or update a meeting
+	*/
 	function SugarCrmSetNewMeeting(id){
+
+		
 		var newMeetingSubject = $("input#NewMeetingSubject").val();
 		var newMeetingStatus = $("select#NewMeetingStatus").val();
-		if($("input#NewMeetingStartTime").val()!==""){
+		if($("input#NewMeetingStartTime").val()!=="" && $("input#NewMeetingStartDate").val()!==""){
 			var newMeetingStartDateTime = changeDate($("input#NewMeetingStartDate").val(), $("input#NewMeetingStartTime").val());
 		}
 		else{
 			var newMeetingStartDateTime = changeDate($("input#NewMeetingStartDate").val(), "00:00 AM");
 		}
-		var newMeetingEndDateTime = changeDate($("input#NewMeetingEndDate").val(), $("input#NewMeetingEndTime").val());
-		var newMeetingStatus = $("select#NewMeetingDuration").val();
-		var time = secondsToHoursandMinutes(newMeetingStatus);
+		
+		var newMeetingDuration = $("select#NewMeetingDuration").val();
+		var time = secondsToHoursandMinutes(newMeetingDuration);
 			time = time.split("-",2);
 		var hours = time[0];
 		var minutes = time[1];
@@ -4204,79 +4258,118 @@ function SugarCrmGetContactsTask(){
 				method: "set_entry",
 				input_type: "JSON",
 				response_type: "JSON",
-				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","name_value_list":[{"name":"name","value":"'+ newMeetingSubject +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newMeetingDescription +'"},{"name":"duration_hours","value":"'+ hours +'"},{"name":"duration_minutes","value":"'+ minutes +'"},{"name":"date_start","value":"'+ newMeetingStartDateTime +'"},{"name":"date_end","value":"'+newMeetingEndDateTime+'"},{"name":"parent_id","value":"Accounts"},{"name":"status","value":"' + NewMeetingStatus + '"},{"name":"type","value":"Sugar"}]}'
+				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","name_value_list":[{"name":"name","value":"'+ newMeetingSubject +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newMeetingDescription +'"},{"name":"duration_hours","value":"'+ hours +'"},{"name":"duration_minutes","value":"'+ minutes +'"},{"name":"date_start","value":"'+ newMeetingStartDateTime +'"},{"name":"parent_id","value":"Accounts"},{"name":"status","value":"' + newMeetingStatus + '"},{"name":"type","value":"Sugar"}]}'
 			}, function (b) {
+
+				$("#NewContactsMetting li a").each(function(){ 
+						var idInvited = $(this).attr("data-identity");
+						$.get(sugarURL+"/service/v2/rest.php", {
+							method: "set_relationship",
+							input_type: "JSON",
+							response_type: "JSON",
+							rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","module_id":"' + b.id + '","link_field_name":"contacts","related_ids":["'+ $(this).attr("data-identity") +'"],"name_value_list":[],"deleted":"0"}'
+						}, function (c) {				
+							console.log(c);
+							if(c.failed==1){
+								toUpdateMeetings = false;
+							}
+							
+						})
+				})
 				toUpdateMeetings = true;
-				console.log(b.id);
 				$.mobile.changePage("#HomePage");
-			
-			})
+			})				
+				
 		}
 		else{
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
 				input_type: "JSON",
 				response_type: "JSON",
-				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","name_value_list":[{"name":"name","value":"'+ newMeetingSubject +'"},{"name":"id","value":"'+ CurrentMeetingId +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newMeetingDescription +'"},{"name":"duration_hours","value":"'+ hours +'"},{"name":"duration_minutes","value":"'+ minutes +'"},{"name":"date_start","value":"'+ newMeetingStartDateTime +'"},{"name":"date_end","value":"'+newMeetingEndDateTime+'"},{"name":"parent_id","value":"Accounts"},{"name":"status","value":"' + NewMeetingStatus + '"},{"name":"type","value":"Sugar"}]}'
+				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","name_value_list":[{"name":"name","value":"'+ newMeetingSubject +'"},{"name":"id","value":"'+ CurrentMeetingId +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newMeetingDescription +'"},{"name":"duration_hours","value":"'+ hours +'"},{"name":"duration_minutes","value":"'+ minutes +'"},{"name":"date_start","value":"'+ newMeetingStartDateTime +'"},{"name":"parent_id","value":"Accounts"},{"name":"status","value":"' + newMeetingStatus + '"},{"name":"type","value":"Sugar"}]}'
 			}, function (b) {
-				CurrentMeetingId="";
+
+				$("#NewContactsMetting li a").each(function(){ 
+						var idInvited = $(this).attr("data-identity");
+						$.get(sugarURL+"/service/v2/rest.php", {
+							method: "set_relationship",
+							input_type: "JSON",
+							response_type: "JSON",
+							rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","module_id":"' + b.id + '","link_field_name":"contacts","related_ids":["'+ $(this).attr("data-identity") +'"],"name_value_list":[],"deleted":"0"}'
+						}, function (c) {				
+							console.log(c);
+							if(c.failed==1){
+								toUpdateMeetings = false;
+							}
+							
+						})
+				})
 				toUpdateMeetings = true;
-				console.log(b.id);		
 				$.mobile.changePage("#HomePage");
 			})
 		}
 		$("input[id^='NewMeeting']").val("");
+		CurrentMeetingId="";
 		$("textarea#NewMeetingDescription").val("");
 	}
 
 
-	//Obtener los datos de las reuniones (NO OBTENEMOS INVITADOS [faltan los ul] )
+	
+	/**
+	*To obtain data refered to a current meeting
+	*/
 	function SugarCrmGetMeetingData(){
+
+		$("ul#NewContactsMetting li").remove();
+		
+				
+
+
 		$("input#NewMeetingSubject").val(CurrentMeeting.name_value_list.name.value);
 
 		var valueInputStart = setDateInput(CurrentMeeting.name_value_list.date_start.value);
 					valueInputStart = valueInputStart.split("-",2);
 					$("input#NewMeetingStartDate").val(valueInputStart[0]);
 					$("input#NewMeetingStartTime").val(valueInputStart[1]);
-		var valueInputEnd = setDateInput(CurrentMeeting.name_value_list.date_end.value);
-					valueInputEnd = valueInputEnd.split("-",2);
-					$("input#NewMeetingEndDate").val(valueInputEnd[0]);
-					$("input#NewMeetingEndTime").val(valueInputEnd[1]);
+		
 
 		$('[name=NewMeetingDuration]').val(HoursandMinutesToSeconds(CurrentMeeting.name_value_list.duration_hours.value,CurrentMeeting.name_value_list.duration_minutes.value));
 		
 		$("textarea#NewMeetingDescription").val(CurrentMeeting.name_value_list.description.value);
 
-
-		$('[name=NewMeetingStatus]').val(CurrentMeeting.name_value_list.status.value);
-		$('select#NewMeetingStatus').selectmenu('refresh', true);
-		$('select#NewMeetingDuration').selectmenu('refresh', true);			
-	}
-
-	var ContactWithEmail="";
-	//El id es el del contacto particular
-	function SugarCrmGetContactsDetailsWithEmail(id){
-		$.get(sugarURL+"/service/v2/rest.php", {
-			method: "get_entry",
-			input_type: "JSON",
-			response_type: "JSON",
-			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","id":"' + id + '","select_fields":["first_name","last_name","title","email1"],"link_name_to_fields_array":""}'
-		}, function (a) {
-			if (a != undefined) {
-				a = $.parseJSON(JSON.stringify(a, undefined, 2));
-				if (a.name !== undefined && a.name === "Invalid Session ID") {
-					SugarSessionId = "";
-					$.mobile.changePage("#LoginPage")
-				}
-				if (a != undefined && a.entry_list != undefined)
-					if (a.entry_list[0] != undefined) {
-						a = a.entry_list[0];
-						ContactWithEmail = a;
+		//Carga los invitados para esa reunion
+		if(CurrentMeetingContactsDetails.entry_list){
+			for (var b = 0; b <= CurrentMeetingContactsDetails.entry_list.length; b++)
+					if (CurrentMeetingContactsDetails.entry_list[b] != undefined) {
+							var d = CurrentMeetingContactsDetails.entry_list[b],
+								f = $("<li  />"),
+								e = d.name_value_list.first_name.value+" "+d.name_value_list.last_name.value ,
+								
+							d = $("<a/>", {
+								"data-identity": d.id,
+								
+								
+							});
+							d.append(e);
+							f.append(d);
+							$("#NewContactsMetting").append(f);
 					}
-				}
-			})
+		}
+		
+		$('[name=NewMeetingStatus]').val(CurrentMeeting.name_value_list.status.value);
+		$("ul#NewContactsMetting").listview("refresh");	
+
+		$('select#NewMeetingStatus').selectmenu('refresh', true);
+		$('select#NewMeetingDuration').selectmenu('refresh', true);	
+			
 	}
 
+
+
+
+	/**
+	*To set contacts refered to a specific meeting.
+	*/
 	function SetContactsMeetingList(){
 
 		var ContactsList = JSON.parse(localStorage.getItem("ContactsList"));
@@ -4303,12 +4396,11 @@ function SugarCrmGetContactsTask(){
 							"data-identity": d.id,
 							href: "#",
 							click: function () {
-								SugarCrmGetContactsDetailsWithEmail($(this).data("identity"));
+								
 								var text = $(this).html();
 								var g = $("<li />");
 								var h = $("<a/>",{
 									"data-identity": $(this).data("identity"),
-									"data-email": ContactWithEmail.name_value_list.email1.value,
 									href: "#",
 									click: function(){
 										$(this).parent().remove();
