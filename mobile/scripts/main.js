@@ -67,6 +67,7 @@ require(["es_ES"], function(util)
     		
     		SugarCrmGetContacts(ContactsListCurrentOffset);
     		SugarCrmGetAccounts(AccountsListCurrentOffset);
+    		SugarCrmObtainAllEmails();
 
     		$.mobile.loading("hide");
     	}
@@ -110,17 +111,210 @@ require(["es_ES"], function(util)
 		$("#NotesListPageLinkLabel").text(RES_NOTES_LABEL);
 		$("#HomeLabel").text(RES_HOME_LABEL);
 
+		//AccountsListPage
 		$("#AccountsListPageTitle").text(RES_ACCOUNTS_LABEL);
+		$("#ButtonCreateNewAccount").text(RES_NEW);
+
+		//ContactsListPage
 		$("#ContactsListPageTitle").text(RES_CONTACTS_LABEL);
+		$("#ButtonCreateNewContact").text(RES_NEW);
+
+		//OpportunitiesListPage
 		$("#OpportunitiesListPageTitle").text(RES_OPPORTUNITIES_LABEL);
+		$("#ButtonCreateNewOpportunity").text(RES_NEW);
+
+		//LeadsListPage
 		$("#LeadsListPageTitle").text(RES_LEADS_LABEL);
+		$("#ButtonCreateNewLead").text(RES_NEW);
+
 		$("#CallsListPageTitle").text(RES_CALLS_LABEL);
+
+		//MeetingsListPage
 		$("#MeetingsListPageTitle").text(RES_MEETINGS_LABEL);
+		$("#ButtonCreateNewMeeting").text(RES_NEW);
+
+		//TasksListPage
 		$("#TasksListPageTitle").text(RES_TASKS_LABEL);
-		$("#ViewContactDetailsPageTitle").text(RES_CONTACT_LABEL + " " + RES_DETAILS_LABEL);
-		$("#ViewAccountDetailsPageTitle").text(RES_ACCOUNT_LABEL + " " + RES_DETAILS_LABEL);
+		$("#ButtonCreateNewTask").text(RES_NEW);
+
+		//NotesListPage
 		$("#NotesListPageTitle").text(RES_NOTES_TITLE);
+		$("#CreateNewNote").text(RES_NEW);
+
+		//ViewContactDetailsPage
+		$("#ViewContactDetailsPageTitle").text(RES_CONTACT_LABEL + " " + RES_DETAILS_LABEL);
+		$("#EditContactDetails").text(RES_EDIT);
+
+		//ViewAccountDetailsPage
+		$("#ViewAccountDetailsPageTitle").text(RES_ACCOUNT_LABEL + " " + RES_DETAILS_LABEL);
+		$("#EditAccountDetails").text(RES_EDIT);
+
+		//ViewOpportunityDetailsPage
+		$("#ViewOpportunityDetailsPageTitle").text(RES_OPPORTUNITY_LABEL + " " + RES_DETAILS_LABEL);
+		$("#EditOpportunityDetails").text(RES_EDIT);
+
+		//ViewLeadDetailsPage
+		$("#ViewLeadDetailsPageTitle").text(RES_LEAD_LABEL + " " + RES_DETAILS_LABEL);
+		$("#EditLeadDetails").text(RES_EDIT);
+
+		//ViewCallDetailsPage
+		$("#ViewCallDetailsPageTitle").text(RES_CALL_LABEL + " " + RES_DETAILS_LABEL);
+		$("#EditCallDetails").text(RES_EDIT);
+
+		//ViewMeetingDetailsPage
+		$("#ViewMeetingDetailsPageTitle").text(RES_MEETING_LABEL + " " + RES_DETAILS_LABEL);
+		$("#EditMeetingDetails").text(RES_EDIT);
+		
+		//ViewTaskDetailsPage
+		$("#ViewTaskDetailsPageTitle").text(RES_TASK_LABEL + " " + RES_DETAILS_LABEL);
+		$("#EditTaskDetails").text(RES_EDIT);
+
+		//ViewNoteDetailsPage
+		$("#ViewNoteDetailsPageTitle").text(RES_NOTE_LABEL + " " + RES_DETAILS_LABEL);
+
+
+		//CreateNewNote
+		$("#NewNotePageTitle").text(RES_NEW_TWO + " " + RES_NOTE_LABEL);
+		$("#SaveNewNote").text(RES_SAVE);
+		$("#NewNoteSubjectLabel").text(RES_SUBJECT);
+		$("#NewNoteDescriptionLabel").text(RES_DESCRIPTION_LABEL);
+		$("#NewNoteImageLabel").text(RES_ATTACHMENT);
+
+		//CreateNewAccount
+		$("#NewAccountPageTitle").text(RES_NEW_TWO + " " + RES_ACCOUNT_LABEL);
+		$("#SaveNewAccount").text(RES_SAVE);
+		$("#NewAccountNameLabel").text(RES_NAME_LABEL);
+		$("#NewAccountPhoneOfficeLabel").text(RES_OFFICE_PHONE_LABEL);
+		$("#NewAccountWebsiteLabel").text(RES_WEBSITE_LABEL);
+		$("#NewAccountPhoneFaxLabel").text(RES_FAX_LABEL);
+		$("#NewAccountBillingAddressStreetLabel").text(RES_ACCOUNT_BILLING_ADDRESS_LABEL);
+		$("#NewAccountBillingAddressCityLabel").text(RES_CITY);
+		$("#NewAccountBillingAddressStateLabel").text(RES_STATE);
+		$("#NewAccountBillingAddressPostalCodeLabel").text(RES_POSTAL_CODE);
+		$("#NewAccountBillingAddressCountryLabel").text(RES_COUNTRY);
+
+		//CreateNewContact
+		$("#NewContactPageTitle").text(RES_NEW_ONE + " " + RES_CONTACT_LABEL);
+		$("#SaveNewContact").text(RES_SAVE);
+		$("#NewContactNameLabel").text(RES_NAME_LABEL);
+		$("#NewContactLastNameLabel").text(RES_LAST_NAME);
+		$("#NewContactEmailLabel").text(RES_WEBSITE_LABEL);
+		$("#NewContactPhoneWorkLabel").text(RES_OFFICE_PHONE_LABEL);
+		$("#NewContactPhoneMobileLabel").text(RES_MOBILE_PHONE_LABEL);
+		$("#NewContactPhoneFaxLabel").text(RES_FAX_LABEL);
+		$("#NewContactPrimaryAddressStreetLabel").text(RES_PRIMARY_ADDRESS_LABEL);
+		$("#NewContactPrimaryAddressCityLabel").text(RES_CITY);
+		$("#NewContactPrimaryAddressStateLabel").text(RES_STATE);
+		$("#NewContactPrimaryAddressPostalCodeLabel").text(RES_POSTAL_CODE);
+		$("#NewContactPrimaryAddressCountry").text(RES_COUNTRY);
+
+		//CreateNewLead
+		$("#NewLeadPageTitle").text(RES_NEW_ONE + " " +RES_LEAD_LABEL);
+		$("#SaveNewLead").text(RES_SAVE);
+		$("#NewLeadNameLabel").text(RES_NAME_LABEL);
+		$("#NewLeadLastNameLabel").text(RES_LAST_NAME);
+		$("#NewLeadPhoneWorkLabel").text(RES_OFFICE_PHONE_LABEL);
+		$("#NewLeadPhoneMobileLabel").text(RES_MOBILE_PHONE_LABEL);
+		$("#NewLeadPhoneFaxLabel").text(RES_FAX_LABEL);
+		$("#NewLeadPrimaryAddressStreetLabel").text(RES_PRIMARY_ADDRESS_LABEL);
+		$("#NewLeadPrimaryAddressCityLabel").text(RES_CITY);
+		$("#NewLeadPrimaryAddressStateLabel").text(RES_STATE);
+		$("#NewLeadPrimaryAddressPostalCodeLabel").text(RES_POSTAL_CODE);
+		$("#NewLeadPrimaryAddressCountryLabel").text(RES_COUNTRY);
+
+		//CreateNewTask
+		$("#NewTaskPageTitle").text(RES_NEW_TWO + " "+ RES_TASK_LABEL);
+		$("#SaveNewTask").text(RES_SAVE);
+		$("#NewTaskNameLabel").text(RES_NAME_LABEL);
+		$("#NewTaskStartDateLabel").text(RES_START_DATE_LABEL);
+		$("#NewTaskStartTimeLabel").text(RES_START_TIME);
+		$("#NewTaskDueDateLabel").text(RES_DUE_DATE);
+		$("#NewTaskDueTimeLabel").text(RES_DUE_TIME);
+		$("#NewTaskPriorityLabel").text(RES_TASK_PRIORITY_LABEL);
+		$("#HighOption").text(status2["High"]);
+		$("#MediumOption").text(status2["Medium"]);
+		$("#LowOption").text(status2["Low"]);
+		$("#NewTaskStatus").text(RES_STATUS_LABEL);
+		$("#NotStartedOption").text(status2["Not Started"]);
+		$("#InProgressOption").text(status2["In Progress"]);
+		$("#CompletedOption").text(status2["Completed"]);
+		$("#PendingInputOption").text(status2["Pending Input"]);
+		$("#DeferredOption").text(status2["Deferred"]);
+		$("#NewTaskDescriptionLabel").text(RES_DESCRIPTION_LABEL);
+		$("#autocompleteNewContactTaskLabel").text(RES_CONTACT_LABEL);
+
+		//CreateNewOpportunity
+		$("#NewOpportunityPageTitle").text(RES_NEW_TWO + " "+ RES_OPPORTUNITY_LABEL);
+		$("#SaveNewOpportunity").text(RES_SAVE);
+		$("#NewOpportunityNameLabel").text(RES_OPPORTUNITY_NAME_LABEL);
+		$("#NewOpportunityAccountNameLabel").text(RES_ACCOUNT_LABEL);
+		$("#NewOpportunityQuantityLabel").text(RES_QUANTITY);
+		$("#NewOpportunityCloseDateLabel").text(RES_OPPORTUNITY_EXPECTED_CLOSE_DATE_LABEL);
+		$("#NewOpportunitySalesStageLabel").text(RES_OPPORTUNITY_SALES_STAGE_LABEL);
+		$("#ProspectingOption").text(status["Prospecting"]);
+		$("#QualificationOption").text(status["Qualification"]);
+		$("#NeedsAnalysisOption").text(status["Needs Analysis"]);
+		$("#ValuePropositionOption").text(status["Value Proposition"]);
+		$("#IdDecisionMakersOpyion").text(status["Id. Decision Makers"]);
+		$("#PerceptionAnalysisOption").text(status["Perception Analysis"]);
+		$("#Proposal_PriceQuoteOption").text(status["Proposal/Price Quote"]);
+		$("#Negotiation_ReviewOption").text(status["Negotiation/Review"]);
+		$("#ClosedWonOption").text(status["Closed Won"]);
+		$("#ClosedLostOption").text(status["Closed Lost"]);
+		$("#NewOpportunityTypeLabel").text(RES_TYPE_LABEL);
+		$("#NewBusinessOption").text(opportunitytype["New Business"]);
+		$("#ExistingBusinessOption").text(opportunitytype["Existing Business"]);
+		$("#NewOpportunityProbabilityLabel").text(RES_OPPORTUNITY_PROBABILITY_LABEL);
+		$("#NewOpportunityLeadSourceLabel").text(RES_LEAD_SOURCE_LABEL);
+		$("#ColdCallOption").text(sources["Cold Call"]);
+		$("#ExistingCustomerOption").text(sources["Existing Customer"]);
+		$("#SelfGeneratedOption").text(sources["Self Generated"]);
+		$("#EmployeeOption").text(sources["Employee"]);
+		$("#PartnerOption").text(sources["Partner"]);
+		$("#PublicRelationsOption").text(sources["Public Relations"]);
+		$("#DirectMailOption").text(sources["Direct Mail"]);
+		$("#ConferenceOption").text(sources["Conference"]);
+		$("#TradeShowOption").text(sources["Trade Show"]);
+		$("#WebSiteOption").text(sources["Web Site"]);
+		$("#WordofmouthOption").text(sources["Word of mouth"]);
+		$("#EmailOption").text(sources["Email"]);
+		$("#CampaignOption").text(sources["Campaign"]);
+		$("#OtherOption").text(sources["Other"]);
+		$("#NewOpportunityNextStepLabel").text(RES_OPPORTUNITY_NEXT_STEP_LABEL);
+		$("#NewOpportunityDescriptionLabel").text(RES_DESCRIPTION_LABEL);
+
+		//CreateNewMeeting
+		$("#NewMeetingPageTitle").text(RES_NEW_TWO + " "+ RES_MEETINGS_LABEL);
+		$("#NewMeetingSubjectLabel").text(RES_SUBJECT);
+		$("#NewMeetingStatusLabel").text(RES_STATUS_LABEL);
+		
+		$("#PlannedOption").text(status2["Planned"]);
+		$("#Held").text(status2["Held"]);
+		$("#NotHeldOption").text(status2["Not Held"]);
+		
+		$("#NewMeetingStartDateLabel").text(RES_START_DATE_LABEL);
+		$("#NewMeetingStartTimeLabel").text(RES_START_TIME);
+		$("#NewMeetingDurationLabel").text(RES_DURATION_LABEL);
+		
+		$("#NoneOption").text(meetingduration["NoneOption"]);
+		$("#FifteenMinOption").text(meetingduration["FifteenMinOption"]);
+		$("#ThirtyMinOption").text(meetingduration["ThirtyMinOption"]);
+		$("#FortyFiveMinOption").text(meetingduration["FortyFiveMinOption"]);
+		$("#OneHourOption").text(meetingduration["OneHourOption"]);
+		$("#HourAndAHalfOption").text(meetingduration["HourAndAHalfOption"]);
+		$("#TwoHoursOption").text(meetingduration["TwoHoursOption"]);
+		$("#ThreeHoursOption").text(meetingduration["ThreeHoursOption"]);
+		$("#SixHoursOption").text(meetingduration["SixHoursOption"]);
+		$("#ADayOption").text(meetingduration["ADayOption"]);
+		$("#TwoDaysOption").text(meetingduration["TwoDaysOption"]);
+		$("#ThreeDaysOption").text(meetingduration["ThreeDaysOption"]);
+		$("#AWeekOption").text(meetingduration["AWeekOption"]);
+		$("#NewMeetingDescriptionLabel").text(RES_DESCRIPTION_LABEL);
+
+		//EditingCallDetails
 	});
+	
+
 
 	$("#AccountsListPage").live("pageshow", function () {
 		SugarCrmGetAccountsListFromServer(AccountsListCurrentOffset);
@@ -880,8 +1074,9 @@ require(["es_ES"], function(util)
 	}
 
 	function SugarCrmGetContactsListFromServer(a) {
+
 		var ContactsList = JSON.parse(localStorage.getItem("ContactsList")); 
-		if ($("#AllContactsListDiv li").length === 0 || ContactsListCurrentOffset !== a || toUpdateContacts === true) {
+		if ($("#AllContactsListDiv li").length === 0 || ContactsListCurrentOffset !== a || toUpdateContacts === true ) {
 			
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
@@ -902,7 +1097,7 @@ require(["es_ES"], function(util)
 					if (c != undefined) {
 						c = $.parseJSON(JSON.stringify(c, undefined, 2));
 						if (c != undefined && c.entry_list != undefined) {
-							localStorage.setItem("ContactsList", c);
+							localStorage.setItem("ContactsList", JSON.stringify(c));
 							DOMContactsList(c, a);
 						}
 						toUpdateContacts = false;
@@ -3732,7 +3927,7 @@ require(["es_ES"], function(util)
     						rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + idContact + '","link_field_name":"email_addresses","related_ids":["'+ idEmail +'"],"name_value_list":[],"deleted":"0"}'
 						
 						}, function (d) {
-		
+							SugarCrmObtainAllEmails();
 							toUpdateContacts = true;
 							console.log(b.id);
 							$.mobile.changePage("#HomePage");
@@ -3741,35 +3936,69 @@ require(["es_ES"], function(util)
 				})
 			
 		}
-		else {
-			$.get(sugarURL+"/service/v2/rest.php", {
-				method: "set_entry",
-				input_type: "JSON",
-				response_type: "JSON",
-				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","name_value_list":[{"name":"first_name","value":"'+ newContactName +'"},{"name":"last_name","value":"'+ newContactLastName +'"},{"name":"phone_fax","value":"'+ newContactPhoneFax +'"},{"name":"phone_work","value":"'+ newContactPhoneWork +'"},{"name":"phone_mobile","value":"'+ newContactPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newContactPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newContactPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newContactPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newContactPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newContactPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
-				}, function (b) {
-					idContact=b.id;
+		if(id !=="") {
+			
 					$.get(sugarURL+"/service/v2/rest.php", {
-						method: "set_entry",
-						input_type: "JSON",
-						response_type: "JSON",
-						rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","name_value_list":[{"name":"email_address","value":"'+ newContactEmail +'"},{"name":"email_address_caps","value":"'+ newContactEmail.toUpperCase() +'"},{"name":"date_created","value":"'+ now(false,true) +'"},{"name":"date_modified","value":"'+ now(false,true) +'"}]}'
-					}, function (c) {
-						idEmail=c.id;
-						$.get(sugarURL+"/service/v2/rest.php", {
-    						method: "set_relationship",
-    						input_type: "JSON",
-    						response_type: "JSON",
-    						rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + idContact + '","link_field_name":"email_addresses","related_ids":["'+ idEmail +'"],"name_value_list":[],"deleted":"0"}'
+								method: "set_entry",
+								input_type: "JSON",
+								response_type: "JSON",
+								rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","name_value_list":[{"name":"id","value":"'+ CurrentContactId +'"},{"name":"first_name","value":"'+ newContactName +'"},{"name":"last_name","value":"'+ newContactLastName +'"},{"name":"phone_fax","value":"'+ newContactPhoneFax +'"},{"name":"phone_work","value":"'+ newContactPhoneWork +'"},{"name":"phone_mobile","value":"'+ newContactPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newContactPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newContactPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newContactPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newContactPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newContactPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
+					}).done(function(d){
 						
-						}, function (d) {
 		
-							toUpdateContacts = true;
-							console.log(b.id);
-							$.mobile.changePage("#HomePage");
-						})
+						for(var h=0;h<allemails.entry_list.length;h++){
+							if(allemails.entry_list[h].name_value_list.email_address.value == CurrentContact.name_value_list.email1.value){
+								idEmail=allemails.entry_list[h].id;
+								break;
+							}
+						}
+		
+						if(idEmail !== ""){
+							$.get(sugarURL+"/service/v2/rest.php", {
+									method: "set_entry",
+									input_type: "JSON",
+									response_type: "JSON",
+									rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","name_value_list":[{"name":"id","value":"'+ idEmail +'"},{"name":"email_address","value":"'+ newContactEmail +'"},{"name":"email_address_caps","value":"'+ newContactEmail.toUpperCase() +'"},{"name":"date_created","value":"'+ now(false,true) +'"},{"name":"date_modified","value":"'+ now(false,true) +'"}]}'
+								}, function (h) {
+									console.log(h.id);
+									toUpdateContacts = true;
+									SugarCrmObtainAllEmails();
+
+									$.mobile.changePage("#HomePage");
+
+							})
+						}
+						else {
+							$.when($.get(sugarURL+"/service/v2/rest.php", {
+									method: "set_entry",
+									input_type: "JSON",
+									response_type: "JSON",
+									rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","name_value_list":[{"name":"email_address","value":"'+ newContactEmail +'"},{"name":"email_address_caps","value":"'+ newContactEmail.toUpperCase() +'"},{"name":"date_created","value":"'+ now(false,true) +'"},{"name":"date_modified","value":"'+ now(false,true) +'"}]}'
+							})).done(function(g){
+								idEmail=g.id;
+								$.get(sugarURL+"/service/v2/rest.php", {
+    								method: "set_relationship",
+    								input_type: "JSON",
+    								response_type: "JSON",
+    								rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"email_addresses","related_ids":["'+ idEmail +'"],"name_value_list":[],"deleted":"0"}'
+								}, function (i) {
+									CurrentContactId="";
+									toUpdateContacts = true;
+									SugarCrmObtainAllEmails();
+									$.mobile.changePage("#HomePage");
+									console.log(i.id);
+								})
+							})
+						}
+		
 					})
-				})
+			$("input[id^='NewContact']").val("");
+			
+		}
+
+
+
+
 
 			/*$.get(sugarURL+"/service/v2/rest.php", {
 					method: "get_entry_list",
@@ -3785,27 +4014,90 @@ require(["es_ES"], function(util)
 						$.mobile.changePage("#LoginPage")
 					}
 					if (c != undefined && c.entry_list != undefined) {
-							var emails = c.entry_list;
-							console.log(emails);
+							var allemails = c;
+							console.log(allemails);
 					}
-				}*/
-				/*$.get(sugarURL+"/service/v2/rest.php", {
+				}
+				$.get(sugarURL+"/service/v2/rest.php", {
 					method: "set_entry",
 					input_type: "JSON",
 					response_type: "JSON",
 					rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","name_value_list":[{"name":"id","value":"'+ CurrentContactId +'"},{"name":"first_name","value":"'+ newContactName +'"},{"name":"last_name","value":"'+ newContactLastName +'"},{"name":"phone_fax","value":"'+ newContactPhoneFax +'"},{"name":"phone_work","value":"'+ newContactPhoneWork +'"},{"name":"phone_mobile","value":"'+ newContactPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newContactPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newContactPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newContactPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newContactPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newContactPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 				}, function (d) {
+
+					for(var h=0;h<allemails.entry_list.length;h++){
+						if(allemails.entry_list[h].name_value_list.email_address.value == CurrentContact.name_value_list.email1.value){
+							idEmail=allemails.entry_list[h].id;
+							break;
+						}
+					}
+
+					if(idEmail !== ""){
+						//hacemos la inserccion en la tabla de email y en la relacion
+						$.get(sugarURL+"/service/v2/rest.php", {
+							method: "set_entry",
+							input_type: "JSON",
+							response_type: "JSON",
+							rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","name_value_list":[{"name":"id","value":"'+ idEmail +'"},{"name":"email_address","value":"'+ newContactEmail +'"},{"name":"email_address_caps","value":"'+ newContactEmail.toUpperCase() +'"},{"name":"date_created","value":"'+ now(false,true) +'"},{"name":"date_modified","value":"'+ now(false,true) +'"}]}'
+						}, function (d) {
+							console.log(d.id);
+							toUpdateContacts = true;
+						})
+					}
+					else {
+						//creamos el email nuevo y le asignamos la relacion
+						$.get(sugarURL+"/service/v2/rest.php", {
+							method: "set_entry",
+							input_type: "JSON",
+							response_type: "JSON",
+							rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","name_value_list":[{"name":"email_address","value":"'+ newContactEmail +'"},{"name":"email_address_caps","value":"'+ newContactEmail.toUpperCase() +'"},{"name":"date_created","value":"'+ now(false,true) +'"},{"name":"date_modified","value":"'+ now(false,true) +'"}]}'
+						}, function (c) {
+							idEmail=c.id;
+							$.get(sugarURL+"/service/v2/rest.php", {
+    							method: "set_relationship",
+    							input_type: "JSON",
+    							response_type: "JSON",
+    							rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"email_addresses","related_ids":["'+ idEmail +'"],"name_value_list":[],"deleted":"0"}'
+							}, function (d) {
+								CurrentContactId="";
+								toUpdateContacts = true;
+								console.log(d.id);
+
+							})
+						})
+
+					}	
 					
-					console.log(d);
-					CurrentContactId="";
-					toUpdateContacts = true;
-					//$.mobile.changePage("#HomePage");
-			
-				})*/	
+					
+				})	*/
+			//}).then(function(){
+			//	$("input[id^='NewContact']").val("");
+			//	$.mobile.changePage("#HomePage");
 			//})
 
-		}
-		$("input[id^='NewContact']").val("");
+		//}
+		
+	}
+	var allemails ="";
+	function SugarCrmObtainAllEmails(){
+		$.get(sugarURL+"/service/v2/rest.php", {
+					method: "get_entry_list",
+					input_type: "JSON",
+					response_type: "JSON",
+					rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","query":"","order_by":"email_address desc","select_fields":"","link_name_to_fields_array":"","deleted":0}'
+				}, function(c){
+						if (c != undefined) {
+							c = $.parseJSON(JSON.stringify(c, undefined, 2));
+							if (c.name !== undefined && c.name === "Invalid Session ID") {
+								SugarSessionId = "";
+								$.mobile.changePage("#LoginPage")
+							}
+							if (c != undefined && c.entry_list != undefined) {
+								allemails = c;
+								console.log(allemails);
+							}
+						}
+			})
 	}
 
 	//Funcion que carga los datos del contacto

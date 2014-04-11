@@ -83,6 +83,7 @@ var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para ent
     RES_HOME_LABEL = "Versión Web",
     RES_NEW = "Crear",
     RES_EDIT = "Editar",
+    RES_SAVE = "Guardar",
 	RES_LOADER_MSG = "Cargando, espere",
 	RES_NEW_ITEM_CREATED = "Nuevo elemento creado",
     RES_FOOTER = 'Cliente móvil CRM<br>Para disponer de todas las funciones, acceda a la <a href="../index.php" target="_blank" style="color:white">Versión Web</a><br><a href="http://www.2bi.es" target="_blank" style="color:white">©2bi smart i.t.</a>',
@@ -96,12 +97,29 @@ var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para ent
     RES_DESCRIPTION_STATUS = "Descripción de estado",
     RES_DESCRIPTION_SOURCE = "Descripción de origen",
     RES_LINKED_WITH = "Enlazado con",
-    RES_DATE = "Fecha";
-    RES_NEW_ITEM_LOADING = "Guardando...";
+    RES_DATE = "Fecha",
+    RES_NEW_ITEM_LOADING = "Guardando...",
+RES_NEW_ONE = "Nuevo",
+    RES_NEW_TWO = "Nueva",
+    RES_CITY = "Ciudad",
+    RES_STATE = "Provincia",
+    RES_POSTAL_CODE = "Código Postal",
+    RES_COUNTRY = "País",
+    RES_ATTACHMENT = "Archivo adjunto",
+    RES_LAST_NAME = "Apellidos",
+    RES_START_TIME ="Hora de inicio",
+    RES_DUE_DATE ="Fecha de vencimiento",
+    RES_DUE_TIME ="Hora de vencimiento",
+    RES_QUANTITY ="Cantidad ($)";
 
 
 // *** LOS ARRAYS AUXILIARES A TRADUCIR VAN AQUÍ ***
 // Array de traducción rápida de status
+var opportunitytype = [];
+opportunitytype["New Business"] = "Nuevo negocio";
+opportunitytype["Existing Business"] = "Negocio existente";
+
+
 var status = [];
 
 status["Qualification"] = "Calificación";
@@ -148,6 +166,8 @@ status2["accept"] = "Aceptado";
 status2["decline"] = "Rechazado";
 status2["tentative"] = "Tentativa";
 status2["none"] = "Ninguno";
+
+
 
 // Array de traducción rápida de orígenes de clientes
 var sources = [];
@@ -212,3 +232,19 @@ industry["Telecommunications"] = "Telecomunicaciones";
 industry["Transportation"] = "Transporte";
 industry["Utilities"] = "Servicios públicos";
 industry["Other"] = "Otro";
+
+var meetingduration = [];
+
+meetingduration["NoneOption"] = "Vacio";
+meetingduration["FifteenMinOption"] = "15 minutos";
+meetingduration["ThirtyMinOption"] = "30 minutos";
+meetingduration["FortyFiveMinOption"] = "45 minutos";
+meetingduration["OneHourOption"] = "1 hora";
+meetingduration["HourAndAHalfOption"] = "1 hora y media";
+meetingduration["TwoHoursOption"] = "2 horas";
+meetingduration["ThreeHoursOption"] = "3 horas";
+meetingduration["SixHoursOption"] = "6 horas";
+meetingduration["ADayOption"] = "1 dia";
+meetingduration["TwoDaysOption"] = "2 dias";
+meetingduration["ThreeDaysOption"] = "3 dias";
+meetingduration["AWeekOption"] = "1 semana";
