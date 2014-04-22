@@ -140,7 +140,7 @@ require(["es_ES"], function(util)
 		//NotesListPage
 		$("#NotesListPageTitle").text(RES_NOTES_TITLE);
 		$("#ButtonCreateNewNote").text(RES_NEW);
-		
+
 
 		//ViewContactDetailsPage
 		$("#ViewContactDetailsPageTitle").text(RES_CONTACT_LABEL + " " + RES_DETAILS_LABEL);
@@ -388,8 +388,11 @@ require(["es_ES"], function(util)
 		}
 	}
 
+	/**
+	 * To log in a user
+	 * @param a
+	 */
 	function LoginUser(a) {
-
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -445,12 +448,16 @@ require(["es_ES"], function(util)
     		})
 	}
 
+	/**
+	 * To log in a user [Desktop version]
+	 * @param a
+	 */
 	function LoginUserDesktop(a) {
-			$.mobile.loading( "show", {
-					text: RES_LOADER_MSG,
-					textonly: textOnly,
-					textVisible: textVisible
-			});
+		$.mobile.loading( "show", {
+				text: RES_LOADER_MSG,
+				textonly: textOnly,
+				textVisible: textVisible
+		});
 
 		var c = $("#SettingsPageSugarCrmUsername").val(),
 			b = $("#SettingsPageSugarCrmPassword").val();
@@ -503,6 +510,9 @@ require(["es_ES"], function(util)
 	};
 	*/
 
+	/**
+	 * To log out a user
+	 */
 	function LogOutUser() {
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "logout",
@@ -569,6 +579,10 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To obtain Accounts from server if AccountList is empty or have been updated.
+	 * @param a AccountsListCurrentOffset
+	 */
 	function SugarCrmGetAccountsListFromServer(a) {
 		var AccountsList = JSON.parse(localStorage.getItem("AccountsList"));
 		if ($("#AllAccountsListDiv li").length === 0 || AccountsListCurrentOffset !== a || toUpdateAccounts === true) {
@@ -602,7 +616,6 @@ require(["es_ES"], function(util)
 						}
 						toUpdateAccounts = false;
 					}
-					//$.mobile.loading( "hide" );
 				})
 			}
 			else{
@@ -613,6 +626,9 @@ require(["es_ES"], function(util)
 		}
 	}
 
+	/**
+	 * To obtain Accounts Details from server and to create DOM elements
+	 */
 	function SugarCrmGetAccountDetails() {
 		$("#ViewAccountDetailsPageDetailsList li").remove();
 		$("#AccountNameH1").html("");
@@ -1080,6 +1096,11 @@ require(["es_ES"], function(util)
 			})
 	}
 
+	
+	/**
+	 * To obtain Contacts from server if ContactsList is empty or have been updated.
+	 * @param a ContactsListCurrentOffset
+	 */
 	function SugarCrmGetContactsListFromServer(a) {
 
 		var ContactsList = JSON.parse(localStorage.getItem("ContactsList")); 
@@ -1214,8 +1235,9 @@ require(["es_ES"], function(util)
 	}
 
 
-
-
+	/**
+	 * To obtain Contacts Details from server
+	 */
 	function SugarCrmGetContactDetails() {
 		$("#ContactNameH1").html("");
 		$("#ContactTitleP").text("");
@@ -1384,6 +1406,9 @@ require(["es_ES"], function(util)
 		getContactRelatedTasksInsetList()
 	}
 
+	/**
+	 * To obtain Opportunities related to a specific contact from server
+	 */
 	function getContactRelatedOpportunitiesInsetList() {
 		$("#ViewContactDetailsPageOpportunitiesListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -1437,6 +1462,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To obtain Leads related to a specific contact from server
+	 */
 	function getContactRelatedLeadsInsetList() {
 		$("#ViewContactDetailsPageLeadsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -1491,6 +1519,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To obtain Calls related to a specific contact from server
+	 */
 	function getContactRelatedCallsInsetList() {
 		$("#ViewContactDetailsPageCallsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -1550,6 +1581,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To obtain Meetings related to a specific contact from server
+	 */
 	function getContactRelatedMeetingsInsetList() {
 		$("#ViewContactDetailsPageMeetingsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -1609,6 +1643,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To obtain Tasks related to a specific contact from server
+	 */
 	function getContactRelatedTasksInsetList() {
 		$("#ViewContactDetailsPageTasksListUl li").remove();
 		SugarSessionId == "" && $.mobile.changePage("#HomePage");
@@ -1671,6 +1708,10 @@ require(["es_ES"], function(util)
 			})
 	}
 
+	/**
+	 * To obtain Opportunities list from server
+	 * @param a OpportunitiesListCurrentOffset
+	 */
 	function SugarCrmGetOpportunitiesListFromServer(a) {
 		if ($("#AllOpportunitiesListDiv li").length === 0 || OpportunitiesListCurrentOffset !== a || toUpdateOpportunities ===true) {
 			toUpdateOpportunities = false;
@@ -1749,6 +1790,9 @@ require(["es_ES"], function(util)
 		}
 	}
 
+	/**
+	 * To obtain Opportunities details from server
+	 */
 	function SugarCrmGetOpportunityDetails() {
 		$.mobile.loading( "show", {
 				text: RES_LOADER_MSG,
@@ -1826,6 +1870,9 @@ require(["es_ES"], function(util)
 		getOpportunityRelatedTasksInsetList()
 	}
 
+	/**
+	 * To get Contacts related to an opportunity 
+	 */
 	function getOpportunityRelatedContactsInsetList() {
 		$.mobile.loading( "show", {
 				text: RES_LOADER_MSG,
@@ -1889,6 +1936,9 @@ require(["es_ES"], function(util)
 			})
 	}
 
+	/**
+	 * To get Leads related to an opportunity 
+	 */
 	function getOpportunityRelatedLeadsInsetList() {
 		$.mobile.loading( "show", {
 				text: RES_LOADER_MSG,
@@ -1952,6 +2002,9 @@ require(["es_ES"], function(util)
 			})
 	}
 
+	/**
+	 * To get Calls related to an opportunity 
+	 */
 	function getOpportunityRelatedCallsInsetList() {
 		$.mobile.loading( "show", {
 				text: RES_LOADER_MSG,
@@ -2019,6 +2072,9 @@ require(["es_ES"], function(util)
 			})
 	}
 
+	/**
+	 * To get Meetings related to an opportunity 
+	 */
 	function getOpportunityRelatedMeetingsInsetList() {
 		$.mobile.loading( "show", {
 				text: RES_LOADER_MSG,
@@ -2088,6 +2144,9 @@ require(["es_ES"], function(util)
 			})
 	}
 
+	/**
+	 * To get Tasks related to an opportunity 
+	 */
 	function getOpportunityRelatedTasksInsetList() {
 		$.mobile.loading( "show", {
 				text: RES_LOADER_MSG,
@@ -2156,6 +2215,10 @@ require(["es_ES"], function(util)
 			})
 	}
 
+	/**
+	 * To obtain Leads list from server
+	 * @param a LeadsListCurrentOffset
+	 */
 	function SugarCrmGetLeadsListFromServer(a) {
 		if ($("#AllLeadsListDiv li").length === 0 || LeadsListCurrentOffset !== a || toUpdateLeads === true) {
 			toUpdateLeads = false;
@@ -2220,6 +2283,9 @@ require(["es_ES"], function(util)
 		}
 	}
 
+	/**
+	 * To get Leads details from server
+	 */
 	function SugarCrmGetLeadDetails() {
 		$("#ContactNameH1").html("");
 		$("#ContactTitleP").text("");
@@ -2384,6 +2450,9 @@ require(["es_ES"], function(util)
 		getLeadRelatedTasksInsetList()
 	}
 
+	/**
+	 * To get Calls related to a Lead
+	 */
 	function getLeadRelatedCallsInsetList() {
 		$("#ViewLeadDetailsPageCallsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -2437,6 +2506,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To get Calls related to a Lead
+	 */
 	function getLeadRelatedMeetingsInsetList() {
 		$("#ViewLeadDetailsPageMeetingsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -2489,6 +2561,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To get Tasks related to a Lead
+	 */
 	function getLeadRelatedTasksInsetList() {
 		$("#ViewLeadDetailsPageTasksListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -2542,6 +2617,10 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To obtain Calls list from server
+	 * @param a CallsListCurrentOffset
+	 */
 	function SugarCrmGetCallsListFromServer(a) {
 		if ($("#AllCallsListDiv li").length === 0 || CallsListCurrentOffset !== a || toUpdateCalls === true) {
 			$.mobile.loading( "show", {
@@ -2610,6 +2689,9 @@ require(["es_ES"], function(util)
 		}
 	}
 
+	/**
+	 * To get Call details from server
+	 */
 	function SugarCrmGetCallDetails() {
 		$.mobile.loading( "show", {
 				text: RES_LOADER_MSG,
@@ -2660,6 +2742,11 @@ require(["es_ES"], function(util)
 		getCallRelatedNotesInsetList()
 	}
 
+	/**
+	 * To get parent details of a Call
+	 * @param a Parent Module Name
+	 * @param c Parent Id
+	 */
 	function getCallParentDetails(a, c) {
 		var b = "<h4>" + a + ":&nbsp;";
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -2685,6 +2772,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To get Contacts related to a Call
+	 */
 	function getCallRelatedContactsInsetList() {
 		$("#ViewCallDetailsPageContactsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -2740,6 +2830,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To get Users related to a Call
+	 */
 	function getCallRelatedUsersInsetList() {
 		$("#ViewCallDetailsPageUsersListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -2779,6 +2872,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To get Leads related to a Call
+	 */
 	function getCallRelatedLeadsInsetList() {
 		$("#ViewCallDetailsPageLeadsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -2833,6 +2929,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To get Notes related to a Call
+	 */
 	function getCallRelatedNotesInsetList() {
 		$("#ViewCallDetailsPageNotesListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -2889,6 +2988,10 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To obtain Meetings list from server
+	 * @param a MeetingsListCurrentOffset
+	 */
 	function SugarCrmGetMeetingsListFromServer(a) {
 		if ($("#AllMeetingsListDiv li").length === 0 || MeetingsListCurrentOffset !== a || toUpdateMeetings === true) {
 			
@@ -2957,6 +3060,9 @@ require(["es_ES"], function(util)
 		}
 	}
 
+	/**
+	 * To get Meeting details from server
+	 */
 	function SugarCrmGetMeetingDetails() {
 		$.mobile.loading( "show", {
 				text: RES_LOADER_MSG,
@@ -3008,6 +3114,11 @@ require(["es_ES"], function(util)
 		getMeetingRelatedNotesInsetList()
 	}
 
+	/**
+	 * To get parent details of a Meeting
+	 * @param a Parent module name
+	 * @param c Parent id
+	 */
 	function getMeetingParentDetails(a, c) {
 		var b = "<h4>" + a + ":&nbsp;";
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -3033,6 +3144,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To get Contacts related to a Meeting
+	 */
 	function getMeetingRelatedContactsInsetList() {
 		$("#ViewMeetingDetailsPageContactsListUl li").remove();
 		SugarSessionId == "" && $.mobile.changePage("#HomePage");
@@ -3091,6 +3205,9 @@ require(["es_ES"], function(util)
 			})
 	}
 
+	/**
+	 * To get Users related to a Meeting
+	 */
 	function getMeetingRelatedUsersInsetList() {
 		$("#ViewMeetingDetailsPageUsersListUl li").remove();
 		SugarSessionId == "" && $.mobile.changePage("#HomePage");
@@ -3131,6 +3248,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To get Leads related to a Meeting
+	 */
 	function getMeetingRelatedLeadsInsetList() {
 		$("#ViewMeetingDetailsPageLeadsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -3185,6 +3305,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To get Notes related to a Meeting
+	 */
 	function getMeetingRelatedNotesInsetList() {
 		$("#ViewMeetingDetailsPageNotesListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -3241,6 +3364,10 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To obtain Tasks list from server
+	 * @param a TasksListCurrentOffset
+	 */
 	function SugarCrmGetTasksListFromServer(a) {
 		if ($("#AllTasksListDiv li").length === 0 || TasksListCurrentOffset !== a || toUpdateTasks === true) {
 			toUpdateTasks = false;
@@ -3307,6 +3434,9 @@ require(["es_ES"], function(util)
 		}
 	}
 
+	/**
+	 * To obtain Task details from server
+	 */
 	function SugarCrmGetTaskDetails() {
 		$.mobile.loading( "show", {
 				text: RES_LOADER_MSG,
@@ -3355,6 +3485,11 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To get parent details of a Task
+	 * @param a Parent module name
+	 * @param c Parent id
+	 */
 	function getTaskParentDetails(a, c) {
 		var b = "<h4>" + a + ":&nbsp;";
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -3380,6 +3515,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To get Contacts related to a Task
+	 */
 	function getTaskRelatedContactsInsetList() {
 		$("#ViewTaskDetailsPageContactsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -3435,6 +3573,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To get Users related to a Task
+	 */
 	function getTaskRelatedUsersInsetList() {
 		$("#ViewTaskDetailsPageUsersListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -3474,6 +3615,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To get Leads related to a Task
+	 */
 	function getTaskRelatedLeadsInsetList() {
 		$("#ViewTaskDetailsPageLeadsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -3529,6 +3673,10 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To obtain Notes list from server
+	 * @param a NotesListCurrentOffset
+	 */
 	function SugarCrmGetNotesListFromServer(a) {
 		if ($("#AllNotesListDiv li").length === 0 || NotesListCurrentOffset !== a) {
 			$.mobile.loading( "show", {
@@ -3595,6 +3743,9 @@ require(["es_ES"], function(util)
 		}
 	}
 
+	/**
+	 * To obtain Note details from server
+	 */
 	function SugarCrmGetNoteDetails() {
 		$("#NoteSubjectH1").html("");
 		$("#NoteTextP").text("");
@@ -3700,7 +3851,12 @@ require(["es_ES"], function(util)
     });
 
 
-	// Función para registrar la llamada. Parámetros: "Accounts" y Cuenta actual.
+	//Función para registrar la llamada. Parámetros: "Accounts" y Cuenta actual.
+	/**
+	 * To insert a new call
+	 * @param a Accounts
+	 * @param c CurrentAccount
+	 */
 	function SugarCrmSetNewCall(a, c) {
 
 		$.get(sugarURL+"/service/v2/rest.php", {
@@ -3714,6 +3870,9 @@ require(["es_ES"], function(util)
 		})
 	}
 
+	/**
+	 * To insert a new note [TODO: Attachment]
+	 */
 	function SugarCrmSetNewNote()
 	{
 		var subject = $("input#NewNoteSubject").val();
@@ -3764,6 +3923,10 @@ require(["es_ES"], function(util)
 
 
 	// Función para insertar una nueva empresa
+	/**
+	 * To insert or update an Account
+	 * @param id CurrentAccountId
+	 */
 	function SugarCrmSetNewAccount(id)
 	{
 		var accountName = $("input#NewAccountName").val();
@@ -3786,6 +3949,7 @@ require(["es_ES"], function(util)
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","name_value_list":[{"name":"name","value":"'+ accountName +'"},{"name":"phone_office","value":"'+ phoneOffice +'"},{"name":"website","value":"'+ website +'"},{"name":"phone_fax","value":"'+ phoneFax +'"},{"name":"billing_address_street","value":"'+ billingAddressStreet +'"},{"name":"billing_address_city","value":"'+ billingAddressCity +'"},{"name":"billing_address_state","value":"'+ billingAddressState +'"},{"name":"billing_address_postalcode","value":"'+ billingAddressPostalCode +'"},{"name":"billing_address_country","value":"'+ billingAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 			}, function (b) {
+
 				toUpdateAccounts = true;
 				console.log(b.id);
 				//$("input[id^='NewAccount']").val("");
@@ -3815,6 +3979,9 @@ require(["es_ES"], function(util)
 	}
 
 	//Funcion que carga los datos de la empresa
+	/**
+	 * To get Current Account Data to complete inputs
+	 */
 	function SugarCrmGetAccountData()
 	{
 		$("input#NewAccountName").val(CurrentAccount.name_value_list.name.value);		
@@ -3829,7 +3996,10 @@ require(["es_ES"], function(util)
 
 	}
 
-	//Función que borra los datos 
+	//Función que borra los datos
+	/**
+	 * To set values of every input empty
+	 */ 
 	function SugarCrmSetDataEmpty()
 	{
 		$("input[id^='New']").val("");	
@@ -3846,10 +4016,12 @@ require(["es_ES"], function(util)
 		//refresh
 		$('select#NewTaskStatus').selectmenu("refresh",true);		
 		$('select#NewTaskPriority').selectmenu("refresh",true);
-		
-
 	}
+
 	//borra la pagina de las oportunidades
+	/**
+	 * To set empty every input in CreateNewOpportunity page 
+	 */ 
 	function SugarCrmSetDataEmptyOpportunity(){
 		$("input[id^='NewOpportunity']").val("");	
 		$("input#autocompleteAccounts").val("");
@@ -3869,6 +4041,9 @@ require(["es_ES"], function(util)
 	}
 
 	//borra la pagina de las reuniones
+	/**
+	 * To set empty every input in CreateNewMeeting page 
+	 */
 	function SugarCrmSetDataEmptyMeeting(){
 
 		$("ul#NewContactsMetting li").remove();
@@ -3887,6 +4062,10 @@ require(["es_ES"], function(util)
 	}
 
 	//Funcion crear nuevo contacto
+	/**
+	 * To insert or update a Contact
+	 * @param id CurrentContactId
+	 */
 	function SugarCrmSetNewContact(id)
 	{
 		var newContactName = $("input#NewContactName").val();
@@ -4001,91 +4180,14 @@ require(["es_ES"], function(util)
 					})
 			$("input[id^='NewContact']").val("");
 			
-		}
-
-
-
-
-
-			/*$.get(sugarURL+"/service/v2/rest.php", {
-					method: "get_entry_list",
-					input_type: "JSON",
-					response_type: "JSON",
-					rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","query":"","order_by":"email_address desc","select_fields":"","link_name_to_fields_array":"","deleted":0}'
-			}, function (c){
-
-				if (c != undefined) {
-					c = $.parseJSON(JSON.stringify(c, undefined, 2));
-					if (c.name !== undefined && c.name === "Invalid Session ID") {
-						SugarSessionId = "";
-						$.mobile.changePage("#LoginPage")
-					}
-					if (c != undefined && c.entry_list != undefined) {
-							var allemails = c;
-							console.log(allemails);
-					}
-				}
-				$.get(sugarURL+"/service/v2/rest.php", {
-					method: "set_entry",
-					input_type: "JSON",
-					response_type: "JSON",
-					rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","name_value_list":[{"name":"id","value":"'+ CurrentContactId +'"},{"name":"first_name","value":"'+ newContactName +'"},{"name":"last_name","value":"'+ newContactLastName +'"},{"name":"phone_fax","value":"'+ newContactPhoneFax +'"},{"name":"phone_work","value":"'+ newContactPhoneWork +'"},{"name":"phone_mobile","value":"'+ newContactPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newContactPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newContactPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newContactPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newContactPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newContactPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
-				}, function (d) {
-
-					for(var h=0;h<allemails.entry_list.length;h++){
-						if(allemails.entry_list[h].name_value_list.email_address.value == CurrentContact.name_value_list.email1.value){
-							idEmail=allemails.entry_list[h].id;
-							break;
-						}
-					}
-
-					if(idEmail !== ""){
-						//hacemos la inserccion en la tabla de email y en la relacion
-						$.get(sugarURL+"/service/v2/rest.php", {
-							method: "set_entry",
-							input_type: "JSON",
-							response_type: "JSON",
-							rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","name_value_list":[{"name":"id","value":"'+ idEmail +'"},{"name":"email_address","value":"'+ newContactEmail +'"},{"name":"email_address_caps","value":"'+ newContactEmail.toUpperCase() +'"},{"name":"date_created","value":"'+ now(false,true) +'"},{"name":"date_modified","value":"'+ now(false,true) +'"}]}'
-						}, function (d) {
-							console.log(d.id);
-							toUpdateContacts = true;
-						})
-					}
-					else {
-						//creamos el email nuevo y le asignamos la relacion
-						$.get(sugarURL+"/service/v2/rest.php", {
-							method: "set_entry",
-							input_type: "JSON",
-							response_type: "JSON",
-							rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","name_value_list":[{"name":"email_address","value":"'+ newContactEmail +'"},{"name":"email_address_caps","value":"'+ newContactEmail.toUpperCase() +'"},{"name":"date_created","value":"'+ now(false,true) +'"},{"name":"date_modified","value":"'+ now(false,true) +'"}]}'
-						}, function (c) {
-							idEmail=c.id;
-							$.get(sugarURL+"/service/v2/rest.php", {
-    							method: "set_relationship",
-    							input_type: "JSON",
-    							response_type: "JSON",
-    							rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"email_addresses","related_ids":["'+ idEmail +'"],"name_value_list":[],"deleted":"0"}'
-							}, function (d) {
-								CurrentContactId="";
-								toUpdateContacts = true;
-								console.log(d.id);
-
-							})
-						})
-
-					}	
-					
-					
-				})	*/
-			//}).then(function(){
-			//	$("input[id^='NewContact']").val("");
-			//	$.mobile.changePage("#HomePage");
-			//})
-
-		//}
-		
+		}		
 	}
+
+
 	var allemails ="";
+	/**
+	 * To obtain Emails of Contacts from server
+	 */
 	function SugarCrmObtainAllEmails(){
 		$.get(sugarURL+"/service/v2/rest.php", {
 					method: "get_entry_list",
@@ -4108,6 +4210,9 @@ require(["es_ES"], function(util)
 	}
 
 	//Funcion que carga los datos del contacto
+	/**
+	 * To get Current Contact Data to complete inputs
+	 */
 	function SugarCrmGetContactData()
 	{
 		if(CurrentContact.name_value_list.email1.value !== undefined)
@@ -4128,6 +4233,10 @@ require(["es_ES"], function(util)
 
 
 	//Funcion crear nuevo potencial
+	/**
+	 * To insert or update a Lead
+	 * @param id CurrentLeadId
+	 */
 	function SugarCrmSetNewLead(id)
 	{
 		var newLeadName = $("input#NewLeadName").val();
@@ -4178,6 +4287,9 @@ require(["es_ES"], function(util)
 	}
 
 	//Funcion que carga los datos del potencial
+	/**
+	 * To obtain data related to leads
+	 */
 	function SugarCrmGetLeadData()
 	{
 		$("input#NewLeadName").val(CurrentLead.name_value_list.first_name.value);		
@@ -4195,11 +4307,14 @@ require(["es_ES"], function(util)
 	//Función que autocompleta el input referente a tareas con los contactos ya cargados,
 	//en caso de no estar cargados, los carga
 	//requiere que el usuario teclee al menos 3 caracteres
-function SugarCrmGetContactsTask(){
-	var ContactsList=JSON.parse(localStorage.getItem("ContactsList"));
-		
-	var value, results=0;
-	value = $("input#autocomplete").val().toLowerCase();
+	/**
+	 * To autocomplete input refered to Task with  loaded contacts, it's necessary to type at least 3 characters
+	 */
+	function SugarCrmGetContactsTask(){
+		var ContactsList=JSON.parse(localStorage.getItem("ContactsList"));
+			
+		var value, results=0;
+		value = $("input#autocomplete").val().toLowerCase();
 		$("#autocompleteNewContactTask li").remove();
 		if(value.length > 2){		
 			var b = 0;
@@ -4241,6 +4356,9 @@ function SugarCrmGetContactsTask(){
 
 
 	// Función para insertar una nueva tarea
+	/**
+	* To insert a new Task
+	*/
 	function SugarCrmSetNewTask(id)
 	{
 		
@@ -4293,6 +4411,9 @@ function SugarCrmGetContactsTask(){
 	}
 
 	//Obtener los datos de la tarea
+	/**
+	* To obtain data of current task
+	*/
 	function SugarCrmGetTaskData(){
 		var ContactsList=JSON.parse(localStorage.getItem("ContactsList"));
 		var b;
@@ -4366,6 +4487,9 @@ function SugarCrmGetContactsTask(){
 	});
 
 	//Inserta o modifica las oportunidades
+	/**
+	* To insert or modify opportunities
+	*/
 	function SugarCrmSetNewOpportunity(id)
 	{
 		var newOpportunityName = $("input#NewOpportunityName").val();
@@ -4446,6 +4570,9 @@ function SugarCrmGetContactsTask(){
 	}
 
 	//Obtener los datos de las oportunidades
+	/**
+	* To obtain data of opportunities
+	*/
 	function SugarCrmGetOpportunityData(){
 
 		var AccountsList = JSON.parse(localStorage.getItem("AccountsList"));	
@@ -4484,6 +4611,9 @@ function SugarCrmGetContactsTask(){
 
 	//Función que autocompleta el input referente a oportunidades con los empresas ya cargadas,
 	//en caso de no estar cargadas, las carga
+	/**
+	 * To autocomplete input refered to Opportunities with  loaded accounts, it's necessary to type at least 3 characters
+	 */
 	function SugarCrmGetAccountsOpportunities(){
 		var AccountsList = JSON.parse(localStorage.getItem("AccountsList"));
 		var results=0;
@@ -4529,6 +4659,7 @@ function SugarCrmGetContactsTask(){
 	
 	/**
 	*To insert or update a meeting
+	*@param id CurrentMeetingId
 	*/
 	function SugarCrmSetNewMeeting(id){
 
@@ -4728,7 +4859,9 @@ function SugarCrmGetContactsTask(){
  
 	 
 
-
+	/**
+	* To get details of current call to complete input
+	*/
 	function SugarCrmGetCallData(){
 		var ContactsList=JSON.parse(localStorage.getItem("ContactsList"));
 		var AccountsList = JSON.parse(localStorage.getItem("AccountsList"));
@@ -4762,6 +4895,10 @@ function SugarCrmGetContactsTask(){
 
 
 	// Función para editar la llamada
+	/**
+	*To edit calls
+	*
+	*/
 	function SugarCrmEditCall(id) {
 		var hours = $("input#NewCallHours").val();
 		var minutes = $("input#NewCallMinutes").val();
@@ -4784,6 +4921,12 @@ function SugarCrmGetContactsTask(){
 	// *************************************************************
 
 	// Cambia la fecha y hora a formato datetime si time es 0 es que no pasamos time
+	/**
+	* To change date and time to datetime format, if time = 0 is because there isn't time parameter
+	*@param date date
+	*@param time time
+	*@return datetime
+	*/
 	function changeDate(date, time){
 		
 		if(time==0){
@@ -4803,6 +4946,11 @@ function SugarCrmGetContactsTask(){
 		}
 	}
 
+	/**
+	* To convert time to american format
+	*@param datetime
+	*@return time to american format with or without hours, minutes and meridian as a string or nothing
+	*/
 	function setDateInput(datetime){
 		var r = datetime.match(/^\s*([0-9]+)\s*-\s*([0-9]+)\s*-\s*([0-9]+)(.*)$/);
 		var meridian ="AM";
@@ -4834,6 +4982,11 @@ function SugarCrmGetContactsTask(){
 	}
 	
 	//Conversor de horas y minutos a segundos usado en la duracion de las reuniones para guardarlas en la BD
+	/**
+	* To convert time to DB format
+	*@param seconds
+	*@return time, minutes and seconds
+	*/
 	function secondsToHoursandMinutes(seconds){
 		var minutes,
 			hours;
@@ -4842,7 +4995,14 @@ function SugarCrmGetContactsTask(){
 		minutes = minutes%60;
 		return hours+"-"+minutes;
 	}
+
 	//Conversor de horas y minutos a segundos usado en la duracion de las reuniones al leer de la BD
+	/**
+	* To convert time to seconds
+	*@param hours
+	*@param minutes
+	*@return time as seconds
+	*/
 	function HoursandMinutesToSeconds(hours,minutes){
 		var seconds=parseInt(hours)*3600;
 		seconds+=parseInt(minutes)*60;
@@ -4851,6 +5011,11 @@ function SugarCrmGetContactsTask(){
 	}
 
 	// Cambia la fecha al ser mostrada al formato español
+	/**
+	* To convert date to european format
+	*@param time
+	*@return time with or without hours,minutes as string or nothing
+	*/
 	function change(time) {
 		var r = time.match(/^\s*([0-9]+)\s*-\s*([0-9]+)\s*-\s*([0-9]+)(.*)$/);
 		if ((r !== null) && (r !== undefined))
@@ -4880,6 +5045,12 @@ function SugarCrmGetContactsTask(){
 	// param local= true:local, false:GMT
 	// param toStore= true:database format, false: to show on screen
 	// Usar siempre que se pueda (false, true).
+	/**
+	* To obtain current time
+	*@param local
+	*@param toStore
+	*@return current time
+	*/
 	function now(local, toStore) {
 		var currentdate = new Date();
 		var hora, minuto, segundo; 
