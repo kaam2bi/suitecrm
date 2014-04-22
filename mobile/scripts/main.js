@@ -139,7 +139,8 @@ require(["es_ES"], function(util)
 
 		//NotesListPage
 		$("#NotesListPageTitle").text(RES_NOTES_TITLE);
-		$("#CreateNewNote").text(RES_NEW);
+		$("#ButtonCreateNewNote").text(RES_NEW);
+		
 
 		//ViewContactDetailsPage
 		$("#ViewContactDetailsPageTitle").text(RES_CONTACT_LABEL + " " + RES_DETAILS_LABEL);
@@ -312,6 +313,12 @@ require(["es_ES"], function(util)
 		$("#NewMeetingDescriptionLabel").text(RES_DESCRIPTION_LABEL);
 
 		//EditingCallDetails
+		$("#EditingCallPageTitle").text( RES_EDIT + " "+ RES_CALL_LABEL);
+		$("#SaveNewCall").text(RES_SAVE);
+		$("#NewCallDateTimeLabel").text(RES_DATE +"-"+ RES_TIME );
+		$("#NewCallContactLabel").text(RES_CONTACT_LABEL);
+		$("#NewCallHoursLabel").text( RES_HOURS);
+		$("#NewCallMinutesLabel").text(RES_MINUTES);
 	});
 	
 

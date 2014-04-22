@@ -238,7 +238,7 @@
         <div id="NotesListPage" data-role="page" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="NotesListPageTitle"></h1>
-                <a href="#CreateNewNote" data-icon="plus" data-direction="reverse" class="ui-btn-right">Nueva</a>
+                <a href="#CreateNewNote" id="ButtonCreateNewNote" data-icon="plus"  class="ui-btn-right">Nueva</a>
             </div><!-- /header -->
             <div data-role="content">
                 <ul id="AllNotesListDiv" data-inset="false" data-filter="true" data-filter-placeholder="Buscar..." data-role="listview" />
@@ -253,7 +253,7 @@
         <div id="ViewAccountDetailsPage" data-role="page" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="ViewAccountDetailsPageTitle"></h1>
-                <a id="EditAccountDetails" href="#CreateNewAccount" data-icon="star" class="ui-btn-right"></a>
+                <a id="EditAccountDetails" href="#CreateNewAccount" data-icon="edit" class="ui-btn-right"></a>
             </div>
             <div data-role="content">
                 <h3 id="AccountNameH1"></h3>
@@ -292,7 +292,7 @@
         <div data-role="page" id="ViewContactDetailsPage" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="ViewContactDetailsPageTitle"></h1>
-                <a id="EditContactDetails" href="#CreateNewContact" data-icon="star" class="ui-btn-right"></a>
+                <a id="EditContactDetails" href="#CreateNewContact" data-icon="edit" class="ui-btn-right"></a>
             </div>
             <div data-role="content">
                 <h3 id="ContactNameH1"></h3>
@@ -331,7 +331,7 @@
         <div data-role="page" id="ViewOpportunityDetailsPage" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="ViewOpportunityDetailsPageTitle"></h1>
-                <a id="EditOpportunityDetails" href="#CreateNewOpportunity" data-icon="star" class="ui-btn-right"></a>
+                <a id="EditOpportunityDetails" href="#CreateNewOpportunity" data-icon="edit" class="ui-btn-right"></a>
             </div>
             <div data-role="content">
                 <h3 id="OpportunityNameH1"></h3>
@@ -367,7 +367,7 @@
         <div data-role="page" id="ViewLeadDetailsPage" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="ViewLeadDetailsPageTitle"></h1>
-                <a id="EditLeadDetails" href="#CreateNewLead" data-icon="star"  class="ui-btn-right"></a>
+                <a id="EditLeadDetails" href="#CreateNewLead" data-icon="edit"  class="ui-btn-right"></a>
             </div>
             <div data-role="content">
                 <h3 id="LeadNameH1"></h3>
@@ -395,7 +395,7 @@
         <div data-role="page" id="ViewCallDetailsPage" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="ViewCallDetailsPageTitle"></h1>
-                <a id="EditCallDetails" href="#EditingCallDetails" data-icon="star" class="ui-btn-right"></a>
+                <a id="EditCallDetails" href="#EditingCallDetails" data-icon="edit" class="ui-btn-right"></a>
             </div>
             <div data-role="content">
                 <h3 id="CallNameH1"></h3>
@@ -427,7 +427,7 @@
         <div data-role="page" id="ViewMeetingDetailsPage" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="ViewMeetingDetailsPageTitle"></h1>
-                <a id="EditMeetingDetails" href="#CreateNewMeeting" data-icon="star" class="ui-btn-right"></a>
+                <a id="EditMeetingDetails" href="#CreateNewMeeting" data-icon="edit" class="ui-btn-right"></a>
             </div>
             <div data-role="content">
                 <h3 id="MeetingNameH1"></h3>
@@ -459,7 +459,7 @@
         <div data-role="page" id="ViewTaskDetailsPage" data-theme="b">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
                 <h1 id="ViewTaskDetailsPageTitle"></h1>
-                <a id="EditTaskDetails" href="#CreateNewTask" data-icon="star" class="ui-btn-right"></a>
+                <a id="EditTaskDetails" href="#CreateNewTask" data-icon="edit" class="ui-btn-right"></a>
             </div>
             <div data-role="content">
                 <h3 id="TaskNameH1"></h3>
@@ -1067,19 +1067,19 @@
 <!-- Edicion de la duracion de la llamada -->        
 <div data-role="page"  id="EditingCallDetails" data-theme="b">
      <div data-role="header" data-add-back-btn="true" data-back-btn-text="Cancelar">
-        <h1>Editar llamada</h1>
-        <a id="SaveNewCall" data-icon="check" data-direction="reverse" class="ui-btn-right">Guardar</a>
+        <h1 id="EditingCallPageTitle"></h1>
+        <a id="SaveNewCall" data-icon="check" data-direction="reverse" class="ui-btn-right"></a>
      </div>
     <div role="main" class="ui-content">
 <div class="ui-field-contain" data-controltype="textinput">
-            <label for="NewCallDateTime">
-                Fecha-Hora
+            <label for="NewCallDateTime" id="NewCallDateTimeLabel">
+                
             </label>
             <input name="" id="NewCallDateTime" placeholder="" value="" type="text" readonly>
         </div>
         <div class="ui-field-contain" data-controltype="textinput">
-            <label for="NewCallContact">
-                Contacto
+            <label for="NewCallContact" id="NewCallContactLabel">
+                
             </label>
             <input name="" id="NewCallContact" placeholder="" value="" type="text" readonly>
         </div>        
@@ -1087,16 +1087,16 @@
         <div class="ui-grid-a">
             <div class="ui-block-a">
                 <div class="ui-field-contain" data-controltype="textinput">
-                    <label for="NewCallHours">
-                        Horas
+                    <label for="NewCallHours" id="NewCallHoursLabel">
+                        
                     </label>
                     <input name="" id="NewCallHours" placeholder="" value="" type="number" maxlength="2" min="0" max="23">
                 </div>
             </div>
             <div class="ui-block-b">
                 <div class="ui-field-contain" data-controltype="textinput">
-                    <label for="NewCallMinutes">
-                        Minutos
+                    <label for="NewCallMinutes" id="NewCallMinutesLabel">
+                        
                     </label>
                     <input name="" id="NewCallMinutes" placeholder="" value="" type="number" maxlength="2" min="0" max="59">
                 </div>

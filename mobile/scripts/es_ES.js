@@ -110,7 +110,10 @@ RES_NEW_ONE = "Nuevo",
     RES_START_TIME ="Hora de inicio",
     RES_DUE_DATE ="Fecha de vencimiento",
     RES_DUE_TIME ="Hora de vencimiento",
-    RES_QUANTITY ="Cantidad ($)";
+    RES_QUANTITY ="Cantidad ($)",
+    RES_TIME = "Hora",
+    RES_HOURS = "Horas",
+    RES_MINUTES = "Minutos";
 
 
 // *** LOS ARRAYS AUXILIARES A TRADUCIR VAN AQUÍ ***
