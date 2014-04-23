@@ -52,7 +52,8 @@ require(["es_ES"], function(util)
     toUpdateTasks = false,
     toUpdateOpportunities=false,
     toUpdateMeetings = false,
-    toUpdateCalls = false;
+    toUpdateCalls = false,
+    toUpdateNotes = false;
     
     // Cookie expiration time (in minutes) 						
     var cookieTime = 15;
@@ -172,6 +173,7 @@ require(["es_ES"], function(util)
 
 		//ViewNoteDetailsPage
 		$("#ViewNoteDetailsPageTitle").text(RES_NOTE_LABEL + " " + RES_DETAILS_LABEL);
+		$("#EditNoteDetails").text(RES_EDIT);
 
 
 		//CreateNewNote
@@ -402,7 +404,7 @@ require(["es_ES"], function(util)
 			var c = $("#SettingsPageSugarCrmUsername").val(),
 				b = $("#SettingsPageSugarCrmPassword").val();
 			if ($("#SettingsPageSugarCrmUrl")) sugarURL = $("#SettingsPageSugarCrmUrl").val();
-			if ((sugarURL == null) && (sugarURL == "")){
+			if ((sugarURL == null) || (sugarURL == "")){
 				sugarURL = "..";
 				//http://localhost/suitecrm
 			}
@@ -464,7 +466,7 @@ require(["es_ES"], function(util)
 
 			//Comprobamos el valor del input y lo recogemos
 		if ($("#SettingsPageSugarCrmUrl")) sugarURL = $("#SettingsPageSugarCrmUrl").val();
-		if ((sugarURL == null) && (sugarURL == "")){
+		if ((sugarURL == null) || (sugarURL == "")){
 			sugarURL = "..";
 		}
 
@@ -3678,7 +3680,7 @@ require(["es_ES"], function(util)
 	 * @param a NotesListCurrentOffset
 	 */
 	function SugarCrmGetNotesListFromServer(a) {
-		if ($("#AllNotesListDiv li").length === 0 || NotesListCurrentOffset !== a) {
+		if ($("#AllNotesListDiv li").length === 0 || NotesListCurrentOffset !== a || toUpdateNotes === true) {
 			$.mobile.loading( "show", {
 					text: RES_LOADER_MSG,
 					textonly: textOnly,
@@ -3691,7 +3693,7 @@ require(["es_ES"], function(util)
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Notes","query":"","order_by":"date_start desc","offset":' + a + ',"select_fields":"","link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews + ',"deleted":0}'
 			}, function (c) {
-
+				toUpdateNotes=false;
 				if (c != undefined) {
 					c =
 						$.parseJSON(JSON.stringify(c, undefined, 2));
@@ -3766,6 +3768,7 @@ require(["es_ES"], function(util)
 					undefined && a.entry_list != undefined)
 					if (a.entry_list[0] != undefined) {
 						a = a.entry_list[0];
+						CurrentNote=a;
 						$("#NoteSubjectH1").html(a.name_value_list.name.value);
 						var c = a.name_value_list.description.value;
 						$("#NoteTextP").text(c);
@@ -3798,15 +3801,18 @@ require(["es_ES"], function(util)
 	var CurrentMeeting = "";
 	var CurrentCall = "";
 	var CurrentMeetingContactsDetails="";
+	var CurrentNote="";
 
 	// Métodos onclick de boton de edición
-	$("a#SaveNewNote").click(function(event){ SugarCrmSetNewNote(); });
+	$("a#SaveNewNote").click(function(event){ SugarCrmSetNewNote(CurrentNoteId); });
 	$("a#SaveNewAccount").click(function(event){ SugarCrmSetNewAccount(CurrentAccountId); }); 
 	$("a#EditAccountDetails").click(function(event){ SugarCrmGetAccountData(); }); 
 	$("a#SaveNewContact").click(function(event){ SugarCrmSetNewContact(CurrentContactId); }); 
 	$("a#EditContactDetails").click(function(event){ SugarCrmGetContactData(); });
 	$("a#SaveNewLead").click(function(event){ SugarCrmSetNewLead(CurrentLeadId); }); 
 	$("a#EditLeadDetails").click(function(event){ SugarCrmGetLeadData(); });
+	$("a#EditNoteDetails").click(function(event){ SugarCrmGetNoteData(); });
+
 	
 	$("a#ButtonCreateNewAccount").click(function(event){ SugarCrmSetDataEmpty(); });
 	$("a#ButtonCreateNewLead").click(function(event){ SugarCrmSetDataEmpty(); });
@@ -3814,6 +3820,7 @@ require(["es_ES"], function(util)
 	$("a#ButtonCreateNewTask").click(function(event){ SugarCrmSetDataEmpty(); });
 	$("a#ButtonCreateNewOpportunity").click(function(event){ SugarCrmSetDataEmptyOpportunity(); });
 	$("a#ButtonCreateNewMeeting").click(function(event){ SugarCrmSetDataEmptyMeeting(); });
+	$("a#ButtonCreateNewNote").click(function(event){ SugarCrmSetDataEmptyNote(); });
 
 	$("#autocompleteNewContactTask").on("listviewbeforefilter", function(event){ 
 		SugarCrmGetContactsTask();
@@ -3848,6 +3855,7 @@ require(["es_ES"], function(util)
 	    var resImg = document.getElementById('attachedImage');
 	    mpImg.render(resImg, {quality: 0.9 });
 	    imageFile = resImg.toDataURL("image/jpeg", { quality: 0.9 }); // , { maxWidth: 300, maxHeight: 300, quality: 0.8 });
+   		
     });
 
 
@@ -3871,56 +3879,114 @@ require(["es_ES"], function(util)
 	}
 
 	/**
-	 * To insert a new note [TODO: Attachment]
+	 * To insert and update note [TODO: Attachment]
+	 *@param id CurrentNoteId
 	 */
-	function SugarCrmSetNewNote()
+	function SugarCrmSetNewNote(id)
 	{
 		var subject = $("input#NewNoteSubject").val();
 		var description = $("textarea#NewNoteDescription").val();
 		var filename = $("input#imageInput").val();
 		
 		toast(RES_NEW_ITEM_LOADING);
+		if(id=="")
+		{
 
-		$.get(sugarURL+"/service/v2/rest.php", {
-			method: "set_entry",
-			input_type: "JSON",
-			response_type: "JSON",
-			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Notes","module_name":"Notes","name_value_list":[{"name":"name","value":"'+ subject +'"},{"name":"description","value":"'+ description +'"},{"name":"parent_type","value":""},{"name":"parent_id","value":""},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
-		}, function (b) {
-			
-			lastNewNoteId = b.id;
-			console.log(b.id);
-			//console.log(imageFile);
-
-			
-			if (imageFile != null)
-			{
+			$.get(sugarURL+"/service/v2/rest.php", {
+				method: "set_entry",
+				input_type: "JSON",
+				response_type: "JSON",
+				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Notes","name_value_list":[{"name":"name","value":"'+ subject +'"},{"name":"description","value":"'+ description +'"},{"name":"parent_type","value":""},{"name":"parent_id","value":""},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
+			}, function (b) {
+				toUpdateNotes = true;
+				lastNewNoteId = b.id;
+				console.log(b.id);
+				console.log(imageFile);
+	
+				
+				if (imageFile != null)
+				{
+					
+					
+					$.get(sugarURL+"/service/v2/rest.php", {
+						method: "set_note_attachment",
+						input_type: "JSON",
+						response_type: "JSON",
+						rest_data: '{"session":"' + SugarSessionId + '","note":[{"id":"'+ lastNewNoteId +'","filename":"'+ filename +'","file": "'+imageFile+'" )}]}'
+					}, function (c) {																											
+						console.log(c);
+						// rest_data: '{"session":"' + SugarSessionId + '","note":[{"id":"'+ lastNewNoteId +'","filename":"'+ filename +'","file":"'+ imageFile +'"}]}' // Cabecera del tipo:  data:image/jpeg;base64,000
+						//"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAAAAAAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACWASwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD4yooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//2Q=="
+						// TODO: Comprobar aquí si la transacción fue bien.
+						
+						// Reset de todos los valores.
+						//$("input#NewNoteSubject").val("");
+						//$("textarea#NewNoteDescription").val("");
+						//$("input#imageInput").val("");
+						imageFile = null;
+	
+						toast(RES_NEW_ITEM_CREATED);
+					})
+				}
+				SugarCrmSetDataEmptyNote();
+				$.mobile.changePage("#HomePage");
+				
+			})
+		}else{
 				$.get(sugarURL+"/service/v2/rest.php", {
-					method: "set_note_attachment",
-					input_type: "JSON",
-					response_type: "JSON",
-					rest_data: '{"session":"' + SugarSessionId + '","note":[{"id":"'+ lastNewNoteId +'","filename":"'+ filename +'","file":"'+ imageFile +'"}]}'
-				}, function (c) {																											
+				method: "set_entry",
+				input_type: "JSON",
+				response_type: "JSON",
+				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Notes","name_value_list":[{"name":"id","value":"'+ CurrentNoteId +'"},{"name":"name","value":"'+ subject +'"},{"name":"description","value":"'+ description +'"},{"name":"parent_type","value":""},{"name":"parent_id","value":""},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
+			}, function (b) {
+				toUpdateNotes = true;
+				lastNewNoteId = b.id;
+				console.log(b.id);
+				/*console.log(imageFile);
+	
+				
+				if (imageFile != null)
+				{
 					
-					// rest_data: '{"session":"' + SugarSessionId + '","note":[{"id":"'+ lastNewNoteId +'","filename":"'+ filename +'","file":"'+ imageFile +'"}]}' // Cabecera del tipo:  data:image/jpeg;base64,000
-
-					// TODO: Comprobar aquí si la transacción fue bien.
 					
-					// Reset de todos los valores.
-					$("input#NewNoteSubject").val("");
-					$("textarea#NewNoteDescription").val("");
-					$("input#imageInput").val("");
-					imageFile = null;
+					$.get(sugarURL+"/service/v2/rest.php", {
+						method: "set_note_attachment",
+						input_type: "JSON",
+						response_type: "JSON",
+						rest_data: '{"session":"' + SugarSessionId + '","note":[{"id":"'+ lastNewNoteId +'","filename":"'+ filename +'","file": "'+imageFile+'" )}]}'
+					}, function (c) {																											
+						console.log(c);
+						// rest_data: '{"session":"' + SugarSessionId + '","note":[{"id":"'+ lastNewNoteId +'","filename":"'+ filename +'","file":"'+ imageFile +'"}]}' // Cabecera del tipo:  data:image/jpeg;base64,000
+						//"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAAAAAAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACWASwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD4yooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//2Q=="
+						// TODO: Comprobar aquí si la transacción fue bien.
+						
+						// Reset de todos los valores.
+						$("input#NewNoteSubject").val("");
+						$("textarea#NewNoteDescription").val("");
+						$("input#imageInput").val("");
+						imageFile = null;
+	
+						toast(RES_NEW_ITEM_CREATED);
+					})
+				}*/
+				
+			})
+			SugarCrmSetDataEmptyNote();
+			$.mobile.changePage("#HomePage");
+		}	
 
-					console.log(c);
-					toast(RES_NEW_ITEM_CREATED);
-				})
-			}
-			
-		})
 	}
 
+	/**
+	 * To get Current Note Data to complete inputs
+	 */
+	function SugarCrmGetNoteData()
+	{
+		$("input#NewNoteSubject").val(CurrentNote.name_value_list.name.value);
+		$("textarea#NewNoteDescription").val(CurrentNote.name_value_list.description.value);
+		//$("input#imageInput").val(CurrentNote.name_value_list.);
 
+	}
 
 	// Función para insertar una nueva empresa
 	/**
@@ -4059,6 +4125,16 @@ require(["es_ES"], function(util)
 		$('select#NewMeetingDuration').selectmenu("refresh",true);
 		$("ul#NewContactsMetting").listview("refresh");
 		
+	}
+
+	/**
+	 * To set empty every input in CreateNewNote page 
+	 */
+	function SugarCrmSetDataEmptyNote(){
+		$("input#NewNoteSubject").val("");
+		$("textarea#NewNoteDescription").val("");
+		$("input#imageInput").val("");
+
 	}
 
 	//Funcion crear nuevo contacto
