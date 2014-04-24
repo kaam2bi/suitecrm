@@ -409,17 +409,10 @@ require(["es_ES"], function(util)
 				//http://localhost/suitecrm
 			}
 			if (a == undefined) b = $.md5(b);
-
-			//var sugarURLtemp = sugarURL + "/service/v2/rest.php";
-			//var sugarURLtemp = "http://www.2bi.es/suitecrm/service/v2/rest.php";
-
-			//$.get(sugarURL+"/service/v2/rest.php", {
-			$.get("../service/v2/rest.php", {
+			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "login",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '[{"password":"' + b + '","user_name":"' + c + '"},"SugarCrm",{"name":"language","value":"es_es"}]'
 			}, function (d) { 
 				if (d !== "") {
@@ -480,10 +473,8 @@ require(["es_ES"], function(util)
 		if (a == undefined) b = $.md5(b);
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "login",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '[{"password":"' + b + '","user_name":"' + c + '"},"SugarCrm",{"name":"language","value":"es_es"}]'
 		}, function (d) { 
 			if (d !== "") {
@@ -514,10 +505,8 @@ require(["es_ES"], function(util)
 	window.onbeforeunload = function () {
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "logout",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '[{"session":"' + SugarSessionId + '"}]'
 		})
 	};
@@ -529,10 +518,8 @@ require(["es_ES"], function(util)
 	function LogOutUser() {
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "logout",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '[{"session":"' + SugarSessionId + '"}]'
 		}, function () {
 			$.removeCookie('SugarCurrentUserId');
@@ -555,10 +542,8 @@ require(["es_ES"], function(util)
 	function SugarCrmGetContacts(a){
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_entry_list",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","query":"","order_by":"first_name","offset":' + a + ',"select_fields":["first_name","last_name","title"],"link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews +
 				',"deleted":0}'
 		}, function (c) {
@@ -578,10 +563,8 @@ require(["es_ES"], function(util)
 	function SugarCrmGetAccounts(a){
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_entry_list",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","query":"","order_by":"name","offset":' + a + ',"select_fields":["name","billing_address_city","billing_address_state"],"link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews +
 				',"deleted":0}'
 		}, function (c) {
@@ -617,10 +600,8 @@ require(["es_ES"], function(util)
 				
 				$.get(sugarURL+"/service/v2/rest.php", {
 					method: "get_entry_list",
-					input_type: "JSONP",
-					response_type: "JSONP",
-					jsonp: true,
-					crossDomain: true,
+					input_type: "JSON",
+					response_type: "JSON",
 					rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","query":"","order_by":"name","offset":' + a + ',"select_fields":["name","billing_address_city","billing_address_state"],"link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews +
 						',"deleted":0}'
 				}, function (c) {
@@ -656,10 +637,8 @@ require(["es_ES"], function(util)
 		$("#AccountDescriptionP").text("");
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_entry",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","id":"' + CurrentAccountId + '","select_fields":"","link_name_to_fields_array":""}'
 		}, function (a) {
 			if (a !== undefined) {
@@ -794,10 +773,8 @@ require(["es_ES"], function(util)
 		$("#ViewAccountDetailsPageContactsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","module_id":"' + CurrentAccountId + '","link_field_name":"contacts","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			$("#ViewAccountDetailsPageContactsListUl").append('<li data-role="list-divider">'+RES_CONTACTS_LABEL+'</li>');
@@ -846,10 +823,8 @@ require(["es_ES"], function(util)
 		$("#ViewAccountDetailsPageOpportunitiesListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","module_id":"' + CurrentAccountId + '","link_field_name":"opportunities","related_module_query":"","related_fields":["id","name","sales_stage"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			$("#ViewAccountDetailsPageOpportunitiesListUl").append('<li data-role="list-divider">'+RES_OPPORTUNITIES_LABEL+'</li>');
@@ -899,10 +874,8 @@ require(["es_ES"], function(util)
 		$("#ViewAccountDetailsPageLeadsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' +
 				SugarSessionId + '","module_name":"Accounts","module_id":"' + CurrentAccountId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
@@ -953,10 +926,8 @@ require(["es_ES"], function(util)
 		$("#ViewAccountDetailsPageCallsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","module_id":"' +
 				CurrentAccountId + '","link_field_name":"calls","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
@@ -1013,10 +984,8 @@ require(["es_ES"], function(util)
 		$("#ViewAccountDetailsPageMeetingsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_relationships",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","module_id":"' + CurrentAccountId + '","link_field_name":"meetings","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 			},
 			function (a) {
@@ -1072,10 +1041,8 @@ require(["es_ES"], function(util)
 		$("#ViewAccountDetailsPageTasksListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_relationships",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","module_id":"' + CurrentAccountId + '","link_field_name":"tasks","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 			},
 			function (a) {
@@ -1152,10 +1119,8 @@ require(["es_ES"], function(util)
 			{
 				$.get(sugarURL+"/service/v2/rest.php", {
 					method: "get_entry_list",
-					input_type: "JSONP",
-					response_type: "JSONP",
-					jsonp: true,
-					crossDomain: true,
+					input_type: "JSON",
+					response_type: "JSON",
 					rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","query":"","order_by":"first_name","offset":' + a + ',"select_fields":["first_name","last_name","title"],"link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews +
 						',"deleted":0}'
 				}, function (c) {
@@ -1281,10 +1246,8 @@ require(["es_ES"], function(util)
 		$("#ViewContactDetailsPageDetailsList li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_entry",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","id":"' + CurrentContactId + '","select_fields":["first_name","last_name","title","phone_work","email1","description","primary_address_street","primary_address_city","primary_address_state","primary_address_postalcode","primary_address_country","phone_mobile","phone_fax","department","alt_address_street","alt_address_city","alt_address_state","alt_address_postalcode","alt_address_country"],"link_name_to_fields_array":""}'
 		}, function (a) {
 			if (a !=
@@ -1452,10 +1415,8 @@ require(["es_ES"], function(util)
 		$("#ViewContactDetailsPageOpportunitiesListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"opportunities","related_module_query":"","related_fields":["id","name","sales_stage"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -1510,10 +1471,8 @@ require(["es_ES"], function(util)
 		$("#ViewContactDetailsPageLeadsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -1569,10 +1528,8 @@ require(["es_ES"], function(util)
 		$("#ViewContactDetailsPageCallsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"calls","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -1633,10 +1590,8 @@ require(["es_ES"], function(util)
 		$("#ViewContactDetailsPageMeetingsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"meetings","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -1698,10 +1653,8 @@ require(["es_ES"], function(util)
 		SugarSessionId == "" && $.mobile.changePage("#HomePage");
 		$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_relationships",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"tasks","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 			},
 			function (a) {
@@ -1772,10 +1725,8 @@ require(["es_ES"], function(util)
 			OpportunitiesListCurrentOffset = a;
 			$.get(sugarURL+"/service/v2/rest.php", {
 					method: "get_entry_list",
-					input_type: "JSONP",
-					response_type: "JSONP",
-					jsonp: true,
-					crossDomain: true,
+					input_type: "JSON",
+					response_type: "JSON",
 					rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","query":"","order_by":"amount desc","offset":' + a + ',"select_fields":"","link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews + ',"deleted":0}'
 				},
 				function (c) {
@@ -1855,10 +1806,8 @@ require(["es_ES"], function(util)
 		$("#ViewOpportunityDetailsPageDetailsList li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_entry",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","id":"' + CurrentOpportunityId + '","select_fields":"","link_name_to_fields_array":""}'
 		}, function (a) {
 			if (a != undefined) {
@@ -1935,10 +1884,8 @@ require(["es_ES"], function(util)
 		$("#ViewOpportunityDetailsPageContactsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_relationships",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + CurrentOpportunityId + '","link_field_name":"contacts","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 			},
 			function (a) {
@@ -2003,10 +1950,8 @@ require(["es_ES"], function(util)
 		$("#ViewOpportunityDetailsPageLeadsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_relationships",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + CurrentOpportunityId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 			},
 			function (a) {
@@ -2071,10 +2016,8 @@ require(["es_ES"], function(util)
 		$("#ViewOpportunityDetailsPageCallsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_relationships",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + CurrentOpportunityId + '","link_field_name":"calls","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 			},
 			function (a) {
@@ -2143,10 +2086,8 @@ require(["es_ES"], function(util)
 		$("#ViewOpportunityDetailsPageMeetingsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_relationships",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + CurrentOpportunityId + '","link_field_name":"meetings","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 			},
 			function (a) {
@@ -2217,10 +2158,8 @@ require(["es_ES"], function(util)
 		$("#ViewOpportunityDetailsPageTasksListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_relationships",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + CurrentOpportunityId + '","link_field_name":"tasks","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 			},
 			function (a) {
@@ -2293,10 +2232,8 @@ require(["es_ES"], function(util)
 			LeadsListCurrentOffset = a;
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_entry_list",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","query":"","order_by":"name","offset":' + a + ',"select_fields":"","link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews + ',"deleted":0}'
 			}, function (c) {
 				if (c != undefined) {
@@ -2357,10 +2294,8 @@ require(["es_ES"], function(util)
 		$("#ViewLeadDetailsPageDetailsList li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_entry",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","id":"' + CurrentLeadId + '","select_fields":"","link_name_to_fields_array":""}'
 		}, function (a) {
 			if (a != undefined) {
@@ -2524,10 +2459,8 @@ require(["es_ES"], function(util)
 		$("#ViewLeadDetailsPageCallsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","module_id":"' + CurrentLeadId + '","link_field_name":"calls","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -2582,10 +2515,8 @@ require(["es_ES"], function(util)
 		$("#ViewLeadDetailsPageMeetingsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","module_id":"' + CurrentLeadId + '","link_field_name":"meetings","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -2639,10 +2570,8 @@ require(["es_ES"], function(util)
 		$("#ViewLeadDetailsPageTasksListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","module_id":"' + CurrentLeadId + '","link_field_name":"tasks","related_module_query":"","related_fields":["id","name","status","date_start"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -2704,10 +2633,8 @@ require(["es_ES"], function(util)
 			CallsListCurrentOffset = a;
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_entry_list",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","query":"","order_by":"date_start desc","offset":' + a + ',"select_fields":"","link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews + ',"deleted":0}'
 			}, function (c) {
 				if (c != undefined) {
@@ -2778,10 +2705,8 @@ require(["es_ES"], function(util)
 		$("#ViewCallDetailsPageDetailsList li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_entry",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","id":"' + CurrentCallId + '","select_fields":"","link_name_to_fields_array":""}'
 		}, function (a) {
 			if (a != undefined) {
@@ -2828,10 +2753,8 @@ require(["es_ES"], function(util)
 		var b = "<h4>" + a + ":&nbsp;";
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_entry",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"' + a + '","id":"' + c + '","select_fields":"","link_name_to_fields_array":""}'
 		}, function (d) {
 			d = $.parseJSON(JSON.stringify(d, undefined, 2));
@@ -2858,10 +2781,8 @@ require(["es_ES"], function(util)
 		$("#ViewCallDetailsPageContactsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","module_id":"' + CurrentCallId + '","link_field_name":"contacts","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -2918,10 +2839,8 @@ require(["es_ES"], function(util)
 		$("#ViewCallDetailsPageUsersListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","module_id":"' + CurrentCallId + '","link_field_name":"users","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -2962,10 +2881,8 @@ require(["es_ES"], function(util)
 		$("#ViewCallDetailsPageLeadsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","module_id":"' + CurrentCallId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -3021,10 +2938,8 @@ require(["es_ES"], function(util)
 		$("#ViewCallDetailsPageNotesListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","module_id":"' + CurrentCallId + '","link_field_name":"notes","related_module_query":"","related_fields":["id","name","description","date_entered"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -3090,10 +3005,8 @@ require(["es_ES"], function(util)
 			MeetingsListCurrentOffset = a;
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_entry_list",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","query":"","order_by":"date_start desc","offset":' + a + ',"select_fields":"","link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews + ',"deleted":0}'
 			}, function (c) {
 				if (c != undefined) {
@@ -3163,10 +3076,8 @@ require(["es_ES"], function(util)
 		$("#ViewMeetingDetailsPageDetailsList li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_entry",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","id":"' + CurrentMeetingId + '","select_fields":"","link_name_to_fields_array":""}'
 		}, function (a) {
 			if (a != undefined) {
@@ -3214,10 +3125,8 @@ require(["es_ES"], function(util)
 		var b = "<h4>" + a + ":&nbsp;";
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_entry",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"' + a + '","id":"' + c + '","select_fields":"","link_name_to_fields_array":""}'
 		}, function (d) {
 			d = $.parseJSON(JSON.stringify(d, undefined, 2));
@@ -3245,10 +3154,8 @@ require(["es_ES"], function(util)
 		SugarSessionId == "" && $.mobile.changePage("#HomePage");
 		$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_relationships",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","module_id":"' + CurrentMeetingId + '","link_field_name":"contacts","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 			},
 			function (a) {
@@ -3308,10 +3215,8 @@ require(["es_ES"], function(util)
 		SugarSessionId == "" && $.mobile.changePage("#HomePage");
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","module_id":"' + CurrentMeetingId + '","link_field_name":"users","related_module_query":"","related_fields":"","related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -3352,10 +3257,8 @@ require(["es_ES"], function(util)
 		$("#ViewMeetingDetailsPageLeadsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","module_id":"' + CurrentMeetingId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -3411,10 +3314,8 @@ require(["es_ES"], function(util)
 		$("#ViewMeetingDetailsPageNotesListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","module_id":"' + CurrentMeetingId + '","link_field_name":"notes","related_module_query":"","related_fields":["id","name","description","date_entered"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -3480,10 +3381,8 @@ require(["es_ES"], function(util)
 			TasksListCurrentOffset = a;
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_entry_list",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","query":"","order_by":"date_start desc","offset":' + a + ',"select_fields":"","link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews + ',"deleted":0}'
 			}, function (c) {
 				if (c != undefined) {
@@ -3551,10 +3450,8 @@ require(["es_ES"], function(util)
 		$("#ViewTaskDetailsPageDetailsList li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_entry",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","id":"' + CurrentTaskId + '","select_fields":"","link_name_to_fields_array":""}'
 		}, function (a) {
 			if (a != undefined) {
@@ -3599,10 +3496,8 @@ require(["es_ES"], function(util)
 		var b = "<h4>" + a + ":&nbsp;";
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_entry",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"' + a + '","id":"' + c + '","select_fields":"","link_name_to_fields_array":""}'
 		}, function (d) {
 			d = $.parseJSON(JSON.stringify(d, undefined, 2));
@@ -3629,10 +3524,8 @@ require(["es_ES"], function(util)
 		$("#ViewTaskDetailsPageContactsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","module_id":"' + CurrentTaskId + '","link_field_name":"contacts","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -3689,10 +3582,8 @@ require(["es_ES"], function(util)
 		$("#ViewTaskDetailsPageUsersListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","module_id":"' + CurrentTaskId + '","link_field_name":"users","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -3733,10 +3624,8 @@ require(["es_ES"], function(util)
 		$("#ViewTaskDetailsPageLeadsListUl li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_relationships",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","module_id":"' + CurrentTaskId + '","link_field_name":"leads","related_module_query":"","related_fields":["id","first_name","last_name","title"],"related_module_link_name_to_fields_array":"","deleted":0}'
 		}, function (a) {
 			if (a != undefined) {
@@ -3800,10 +3689,8 @@ require(["es_ES"], function(util)
 			NotesListCurrentOffset = a;
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "get_entry_list",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Notes","query":"","order_by":"date_start desc","offset":' + a + ',"select_fields":"","link_name_to_fields_array":"","max_results":' + RowsPerPageInListViews + ',"deleted":0}'
 			}, function (c) {
 				toUpdateNotes=false;
@@ -3867,10 +3754,8 @@ require(["es_ES"], function(util)
 		$("#ViewNoteDetailsPageDetailsList li").remove();
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "get_entry",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Notes","id":"' + CurrentNoteId + '","select_fields":"","link_name_to_fields_array":""}'
 		}, function (a) {
 			if (a != undefined) {
@@ -3984,10 +3869,8 @@ require(["es_ES"], function(util)
 
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "set_entry",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"name","value":"'+RES_CALL_LOGGED_FROM_CLIENT +'"},{"name":"direction","value":"Outbound"},{"name":"parent_type","value":"' + a + '"},{"name":"parent_id","value":"' + c + '"},{"name":"status","value":"Held"},{"name":"duration_hours","value":0},{"name":"duration_minutes","value":1},{"name":"date_start","value":"' + now(false, true) + '"},{"name":"date_end","value":"' + now(false, true) + '"},{"name":"direction","value":"Outbound"}]}'
 		}, function (b) {
 			toast(RES_NEW_ITEM_CREATED);
@@ -4011,10 +3894,8 @@ require(["es_ES"], function(util)
 
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Notes","name_value_list":[{"name":"name","value":"'+ subject +'"},{"name":"description","value":"'+ description +'"},{"name":"parent_type","value":""},{"name":"parent_id","value":""},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 			}, function (b) {
 				toUpdateNotes = true;
@@ -4029,10 +3910,8 @@ require(["es_ES"], function(util)
 					
 					$.get(sugarURL+"/service/v2/rest.php", {
 						method: "set_note_attachment",
-						input_type: "JSONP",
-						response_type: "JSONP",
-						jsonp: true,
-						crossDomain: true,
+						input_type: "JSON",
+						response_type: "JSON",
 						rest_data: '{"session":"' + SugarSessionId + '","note":[{"id":"'+ lastNewNoteId +'","filename":"'+ filename +'","file": "'+imageFile+'" )}]}'
 					}, function (c) {																											
 						console.log(c);
@@ -4056,10 +3935,8 @@ require(["es_ES"], function(util)
 		}else{
 				$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Notes","name_value_list":[{"name":"id","value":"'+ CurrentNoteId +'"},{"name":"name","value":"'+ subject +'"},{"name":"description","value":"'+ description +'"},{"name":"parent_type","value":""},{"name":"parent_id","value":""},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 			}, function (b) {
 				toUpdateNotes = true;
@@ -4074,10 +3951,8 @@ require(["es_ES"], function(util)
 					
 					$.get(sugarURL+"/service/v2/rest.php", {
 						method: "set_note_attachment",
-						input_type: "JSONP",
-						response_type: "JSONP",
-						jsonp: true,
-						crossDomain: true,
+						input_type: "JSON",
+						response_type: "JSON",
 						rest_data: '{"session":"' + SugarSessionId + '","note":[{"id":"'+ lastNewNoteId +'","filename":"'+ filename +'","file": "'+imageFile+'" )}]}'
 					}, function (c) {																											
 						console.log(c);
@@ -4136,10 +4011,8 @@ require(["es_ES"], function(util)
 			
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","name_value_list":[{"name":"name","value":"'+ accountName +'"},{"name":"phone_office","value":"'+ phoneOffice +'"},{"name":"website","value":"'+ website +'"},{"name":"phone_fax","value":"'+ phoneFax +'"},{"name":"billing_address_street","value":"'+ billingAddressStreet +'"},{"name":"billing_address_city","value":"'+ billingAddressCity +'"},{"name":"billing_address_state","value":"'+ billingAddressState +'"},{"name":"billing_address_postalcode","value":"'+ billingAddressPostalCode +'"},{"name":"billing_address_country","value":"'+ billingAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 			}, function (b) {
 
@@ -4154,10 +4027,8 @@ require(["es_ES"], function(util)
 		else{
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","name_value_list":[{"name":"name","value":"'+ accountName +'"},{"name":"id","value":"'+ CurrentAccountId +'"},{"name":"phone_office","value":"'+ phoneOffice +'"},{"name":"website","value":"'+ website +'"},{"name":"phone_fax","value":"'+ phoneFax +'"},{"name":"billing_address_street","value":"'+ billingAddressStreet +'"},{"name":"billing_address_city","value":"'+ billingAddressCity +'"},{"name":"billing_address_state","value":"'+ billingAddressState +'"},{"name":"billing_address_postalcode","value":"'+ billingAddressPostalCode +'"},{"name":"billing_address_country","value":"'+ billingAddressCountry +'"},{"name":"date_modified","value":"' + now(false, true) + '"}]}'
 			}, function (c) {
 				console.log(c.name);
@@ -4299,28 +4170,22 @@ require(["es_ES"], function(util)
 			********************************************************************************************************/
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","name_value_list":[{"name":"first_name","value":"'+ newContactName +'"},{"name":"last_name","value":"'+ newContactLastName +'"},{"name":"phone_fax","value":"'+ newContactPhoneFax +'"},{"name":"phone_work","value":"'+ newContactPhoneWork +'"},{"name":"phone_mobile","value":"'+ newContactPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newContactPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newContactPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newContactPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newContactPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newContactPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 				}, function (b) {
 					idContact=b.id;
 					$.get(sugarURL+"/service/v2/rest.php", {
 						method: "set_entry",
-						input_type: "JSONP",
-						response_type: "JSONP",
-						jsonp: true,
-						crossDomain: true,
+						input_type: "JSON",
+						response_type: "JSON",
 						rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","name_value_list":[{"name":"email_address","value":"'+ newContactEmail +'"},{"name":"email_address_caps","value":"'+ newContactEmail.toUpperCase() +'"},{"name":"date_created","value":"'+ now(false,true) +'"},{"name":"date_modified","value":"'+ now(false,true) +'"}]}'
 					}, function (c) {
 						idEmail=c.id;
 						$.get(sugarURL+"/service/v2/rest.php", {
     						method: "set_relationship",
-    						input_type: "JSONP",
-    						response_type: "JSONP",
-    						jsonp: true,
-    						crossDomain: true,
+    						input_type: "JSON",
+    						response_type: "JSON",
     						rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + idContact + '","link_field_name":"email_addresses","related_ids":["'+ idEmail +'"],"name_value_list":[],"deleted":"0"}'
 						
 						}, function (d) {
@@ -4337,10 +4202,8 @@ require(["es_ES"], function(util)
 			
 					$.get(sugarURL+"/service/v2/rest.php", {
 								method: "set_entry",
-								input_type: "JSONP",
-								response_type: "JSONP",
-								jsonp: true,
-								crossDomain: true,
+								input_type: "JSON",
+								response_type: "JSON",
 								rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","name_value_list":[{"name":"id","value":"'+ CurrentContactId +'"},{"name":"first_name","value":"'+ newContactName +'"},{"name":"last_name","value":"'+ newContactLastName +'"},{"name":"phone_fax","value":"'+ newContactPhoneFax +'"},{"name":"phone_work","value":"'+ newContactPhoneWork +'"},{"name":"phone_mobile","value":"'+ newContactPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newContactPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newContactPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newContactPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newContactPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newContactPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 					}).done(function(d){
 						
@@ -4355,10 +4218,8 @@ require(["es_ES"], function(util)
 						if(idEmail !== ""){
 							$.get(sugarURL+"/service/v2/rest.php", {
 									method: "set_entry",
-									input_type: "JSONP",
-									response_type: "JSONP",
-									jsonp: true,
-									crossDomain: true,
+									input_type: "JSON",
+									response_type: "JSON",
 									rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","name_value_list":[{"name":"id","value":"'+ idEmail +'"},{"name":"email_address","value":"'+ newContactEmail +'"},{"name":"email_address_caps","value":"'+ newContactEmail.toUpperCase() +'"},{"name":"date_created","value":"'+ now(false,true) +'"},{"name":"date_modified","value":"'+ now(false,true) +'"}]}'
 								}, function (h) {
 									console.log(h.id);
@@ -4372,19 +4233,15 @@ require(["es_ES"], function(util)
 						else {
 							$.when($.get(sugarURL+"/service/v2/rest.php", {
 									method: "set_entry",
-									input_type: "JSONP",
-									response_type: "JSONP",
-									jsonp: true,
-									crossDomain: true,
+									input_type: "JSON",
+									response_type: "JSON",
 									rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","name_value_list":[{"name":"email_address","value":"'+ newContactEmail +'"},{"name":"email_address_caps","value":"'+ newContactEmail.toUpperCase() +'"},{"name":"date_created","value":"'+ now(false,true) +'"},{"name":"date_modified","value":"'+ now(false,true) +'"}]}'
 							})).done(function(g){
 								idEmail=g.id;
 								$.get(sugarURL+"/service/v2/rest.php", {
     								method: "set_relationship",
-    								input_type: "JSONP",
-    								response_type: "JSONP",
-    								jsonp: true,
-    								crossDomain: true,
+    								input_type: "JSON",
+    								response_type: "JSON",
     								rest_data: '{"session":"' + SugarSessionId + '","module_name":"Contacts","module_id":"' + CurrentContactId + '","link_field_name":"email_addresses","related_ids":["'+ idEmail +'"],"name_value_list":[],"deleted":"0"}'
 								}, function (i) {
 									CurrentContactId="";
@@ -4410,10 +4267,8 @@ require(["es_ES"], function(util)
 	function SugarCrmObtainAllEmails(){
 		$.get(sugarURL+"/service/v2/rest.php", {
 					method: "get_entry_list",
-					input_type: "JSONP",
-					response_type: "JSONP",
-					jsonp: true,
-					crossDomain: true,
+					input_type: "JSON",
+					response_type: "JSON",
 					rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","query":"","order_by":"email_address desc","select_fields":"","link_name_to_fields_array":"","deleted":0}'
 				}, function(c){
 						if (c != undefined) {
@@ -4478,10 +4333,8 @@ require(["es_ES"], function(util)
 		{
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","name_value_list":[{"name":"first_name","value":"'+ newLeadName +'"},{"name":"last_name","value":"'+ newLeadLastName +'"},{"name":"phone_fax","value":"'+ newLeadPhoneFax +'"},{"name":"phone_work","value":"'+ newLeadPhoneWork +'"},{"name":"phone_mobile","value":"'+ newLeadPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newLeadPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newLeadPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newLeadPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newLeadPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newLeadPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 			}, function (b) {
 				toUpdateLeads = true;
@@ -4494,10 +4347,8 @@ require(["es_ES"], function(util)
 		else{
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","name_value_list":[{"name":"id","value":"'+ CurrentLeadId +'"},{"name":"first_name","value":"'+ newLeadName +'"},{"name":"last_name","value":"'+ newLeadLastName +'"},{"name":"phone_fax","value":"'+ newLeadPhoneFax +'"},{"name":"phone_work","value":"'+ newLeadPhoneWork +'"},{"name":"phone_mobile","value":"'+ newLeadPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newLeadPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newLeadPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newLeadPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newLeadPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newLeadPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 			}, function (c) {
 				console.log(c.name);
@@ -4604,10 +4455,8 @@ require(["es_ES"], function(util)
 			{
 				$.get(sugarURL+"/service/v2/rest.php", {
 					method: "set_entry",
-					input_type: "JSONP",
-					response_type: "JSONP",
-					jsonp: true,
-					crossDomain: true,
+					input_type: "JSON",
+					response_type: "JSON",
 					rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","name_value_list":[{"name":"name","value":"'+ newTaskName +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newTaskDescription +'"},{"name":"status","value":"'+ newTaskStatus +'"},{"name":"date_due","value":"'+ newTaskDue +'"},{"name":"date_start","value":"'+ newTaskStart +'"},{"name":"parent_type","value":"Accounts"},{"name":"contact_id","value":"'+ newTaskContact +'"},{"name":"priority","value":"' + newTaskPriority + '"}]}'
 				}, function (b) {
 					toUpdateTasks = true;
@@ -4619,10 +4468,8 @@ require(["es_ES"], function(util)
 			else{
 				$.get(sugarURL+"/service/v2/rest.php", {
 					method: "set_entry",
-					input_type: "JSONP",
-					response_type: "JSONP",
-					jsonp: true,
-					crossDomain: true,
+					input_type: "JSON",
+					response_type: "JSON",
 					rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","name_value_list":[{"name":"name","value":"'+ newTaskName +'"},{"name":"id","value":"'+ CurrentTaskId +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newTaskDescription +'"},{"name":"status","value":"'+ newTaskStatus +'"},{"name":"date_due","value":"'+ newTaskDue +'"},{"name":"date_start","value":"'+ newTaskStart +'"},{"name":"parent_type","value":"Accounts"},{"name":"contact_id","value":"'+ newTaskContact +'"},{"name":"priority","value":"' + newTaskPriority + '"}]}'
 				}, function (b) {
 					CurrentTaskId="";
@@ -4739,19 +4586,15 @@ require(["es_ES"], function(util)
 		{
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","name_value_list":[{"name":"name","value":"'+ newOpportunityName +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newOpportunityDescription +'"},{"name":"opportunity_type","value":"'+ newOpportunityType +'"},{"name":"lead_source","value":"'+ newOpportunityLeadSource +'"},{"name":"amount","value":"'+ newOpportunityQuantity +'"},{"name":"amount_usdollar","value":"'+newOpportunityQuantity+'"},{"name":"currency_id","value":"-99"},{"name":"date_closed","value":"' + newOpportunityCloseDate + '"},{"name":"next_step","value":"' + newOpportunityNextStep + '"},{"name":"sales_stage","value":"' + newOpportunitySalesStage + '"},{"name":"probability","value":"' + newOpportunityProbability + '"}]}'
 			}, function (b) {
 				console.log(b);
 				$.get(sugarURL+"/service/v2/rest.php", {
     				method: "set_relationship",
-    				input_type: "JSONP",
-    				response_type: "JSONP",
-    				jsonp: true,
-    				crossDomain: true,
+    				input_type: "JSON",
+    				response_type: "JSON",
     				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + b.id + '","link_field_name":"accounts","related_ids":["'+ newOpportunityAccountId +'"],"name_value_list":[],"deleted":"0"}'
 				}, function (c) {
 					if (c !== undefined) {
@@ -4765,10 +4608,8 @@ require(["es_ES"], function(util)
 		else{
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","name_value_list":[{"name":"id","value":"'+ CurrentOpportunityId +'"},{"name":"name","value":"'+ newOpportunityName +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newOpportunityDescription +'"},{"name":"opportunity_type","value":"'+ newOpportunityType +'"},{"name":"lead_source","value":"'+ newOpportunityLeadSource +'"},{"name":"amount","value":"'+ newOpportunityQuantity +'"},{"name":"amount_usdollar","value":"'+newOpportunityQuantity+'"},{"name":"currency_id","value":"-99"},{"name":"date_closed","value":"' + newOpportunityCloseDate + '"},{"name":"next_step","value":"' + newOpportunityNextStep + '"},{"name":"sales_stage","value":"' + newOpportunitySalesStage + '"},{"name":"probability","value":"' + newOpportunityProbability + '"}]}'
 			}, function (b) {
 				console.log(b);
@@ -4778,18 +4619,14 @@ require(["es_ES"], function(util)
 					if(AccountsList.entry_list[c].name_value_list.name.value == CurrentOpportunity.name_value_list.account_name.value){
 						$.get(sugarURL+"/service/v2/rest.php", {
     						method: "set_relationship",
-    						input_type: "JSONP",
-    						response_type: "JSONP",
-    						jsonp: true,
-    						crossDomain: true,
+    						input_type: "JSON",
+    						response_type: "JSON",
     						rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + idOpportunity + '","link_field_name":"accounts","related_ids":["'+ AccountsList.entry_list[c].id +'"],"name_value_list":[],"deleted":"1"}'
 						}, function (d) {
 							$.get(sugarURL+"/service/v2/rest.php", {
     							method: "set_relationship",
-    							input_type: "JSONP",
-    							response_type: "JSONP",
-    							jsonp: true,
-    							crossDomain: true,
+    							input_type: "JSON",
+    							response_type: "JSON",
     							rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + idOpportunity + '","link_field_name":"accounts","related_ids":["'+ newOpportunityAccountId +'"],"name_value_list":[],"deleted":"0"}'
 							}, function (e) {
 								console.log(e);
@@ -4925,10 +4762,8 @@ require(["es_ES"], function(util)
 		{
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","name_value_list":[{"name":"name","value":"'+ newMeetingSubject +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newMeetingDescription +'"},{"name":"duration_hours","value":"'+ hours +'"},{"name":"duration_minutes","value":"'+ minutes +'"},{"name":"date_start","value":"'+ newMeetingStartDateTime +'"},{"name":"parent_id","value":"Accounts"},{"name":"status","value":"' + newMeetingStatus + '"},{"name":"type","value":"Sugar"}]}'
 			}, function (b) {
 
@@ -4936,10 +4771,8 @@ require(["es_ES"], function(util)
 						var idInvited = $(this).attr("data-identity");
 						$.get(sugarURL+"/service/v2/rest.php", {
 							method: "set_relationship",
-							input_type: "JSONP",
-							response_type: "JSONP",
-							jsonp: true,
-							crossDomain: true,
+							input_type: "JSON",
+							response_type: "JSON",
 							rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","module_id":"' + b.id + '","link_field_name":"contacts","related_ids":["'+ $(this).attr("data-identity") +'"],"name_value_list":[],"deleted":"0"}'
 						}, function (c) {				
 							console.log(c);
@@ -4957,10 +4790,8 @@ require(["es_ES"], function(util)
 		else{
 			$.get(sugarURL+"/service/v2/rest.php", {
 				method: "set_entry",
-				input_type: "JSONP",
-				response_type: "JSONP",
-				jsonp: true,
-				crossDomain: true,
+				input_type: "JSON",
+				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","name_value_list":[{"name":"name","value":"'+ newMeetingSubject +'"},{"name":"id","value":"'+ CurrentMeetingId +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newMeetingDescription +'"},{"name":"duration_hours","value":"'+ hours +'"},{"name":"duration_minutes","value":"'+ minutes +'"},{"name":"date_start","value":"'+ newMeetingStartDateTime +'"},{"name":"parent_id","value":"Accounts"},{"name":"status","value":"' + newMeetingStatus + '"},{"name":"type","value":"Sugar"}]}'
 			}, function (b) {
 
@@ -4968,10 +4799,8 @@ require(["es_ES"], function(util)
 						var idInvited = $(this).attr("data-identity");
 						$.get(sugarURL+"/service/v2/rest.php", {
 							method: "set_relationship",
-							input_type: "JSONP",
-							response_type: "JSONP",
-							jsonp: true,
-							crossDomain: true,
+							input_type: "JSON",
+							response_type: "JSON",
 							rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","module_id":"' + b.id + '","link_field_name":"contacts","related_ids":["'+ $(this).attr("data-identity") +'"],"name_value_list":[],"deleted":"0"}'
 						}, function (c) {				
 							console.log(c);
@@ -5152,10 +4981,8 @@ require(["es_ES"], function(util)
 
 		$.get(sugarURL+"/service/v2/rest.php", {
 			method: "set_entry",
-			input_type: "JSONP",
-			response_type: "JSONP",
-			jsonp: true,
-			crossDomain: true,
+			input_type: "JSON",
+			response_type: "JSON",
 			rest_data: '{"session":"' + SugarSessionId + '","module_name":"Calls","name_value_list":[{"name":"id","value":"'+id+'"},{"name":"date_modified","value":"'+now(false,true)+'"},{"name":"duration_hours","value":'+hours+'},{"name":"duration_minutes","value":'+minutes+'}]}'
 		}, function (b) {
 			toUpdateCalls = true;
