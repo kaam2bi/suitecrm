@@ -96,11 +96,12 @@ require(["es_ES"], function(util)
 
 		$(".mensaje_footer").html(RES_FOOTER);
 
+
 		// TODO: Desactivar botones de crear si no está definida la variable "editionEnabled".
 	});
 	
 
-	$("#HomePage").live("pagecreate", function () {
+	$( document ).ready( function () {
 		$("#LogOutButton .ui-btn-text").text(RES_LOGOUT_LABEL);
 		$("#AccountsListPageLinkLabel").text(RES_ACCOUNTS_LABEL);
 		$("#ContactsListPageLinkLabel").text(RES_CONTACTS_LABEL);
@@ -253,21 +254,28 @@ require(["es_ES"], function(util)
 		$("#NewOpportunityAccountNameLabel").text(RES_ACCOUNT_LABEL);
 		$("#NewOpportunityQuantityLabel").text(RES_QUANTITY);
 		$("#NewOpportunityCloseDateLabel").text(RES_OPPORTUNITY_EXPECTED_CLOSE_DATE_LABEL);
-		$("#NewOpportunitySalesStageLabel").text(RES_OPPORTUNITY_SALES_STAGE_LABEL);
-		$("#ProspectingOption").text(status["Prospecting"]);
-		$("#QualificationOption").text(status["Qualification"]);
-		$("#NeedsAnalysisOption").text(status["Needs Analysis"]);
-		$("#ValuePropositionOption").text(status["Value Proposition"]);
-		$("#IdDecisionMakersOpyion").text(status["Id. Decision Makers"]);
-		$("#PerceptionAnalysisOption").text(status["Perception Analysis"]);
-		$("#Proposal_PriceQuoteOption").text(status["Proposal/Price Quote"]);
-		$("#Negotiation_ReviewOption").text(status["Negotiation/Review"]);
-		$("#ClosedWonOption").text(status["Closed Won"]);
-		$("#ClosedLostOption").text(status["Closed Lost"]);
+
+		
+		
 		$("#NewOpportunityTypeLabel").text(RES_TYPE_LABEL);
 		$("#NewBusinessOption").text(opportunitytype["New Business"]);
 		$("#ExistingBusinessOption").text(opportunitytype["Existing Business"]);
 		$("#NewOpportunityProbabilityLabel").text(RES_OPPORTUNITY_PROBABILITY_LABEL);
+
+
+		$("#NewOpportunitySalesStageLabel").text(RES_OPPORTUNITY_SALES_STAGE_LABEL);
+		$("option#ProspectingOption").text(status3["Prospecting"]);
+		$("option#QualificationOption").text(status3["Qualification"]);
+		$("option#NeedsAnalysisOption").text(status3["Needs Analysis"]);
+		$("option#ValuePropositionOption").text(status3["Value Proposition"]);
+		$("option#IdDecisionMakersOpyion").text(status3["Id. Decision Makers"]);
+		$("option#PerceptionAnalysisOption").text(status3["Perception Analysis"]);
+		$("option#Proposal_PriceQuoteOption").text(status3["Proposal/Price Quote"]);
+		$("option#Negotiation_ReviewOption").text(status3["Negotiation/Review"]);
+		$("option#ClosedWonOption").text(status3["Closed Won"]);
+		$("option#ClosedLostOption").text(status3["Closed Lost"]);
+
+
 		$("#NewOpportunityLeadSourceLabel").text(RES_LEAD_SOURCE_LABEL);
 		$("#ColdCallOption").text(sources["Cold Call"]);
 		$("#ExistingCustomerOption").text(sources["Existing Customer"]);
@@ -288,6 +296,7 @@ require(["es_ES"], function(util)
 
 		//CreateNewMeeting
 		$("#NewMeetingPageTitle").text(RES_NEW_TWO + " "+ RES_MEETINGS_LABEL);
+		$("#SaveNewMeeting").text(RES_SAVE);
 		$("#NewMeetingSubjectLabel").text(RES_SUBJECT);
 		$("#NewMeetingStatusLabel").text(RES_STATUS_LABEL);
 		
@@ -436,7 +445,8 @@ require(["es_ES"], function(util)
 	
 	
 							load.firstLoad();
-	
+							
+							$(".WebVersion").attr("href", sugarURL+"/index.php");
 							$.mobile.changePage("#HomePage");
 						}
 						else toast("Error inesperado");
@@ -613,7 +623,7 @@ require(["es_ES"], function(util)
 							$.mobile.changePage("#LoginPage")
 						}
 						if (c !== undefined && c.entry_list !== undefined) {
-							localStorage.setItem("AccountsList", c);
+							localStorage.setItem("AccountsList", JSON.stringify(c));
 							DOMAccountsList(c, a);
 						}
 						toUpdateAccounts = false;
@@ -1847,7 +1857,7 @@ require(["es_ES"], function(util)
 							$("#ViewOpportunityDetailsPageDetailsList").append(c)
 						}
 						a.name_value_list.date_closed !==
-							undefined && a.name_value_list.date_closed.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />"+RES_OPPORTUNITY_EXPECTED_CLOSE_DATE_LABEL+"</p><h4>" + change(a.name_value_list.date_closed.value) + "</h4></li>");
+							undefined && a.name_value_list.date_closed !== "0000-00-00" && a.name_value_list.date_closed.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />"+RES_OPPORTUNITY_EXPECTED_CLOSE_DATE_LABEL+"</p><h4>" + change(a.name_value_list.date_closed.value) + "</h4></li>");
 						a.name_value_list.sales_stage !== undefined && a.name_value_list.sales_stage.value !== "" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />"+RES_OPPORTUNITY_SALES_STAGE_LABEL+"</p><h4>" + status[a.name_value_list.sales_stage.value] + "</h4></li>");
 						a.name_value_list.opportunity_type !== undefined && a.name_value_list.opportunity_type.value !==
 							"" && $("#ViewOpportunityDetailsPageDetailsList").append("<li><p><br />Type</p><h4>" + a.name_value_list.opportunity_type.value + "</h4></li>");
@@ -3843,7 +3853,7 @@ require(["es_ES"], function(util)
 	$("#NewMeetingContactsList").on("listviewbeforefilter", function(event){ SetContactsMeetingList(); });
 
    	// Método onchange de imagen
-   	$('#imageInput').on('change', function() {
+  /* 	$('#imageInput').on('change', function() {
    		
    		var fileInput = document.getElementById('imageInput');	    	
 	    
@@ -3856,7 +3866,7 @@ require(["es_ES"], function(util)
 	    mpImg.render(resImg, {quality: 0.9 });
 	    imageFile = resImg.toDataURL("image/jpeg", { quality: 0.9 }); // , { maxWidth: 300, maxHeight: 300, quality: 0.8 });
    		
-    });
+    });*/
 
 
 	//Función para registrar la llamada. Parámetros: "Accounts" y Cuenta actual.
@@ -3886,7 +3896,8 @@ require(["es_ES"], function(util)
 	{
 		var subject = $("input#NewNoteSubject").val();
 		var description = $("textarea#NewNoteDescription").val();
-		var filename = $("input#imageInput").val();
+		var filename = "";
+		//$("input#imageInput").val();
 		
 		toast(RES_NEW_ITEM_LOADING);
 		if(id=="")
@@ -4097,13 +4108,13 @@ require(["es_ES"], function(util)
 
 		$("textarea#NewOpportunityDescription").val("");
 
-		$('[name=NewOpportunitySalesStage]').val( "Prospecting" );		
+		$('[name=NewOpportunitySalesStage]').val( "" );		
 		$('[name=NewOpportunityType]').val( "New Business" );		
 		$('[name=NewOpportunityLeadSource]').val( "Cold Call" );
 
-		$('select#NewOpportunitySalesStage').selectmenu("refresh",true);
-		$('select#NewOpportunityType').selectmenu("refresh",true);
-		$('select#NewOpportunityLeadSource').selectmenu("refresh",true);
+		//$('select#NewOpportunitySalesStage').selectmenu("refresh",true);
+		//$('select#NewOpportunityType').selectmenu("refresh",true);
+		//$('select#NewOpportunityLeadSource').selectmenu("refresh",true);
 	}
 
 	//borra la pagina de las reuniones
@@ -4133,7 +4144,7 @@ require(["es_ES"], function(util)
 	function SugarCrmSetDataEmptyNote(){
 		$("input#NewNoteSubject").val("");
 		$("textarea#NewNoteDescription").val("");
-		$("input#imageInput").val("");
+		//$("input#imageInput").val("");
 
 	}
 
@@ -4668,8 +4679,10 @@ require(["es_ES"], function(util)
 		
 		$("input#NewOpportunityName").val(CurrentOpportunity.name_value_list.name.value);
 		$("input#NewOpportunityQuantity").val(CurrentOpportunity.name_value_list.amount.value);
-		var valueInputStart = setDateInput(CurrentOpportunity.name_value_list.date_closed.value);
-		$("input#NewOpportunityCloseDate").val(valueInputStart);
+		if(CurrentOpportunity.name_value_list.date_closed.value != false){
+			var valueInputStart = setDateInput(CurrentOpportunity.name_value_list.date_closed.value);
+			$("input#NewOpportunityCloseDate").val(valueInputStart);
+		}
 		$('[name=NewOpportunitySalesStage]').val(CurrentOpportunity.name_value_list.sales_stage.value);
 		
 		$('[name=NewOpportunityType]').val(CurrentOpportunity.name_value_list.opportunity_type.value);
@@ -5093,20 +5106,22 @@ require(["es_ES"], function(util)
 	*@return time with or without hours,minutes as string or nothing
 	*/
 	function change(time) {
-		var r = time.match(/^\s*([0-9]+)\s*-\s*([0-9]+)\s*-\s*([0-9]+)(.*)$/);
-		if ((r !== null) && (r !== undefined))
-		{   
-			horaCompleta = r[4].trim().split(":");
-			minutos = horaCompleta[1];
-			hora = parseInt(horaCompleta[0]);
-			
-			if (minutos !== undefined)
-			{				
-				return r[3]+"-"+r[2]+"-"+r[1]+" "+hora+":"+minutos;
-			}
-			else
-			{
-				return r[3]+"-"+r[2]+"-"+r[1];
+		if(time != false){
+			var r = time.match(/^\s*([0-9]+)\s*-\s*([0-9]+)\s*-\s*([0-9]+)(.*)$/);
+			if ((r !== null) && (r !== undefined))
+			{   
+				horaCompleta = r[4].trim().split(":");
+				minutos = horaCompleta[1];
+				hora = parseInt(horaCompleta[0]);
+				
+				if (minutos !== undefined)
+				{				
+					return r[3]+"-"+r[2]+"-"+r[1]+" "+hora+":"+minutos;
+				}
+				else
+				{
+					return r[3]+"-"+r[2]+"-"+r[1];
+				}
 			}
 		}
 		else

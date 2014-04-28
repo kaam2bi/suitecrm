@@ -86,7 +86,7 @@ var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para ent
     RES_SAVE = "Guardar",
 	RES_LOADER_MSG = "Cargando, espere",
 	RES_NEW_ITEM_CREATED = "Nuevo elemento creado",
-    RES_FOOTER = 'Cliente móvil CRM<br>Para disponer de todas las funciones, acceda a la <a href="../index.php" target="_blank" style="color:white">Versión Web</a><br><a href="http://www.2bi.es" target="_blank" style="color:white">©2bi smart i.t.</a>',
+    RES_FOOTER = 'Cliente móvil CRM<br>Para disponer de todas las funciones, acceda a la <a class="WebVersion" target="_blank" style="color:white">Versión Web</a><br><a href="http://www.2bi.es" target="_blank" style="color:white">©2bi smart i.t.</a>',
     RES_SUGARCRM_LANGUAGE = "es_es",
     RES_LOGIN_ERROR = "Error de acceso",
     RES_CALL_LOGGED_FROM_CLIENT = "Llamada registrada desde el cliente móvil",
@@ -123,18 +123,18 @@ opportunitytype["New Business"] = "Nuevo negocio";
 opportunitytype["Existing Business"] = "Negocio existente";
 
 
-var status = [];
+var status3 = [];
 
-status["Qualification"] = "Calificación";
-status["Closed Lost"] = "Perdida";
-status["Proposal/Price Quote"] = "Propuesta/Presupuesto";
-status["Perception Analysis"] = "Análisis de Percepción";
-status["Needs Analysis"] = "Necesita Análisis";
-status["Prospecting"] = "Prospecto";
-status["Value Proposition"] = "Propuesta de Valor";
-status["Negotiation/Review"] = "Negociación/Revisión";
-status["Id. Decision Makers"] = "Id. Tomadores de Decisiones";
-status["Closed Won"] = "Ganada";
+status3["Qualification"] = "Calificación";
+status3["Closed Lost"] = "Perdida";
+status3["Proposal/Price Quote"] = "Propuesta/Presupuesto";
+status3["Perception Analysis"] = "Análisis de Percepción";
+status3["Needs Analysis"] = "Necesita Análisis";
+status3["Prospecting"] = "Prospecto";
+status3["Value Proposition"] = "Propuesta de Valor";
+status3["Negotiation/Review"] = "Negociación/Revisión";
+status3["Id. Decision Makers"] = "Id. Tomadores de Decisiones";
+status3["Closed Won"] = "Ganada";
 
 // Array para el resto de secciones
 var status2 = [];

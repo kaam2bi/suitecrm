@@ -63,7 +63,7 @@
                 <input id="SettingsPageSugarCrmPassword" type="password" />
                 <br /><br />
                 <label for="SettingsPageSugarCrmPassword">Dirección de Sugar:</label>
-                <input id="SettingsPageSugarCrmUrl" type="text" value=".." />
+                <input id="SettingsPageSugarCrmUrl" type="text" value="http://www.2bi.es/suitecrm" />
                 <br /><br />
                 <a id="loginWebBtn" data-role="button" data-inline="true">Versión Web</a>
                 <a id="loginMobileBtn" data-role="button" data-inline="true">Cliente Móvil</a>
@@ -129,7 +129,7 @@
                         </a>
                     </div>
                     <div class="IconContainer">
-                        <a href="../index.php" target="_blank">
+                        <a class="WebVersion" target="_blank">
                             <div class="HomeIcon"></div>
                             <div id="HomeLabel"></div>
                         </a>
@@ -519,10 +519,6 @@
                     <label id="NewNoteDescriptionLabel" for="NewNoteDescription"></label>
                     <textarea name="" id="NewNoteDescription" placeholder=""></textarea>
                 </div>
-                <div class="ui-field-contain" data-controltype="imageinput">
-                    <label id="NewNoteImageLabel" for="NewNoteImage"></label>
-                    <input type="file" name="" id="imageInput" accept="*/*">
-                </div>
                 <div class="ui-field-contain" data-controltype="canvas" style="margin-top:2em">
                     <canvas id="attachedImage" style="width:100%"></canvas>
                 </div>
@@ -869,6 +865,8 @@
                     <label id="NewOpportunitySalesStageLabel" for="NewOpportunitySalesStage">
                     </label>
                     <select id="NewOpportunitySalesStage" name="NewOpportunitySalesStage">
+                        <option id="NoneOption2" value="" >
+                        </option>
                         <option id="ProspectingOption" value="Prospecting">
                         </option>
                         <option id="QualificationOption" value="Qualification">
@@ -904,7 +902,7 @@
                 <div class="ui-field-contain" data-controltype="textinput">
                     <label id="NewOpportunityProbabilityLabel" for="NewOpportunityProbability" >
                     </label>
-                    <input name="" id="NewOpportunityProbability" placeholder="" value="10" type="text" readonly>
+                    <input name="" id="NewOpportunityProbability" placeholder="" value="" type="text" readonly>
                 </div>
                 <div class="ui-field-contain" data-controltype="selectmenu">
                     <label id="NewOpportunityLeadSourceLabel" for="NewOpportunityLeadSource">
