@@ -44,29 +44,28 @@
 
         <script type="text/javascript" src="cordova.js"></script>
 
-        <title>Acceso CRM</title>
+        <title>Cliente Móvil CRM</title>
     </head>
     <body>
 
-        <div id="LoginPage" data-role="page" data-theme="b" data-title="Acceso CRM">
+        <div id="LoginPage" data-role="page" data-theme="b" data-title="Cliente Móvil CRM">
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="Volver">
-                <h1>Acceso CRM</h1>
+                <h1>Cliente Móvil CRM</h1>
             </div><!-- /header -->  
             <div data-role="content">
-                Por favor, introduzca su <strong>Identificador</strong> y <strong>Contraseña</strong> para entrar.
+                Por favor, introduzca los datos de acceso a su CRM.
                 <br />
                 <br />
-                <label for="SettingsPageSugarCrmUsername">Identificador:</label>
+                <label for="SettingsPageSugarCrmUsername">Usuario:</label>
                 <input id="SettingsPageSugarCrmUsername" type="text" />
-                <br /><br />
                 <label for="SettingsPageSugarCrmPassword">Contraseña:</label>
                 <input id="SettingsPageSugarCrmPassword" type="password" />
-                <br /><br />
-                <label for="SettingsPageSugarCrmPassword">Dirección de Sugar:</label>
-                <input id="SettingsPageSugarCrmUrl" type="text" value="http://www.2bi.es/suitecrm" />
-                <br /><br />
+                <br />
+                <label for="SettingsPageSugarCrmUrl">Dirección del CRM:</label>
+                <input id="SettingsPageSugarCrmUrl" type="text" />
+                <label><input type="checkbox" id="recordarCheck" name="recordarCheck"> Recordar datos de acceso </label>
                 <a id="loginWebBtn" data-role="button" data-inline="true">Versión Web</a>
-                <a id="loginMobileBtn" data-role="button" data-inline="true">Cliente Móvil</a>
+                <a id="loginMobileBtn" data-role="button" data-inline="true">Versión Móvil</a>
             </div>
             <div data-role="footer" data-position="fixed">
                 <p style="font-size:8px" class="mensaje_footer"></p>

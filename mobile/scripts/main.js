@@ -102,6 +102,11 @@ require(["es_ES"], function(util)
 	
 
 	$( document ).ready( function () {
+
+		// ***************************************************************************************
+		// Traducción de todas las labels de la aplicación
+		// ***************************************************************************************
+
 		$("#LogOutButton .ui-btn-text").text(RES_LOGOUT_LABEL);
 		$("#AccountsListPageLinkLabel").text(RES_ACCOUNTS_LABEL);
 		$("#ContactsListPageLinkLabel").text(RES_CONTACTS_LABEL);
@@ -330,9 +335,13 @@ require(["es_ES"], function(util)
 		$("#NewCallContactLabel").text(RES_CONTACT_LABEL);
 		$("#NewCallHoursLabel").text( RES_HOURS);
 		$("#NewCallMinutesLabel").text(RES_MINUTES);
+
+		LoadLoginData(); 		// Carga de valores de login desde el local storage
 	});
 	
-
+	$("#LoginPage").live("pageshow", function () {
+		LoadLoginData();
+	});
 
 	$("#AccountsListPage").live("pageshow", function () {
 		SugarCrmGetAccountsListFromServer(AccountsListCurrentOffset);
@@ -400,64 +409,110 @@ require(["es_ES"], function(util)
 	}
 
 	/**
+	 * This method saves the login information or clears the user, data and URL if remember check is unselected
+	 */
+	function LoginDataManager()
+	{
+		var toSave = $('#recordarCheck').is(':checked');
+
+		if (toSave == true)
+		{
+			localStorage.setItem('Username', $("#SettingsPageSugarCrmUsername").val());
+			localStorage.setItem('Password', $("#SettingsPageSugarCrmPassword").val());
+			localStorage.setItem('Url', $("#SettingsPageSugarCrmUrl").val());
+			localStorage.setItem('recordarCheck', true);
+			console.log('toSave '+toSave);
+		}
+		else
+		{
+			localStorage.setItem('Username', '');
+			localStorage.setItem('Password', '');
+			localStorage.setItem('Url', '');
+			localStorage.setItem('recordarCheck', false);
+			console.log('toSave '+toSave);			
+		}
+
+	}
+
+	/**
+	 * This method tries to load the values of user and pass (if available)
+	 */
+	function LoadLoginData()
+	{
+		var toLoad = localStorage.getItem('recordarCheck');
+
+		if ((toLoad != undefined) && (toLoad == "true"))
+		{
+			$("#SettingsPageSugarCrmUsername").val( localStorage.getItem('Username') );
+			$("#SettingsPageSugarCrmPassword").val( localStorage.getItem('Password') );
+			$("#SettingsPageSugarCrmUrl").val( localStorage.getItem('Url') );
+			$('#recordarCheck').prop('checked', true).checkboxradio('refresh');
+		}
+	}
+
+	/**
 	 * To log in a user
 	 * @param a
 	 */
 	function LoginUser(a) {
-			$.mobile.loading( "show", {
-					text: RES_LOADER_MSG,
-					textonly: textOnly,
-					textVisible: textVisible
-			});
+		$.mobile.loading( "show", {
+				text: RES_LOADER_MSG,
+				textonly: textOnly,
+				textVisible: textVisible
+		});
 
-			var c = $("#SettingsPageSugarCrmUsername").val(),
-				b = $("#SettingsPageSugarCrmPassword").val();
-			if ($("#SettingsPageSugarCrmUrl")) sugarURL = $("#SettingsPageSugarCrmUrl").val();
-			if ((sugarURL == null) || (sugarURL == "")){
-				sugarURL = "..";
-				//http://localhost/suitecrm
-			}
-			if (a == undefined) b = $.md5(b);
-			$.get(sugarURL+"/service/v2/rest.php", {
-				method: "login",
-				input_type: "JSON",
-				response_type: "JSON",
-				rest_data: '[{"password":"' + b + '","user_name":"' + c + '"},"SugarCrm",{"name":"language","value":"es_es"}]'
-			}, function (d) { 
-				if (d !== "") {
-					
-					d = $.parseJSON(JSON.stringify(d, undefined, 2));
-					
-					if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : toast(RES_LOGIN_ERROR);
-					else {
-						SugarSessionId = d.id;
-						var date = new Date();
- 						date.setTime(date.getTime() + (cookieTime * 60 * 1000));
-						$.cookie('SugarSessionId', SugarSessionId, { expires: date });
-						$.cookie('sugarURL', sugarURL, { expires: date });
-						if (d.name_value_list.user_id.value != null)
-						{
-							SugarCurrentUserId = d.name_value_list.user_id.value;
-							//Almacenamos el id del usuario en la cookie
-							$.cookie('SugarCurrentUserId',SugarCurrentUserId,{ expires: date });
-							$("#SettingsPageSugarCrmUsername").val("");
-							$("#SettingsPageSugarCrmPassword").val("");
-	
-	
-							load.firstLoad();
-							
-							$(".WebVersion").attr("href", sugarURL+"/index.php");
-							$.mobile.changePage("#HomePage");
-						}
-						else toast("Error inesperado");
+		LoginDataManager();
+
+		var c = $("#SettingsPageSugarCrmUsername").val(),
+			b = $("#SettingsPageSugarCrmPassword").val();
+		if ($("#SettingsPageSugarCrmUrl")) sugarURL = $("#SettingsPageSugarCrmUrl").val();
+
+		//Distintos posibles valores, ojo con Cross Domain Error desde navegador.
+		if ((sugarURL == null) || (sugarURL == "")){
+			sugarURL = "..";
+		}
+		
+		if (a == undefined) b = $.md5(b);
+		$.get(sugarURL+"/service/v2/rest.php", {
+			method: "login",
+			input_type: "JSON",
+			response_type: "JSON",
+			rest_data: '[{"password":"' + b + '","user_name":"' + c + '"},"SugarCrm",{"name":"language","value":"es_es"}]'
+		}, function (d) { 
+			if (d !== "") {
+				
+				d = $.parseJSON(JSON.stringify(d, undefined, 2));
+				
+				if (d.name !== undefined && d.name === "Invalid Login") a == undefined ? LoginUser(true) : toast(RES_LOGIN_ERROR);
+				else {
+					SugarSessionId = d.id;
+					var date = new Date();
+						date.setTime(date.getTime() + (cookieTime * 60 * 1000));
+					$.cookie('SugarSessionId', SugarSessionId, { expires: date });
+					$.cookie('sugarURL', sugarURL, { expires: date });
+					if (d.name_value_list.user_id.value != null)
+					{
+						SugarCurrentUserId = d.name_value_list.user_id.value;
+						//Almacenamos el id del usuario en la cookie
+						$.cookie('SugarCurrentUserId',SugarCurrentUserId,{ expires: date });
+						$("#SettingsPageSugarCrmUsername").val("");
+						$("#SettingsPageSugarCrmPassword").val("");
+
+
+						load.firstLoad();
+						
+						$(".WebVersion").attr("href", sugarURL+"/index.php");
+						$.mobile.changePage("#HomePage");
 					}
-				} else toast("Error inesperado");
-				$.mobile.loading( "hide" );
-			}).fail(function() {
-				$.mobile.loading( "hide" );
-    			toast("Direccion de Sugar errónea"); 
+					else toast("Error inesperado");
+				}
+			} else toast("Error inesperado");
+			$.mobile.loading( "hide" );
+		}).fail(function() {
+			$.mobile.loading( "hide" );
+			toast("Direccion de SugarCRM errónea"); 
 
-    		})
+		})
 	}
 
 	/**
@@ -471,11 +526,13 @@ require(["es_ES"], function(util)
 				textVisible: textVisible
 		});
 
+		LoginDataManager();
+
 		var c = $("#SettingsPageSugarCrmUsername").val(),
 			b = $("#SettingsPageSugarCrmPassword").val();
-
-			//Comprobamos el valor del input y lo recogemos
 		if ($("#SettingsPageSugarCrmUrl")) sugarURL = $("#SettingsPageSugarCrmUrl").val();
+
+		//Distintos posibles valores, ojo con Cross Domain Error desde navegador.
 		if ((sugarURL == null) || (sugarURL == "")){
 			sugarURL = "..";
 		}
@@ -502,7 +559,7 @@ require(["es_ES"], function(util)
 					
 					$("#SettingsPageSugarCrmUsername").val("");
 					$("#SettingsPageSugarCrmPassword").val("");
-					var url = sugarURL+"/index.php";   //TODO  (../index.php)
+					var url = sugarURL+"/index.php";
 					$(location).attr('href',url);
 				}
 			} else toast("Error inesperado"); 
@@ -3911,8 +3968,8 @@ require(["es_ES"], function(util)
 			}, function (b) {
 				toUpdateNotes = true;
 				lastNewNoteId = b.id;
-				console.log(b.id);
-				console.log(imageFile);
+				//console.log(b.id);
+				//console.log(imageFile);
 	
 				
 				if (imageFile != null)
@@ -3925,7 +3982,7 @@ require(["es_ES"], function(util)
 						response_type: "JSON",
 						rest_data: '{"session":"' + SugarSessionId + '","note":[{"id":"'+ lastNewNoteId +'","filename":"'+ filename +'","file": "'+imageFile+'" )}]}'
 					}, function (c) {																											
-						console.log(c);
+						//console.log(c);
 						// rest_data: '{"session":"' + SugarSessionId + '","note":[{"id":"'+ lastNewNoteId +'","filename":"'+ filename +'","file":"'+ imageFile +'"}]}' // Cabecera del tipo:  data:image/jpeg;base64,000
 						//"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAAAAAAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACWASwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD4yooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//2Q=="
 						// TODO: Comprobar aquí si la transacción fue bien.
@@ -3952,8 +4009,8 @@ require(["es_ES"], function(util)
 			}, function (b) {
 				toUpdateNotes = true;
 				lastNewNoteId = b.id;
-				console.log(b.id);
-				/*console.log(imageFile);
+				//console.log(b.id);
+				/*//console.log(imageFile);
 	
 				
 				if (imageFile != null)
@@ -3966,7 +4023,7 @@ require(["es_ES"], function(util)
 						response_type: "JSON",
 						rest_data: '{"session":"' + SugarSessionId + '","note":[{"id":"'+ lastNewNoteId +'","filename":"'+ filename +'","file": "'+imageFile+'" )}]}'
 					}, function (c) {																											
-						console.log(c);
+						//console.log(c);
 						// rest_data: '{"session":"' + SugarSessionId + '","note":[{"id":"'+ lastNewNoteId +'","filename":"'+ filename +'","file":"'+ imageFile +'"}]}' // Cabecera del tipo:  data:image/jpeg;base64,000
 						//"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAAAAAAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCACWASwDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD4yooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//2Q=="
 						// TODO: Comprobar aquí si la transacción fue bien.
@@ -4028,7 +4085,7 @@ require(["es_ES"], function(util)
 			}, function (b) {
 
 				toUpdateAccounts = true;
-				console.log(b.id);
+				//console.log(b.id);
 				//$("input[id^='NewAccount']").val("");
 				$("input#NewAccountWebsite").val("http://");
 				$.mobile.changePage("#HomePage");
@@ -4042,7 +4099,7 @@ require(["es_ES"], function(util)
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Accounts","name_value_list":[{"name":"name","value":"'+ accountName +'"},{"name":"id","value":"'+ CurrentAccountId +'"},{"name":"phone_office","value":"'+ phoneOffice +'"},{"name":"website","value":"'+ website +'"},{"name":"phone_fax","value":"'+ phoneFax +'"},{"name":"billing_address_street","value":"'+ billingAddressStreet +'"},{"name":"billing_address_city","value":"'+ billingAddressCity +'"},{"name":"billing_address_state","value":"'+ billingAddressState +'"},{"name":"billing_address_postalcode","value":"'+ billingAddressPostalCode +'"},{"name":"billing_address_country","value":"'+ billingAddressCountry +'"},{"name":"date_modified","value":"' + now(false, true) + '"}]}'
 			}, function (c) {
-				console.log(c.name);
+				//console.log(c.name);
 				CurrentAccountId="";
 				toUpdateAccounts = true;
 				$("input#NewAccountWebsite").val("http://");
@@ -4202,7 +4259,7 @@ require(["es_ES"], function(util)
 						}, function (d) {
 							SugarCrmObtainAllEmails();
 							toUpdateContacts = true;
-							console.log(b.id);
+							//console.log(b.id);
 							$.mobile.changePage("#HomePage");
 						})
 					})
@@ -4233,7 +4290,7 @@ require(["es_ES"], function(util)
 									response_type: "JSON",
 									rest_data: '{"session":"' + SugarSessionId + '","module_name":"EmailAddresses","name_value_list":[{"name":"id","value":"'+ idEmail +'"},{"name":"email_address","value":"'+ newContactEmail +'"},{"name":"email_address_caps","value":"'+ newContactEmail.toUpperCase() +'"},{"name":"date_created","value":"'+ now(false,true) +'"},{"name":"date_modified","value":"'+ now(false,true) +'"}]}'
 								}, function (h) {
-									console.log(h.id);
+									//console.log(h.id);
 									toUpdateContacts = true;
 									SugarCrmObtainAllEmails();
 
@@ -4259,7 +4316,7 @@ require(["es_ES"], function(util)
 									toUpdateContacts = true;
 									SugarCrmObtainAllEmails();
 									$.mobile.changePage("#HomePage");
-									console.log(i.id);
+									//console.log(i.id);
 								})
 							})
 						}
@@ -4290,7 +4347,7 @@ require(["es_ES"], function(util)
 							}
 							if (c != undefined && c.entry_list != undefined) {
 								allemails = c;
-								console.log(allemails);
+								//console.log(allemails);
 							}
 						}
 			})
@@ -4349,7 +4406,7 @@ require(["es_ES"], function(util)
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","name_value_list":[{"name":"first_name","value":"'+ newLeadName +'"},{"name":"last_name","value":"'+ newLeadLastName +'"},{"name":"phone_fax","value":"'+ newLeadPhoneFax +'"},{"name":"phone_work","value":"'+ newLeadPhoneWork +'"},{"name":"phone_mobile","value":"'+ newLeadPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newLeadPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newLeadPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newLeadPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newLeadPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newLeadPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 			}, function (b) {
 				toUpdateLeads = true;
-				console.log(b.id);
+				//console.log(b.id);
 				
 				$.mobile.changePage("#HomePage");		
 				
@@ -4362,7 +4419,7 @@ require(["es_ES"], function(util)
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Leads","name_value_list":[{"name":"id","value":"'+ CurrentLeadId +'"},{"name":"first_name","value":"'+ newLeadName +'"},{"name":"last_name","value":"'+ newLeadLastName +'"},{"name":"phone_fax","value":"'+ newLeadPhoneFax +'"},{"name":"phone_work","value":"'+ newLeadPhoneWork +'"},{"name":"phone_mobile","value":"'+ newLeadPhoneMobile +'"},{"name":"primary_address_street","value":"'+ newLeadPrimaryAddressStreet +'"},{"name":"primary_address_city","value":"'+ newLeadPrimaryAddressCity +'"},{"name":"primary_address_state","value":"'+ newLeadPrimaryAddressState +'"},{"name":"primary_address_postalcode","value":"'+ newLeadPrimaryAddressPostalCode +'"},{"name":"primary_address_country","value":"'+ newLeadPrimaryAddressCountry +'"},{"name":"date_entered","value":"' + now(false, true) + '"},{"name":"date_modified","value":"' + now(false, true) + '"},{"name":"created_by","value":"'+SugarCurrentUserId+'"}]}'
 			}, function (c) {
-				console.log(c.name);
+				//console.log(c.name);
 				CurrentLeadId="";
 				toUpdateLeads = true;
 				$.mobile.changePage("#HomePage");
@@ -4471,7 +4528,7 @@ require(["es_ES"], function(util)
 					rest_data: '{"session":"' + SugarSessionId + '","module_name":"Tasks","name_value_list":[{"name":"name","value":"'+ newTaskName +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newTaskDescription +'"},{"name":"status","value":"'+ newTaskStatus +'"},{"name":"date_due","value":"'+ newTaskDue +'"},{"name":"date_start","value":"'+ newTaskStart +'"},{"name":"parent_type","value":"Accounts"},{"name":"contact_id","value":"'+ newTaskContact +'"},{"name":"priority","value":"' + newTaskPriority + '"}]}'
 				}, function (b) {
 					toUpdateTasks = true;
-					console.log(b.id);
+					//console.log(b.id);
 					$.mobile.changePage("#HomePage");
 			
 				})
@@ -4485,7 +4542,7 @@ require(["es_ES"], function(util)
 				}, function (b) {
 					CurrentTaskId="";
 					toUpdateTasks = true;
-					console.log(b.id);
+					//console.log(b.id);
 					$.mobile.changePage("#HomePage");
 				})
 			}
@@ -4601,7 +4658,7 @@ require(["es_ES"], function(util)
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","name_value_list":[{"name":"name","value":"'+ newOpportunityName +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newOpportunityDescription +'"},{"name":"opportunity_type","value":"'+ newOpportunityType +'"},{"name":"lead_source","value":"'+ newOpportunityLeadSource +'"},{"name":"amount","value":"'+ newOpportunityQuantity +'"},{"name":"amount_usdollar","value":"'+newOpportunityQuantity+'"},{"name":"currency_id","value":"-99"},{"name":"date_closed","value":"' + newOpportunityCloseDate + '"},{"name":"next_step","value":"' + newOpportunityNextStep + '"},{"name":"sales_stage","value":"' + newOpportunitySalesStage + '"},{"name":"probability","value":"' + newOpportunityProbability + '"}]}'
 			}, function (b) {
-				console.log(b);
+				//console.log(b);
 				$.get(sugarURL+"/service/v2/rest.php", {
     				method: "set_relationship",
     				input_type: "JSON",
@@ -4609,7 +4666,7 @@ require(["es_ES"], function(util)
     				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + b.id + '","link_field_name":"accounts","related_ids":["'+ newOpportunityAccountId +'"],"name_value_list":[],"deleted":"0"}'
 				}, function (c) {
 					if (c !== undefined) {
-     				    console.log(c);
+     				    //console.log(c);
 						toUpdateOpportunities = true;
 						$.mobile.changePage("#HomePage");
 					}	
@@ -4623,7 +4680,7 @@ require(["es_ES"], function(util)
 				response_type: "JSON",
 				rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","name_value_list":[{"name":"id","value":"'+ CurrentOpportunityId +'"},{"name":"name","value":"'+ newOpportunityName +'"},{"name":"date_entered","value":"'+ now(false, true) +'"},{"name":"date_modified","value":"'+ now(false, true) +'"},{"name":"description","value":"'+ newOpportunityDescription +'"},{"name":"opportunity_type","value":"'+ newOpportunityType +'"},{"name":"lead_source","value":"'+ newOpportunityLeadSource +'"},{"name":"amount","value":"'+ newOpportunityQuantity +'"},{"name":"amount_usdollar","value":"'+newOpportunityQuantity+'"},{"name":"currency_id","value":"-99"},{"name":"date_closed","value":"' + newOpportunityCloseDate + '"},{"name":"next_step","value":"' + newOpportunityNextStep + '"},{"name":"sales_stage","value":"' + newOpportunitySalesStage + '"},{"name":"probability","value":"' + newOpportunityProbability + '"}]}'
 			}, function (b) {
-				console.log(b);
+				//console.log(b);
 				var idOpportunity = b.id;
 				var AccountsList = JSON.parse(localStorage.getItem("AccountsList"));
 				for(var c=0; c<AccountsList.entry_list.length; c++){
@@ -4640,7 +4697,7 @@ require(["es_ES"], function(util)
     							response_type: "JSON",
     							rest_data: '{"session":"' + SugarSessionId + '","module_name":"Opportunities","module_id":"' + idOpportunity + '","link_field_name":"accounts","related_ids":["'+ newOpportunityAccountId +'"],"name_value_list":[],"deleted":"0"}'
 							}, function (e) {
-								console.log(e);
+								//console.log(e);
 								toUpdateOpportunities = true;
 								$.mobile.changePage("#HomePage");
 							})
@@ -4788,7 +4845,7 @@ require(["es_ES"], function(util)
 							response_type: "JSON",
 							rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","module_id":"' + b.id + '","link_field_name":"contacts","related_ids":["'+ $(this).attr("data-identity") +'"],"name_value_list":[],"deleted":"0"}'
 						}, function (c) {				
-							console.log(c);
+							//console.log(c);
 							if(c.failed==1){
 								toUpdateMeetings = false;
 							}
@@ -4816,7 +4873,7 @@ require(["es_ES"], function(util)
 							response_type: "JSON",
 							rest_data: '{"session":"' + SugarSessionId + '","module_name":"Meetings","module_id":"' + b.id + '","link_field_name":"contacts","related_ids":["'+ $(this).attr("data-identity") +'"],"name_value_list":[],"deleted":"0"}'
 						}, function (c) {				
-							console.log(c);
+							//console.log(c);
 							if(c.failed==1){
 								toUpdateMeetings = false;
 							}
@@ -5176,7 +5233,7 @@ require(["es_ES"], function(util)
 		}		
 
 		datetime += hora + ":" + minuto + ":" + segundo;
-		console.log("datetime "+datetime);
+		//console.log("datetime "+datetime);
 
 		return datetime;
 	}

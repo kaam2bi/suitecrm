@@ -86,7 +86,7 @@ var RES_LOGIN_MESSAGE = "Por favor, introduzca su Usuario y Contraseña para ent
     RES_SAVE = "Guardar",
 	RES_LOADER_MSG = "Cargando, espere",
 	RES_NEW_ITEM_CREATED = "Nuevo elemento creado",
-    RES_FOOTER = 'Cliente móvil CRM<br>Para disponer de todas las funciones, acceda a la <a class="WebVersion" target="_blank" style="color:white">Versión Web</a><br><a href="http://www.2bi.es" target="_blank" style="color:white">©2bi smart i.t.</a>',
+    RES_FOOTER = 'Cliente móvil para SugarCRM. <a href="http://www.2bi.es" target="_blank" style="color:white">©2bi smart i.t.</a>',
     RES_SUGARCRM_LANGUAGE = "es_es",
     RES_LOGIN_ERROR = "Error de acceso",
     RES_CALL_LOGGED_FROM_CLIENT = "Llamada registrada desde el cliente móvil",
