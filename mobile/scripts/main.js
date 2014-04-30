@@ -3881,10 +3881,10 @@ require(["es_ES"], function(util)
 	$("a#EditNoteDetails").click(function(event){ SugarCrmGetNoteData(); });
 
 	
-	$("a#ButtonCreateNewAccount").click(function(event){ SugarCrmSetDataEmpty(); });
-	$("a#ButtonCreateNewLead").click(function(event){ SugarCrmSetDataEmpty(); });
-	$("a#ButtonCreateNewContact").click(function(event){ SugarCrmSetDataEmpty(); });
-	$("a#ButtonCreateNewTask").click(function(event){ SugarCrmSetDataEmpty(); });
+	$("a#ButtonCreateNewAccount").click(function(event){ SugarCrmSetDataEmptyGeneral(); });
+	$("a#ButtonCreateNewLead").click(function(event){ SugarCrmSetDataEmptyGeneral(); });
+	$("a#ButtonCreateNewContact").click(function(event){ SugarCrmSetDataEmptyGeneral(); });
+	$("a#ButtonCreateNewTask").click(function(event){ SugarCrmSetDataEmptyTask(); });
 	$("a#ButtonCreateNewOpportunity").click(function(event){ SugarCrmSetDataEmptyOpportunity(); });
 	$("a#ButtonCreateNewMeeting").click(function(event){ SugarCrmSetDataEmptyMeeting(); });
 	$("a#ButtonCreateNewNote").click(function(event){ SugarCrmSetDataEmptyNote(); });
@@ -4134,7 +4134,7 @@ require(["es_ES"], function(util)
 	/**
 	 * To set values of every input empty
 	 */ 
-	function SugarCrmSetDataEmpty()
+	function SugarCrmSetDataEmptyTask()
 	{
 		$("input[id^='New']").val("");	
 		$("#autocompleteNewContactTask li").remove();
@@ -4148,9 +4148,23 @@ require(["es_ES"], function(util)
 		$("input#autocomplete").removeAttr("data-identity");		
 
 		//refresh
+		setTimeout(function(){ 
 		$('select#NewTaskStatus').selectmenu("refresh",true);		
 		$('select#NewTaskPriority').selectmenu("refresh",true);
+	}, 1000);
 	}
+
+
+
+	/**
+	 * To set values of every input empty
+	 */ 
+	function SugarCrmSetDataEmptyGeneral(){
+		$("input[id^='New']").val("");	
+	}
+
+
+
 
 	//borra la pagina de las oportunidades
 	/**
@@ -4169,9 +4183,11 @@ require(["es_ES"], function(util)
 		$('[name=NewOpportunityType]').val( "New Business" );		
 		$('[name=NewOpportunityLeadSource]').val( "Cold Call" );
 
-		//$('select#NewOpportunitySalesStage').selectmenu("refresh",true);
-		//$('select#NewOpportunityType').selectmenu("refresh",true);
-		//$('select#NewOpportunityLeadSource').selectmenu("refresh",true);
+		setTimeout(function(){  
+		$('select#NewOpportunitySalesStage').selectmenu("refresh",true);
+		$('select#NewOpportunityType').selectmenu("refresh",true);
+		$('select#NewOpportunityLeadSource').selectmenu("refresh",true);
+		}, 500);
 	}
 
 	//borra la pagina de las reuniones
@@ -4189,10 +4205,11 @@ require(["es_ES"], function(util)
 		$('select#NewMeetingStatus').val("Planned");		
 		$('[name=NewMeetingDuration]').val( "" );		
 		
+		setTimeout(function(){  
 		$('select#NewMeetingStatus').selectmenu("refresh",true);
 		$('select#NewMeetingDuration').selectmenu("refresh",true);
-		$("ul#NewContactsMetting").listview("refresh");
-		
+		$('ul#NewContactsMetting').listview("refresh");
+		}, 500);
 	}
 
 	/**
