@@ -4939,9 +4939,7 @@ require(["es_ES"], function(util)
 								e = d.name_value_list.first_name.value+" "+d.name_value_list.last_name.value ,
 								
 							d = $("<a/>", {
-								"data-identity": d.id,
-								
-								
+								"data-identity": d.id	
 							});
 							d.append(e);
 							f.append(d);
