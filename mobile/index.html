@@ -42,8 +42,7 @@
         <!-- Require.JS loads all the required JS -->
         <script data-main="scripts/main" src="scripts/require.js"></script>
 
-        <!-- MÓVIL (Descomentar) -->
-        <!-- <script type="text/javascript" src="cordova.js"></script> -->
+        <script type="text/javascript" src="cordova.js"></script>
 
         <title>Cliente Móvil CRM</title>
     </head>
@@ -62,9 +61,8 @@
                 <label for="SettingsPageSugarCrmPassword">Contraseña:</label>
                 <input id="SettingsPageSugarCrmPassword" type="password" />
                 <br />
-                <!-- MÓVIL (Habilitar para cliente móvil) -->
                 <label for="SettingsPageSugarCrmUrl">Dirección del CRM:</label>
-                <input id="SettingsPageSugarCrmUrl" type="text" value=".." hide/>
+                <input id="SettingsPageSugarCrmUrl" type="text" />
                 <label><input type="checkbox" id="recordarCheck" name="recordarCheck"> Recordar datos de acceso </label>
                 <a id="loginWebBtn" data-role="button" data-inline="true">Versión Web</a>
                 <a id="loginMobileBtn" data-role="button" data-inline="true">Versión Móvil</a>
